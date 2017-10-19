@@ -1,0 +1,25 @@
+<p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.</p>
+<p><a href="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png" alt="" title="TimerProgressBar" width="139" height="40" class="alignnone size-full wp-image-309" /></a></p>
+<p>I started by downloading and compiling the <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows API Code Pack</a> in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:</p>
+<pre><code class="language-c#">using Microsoft.WindowsAPICodePack.Taskbar;
+</code></pre>
+<p>to your using statements. When the clock starts running I create the progress bar in the taskbar with:</p>
+<pre><code class="language-c#">// Initialize progress bar
+if(TaskbarManager.IsPlatformSupported)
+{
+	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
+	TaskbarManager.Instance.SetProgressValue(0, (int)this.totalTime.TotalSeconds, this.Handle);
+}
+</code></pre>
+<p>to stop the progress bar:</p>
+<pre><code class="language-c#">// Stop progress bar
+if(TaskbarManager.IsPlatformSupported)
+	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
+</code></pre>
+<p>and finally to update the progress bar on each tick:</p>
+<pre><code class="language-c#">// Update progress bar
+if(TaskbarManager.IsPlatformSupported)
+	TaskbarManager.Instance.SetProgressValue((int)this.totalTime.TotalSeconds - (int)this.time.TotalSeconds, (int)this.totalTime.TotalSeconds, this.Handle);
+</code></pre>
+<p><a href="/files/TimerWin7Taskbar.zip">Download Binary</a>
+<a href="/files/TimerWin7TaskbarSrc.zip">Download Source</a></p>

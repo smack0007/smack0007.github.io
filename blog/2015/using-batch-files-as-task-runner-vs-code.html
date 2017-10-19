@@ -1,0 +1,48 @@
+<p><a href="https://code.visualstudio.com/">Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples
+I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use
+batch files though.</p>
+<!--more-->
+<p>An example tasks.json:</p>
+<pre><code class="language-js">{
+	&quot;version&quot;: &quot;0.1.0&quot;,
+	&quot;command&quot;: &quot;${workspaceRoot}/runTask.bat&quot;,
+	&quot;isShellCommand&quot;: true,
+	&quot;showOutput&quot;: &quot;always&quot;,
+	&quot;args&quot;: [],
+	&quot;tasks&quot;: [
+		{
+			&quot;taskName&quot;: &quot;build&quot;,
+			&quot;isBuildCommand&quot;: true,
+			&quot;showOutput&quot;: &quot;always&quot;
+		},
+		{
+			&quot;taskName&quot;: &quot;serve&quot;,
+			&quot;showOutput&quot;: &quot;never&quot;
+		}
+	]
+}
+</code></pre>
+<p>This sets the batch file &quot;runTask.bat&quot; in the root of your workspace as the task runner. There are two tasks
+which can be started: &quot;build&quot; and &quot;serve&quot;. &quot;build&quot; can be started with &quot;ctrl+shift+T&quot; and &quot;serve&quot; can be
+started via &quot;ctrl+shift+P&quot; and typing &quot;run task&quot;. I like to map this shortcut to &quot;ctrl+shift+R&quot;.</p>
+<p>Here is how runTask.bat should look:</p>
+<pre><code>@@ECHO OFF
+
+IF &quot;%1&quot; == &quot;build&quot; GOTO BUILD
+IF &quot;%1&quot; == &quot;serve&quot; GOTO SERVE
+GOTO UNKNOWN
+
+:BUILD
+CALL build.bat
+GOTO END
+
+:SERVE
+START serve.bat
+GOTO END
+
+:UNKNOWN
+ECHO Unknown Task
+GOTO END
+
+:END
+</code></pre>

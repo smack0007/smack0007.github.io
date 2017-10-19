@@ -1,0 +1,11 @@
+e:\Code\smack0007.github.io\compiler\bin\Debug\netcoreapp2.0\compiler.deps.json
+e:\Code\smack0007.github.io\compiler\bin\Debug\netcoreapp2.0\compiler.runtimeconfig.json
+e:\Code\smack0007.github.io\compiler\bin\Debug\netcoreapp2.0\compiler.runtimeconfig.dev.json
+e:\Code\smack0007.github.io\compiler\bin\Debug\netcoreapp2.0\compiler.dll
+e:\Code\smack0007.github.io\compiler\bin\Debug\netcoreapp2.0\compiler.pdb
+e:\Code\smack0007.github.io\compiler\obj\Debug\netcoreapp2.0\compiler.csproj.CoreCompileInputs.cache
+e:\Code\smack0007.github.io\compiler\obj\Debug\netcoreapp2.0\compiler.AssemblyInfoInputs.cache
+e:\Code\smack0007.github.io\compiler\obj\Debug\netcoreapp2.0\compiler.AssemblyInfo.cs
+e:\Code\smack0007.github.io\compiler\obj\Debug\netcoreapp2.0\compiler.dll
+e:\Code\smack0007.github.io\compiler\obj\Debug\netcoreapp2.0\compiler.pdb
+E:\Code\smack0007.github.io\compiler\obj\Debug\netcoreapp2.0\compiler.csprojResolveAssemblyReference.cache

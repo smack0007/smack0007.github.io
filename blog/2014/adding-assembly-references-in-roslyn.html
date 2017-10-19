@@ -1,0 +1,20 @@
+<p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
+<pre><code class="language-csharp">var compilation = Compilation.Create(assemblyName, new CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;mscorlib&quot;))
+	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;System&quot;))
+	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;System.Core&quot;))
+	.AddReferences(new MetadataFileReference(this.GetType().Assembly.Location))
+	.AddSyntaxTrees(syntaxTree);
+</code></pre>
+<p>The static factory method &quot;MetadataReference.CreateAssemblyReference&quot; added a reference to global assemblies such as &quot;mscorlib.dll&quot; or &quot;System.dll&quot;. In the Roslyn preview,
+the same be achieved like so:</p>
+<pre><code class="language-csharp">var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
+
+var compilation = CSharpCompilation.Create(assemblyName)
+	.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, &quot;mscorlib.dll&quot;)))
+	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, &quot;System.dll&quot;)))
+	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, &quot;System.Core.dll&quot;)))
+	.AddReferences(new MetadataFileReference(Assembly.GetEntryAssembly().Location))
+	.AddSyntaxTrees(syntaxTree);
+</code></pre>

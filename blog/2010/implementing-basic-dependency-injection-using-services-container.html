@@ -1,0 +1,227 @@
+<p>By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection.</p>
+<!--more-->
+<p>We'll start by defining the <strong>Injectable</strong> attribute.</p>
+<pre><code class="language-c#">[AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Property,
+	AllowMultiple = false, Inherited = true)]
+public class InjectableAttribute : Attribute
+{
+}
+</code></pre>
+<p>We'll use this attribute to mark our constructors and properties for dependency injection. Next we'll define an interface for our dependency injector:</p>
+<pre><code class="language-c#">public interface IDependencyInjector
+{
+	T Construct&amp;lt;T&amp;gt;();
+	void Inject(object instance);
+}
+</code></pre>
+<p>We'll define our service container like so:</p>
+<pre><code class="language-c#">public class ServiceContainer : IDependencyInjector, IServiceProvider
+{
+	Dictionary&amp;lt;Type, Object&amp;gt; services;
+
+	public ServiceContainer()
+		: base()
+	{
+		this.services = new Dictionary&amp;lt;Type, object&amp;gt;();
+	}
+
+	public void AddService(Type type, Object provider)
+	{
+		if(null == type)
+			throw new ArgumentNullException(&quot;type&quot;);
+
+		if(null == provider)
+			throw new ArgumentNullException(&quot;provider&quot;);
+
+		if(this.services.ContainsKey(type))
+			throw new InvalidOperationException(&quot;A provider is already registered the type &quot; + type);
+
+		var providerType = provider.GetType();
+
+		if(!type.IsAssignableFrom(providerType))
+			throw new InvalidOperationException(providerType + &quot; is not an instance of &quot; + type);
+
+		this.services.Add(type, provider);
+	}
+
+	public object GetService(Type type)
+	{
+		if(null == type)
+			throw new ArgumentNullException(&quot;type&quot;);
+
+		if(this.services.ContainsKey(type))
+			return this.services[type];
+					
+		return null;
+	}
+
+	public void RemoveService(Type type)
+	{
+		if(null == type)
+			throw new ArgumentNullException(&quot;type&quot;);
+
+		this.services.Remove(type);
+	}
+
+	protected object GetInjectableService(Type type)
+	{
+		if(type == typeof(IDependencyInjector) ||
+		   type == typeof(IServiceProvider))
+		{
+			return this;
+		}
+		else
+		{
+			object service = this.GetService(type);
+
+			if(service == null)
+				throw new InvalidOperationException(&quot;Failed to find &quot; + type + &quot; depenedency.&quot;);
+
+			return service;
+		}
+	}
+
+	public T Construct&amp;lt;T&amp;gt;()
+	{
+		ConstructorInfo injectableConstructor = null;
+		foreach(ConstructorInfo constructor in typeof(T).GetConstructors())
+		{
+			foreach(Attribute attribute in constructor.GetCustomAttributes(true))
+			{
+				if(attribute is InjectableAttribute)
+				{
+					injectableConstructor = constructor;
+					break;
+				}
+			}
+
+			if(injectableConstructor != null)
+				break;
+		}
+
+		if(injectableConstructor == null)
+			throw new InvalidOperationException(&quot;No injectable constructor found.&quot;);
+
+		var parameters = injectableConstructor.GetParameters();
+		var services = new object[parameters.Length];
+
+		int i = 0;
+		foreach(ParameterInfo parameter in parameters)
+			services[i++] = GetInjectableService(parameter.ParameterType);
+
+		return (T)injectableConstructor.Invoke(services);
+	}
+
+	public void Inject(object instance)
+	{
+		foreach(PropertyInfo property in instance.GetType().GetProperties())
+		{
+			foreach(Attribute attribute in property.GetCustomAttributes(true))
+			{
+				if(attribute is InjectableAttribute)
+				{
+					if(!property.CanWrite)
+						throw new InvalidOperationException(property.Name + &quot; is marked as Injectable but not writable.&quot;);
+
+					property.SetValue(instance, GetInjectableService(property.PropertyType), null);
+				}
+			}
+		}
+	}
+}
+</code></pre>
+<p>You can now construct new instances and inject dependencies on existing instances. Some usage examples:</p>
+<pre><code class="language-c#">public interface IFoo
+{
+	int Value { get; }
+}
+
+public class Foo : IFoo
+{
+	public int Value
+	{
+		get;
+		set;
+	}
+
+	[Injectable]
+	public Foo()
+	{
+	}
+
+	public void DoIt()
+	{
+		Console.WriteLine(this.Value);
+	}
+}
+
+public interface IBar
+{
+	string Value { get; }
+}
+
+public class Bar : IBar
+{
+	IFoo foo;
+
+	public string Value
+	{
+		get;
+		set;
+	}
+
+	[Injectable]
+	public Bar(IFoo foo)
+	{
+		this.foo = foo;
+	}
+
+	public void DoIt()
+	{
+		Console.WriteLine(this.Value + &quot;: &quot; + this.foo.Value);
+	}
+}
+
+public class Baz
+{
+	[Injectable]
+	public IFoo Foo
+	{
+		get;
+		set;
+	}
+
+	[Injectable]
+	public IBar Bar
+	{
+		get;
+		set;
+	}
+							
+	public void DoIt()
+	{
+		Console.WriteLine(this.Bar.Value + &quot; | &quot; + this.Foo.Value);
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		var container = new ServiceContainer();
+
+		var foo = container.Construct&amp;lt;Foo&amp;gt;();
+		foo.Value = 5;
+		container.AddService(typeof(IFoo), foo);
+
+		var bar = container.Construct&amp;lt;Bar&amp;gt;();
+		container.AddService(typeof(IBar), bar);
+		bar.Value = &quot;Hello World!&quot;;
+		bar.DoIt();
+
+		var baz = new Baz();
+		container.Inject(baz);
+		baz.DoIt();
+	}
+}
+</code></pre>

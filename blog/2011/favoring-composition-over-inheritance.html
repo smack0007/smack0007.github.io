@@ -1,0 +1,53 @@
+<p>You may have heard the expression before &quot;Favor Composition over Inheritance&quot;, but do you know what it means and how to apply it? Lets take this code for example:</p>
+<pre><code class="language-c#">abstract class Car
+{
+	public Color Color { get; protected set; }
+	public Engine Engine { get; protected set; }
+}
+
+class ElectricCar : Car
+{
+	public ElectricCar()
+	{
+		this.Color = Color.Blue;
+		this.Engine = new ElectricEngine();
+	}
+}
+
+class SportsCar : Car
+{
+	public SportsCar()
+	{
+		this.Color = Color.Red;
+		this.Engine = new V8Engine();
+	}
+}
+
+class Truck : Car
+{
+	public Truck()
+	{
+		this.Color = Color.White;
+		this.Engine = new DieselEngine();
+	}
+}
+</code></pre>
+<p>In this contrived example, we've defined three types of cars. Each instance of each of the cars will always have the same color and same engine. What happens when we need a 4th type? We have to define another class. By refactoring this code, we can compose a car type by giving it a color and an engine:</p>
+<pre><code class="language-c#">class Car
+{
+	public Color Color { get; private set; }
+	public Engine Engine { get; private set; }
+	
+	public Car(Color color, Engine engine)
+	{
+		this.Color = color;
+		this.Engine = engine;
+	}
+}
+
+Car electricCar = new Car(Color.Blue, new ElectricEngine());
+Car sportsCar = new Car(Color.Red, new V8Engine());
+Car truck = new Car(Color.White, new DieselEngine());
+Car familyCar = new Car(Color.Black, new V4Engine());
+</code></pre>
+<p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</p>

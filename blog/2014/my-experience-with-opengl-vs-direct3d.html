@@ -1,0 +1,13 @@
+<p>I've struggled a lot with myself over whether I should use OpenGL or Direct3D. There is no blanket answer to this question that anyone can tell you.
+Both APIs have a very different feel and which one you prefer can only be decided on your own.</p>
+<!--more-->
+<p>Although Direct3D seems more structured and honestly makes more sense to me most of the time, I find the barrier to entry is much greater than that of OpenGL.
+With OpenGL it's easy to find lot's of <a href="http://www.opengl-tutorial.org/">great</a> <a href="http://www.arcsynthesis.org/gltut/">tutorials</a> that help you get started, although
+the there are some <a href="http://nehe.gamedev.net">outdated</a> tutorials which teach you the old way of doing things. Sorting between the two of them is the hardest part. The modern
+way of doing things is with buffers and shaders.</p>
+<p>OpenGL of course has the advantage of being multiplatform but I would say don't let this influence your decision too much. I've had working with OpenGL on some kind of Linux
+system on my list of things to do for some time and I still haven't gotten around to it. 95% of my programming is done on Windows and if things are the same for you then
+it doesn't matter if Direct3D is only available on Windows.</p>
+<p>OpenGL is a C based API which makes it easy to P/Invoke into from C#. You can use something like <a href="http://www.opentk.com/">OpenTK</a> if you want, but for my needs I just P/Invoke.
+I'm working on my own C# OpenGL API which I call <a href="https://github.com/smack0007/Samurai">Samurai</a>. It's not a 1 to 1 binding like OpenTK but an attempt at creating a higher
+level API for OpenGL.</p>
