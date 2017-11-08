@@ -14,3 +14,5 @@ git add -A && git commit -m "Build Process"
 POPD
 
 POPD
+
+EXIT 0
