@@ -16,9 +16,6 @@ namespace compiler
 
             var inputPath = Path.GetFullPath(args[0]);
             var outputPath = Path.GetFullPath(args[1]);
-
-            if (Directory.Exists(outputPath))
-                Directory.Delete(outputPath, true);
             
             Directory.CreateDirectory(outputPath);
             

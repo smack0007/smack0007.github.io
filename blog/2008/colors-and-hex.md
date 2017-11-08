@@ -8,6 +8,7 @@ Tags: Xna
 Comments: true
 ---
 
+Update!!
 I recently needed to write out Color(s) as an xml attribute. I wrote 2 methods to read and write the Color(s) as Hex strings. Here ya go:
 
 ```c#
