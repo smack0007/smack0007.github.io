@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using Fluid;
 using Markdig;
 
 namespace compiler
@@ -21,33 +24,48 @@ namespace compiler
             
             Console.WriteLine($"Compiling path: {inputPath}");
 
-            var markdownFiles = Directory.EnumerateFiles(inputPath, "*.md", SearchOption.AllDirectories);
+            var fileNames = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories).Select(x => x.Substring(inputPath.Length));
 
-            foreach (var markdownFile in markdownFiles)
+            foreach (var markdownFileName in fileNames.Where(x => Path.GetExtension(x) == ".md"))
             {
-                ProcessMarkdown(inputPath, outputPath, markdownFile);
+                ProcessMarkdown(inputPath, markdownFileName, outputPath);
             }
 
             return 0;
         }
 
-        public static void ProcessMarkdown(string inputPath, string outputPath, string fileName)
+        public static void ProcessMarkdown(string inputPath, string fileName, string outputPath)
         {
-            var outputDirectory = Path.Combine(outputPath, Path.GetDirectoryName(fileName.Substring(inputPath.Length)));
+            var outputDirectory = Path.Combine(outputPath, Path.GetDirectoryName(fileName));
             var outputFile = Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(fileName) + ".html");
             Console.WriteLine($"{nameof(ProcessMarkdown)}: {fileName} => {outputFile}");
 
             Directory.CreateDirectory(outputDirectory);
 
-            var lines = Utility.TrimEmptyLines(File.ReadAllLines(fileName));
+            var lines = Utility.TrimEmptyLines(File.ReadAllLines(Path.Combine(inputPath, fileName)));
 
             string[] frontMatterLines;
             string[] contentLines;
             ExtractMarkdownParts(lines, out frontMatterLines, out contentLines);
 
-            var html = Markdown.ToHtml(string.Join(Environment.NewLine, contentLines));
+            var frontMatter = FrontMatter.Parse(frontMatterLines);
+            var content = Markdown.ToHtml(string.Join(Environment.NewLine, contentLines));
 
-            File.WriteAllText(outputFile, html);
+            var source = File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "layouts", "post.liquid"));
+
+            if (FluidTemplate.TryParse(source, out var template))
+            {   
+                var context = new TemplateContext();
+                context.MemberAccessStrategy.Register<MarkdownData>();
+                context.MemberAccessStrategy.Register<FrontMatter>((obj, name) => obj[name]);
+                context.SetValue("Model", new MarkdownData(frontMatter, content));
+
+                File.WriteAllText(outputFile, template.Render(context));
+            }
+            else
+            {
+                throw new InvalidOperationException("Failed to parse post.liquid");
+            }
         }
 
         private static void ExtractMarkdownParts(string[] lines, out string[] frontMatter, out string[] contentLines)

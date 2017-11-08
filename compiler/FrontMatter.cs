@@ -7,6 +7,19 @@ namespace compiler
     {
         private Dictionary<string, string> data;
 
+        public string this[string key]
+        {
+            get
+            {
+                if (this.data.TryGetValue(key, out var value))
+                {
+                    return value;
+                }
+
+                return string.Empty;
+            }
+        }
+
         private FrontMatter(Dictionary<string, string> data)
         {
             this.data = data ??
