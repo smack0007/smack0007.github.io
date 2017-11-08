@@ -1,4 +1,12 @@
-<p>If you need to move a referenced DLL to a different directory after build, add these commands to the &quot;<strong>Post Build event command line</strong>&quot; box in the &quot;<strong>Build Events</strong>&quot; tab of the project properties:</p>
+<html>
+    <head>
+    </head>
+    <body>
+        <h2>Visual Studio: Move referenced DLL to different directory after Build</h2>
+        <p>If you need to move a referenced DLL to a different directory after build, add these commands to the &quot;<strong>Post Build event command line</strong>&quot; box in the &quot;<strong>Build Events</strong>&quot; tab of the project properties:</p>
 <pre><code>mkdir $(TargetDir)dir
 move $(TargetDir)myDLL.dll $(TargetDir)dir\myDLL.dll
 </code></pre>
+
+    </body>
+</html>
