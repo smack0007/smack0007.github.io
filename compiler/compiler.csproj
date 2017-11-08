@@ -8,6 +8,6 @@
   </ItemGroup>
   <Target Name="BuildSite" AfterTargets="AfterBuild" Condition=" $(BuildSite) == true ">
     <Exec WorkingDirectory="$(MSBuildThisFileDirectory)"
-          Command="dotnet run -- &quot;$(MSBuildThisFileDirectory)..\\&quot; &quot;$(MSBuildThisFileDirectory)..\bin\\&quot;" />
+          Command="dotnet run -- &quot;$(MSBuildThisFileDirectory)..\source\\&quot; &quot;$(MSBuildThisFileDirectory)..\bin\\&quot;" />
   </Target>
 </Project>
