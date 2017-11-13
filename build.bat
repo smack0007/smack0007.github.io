@@ -8,7 +8,7 @@ IF EXIST bin (
 git clone "https://github.com/smack0007/smack0007.github.io.git" bin
 dotnet build .\compiler\compiler.csproj -p:BuildSite=true
 
-git log -1 --pretty=%B > commit.msg
+git log -1 --pretty=%%B > commit.msg
 
 PUSHD bin
 git config user.name "smack0007"
