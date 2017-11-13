@@ -1,0 +1,5 @@
+<h1>The Blog of Zachary Snow</h1>
+
+{% for Post in Model.Posts %}
+<h2><a href="{{ Post.Path }}">{{ Post.Title }}</a></h2>
+{% endfor %}

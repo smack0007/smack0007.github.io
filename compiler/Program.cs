@@ -10,7 +10,10 @@ namespace compiler
 {
     public static class Program
     {
+        private static FluidTemplate IndexTemplate;
+
         private static FluidTemplate PostTempate;
+
         private static FluidTemplate SiteTempate;
 
         public static int Main(string[] args)
@@ -28,36 +31,44 @@ namespace compiler
             
             Console.WriteLine($"Compiling path: {inputPath}");
 
-            IEnumerable<string> errors;
-
-            if (!FluidTemplate.TryParse(
-                File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "layouts", "post.liquid")),
-                out PostTempate,
-                out errors))
-            {
-                throw new InvalidOperationException($"Failed to parse post.liquid: {string.Join(Environment.NewLine, errors)}");
-            }
-
-            if (!FluidTemplate.TryParse(
-                File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "layouts", "site.liquid")),
-                out SiteTempate,
-                out errors))
-            {
-                throw new InvalidOperationException($"Failed to parse site.liquid: {string.Join(Environment.NewLine, errors)}");
-            }
+            IndexTemplate = ParseTemplate("index.liquid");
+            PostTempate = ParseTemplate("post.liquid");
+            SiteTempate = ParseTemplate("site.liquid");
 
             var files = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories).Select(x => x.Substring(inputPath.Length)).ToArray();
             var markdownFiles = files.Where(x => Path.GetExtension(x) == ".md");
             var staticFiles = files.Except(markdownFiles);
 
-            foreach (var markdownFile in markdownFiles)
+            var posts = new List<PostData>();
+
+            foreach (var fileName in markdownFiles)
             {
-                ProcessMarkdown(inputPath, markdownFile, outputPath);
+                var outputDirectory = Path.Combine(outputPath, Path.GetDirectoryName(fileName));
+                var outputFileName = Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(fileName) + ".html");
+                Console.WriteLine($"Post: {fileName} => {outputFileName}");
+
+                Directory.CreateDirectory(outputDirectory);
+
+                var content = ProcessMarkdown(
+                    File.ReadAllLines(Path.Combine(inputPath, fileName)),
+                    out var frontMatter);
+
+                var postData = new PostData(
+                    frontMatter,
+                    content,
+                    Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + ".html"));
+
+                posts.Add(postData);
+
+                RenderPost(
+                    fileName,
+                    outputFileName,
+                    postData);
             }
 
             foreach (var staticFile in staticFiles)
             {
-                Console.WriteLine($"StaticFile: {staticFile}");
+                Console.WriteLine($"Static: {staticFile}");
 
                 File.Copy(
                     Path.Combine(inputPath, staticFile),
@@ -65,39 +76,46 @@ namespace compiler
                     true);
             }
 
+            var context = new TemplateContext();
+            context.MemberAccessStrategy.Register<IndexData>();
+            context.MemberAccessStrategy.Register<PostData>();
+            context.MemberAccessStrategy.Register<FrontMatter>((obj, name) => obj[name]);
+            context.SetValue("Model", new IndexData(posts));
+            
+            RenderSitePage(
+                Path.Combine(outputPath, "index.html"),
+                string.Empty,
+                "The Blog of Zachary Snow",
+                IndexTemplate.Render(context));
+
             return 0;
         }
 
-        public static void ProcessMarkdown(string inputPath, string fileName, string outputPath)
+        private static FluidTemplate ParseTemplate(string fileName)
         {
-            var outputDirectory = Path.Combine(outputPath, Path.GetDirectoryName(fileName));
-            var outputFile = Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(fileName) + ".html");
-            Console.WriteLine($"{nameof(ProcessMarkdown)}: {fileName} => {outputFile}");
+            if (!FluidTemplate.TryParse(
+                File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "layouts", fileName)),
+                out var template,
+                out var errors))
+            {
+                throw new InvalidOperationException($"Failed to parse tempalte '{fileName}': {string.Join(Environment.NewLine, errors)}");
+            }
 
-            Directory.CreateDirectory(outputDirectory);
+            return template;
+        }
 
-            var lines = Utility.TrimEmptyLines(File.ReadAllLines(Path.Combine(inputPath, fileName)));
+        private static string ProcessMarkdown(
+            string[] lines,
+            out FrontMatter frontMatter)
+        {
+            lines = Utility.TrimEmptyLines(lines);
 
             string[] frontMatterLines;
             string[] contentLines;
             ExtractMarkdownParts(lines, out frontMatterLines, out contentLines);
 
-            var frontMatter = FrontMatter.Parse(frontMatterLines);
-            var content = Markdown.ToHtml(string.Join(Environment.NewLine, contentLines));
-               
-            var context = new TemplateContext();
-            context.MemberAccessStrategy.Register<PostData>();
-            context.MemberAccessStrategy.Register<FrontMatter>((obj, name) => obj[name]);
-            context.SetValue("Model", new PostData(frontMatter, content));
-
-            string basePath = string.Empty;
-            string[] pathParts = fileName.Split(new char[] { '/', '\\' });
-            for (int i = 0; i < pathParts.Length - 1; i++)
-            {
-                basePath += "../";
-            }
-            
-            RenderSitePage(outputFile, basePath, frontMatter["Title"], PostTempate.Render(context));
+            frontMatter = FrontMatter.Parse(frontMatterLines);
+            return Markdown.ToHtml(string.Join(Environment.NewLine, contentLines));
         }
 
         private static void ExtractMarkdownParts(string[] lines, out string[] frontMatter, out string[] contentLines)
@@ -137,6 +155,26 @@ namespace compiler
 
             contentLines = new string[lines.Length - markdownStart];
             Array.Copy(lines, markdownStart, contentLines, 0, lines.Length - markdownStart);
+        }
+
+        public static void RenderPost(
+            string fileName,
+            string outputFileName,
+            PostData postData)
+        {
+            var context = new TemplateContext();
+            context.MemberAccessStrategy.Register<PostData>();
+            context.MemberAccessStrategy.Register<FrontMatter>((obj, name) => obj[name]);
+            context.SetValue("Model", postData);
+
+            string basePath = string.Empty;
+            string[] pathParts = fileName.Split(new char[] { '/', '\\' });
+            for (int i = 0; i < pathParts.Length - 1; i++)
+            {
+                basePath += "../";
+            }
+            
+            RenderSitePage(outputFileName, basePath, postData.FrontMatter["Title"], PostTempate.Render(context));
         }
 
         private static void RenderSitePage(

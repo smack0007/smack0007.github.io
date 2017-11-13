@@ -8,10 +8,15 @@ namespace compiler
 
         public string Content { get; }
 
-        public PostData(FrontMatter frontMatter, string content)
+        public string Path { get; }
+
+        public string Title => this.FrontMatter["Title"];
+
+        public PostData(FrontMatter frontMatter, string content, string path)
         {
             this.FrontMatter = frontMatter;
             this.Content = content;
+            this.Path = path;
         }
     }
 }
