@@ -1,9 +1,11 @@
 <html>
     <head>
+        <title>Adding assembly references in Roslyn</title>
+        <link rel="stylesheet" type="text/css" href="../../normalize.css">
     </head>
     <body>
         <h2>Adding assembly references in Roslyn</h2>
-        <p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
+<p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
 <pre><code class="language-csharp">var compilation = Compilation.Create(assemblyName, new CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
 	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;mscorlib&quot;))
 	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;System&quot;))
@@ -23,6 +25,7 @@ var compilation = CSharpCompilation.Create(assemblyName)
 	.AddReferences(new MetadataFileReference(Assembly.GetEntryAssembly().Location))
 	.AddSyntaxTrees(syntaxTree);
 </code></pre>
+
 
     </body>
 </html>

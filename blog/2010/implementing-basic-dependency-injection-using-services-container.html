@@ -1,9 +1,11 @@
 <html>
     <head>
+        <title>Implementing basic Dependency Injection using a Service Container</title>
+        <link rel="stylesheet" type="text/css" href="../../normalize.css">
     </head>
     <body>
         <h2>Implementing basic Dependency Injection using a Service Container</h2>
-        <p>By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection.</p>
+<p>By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection.</p>
 <!--more-->
 <p>We'll start by defining the <strong>Injectable</strong> attribute.</p>
 <pre><code class="language-c#">[AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Property,
@@ -230,6 +232,7 @@ class Program
 	}
 }
 </code></pre>
+
 
     </body>
 </html>

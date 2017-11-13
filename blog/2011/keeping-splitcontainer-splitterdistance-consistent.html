@@ -1,12 +1,15 @@
 <html>
     <head>
+        <title>Keeping SplitContainer SplitterDistance consistent</title>
+        <link rel="stylesheet" type="text/css" href="../../normalize.css">
     </head>
     <body>
         <h2>Keeping SplitContainer SplitterDistance consistent</h2>
-        <p>If you're having trouble keeping the SplitterDistance property of a SplitContainer consistent across app sessions, you can set the FixedPanel property of the splitter to FixedPanel.Panel1.</p>
+<p>If you're having trouble keeping the SplitterDistance property of a SplitContainer consistent across app sessions, you can set the FixedPanel property of the splitter to FixedPanel.Panel1.</p>
 <pre><code class="language-c#">splitter.FixedPanel = FixedPanel.Panel1;
 </code></pre>
 <p>I guess this could also work with FixedPanel.Panel2 as well but I haven't given it a try. Credit <a href="http://stackoverflow.com/questions/129362/restoring-splitterdistance-inside-tabcontrol-is-inconsistent">this stackoverflow post</a>.</p>
+
 
     </body>
 </html>

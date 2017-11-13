@@ -1,9 +1,11 @@
 <html>
     <head>
+        <title>Creating and consuming services in your XNA Game</title>
+        <link rel="stylesheet" type="text/css" href="../../normalize.css">
     </head>
     <body>
         <h2>Creating and consuming services in your XNA Game</h2>
-        <p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
+<p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
 <blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote>
 <p>This article will &quot;<em>attempt</em>&quot; to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.</p>
 <!--more-->
@@ -241,6 +243,7 @@ this.Services.AddService(typeof(ICamera), new MovingCamera());
 <p>BarComponent uses the camera's Transform matrix and doesn't care how it is calculated. It's completely decoupled from the camera's implementation.</p>
 <p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.</p>
 <p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</p>
+
 
     </body>
 </html>

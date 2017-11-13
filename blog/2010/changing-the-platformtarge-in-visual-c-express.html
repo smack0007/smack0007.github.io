@@ -1,9 +1,11 @@
 <html>
     <head>
+        <title>Changing the PlatformTarget in Visual C# Express</title>
+        <link rel="stylesheet" type="text/css" href="../../normalize.css">
     </head>
     <body>
         <h2>Changing the PlatformTarget in Visual C# Express</h2>
-        <p>Some project types in Visual C# Express (Empty Project) will not allow you to change the PlatformTarget from the UI. You can still change the target platform though by editing the .csproj file in a text editor. Close the project and open it up in your favorite text editor (I use <a href="http://notepad-plus.sourceforge.net/">Notpad++</a>). The .csproj file is really just a XML file. You should see somewhere in the file something like:</p>
+<p>Some project types in Visual C# Express (Empty Project) will not allow you to change the PlatformTarget from the UI. You can still change the target platform though by editing the .csproj file in a text editor. Close the project and open it up in your favorite text editor (I use <a href="http://notepad-plus.sourceforge.net/">Notpad++</a>). The .csproj file is really just a XML file. You should see somewhere in the file something like:</p>
 <pre><code class="language-xml">	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&amp;gt;
 		....
 	&amp;lt;/PropertyGroup&amp;gt;
@@ -22,6 +24,7 @@
 	&amp;lt;/PropertyGroup&amp;gt;
 </code></pre>
 <p>Save the file and open your project back up. Your project's output should now target only x86.</p>
+
 
     </body>
 </html>
