@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Fluid;
 using Markdig;
 
@@ -37,7 +38,8 @@ namespace compiler
 
             var files = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories).Select(x => x.Substring(inputPath.Length)).ToArray();
             var markdownFiles = files.Where(x => Path.GetExtension(x) == ".md");
-            var staticFiles = files.Except(markdownFiles);
+            var cssFiles = files.Where(x => Path.GetExtension(x) == ".css");
+            var staticFiles = files.Except(markdownFiles).Except(cssFiles);
 
             var posts = new List<PostData>();
 
@@ -66,13 +68,26 @@ namespace compiler
                     postData);
             }
 
+            var sb = new StringBuilder(1024);
+            foreach (var cssFile in cssFiles)
+            {
+                Console.WriteLine($"Css: {cssFile}");
+                sb.Append(File.ReadAllText(Path.Combine(inputPath, cssFile)));                
+            }
+            Directory.CreateDirectory(Path.Combine(outputPath, "css"));
+            File.WriteAllText(Path.Combine(outputPath, "css", "site.css"), sb.ToString());
+
             foreach (var staticFile in staticFiles)
             {
                 Console.WriteLine($"Static: {staticFile}");
 
+                var output = Path.Combine(outputPath, staticFile);
+
+                Directory.CreateDirectory(Path.GetDirectoryName(output));
+
                 File.Copy(
                     Path.Combine(inputPath, staticFile),
-                    Path.Combine(outputPath, staticFile),
+                    output,
                     true);
             }
 

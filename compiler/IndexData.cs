@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace compiler
 {
@@ -9,7 +10,7 @@ namespace compiler
 
         public IndexData(IEnumerable<PostData> posts)
         {
-            this.Posts = posts;
+            this.Posts = posts.OrderByDescending(x => x.SortDate);
         }
     }
 }
