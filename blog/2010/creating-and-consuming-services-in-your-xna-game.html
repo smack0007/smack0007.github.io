@@ -1,10 +1,30 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
         <title>Creating and consuming services in your XNA Game</title>
-        <link rel="stylesheet" type="text/css" href="../../normalize.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../css/site.css">
     </head>
     <body>
-        <h2>Creating and consuming services in your XNA Game</h2>
+        <header>
+            <nav>
+                <div class="container">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../about.html">About</a>
+                </div>
+            </nav>
+            <div class="container">
+                <h1>The Blog of Zachary Snow</h1>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <h2>Creating and consuming services in your XNA Game</h2>
 <p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
 <blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote>
 <p>This article will &quot;<em>attempt</em>&quot; to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.</p>
@@ -245,5 +265,11 @@ this.Services.AddService(typeof(ICamera), new MovingCamera());
 <p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</p>
 
 
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+            </div>
+        </footer>
     </body>
 </html>

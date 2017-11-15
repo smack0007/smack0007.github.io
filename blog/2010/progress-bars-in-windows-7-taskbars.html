@@ -1,10 +1,30 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
         <title>Progress Bar in Windows 7 Taskbars</title>
-        <link rel="stylesheet" type="text/css" href="../../normalize.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../css/site.css">
     </head>
     <body>
-        <h2>Progress Bar in Windows 7 Taskbars</h2>
+        <header>
+            <nav>
+                <div class="container">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../about.html">About</a>
+                </div>
+            </nav>
+            <div class="container">
+                <h1>The Blog of Zachary Snow</h1>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <h2>Progress Bar in Windows 7 Taskbars</h2>
 <p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.</p>
 <p><a href="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png" alt="" title="TimerProgressBar" width="139" height="40" class="alignnone size-full wp-image-309" /></a></p>
 <p>I started by downloading and compiling the <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows API Code Pack</a> in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:</p>
@@ -32,5 +52,11 @@ if(TaskbarManager.IsPlatformSupported)
 <a href="/files/TimerWin7TaskbarSrc.zip">Download Source</a></p>
 
 
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+            </div>
+        </footer>
     </body>
 </html>

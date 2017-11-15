@@ -1,13 +1,39 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
         <title>ID3DXEffect::OnLostDevice()</title>
-        <link rel="stylesheet" type="text/css" href="../../normalize.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../css/site.css">
     </head>
     <body>
-        <h2>ID3DXEffect::OnLostDevice()</h2>
+        <header>
+            <nav>
+                <div class="container">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../about.html">About</a>
+                </div>
+            </nav>
+            <div class="container">
+                <h1>The Blog of Zachary Snow</h1>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <h2>ID3DXEffect::OnLostDevice()</h2>
 <p>I fixed a bug yesterday in Snowball related to a lost graphics device. I noticed that when I would use CTRL + ALT + DELETE, my apps were crashing. Turned out it was due to not recovering properly from a lost device.</p>
 <p>The root of the problem was that I needed to call the ID3DXEffect::OnLostDevice() method when the device was being lost. This allows the effect to recover from the lost device. I've made the Effect class in Snowball now do this automatically.</p>
 
 
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+            </div>
+        </footer>
     </body>
 </html>

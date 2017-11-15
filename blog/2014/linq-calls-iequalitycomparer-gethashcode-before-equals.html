@@ -1,10 +1,30 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
         <title>LINQ calls IEqualityComparer&lt;T&gt;.GetHashCode() before Equals()</title>
-        <link rel="stylesheet" type="text/css" href="../../normalize.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../css/site.css">
     </head>
     <body>
-        <h2>LINQ calls IEqualityComparer&lt;T&gt;.GetHashCode() before Equals()</h2>
+        <header>
+            <nav>
+                <div class="container">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../about.html">About</a>
+                </div>
+            </nav>
+            <div class="container">
+                <h1>The Blog of Zachary Snow</h1>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <h2>LINQ calls IEqualityComparer&lt;T&gt;.GetHashCode() before Equals()</h2>
 <p>This is a problem that has bitten me more than a few times so I thought it was about time to write a blog post about it. It's one of those problems
 that makes you scratch your head for a bit and then the light bulb goes on and you remember you've solved this one before. It occurs whenever you
 use a LINQ extension method which takes an instance of IEqualityComaparer<T>.</p>
@@ -64,5 +84,11 @@ the some method always fails and therefore the Equals method is never called.</p
 <p>obj.GetParameters().Length could probably be left out. I haven't ran any tests to determine if it actually improves the performance or not.</p>
 
 
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+            </div>
+        </footer>
     </body>
 </html>

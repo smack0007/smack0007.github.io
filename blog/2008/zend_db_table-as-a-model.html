@@ -1,10 +1,30 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
         <title>Zend_Db_Table as a Model</title>
-        <link rel="stylesheet" type="text/css" href="../../normalize.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../css/site.css">
     </head>
     <body>
-        <h2>Zend_Db_Table as a Model</h2>
+        <header>
+            <nav>
+                <div class="container">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../about.html">About</a>
+                </div>
+            </nav>
+            <div class="container">
+                <h1>The Blog of Zachary Snow</h1>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <h2>Zend_Db_Table as a Model</h2>
 <p>In the Zend Framework, using Zend_Db_Table as your model class is not well advised. This practice can force you to put business logic in other places besides your model class. This may not be a big deal if your logic is simple but imagine the logic is fairly complicated. Now also imagine that the logic changes at some point. This can be a problem if you have this logic written in many different places.</p>
 <p>There's a solution to this problem though. You could write a Model class that uses Zend_Db_Table as a storage medium. Or, you can extend Zend_Db_Table to add your logic to the class. There is a way to simplify this process and that's what this blog post is about.</p>
 <!--more-->
@@ -75,5 +95,11 @@ $foo-&gt;bar = 5;
 <p>This method also more accurately represents what the MVC pattern is supposed to be. There is one place, where the business logic is stored and all the Controller then has to worry about is pushing user input to the Model and requesting output from the Model.</p>
 
 
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+            </div>
+        </footer>
     </body>
 </html>
