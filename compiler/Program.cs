@@ -4,18 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Fluid;
 using Markdig;
 
 namespace compiler
 {
     public static class Program
     {
-        private static FluidTemplate IndexTemplate;
+        private static IndexTemplate IndexTemplate = new IndexTemplate();
 
-        private static FluidTemplate PostTempate;
+        private static PostTemplate PostTemplate = new PostTemplate();
 
-        private static FluidTemplate SiteTempate;
+        private static SiteTemplate SiteTempate = new SiteTemplate();
 
         public static int Main(string[] args)
         {
@@ -31,10 +30,6 @@ namespace compiler
             Directory.CreateDirectory(outputPath);
             
             Console.WriteLine($"Compiling path: {inputPath}");
-
-            IndexTemplate = ParseTemplate("index.liquid");
-            PostTempate = ParseTemplate("post.liquid");
-            SiteTempate = ParseTemplate("site.liquid");
 
             var files = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories).Select(x => x.Substring(inputPath.Length)).ToArray();
             var markdownFiles = files.Where(x => Path.GetExtension(x) == ".md");
@@ -90,33 +85,14 @@ namespace compiler
                     output,
                     true);
             }
-
-            var context = new TemplateContext();
-            context.MemberAccessStrategy.Register<IndexData>();
-            context.MemberAccessStrategy.Register<PostData>();
-            context.MemberAccessStrategy.Register<FrontMatter>((obj, name) => obj[name]);
-            context.SetValue("Model", new IndexData(posts));
             
             RenderSitePage(
+                "index.html",
                 Path.Combine(outputPath, "index.html"),
-                string.Empty,
                 "The Blog of Zachary Snow",
-                IndexTemplate.Render(context));
+                IndexTemplate.Render(new IndexData(posts)));
 
             return 0;
-        }
-
-        private static FluidTemplate ParseTemplate(string fileName)
-        {
-            if (!FluidTemplate.TryParse(
-                File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "layouts", fileName)),
-                out var template,
-                out var errors))
-            {
-                throw new InvalidOperationException($"Failed to parse tempalte '{fileName}': {string.Join(Environment.NewLine, errors)}");
-            }
-
-            return template;
         }
 
         private static string ProcessMarkdown(
@@ -176,33 +152,26 @@ namespace compiler
             string fileName,
             string outputFileName,
             PostData postData)
-        {
-            var context = new TemplateContext();
-            context.MemberAccessStrategy.Register<PostData>();
-            context.MemberAccessStrategy.Register<FrontMatter>((obj, name) => obj[name]);
-            context.SetValue("Model", postData);
+        {            
+            RenderSitePage(fileName, outputFileName, postData.Title, PostTemplate.Render(postData));
+        }
 
+        private static void RenderSitePage(
+            string fileName,
+            string outputFile,
+            string title,
+            string body)
+        {
             string basePath = string.Empty;
             string[] pathParts = fileName.Split(new char[] { '/', '\\' });
             for (int i = 0; i < pathParts.Length - 1; i++)
             {
                 basePath += "../";
             }
-            
-            RenderSitePage(outputFileName, basePath, postData.FrontMatter["Title"], PostTempate.Render(context));
-        }
 
-        private static void RenderSitePage(
-            string outputFile,
-            string basePath,
-            string title,
-            string body)
-        {
-            var context = new TemplateContext();
-            context.MemberAccessStrategy.Register<SiteData>();
-            context.SetValue("Model", new SiteData(basePath, title, body));
-
-            File.WriteAllText(outputFile, SiteTempate.Render(context));
+            File.WriteAllText(
+                outputFile,
+                SiteTempate.Render(new SiteData(fileName, basePath, title, body)));
         }
     }
 }

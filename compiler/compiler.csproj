@@ -4,9 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Fluid.Core" Version="1.0.0-beta-9399" />
     <PackageReference Include="Markdig" Version="0.13.4" />
-    <None Include="layouts\*.*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <Target Name="BuildSite" AfterTargets="AfterBuild" Condition=" $(BuildSite) == true ">
     <Exec WorkingDirectory="$(MSBuildThisFileDirectory)" Command="dotnet run -- &quot;$(MSBuildThisFileDirectory)..\source\\&quot; &quot;$(MSBuildThisFileDirectory)..\bin\\&quot;" />
