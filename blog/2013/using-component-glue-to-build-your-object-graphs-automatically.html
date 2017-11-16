@@ -1,10 +1,11 @@
+
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="author" content="Zachary Snow">
 
         <title>Using Component Glue to build your object graphs automatically</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -14,8 +15,8 @@
         <header>
             <nav>
                 <div class="container">
-                    <a href="../../index.html">Home</a>
-                    <a href="../../about.html">About</a>
+                    <a href="../../index.html" >Home</a>
+                    <a href="../../about.html" >About</a>
                 </div>
             </nav>
             <div class="container">
@@ -29,7 +30,6 @@
 <script src="https://gist.github.com/smack0007/6091538.js"></script>
 <p>In After.cs, you can see that Component Glue is able to build the entire object graph for us. This will include all future dependencies as well so long as interfaces don't come into play. Should an interface be needed, you can just bind that single component.</p>
 <p>This is a very powerful thing. If one component needs to take on a dependency, just ask for it in the constructor and Component Glue will handle it for you.</p>
-
 
             </div>
         </main>

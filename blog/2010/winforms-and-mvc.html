@@ -1,10 +1,11 @@
+
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="author" content="Zachary Snow">
 
         <title>WinForms and MVC</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -14,8 +15,8 @@
         <header>
             <nav>
                 <div class="container">
-                    <a href="../../index.html">Home</a>
-                    <a href="../../about.html">About</a>
+                    <a href="../../index.html" >Home</a>
+                    <a href="../../about.html" >About</a>
                 </div>
             </nav>
             <div class="container">
@@ -31,7 +32,6 @@
 <p>If you want you view to be as dumb as possible, your view can communicate with the &quot;Application&quot; class only through events. In my case though, I choose to go with a smart view and have the view call back to methods in the &quot;Application&quot; class. The &quot;Application&quot; class tells the view when models are loaded and unloaded. The view subscribes to events on the models and reacts to the events.</p>
 <p>All of my forms and controls communicate with each other through the &quot;WinFormsView&quot; class. One control might change the value of a property in the &quot;WinFormsView&quot; class and another control might subscribe to a change event and update as necessary. This keeps the controls and forms slightly less coupled.</p>
 <p>It's not a perfect implementation of MVC but it keeps my model logic decoupled enough from my view logic that I can later implement a WPF version of the view I think.</p>
-
 
             </div>
         </main>

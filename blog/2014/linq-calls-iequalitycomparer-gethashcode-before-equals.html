@@ -1,12 +1,13 @@
+
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="author" content="Zachary Snow">
 
-        <title>LINQ calls IEqualityComparer&lt;T&gt;.GetHashCode() before Equals()</title>
+        <title>LINQ calls IEqualityComparer<T>.GetHashCode() before Equals()</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
     </head>
@@ -14,8 +15,8 @@
         <header>
             <nav>
                 <div class="container">
-                    <a href="../../index.html">Home</a>
-                    <a href="../../about.html">About</a>
+                    <a href="../../index.html" >Home</a>
+                    <a href="../../about.html" >About</a>
                 </div>
             </nav>
             <div class="container">
@@ -82,7 +83,6 @@ the some method always fails and therefore the Equals method is never called.</p
 }
 </code></pre>
 <p>obj.GetParameters().Length could probably be left out. I haven't ran any tests to determine if it actually improves the performance or not.</p>
-
 
             </div>
         </main>

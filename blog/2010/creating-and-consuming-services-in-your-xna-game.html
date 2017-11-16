@@ -1,10 +1,11 @@
+
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="author" content="Zachary Snow">
 
         <title>Creating and consuming services in your XNA Game</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -14,8 +15,8 @@
         <header>
             <nav>
                 <div class="container">
-                    <a href="../../index.html">Home</a>
-                    <a href="../../about.html">About</a>
+                    <a href="../../index.html" >Home</a>
+                    <a href="../../about.html" >About</a>
                 </div>
             </nav>
             <div class="container">
@@ -263,7 +264,6 @@ this.Services.AddService(typeof(ICamera), new MovingCamera());
 <p>BarComponent uses the camera's Transform matrix and doesn't care how it is calculated. It's completely decoupled from the camera's implementation.</p>
 <p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.</p>
 <p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</p>
-
 
             </div>
         </main>
