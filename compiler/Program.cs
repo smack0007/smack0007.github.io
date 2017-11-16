@@ -67,7 +67,13 @@ namespace compiler
             foreach (var cssFile in cssFiles)
             {
                 Console.WriteLine($"Css: {cssFile}");
-                sb.Append(File.ReadAllText(Path.Combine(inputPath, cssFile)));                
+                
+                var css = File.ReadAllText(Path.Combine(inputPath, cssFile));
+
+                if (!cssFile.EndsWith(".min.css"))
+                    css = $" /* {cssFile} */ " + Utility.RemoveWhiteSpaceFromCss(css);
+
+                sb.Append(css);                
             }
             Directory.CreateDirectory(Path.Combine(outputPath, "css"));
             File.WriteAllText(Path.Combine(outputPath, "css", "site.css"), sb.ToString());
