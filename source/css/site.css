@@ -48,6 +48,7 @@ a:hover {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    position: relative;
 }
 
 footer, header, main, nav {
@@ -88,7 +89,7 @@ nav a.active::after {
 }
 
 .post {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .post h2 {
@@ -105,6 +106,21 @@ nav a.active::after {
 
 .post .meta span i {
     margin-right: 4px;
+}
+
+.posts {
+    max-width: 40rem;
+}
+
+.sidebar {
+    max-width: 20rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.sidebar .social {
+    font-size: 2rem;
 }
 
 pre {

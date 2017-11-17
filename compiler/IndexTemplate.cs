@@ -15,6 +15,9 @@ namespace compiler
                         yield return $"<span class=\"date\"><i class=\"fa fa-calendar\"></i>{post.Date}</span>";
                         yield return $"<span class=\"category\"><i class=\"fa fa-tags\"></i>{HtmlEncode(post.Category)}</span>";
                     yield return "</div>";
+                    yield return "<div class=\"content\">";
+                        yield return post.Excerpt;
+                    yield return "</div>";
                 yield return "</div>";
             }
         }
