@@ -9,7 +9,11 @@ namespace compiler
 
         public string Content { get; }
 
+        public string Excerpt { get; }
+            
         public string Path { get; }
+
+        public string Url => this.Path.Replace("\\", "/");
 
         public string Title => this.FrontMatter["Title"];
 
@@ -24,6 +28,17 @@ namespace compiler
             this.FrontMatter = frontMatter;
             this.Content = content;
             this.Path = path;
+
+            var index = this.Content.IndexOf("<!--more-->");
+
+            if (index >= 0)
+            {
+                this.Excerpt = this.Content.Substring(0, index);
+            }
+            else
+            {
+                this.Excerpt = this.Content;
+            }
         }
     }
 }

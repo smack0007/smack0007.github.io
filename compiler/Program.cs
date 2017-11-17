@@ -98,6 +98,8 @@ namespace compiler
                 "The Blog of Zachary Snow",
                 IndexTemplate.Render(new IndexData(posts)));
 
+            File.WriteAllText(Path.Combine(outputPath, "feed.rss"), GenerateRssFeed(posts));
+
             return 0;
         }
 
@@ -178,6 +180,40 @@ namespace compiler
             File.WriteAllText(
                 outputFile,
                 SiteTempate.Render(new SiteData(fileName, basePath, title, body)));
+        }
+
+        private static string GenerateRssFeed(List<PostData> posts)
+        {
+            var sb = new StringBuilder();
+            
+            var pubDate = (DateTime)posts.Select(x => x.SortDate).Max();		
+
+            sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+            sb.AppendLine("<rss version=\"2.0\">");
+            sb.AppendLine("\t<channel>");
+            sb.AppendLine("\t<title>The Blog of Zachary Snow</title>");
+            sb.AppendLine("\t<description>The Blog of Zachary Snow</description>");
+            sb.AppendLine("\t<link>http://smack0007.github.io/</link>");
+            sb.AppendLine("\t<lastBuildDate>" + DateTime.Now.ToString("r") + "</lastBuildDate>");
+            sb.AppendLine("\t<pubDate>" + pubDate.ToString("r") + "</pubDate>");
+            sb.AppendLine("\t<ttl>1800</ttl>");
+            
+            foreach (var post in posts.OrderByDescending(x => x.SortDate).Take(20))
+            {	
+                sb.AppendLine("\t<item>");
+                sb.AppendLine("\t\t<title><![CDATA[" + post.Title + "]]></title>");
+                sb.AppendLine("\t\t<description><![CDATA[" + post.Excerpt + "]]></description>");
+                sb.AppendLine("\t\t<link>http://smack0007.github.io/" + post.Url + "</link>");
+                sb.AppendLine("\t\t<guid>http://smack0007.github.io/" + post.Url + "</guid>");
+                sb.AppendLine("\t\t<pubDate>" + post.SortDate.ToString("r") + "</pubDate>");
+                sb.AppendLine("\t</item>");
+            }
+
+            sb.AppendLine("\t</channel>");
+            sb.AppendLine("</rss>");
+            sb.AppendLine();
+            
+            return sb.ToString();
         }
     }
 }
