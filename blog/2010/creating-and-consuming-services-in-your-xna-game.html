@@ -10,6 +10,8 @@
         <title>Creating and consuming services in your XNA Game</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>Creating and consuming services in your XNA Game</h2>
 <p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
 <blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote>
@@ -266,10 +268,15 @@ this.Services.AddService(typeof(ICamera), new MovingCamera());
 <p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

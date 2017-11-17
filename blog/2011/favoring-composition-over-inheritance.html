@@ -10,6 +10,8 @@
         <title>Favoring Composition over Inheritance</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>Favoring Composition over Inheritance</h2>
 <p>You may have heard the expression before &quot;Favor Composition over Inheritance&quot;, but do you know what it means and how to apply it? Lets take this code for example:</p>
 <pre><code class="language-c#">abstract class Car
@@ -81,10 +83,15 @@ Car familyCar = new Car(Color.Black, new V4Engine());
 <p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

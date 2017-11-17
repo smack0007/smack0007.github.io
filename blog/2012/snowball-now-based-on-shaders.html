@@ -10,6 +10,8 @@
         <title>Snowball: Now based on shaders</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>Snowball: Now based on shaders</h2>
 <p><a href="http://zacharysnow.net/wp-content/uploads/2012/06/WavingFlagSample.png"><img src="http://zacharysnow.net/wp-content/uploads/2012/06/WavingFlagSample-300x235.png" alt="" title="Waving Flag Sample" width="300" height="235" class="alignnone size-medium wp-image-519" /></a></p>
 <p>I've now merged the &quot;Shaders&quot; branch back into the &quot;master&quot; branch. All rendering is now based on shaders and no longer on the fixed function pipeline.</p>
@@ -33,10 +35,15 @@
 <p>In order for shaders to work properly when using GraphicsBatch, the GraphicsBatch class must pass a few parameters to the shader. At the moment, this only includes a transform matrix but may include more parameters in the future. The GraphicsBatchEffectWrapper can be used to wrap custom effects which you write in order to work with GraphicsBatch correctly. GraphicsBatchEffectWrapper will pass the parameters to your shader by following a standard naming convention. For example, the transform matrix is passed to your shader through a parameter named &quot;TransformMatrix&quot;.  You can also write you own class which implements IGraphicsBatchEffect. See the sample for an example of using the wrapper class.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

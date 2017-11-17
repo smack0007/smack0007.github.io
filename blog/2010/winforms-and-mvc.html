@@ -10,6 +10,8 @@
         <title>WinForms and MVC</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>WinForms and MVC</h2>
 <p>I recently became interested in doing MVC inside of a Windows Forms app. I found a few MVC frameworks which work with WinForms (<a href="http://stackoverflow.com/questions/2406/looking-for-a-mvc-sample-for-winforms">see here</a>) but they didn't really interest me. Too heavy I felt for what I was looking to do. I ended up with a solution looking something like this:</p>
 <p><a href="http://zacharysnow.net/wp-content/uploads/2010/05/WinFormsMvcSolution.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/05/WinFormsMvcSolution-150x150.png" alt="WinForms MVC Solution" title="WinForms MVC Solution" width="150" height="150" class="alignnone size-thumbnail wp-image-305" /></a></p>
@@ -34,10 +36,15 @@
 <p>It's not a perfect implementation of MVC but it keeps my model logic decoupled enough from my view logic that I can later implement a WPF version of the view I think.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

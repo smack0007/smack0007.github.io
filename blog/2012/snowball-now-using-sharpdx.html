@@ -10,6 +10,8 @@
         <title>Snowball now using SharpDX</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,18 +25,23 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>Snowball now using SharpDX</h2>
 <p>For a little while, I was thinking about giving up on Snowball. When you're one guy working on a project that gets to a certain size, it can start to feel a little daunting. You find a bug, and you feel like you need to fix it asap. I don't know if anyone reading this has actually tried Snowball, but if you have, please comment to let me know. It would encourage me.</p>
 <p>I decided to switch Snowball over to <a href="http://code.google.com/p/sharpdx/">SharpDX</a>. It's not that I was unhappy with SlimDX, it just seems like there is a lot more innovation happening on the SharpDX side. I also like the fact that I can include the DLLs in the repository so end users don't have to download another dependency in order to compile it. The Win8 stuff is also quite interesting, although the SlimDX guys say they are working on that.</p>
 <p>I plan to set a road map soon for what I want to include the first release of Snowball. Music and Pixel Shaders are high the list. I've experimented with implementing a UI library but I think I want to push that back for a later release.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

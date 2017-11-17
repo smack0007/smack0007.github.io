@@ -10,6 +10,8 @@
         <title>Progress Bar in Windows 7 Taskbars</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>Progress Bar in Windows 7 Taskbars</h2>
 <p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.</p>
 <p><a href="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png" alt="" title="TimerProgressBar" width="139" height="40" class="alignnone size-full wp-image-309" /></a></p>
@@ -53,10 +55,15 @@ if(TaskbarManager.IsPlatformSupported)
 <a href="/files/TimerWin7TaskbarSrc.zip">Download Source</a></p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

@@ -10,6 +10,8 @@
         <title>Keeping SplitContainer SplitterDistance consistent</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>Keeping SplitContainer SplitterDistance consistent</h2>
 <p>If you're having trouble keeping the SplitterDistance property of a SplitContainer consistent across app sessions, you can set the FixedPanel property of the splitter to FixedPanel.Panel1.</p>
 <pre><code class="language-c#">splitter.FixedPanel = FixedPanel.Panel1;
@@ -32,10 +34,15 @@
 <p>I guess this could also work with FixedPanel.Panel2 as well but I haven't given it a try. Credit <a href="http://stackoverflow.com/questions/129362/restoring-splitterdistance-inside-tabcontrol-is-inconsistent">this stackoverflow post</a>.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

@@ -10,6 +10,8 @@
         <title>SpriteSheet Class</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>SpriteSheet Class</h2>
 <p>I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.</p>
 <p>It's very simple. Only reads sprites from left to right and assumes all Sprites are the same width and height.</p>
@@ -200,10 +202,15 @@ spriteBatch.End();
 <p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

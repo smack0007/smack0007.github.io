@@ -10,6 +10,8 @@
         <title>Drawing 2D Lines as Rotated Quads</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>Drawing 2D Lines as Rotated Quads</h2>
 <p>I haven't had much time lately with work but one question I've seen asked many many times is how to draw lines of different widths. So, to cut to the chase I'll share the code I've used to do it.</p>
 <pre><code class="language-c#">public void DrawLine(Vector3 p1, Color c1, Vector3 p2, Color c2, int width)
@@ -62,10 +64,15 @@
 <p>I've left a lot of fluff code out. I usually check if the line is a width of 1 and draw a normal line. I also left out the code on how to draw a quad as that can be found many other places already.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

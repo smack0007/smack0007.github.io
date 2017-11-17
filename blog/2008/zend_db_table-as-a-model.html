@@ -10,6 +10,8 @@
         <title>Zend_Db_Table as a Model</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>Zend_Db_Table as a Model</h2>
 <p>In the Zend Framework, using Zend_Db_Table as your model class is not well advised. This practice can force you to put business logic in other places besides your model class. This may not be a big deal if your logic is simple but imagine the logic is fairly complicated. Now also imagine that the logic changes at some point. This can be a problem if you have this logic written in many different places.</p>
 <p>There's a solution to this problem though. You could write a Model class that uses Zend_Db_Table as a storage medium. Or, you can extend Zend_Db_Table to add your logic to the class. There is a way to simplify this process and that's what this blog post is about.</p>
@@ -96,10 +98,15 @@ $foo-&gt;bar = 5;
 <p>This method also more accurately represents what the MVC pattern is supposed to be. There is one place, where the business logic is stored and all the Controller then has to worry about is pushing user input to the Model and requesting output from the Model.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

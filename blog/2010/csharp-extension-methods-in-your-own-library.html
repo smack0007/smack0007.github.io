@@ -10,6 +10,8 @@
         <title>C# Extension Methods in your own Library</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>C# Extension Methods in your own Library</h2>
 <p>Normally I use extension methods in C# to extend a library that I did not write and therefore I have no control over. There are situations where it makes sense to use extension methods for a library that you yourself are writing.</p>
 <p>For example, when you have interfaces in your library. You want to keep the number of methods in that interface as low as possible so that classes implementing the interface don't have to do a lot of heavy lifting. This means cutting out methods in an interface that are for the most part just syntactic sugar for another method in the interface.</p>
@@ -62,10 +64,15 @@ public static class IServiceContainerExtensions
 <p>All of the methods in IServiceContainerExtensions are just helper methods for method in IServiceContainer. By making them extension methods in our own library though, we've made the barrier to entry lower. Other people can implement the interface and in a sense &quot;inherit&quot; the helper methods as well.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>

@@ -10,6 +10,8 @@
         <title>Changing the PlatformTarget in Visual C# Express</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
     </head>
     <body>
         <header>
@@ -23,8 +25,8 @@
                 <h1>The Blog of Zachary Snow</h1>
             </div>
         </header>
-        <main>
-            <div class="container">
+        <main class="container">
+            <div class="posts">
                 <h2>Changing the PlatformTarget in Visual C# Express</h2>
 <p>Some project types in Visual C# Express (Empty Project) will not allow you to change the PlatformTarget from the UI. You can still change the target platform though by editing the .csproj file in a text editor. Close the project and open it up in your favorite text editor (I use <a href="http://notepad-plus.sourceforge.net/">Notpad++</a>). The .csproj file is really just a XML file. You should see somewhere in the file something like:</p>
 <pre><code class="language-xml">	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&amp;gt;
@@ -47,10 +49,15 @@
 <p>Save the file and open your project back up. Your project's output should now target only x86.</p>
 
             </div>
+            <aside class="sidebar">
+				<div class="social">
+					<a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					<a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+					<a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+				</div>
+            </aside>
         </main>
-        <footer>
-            <div class="container">
-            </div>
+        <footer class="container">
         </footer>
     </body>
 </html>
