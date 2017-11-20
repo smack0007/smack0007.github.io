@@ -99,6 +99,7 @@ namespace compiler
                 IndexTemplate.Render(new IndexData(posts)));
 
             File.WriteAllText(Path.Combine(outputPath, "feed.rss"), GenerateRssFeed(posts));
+            File.WriteAllText(Path.Combine(outputPath, "sitemap.xml"), GenerateSiteMap(posts));
 
             return 0;
         }
@@ -184,7 +185,7 @@ namespace compiler
 
         private static string GenerateRssFeed(List<PostData> posts)
         {
-            var sb = new StringBuilder();
+            var sb = new StringBuilder(1024);
             
             var pubDate = (DateTime)posts.Select(x => x.SortDate).Max();		
 
@@ -211,6 +212,44 @@ namespace compiler
 
             sb.AppendLine("\t</channel>");
             sb.AppendLine("</rss>");
+            sb.AppendLine();
+            
+            return sb.ToString();
+        }
+
+        private static string GenerateSiteMap(List<PostData> posts)
+        {
+            var sb = new StringBuilder(1024);
+        
+            sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+            sb.AppendLine("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
+                    
+            sb.AppendLine("\t<url>");
+            sb.AppendLine("\t\t<loc>http://smack0007.github.io/index.html</loc>");
+            sb.AppendLine("\t</url>");
+
+            foreach (var post in posts)
+            {		
+                sb.AppendLine("\t<url>");
+                sb.AppendLine("\t\t<loc>http://smack0007.github.io/" + post.Url + "</loc>");
+                sb.AppendLine("\t</url>");
+            }
+        
+            // foreach (var page in site.Pages)
+            // {		
+            //     sb.AppendLine("\t<url>");
+            //     sb.AppendLine("\t\t<loc>http://smack0007.github.io/" + page.Permalink + "</loc>");
+            //     sb.AppendLine("\t</url>");
+            // }
+            
+            // foreach (var page in site.GeneratorPages.Where(x => x.Data.IsRedirect != true))
+            // {		
+            //     sb.AppendLine("\t<url>");
+            //     sb.AppendLine("\t\t<loc>http://smack0007.github.io/" + page.Permalink + "</loc>");
+            //     sb.AppendLine("\t</url>");
+            // }
+        
+            sb.AppendLine("</urlset>");
             sb.AppendLine();
             
             return sb.ToString();
