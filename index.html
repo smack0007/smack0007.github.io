@@ -182,7 +182,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 <p>Today I released a project I've been playing around with for a year or so on Codeplex. It's called <a href="https://gldotnet.codeplex.com/">GLDotNet</a>. From the project description:</p>
 <p><em>C# wrapper for OpenGL. Partially generated from the OpenGL spec and partially written by hand, the aim is to have a flexible and native feeling C# binding.</em></p>
 <p>I have generated functions from the OpenGL spec excluding 1 or 2 but unfortunately of the generated code is untested. There is a demo project included in the source code. The Github repository is located here: <a href="https://github.com/smack0007/GLDotNet">https://github.com/smack0007/GLDotNet</a></p>
-<p><a href="http://zacharysnow.net/wp-content/uploads/2013/01/GLDotNet-300x234.png" rel="attachment wp-att-562"><img src="http://zacharysnow.net/wp-content/uploads/2013/01/GLDotNet-300x234.png" alt="GLDotNet" width="300" height="234" class="alignnone size-medium wp-image-562" /></a></p>
 
 </div>
 </div>
@@ -269,7 +268,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 <span class="category"><i class="fa fa-tags"></i>.NET</span>
 </div>
 <div class="content">
-<p><a href="http://zacharysnow.net/wp-content/uploads/2012/06/WavingFlagSample.png"><img src="http://zacharysnow.net/wp-content/uploads/2012/06/WavingFlagSample-300x235.png" alt="" title="Waving Flag Sample" width="300" height="235" class="alignnone size-medium wp-image-519" /></a></p>
 <p>I've now merged the &quot;Shaders&quot; branch back into the &quot;master&quot; branch. All rendering is now based on shaders and no longer on the fixed function pipeline.</p>
 <p>The function of the Renderer class was essentially been reduced to pushing data to the GPU and therefore I decided to rename the class to GraphicsBatch. The Begin() overload which would allow you to specify RendererSettings has been removed and been replaced with an overload which allows you to specify an Effect file to use. Also, the DrawLine() method has been removed, although vertical and horizontal lines can still be drawn using the DrawFilledRectangle() method. Better line drawing should be possible through shaders and I hope to eventually make a sample which provides an example.</p>
 <p>I've added a sample (pictured above) which demonstrates using a custom shader. By default, GraphicsBatch uses a BasicEffect class which is basically the old way of rendering implemented in a shader.</p>
@@ -309,7 +307,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 <span class="category"><i class="fa fa-tags"></i>.NET</span>
 </div>
 <div class="content">
-<p><a href="http://zacharysnow.net/wp-content/uploads/2012/03/WalkingWizardSample.png"><img class="alignnone size-medium wp-image-487" title="WalkingWizardSample" src="http://zacharysnow.net/wp-content/uploads/2012/03/WalkingWizardSample-300x234.png" alt="" width="300" height="234" /></a></p>
 <p>My game framework Snowball is far enough along that small games can be developed with it by now. The basic overall design is now laid out and not too much is likely to change as I'm now developing my own small games with it.</p>
 <p>In order to create some kind of documentation on how to use Snowball, I created a Samples folder in the source. In the Samples folder is a WalkingWizard sample. I'm posting this source code here but it can also be viewed on GitHub <a href="https://github.com/smack0007/Snowball/blob/master/Samples/WalkingWizard/WalkingWizardSample.cs">here</a>.</p>
 <script src="https://gist.github.com/2400440.js?file=WalkingWizardSample.cs"></script>
@@ -325,7 +322,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 <div class="content">
 <p>I've always wanted a program that would allow me have a command line that I could slide in and out of view as needed like the console from <a href="http://en.wikipedia.org/wiki/Quake_(video_game)">Quake</a>. I never could find one and so I finally got decided to write a tool myself. A picture is below and the source code is on <a href="https://github.com/smack0007/WinQuakeCon">GitHub</a>.</p>
 <p>I'm not putting a download here as I don't consider this finished just yet.</p>
-<p><a href="http://zacharysnow.net/wp-content/uploads/2011/12/WinQuakeCon.png"><img src="http://zacharysnow.net/wp-content/uploads/2011/12/WinQuakeCon-300x160.png" alt="" title="WinQuakeCon" width="300" height="160" class="alignnone size-medium wp-image-475" /></a></p>
 
 </div>
 </div>
@@ -386,22 +382,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 <pre><code class="language-c#">sourceVoice.Stop();
 sourceVoice.FlushSourceBuffers();
 </code></pre>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2011\zune-playlist-smil-copier.html">Zune Playlist / SMIL Copier</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>June 27, 2011</span>
-<span class="category"><i class="fa fa-tags"></i>.NET</span>
-</div>
-<div class="content">
-<p>I needed a tool that would copy the contents of a Zune playlist to a given directory. I did a bit of googling and I couldn't find anything, so like any good nerd I wrote a tool that did.</p>
-<p><a href="/images/SMILCopier.png"><img alt="SMILCopier" src="/images/SMILCopier.png" title="SMILCopier" class="alignnone" width="411" height="167" /></a></p>
-<p>The format of Zune playlists is a simple XML format known as <a href="http://www.w3.org/AudioVideo/">SMIL</a>. I think Windows Media Player also stores playlists in this format but I haven't confirmed that yet.</p>
-<p>I wrote the tool very quickly and have only tested it on my machine with my test data, but I'll provide the source if you'd like to modify for yourself. The source is C#.</p>
-<p><a href="/files/SMILCopier.zip">Download Executable</a>
-<a href="/files/SMILCopier-src.zip">Download Source</a></p>
 
 </div>
 </div>
@@ -467,9 +447,7 @@ chdir C:\cygwin\bin
 start run.exe git gui
 </code></pre>
 <p>You can change paths accordingly. Now run the batch file and pin the program to the taskbar. You'll notice after you close the app, the icon changes and it won't launch again.</p>
-<p><a href="http://zacharysnow.net/wp-content/uploads/2011/03/git-gui-1.png"><img src="http://zacharysnow.net/wp-content/uploads/2011/03/git-gui-1.png" alt="" title="git-gui-1" width="234" height="42" class="alignnone size-full wp-image-384" /></a></p>
 <p>Right click on the shortcut while holding shift and choose properties. Change the target to the batch file we wrote. You can change the icon to the git-gui icon by pointing the shortcut icon to &quot;C:\cygwin\usr\share\git-gui\lib\git-gui.ico&quot;.</p>
-<p><a href="http://zacharysnow.net/wp-content/uploads/2011/04/git-gui-2.png"><img src="http://zacharysnow.net/wp-content/uploads/2011/04/git-gui-2-150x150.png" alt="" title="git-gui-2" width="150" height="150" class="alignnone size-thumbnail wp-image-388" /></a></p>
 <p>Now if you click on the icon, the git-gui app should start up. Kill your explorer.exe in task manager and restart. If the icon is still the genie lamp, you'll need to clear your icon cache to get the icon to look right. Credit for that from <a href="http://superuser.com/questions/72756/changing-windows-7-pinned-taskbar-icons">here</a>. Kill your explorer.exe again and while explorer is gone, start cmd.exe. From there enter the following commands:</p>
 <pre><code>CD /d %userprofile%\AppData\Local
 
@@ -478,7 +456,6 @@ DEL IconCache.db /a
 EXIT
 </code></pre>
 <p>After that your icon should be there as you want.</p>
-<p><a href="http://zacharysnow.net/wp-content/uploads/2011/04/git-gui-3.png"><img src="http://zacharysnow.net/wp-content/uploads/2011/04/git-gui-3.png" alt="" title="git-gui-3" width="160" height="40" class="alignnone size-full wp-image-391" /></a></p>
 
 </div>
 </div>
@@ -635,7 +612,6 @@ namespace OpenTKApp1
 <span class="category"><i class="fa fa-tags"></i>.NET</span>
 </div>
 <div class="content">
-<p><a href="http://zacharysnow.net/wp-content/uploads/2011/03/OpenTKApp2.png"><img src="http://zacharysnow.net/wp-content/uploads/2011/03/OpenTKApp2-150x150.png" alt="" title="OpenTKApp2" width="150" height="150" class="alignnone size-thumbnail wp-image-377" /></a></p>
 <p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href="/files/OpenTKApp2.zip">download it</a>.</p>
 
 </div>
@@ -752,26 +728,11 @@ move $(TargetDir)myDLL.dll $(TargetDir)dir\myDLL.dll
 <div class="content">
 <p>If you're writing an app which uses Xna, you may need to load a texture from an embedded resource. Here's how:</p>
 <p>First embed the resource in your app. Do so by choosing <strong>Embedded Resource</strong> as the <strong>Build Action</strong> in the properties of the resource.</p>
-<p><a href="http://zacharysnow.net/wp-content/uploads/2010/07/embed-resource.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/07/embed-resource.png" alt="Properties Dialog for a File" title="embed-resource" width="281" height="175" class="alignnone size-full wp-image-339" /></a></p>
 <p>After that you can load the <strong>Texture2D</strong> using a stream handle to the embedded file.</p>
 <pre><code class="language-c#">Stream stream = Assembly.GetCallingAssembly().GetManifestResourceStream(&quot;AppNamespace.Folder.font.bmp&quot;);
 return Texture2D.FromFile(graphicsDevice, stream);
 </code></pre>
 <p><strong>GetCallingAssembly()</strong> can be exchanged with <strong>GetExecutingAssembly()</strong> if needed. The name of the resource must be fully qualified with the app's namespace and folders. I usually keep my resources in a folder <strong>Resources</strong> so I would have: AppNamespace.Resources.font.bmp.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2010\same-game-xna-2-0-alpha.html">Same Game Xna 2.0 Alpha</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>June 29, 2010</span>
-<span class="category"><i class="fa fa-tags"></i>.NET</span>
-</div>
-<div class="content">
-<p>I've released what I'm calling the 2.0 alpha version of Same Game Xna.</p>
-<p><a href="http://zacharysnow.net/wp-content/uploads/2010/06/SameGameXna-2.0-alpha.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/06/SameGameXna-2.0-alpha-150x150.png" alt="" title="SameGameXna-2.0-alpha" width="150" height="150" class="alignnone size-thumbnail wp-image-335" /></a></p>
-<p><a href="http://samegamexna.codeplex.com/">Codeplex Project Link</a>
-<a href="http://samegamexna.codeplex.com/releases/view/47975">Release Link</a></p>
 
 </div>
 </div>
@@ -807,7 +768,6 @@ return Texture2D.FromFile(graphicsDevice, stream);
 </div>
 <div class="content">
 <p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.</p>
-<p><a href="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png" alt="" title="TimerProgressBar" width="139" height="40" class="alignnone size-full wp-image-309" /></a></p>
 <p>I started by downloading and compiling the <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows API Code Pack</a> in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:</p>
 <pre><code class="language-c#">using Microsoft.WindowsAPICodePack.Taskbar;
 </code></pre>
@@ -829,8 +789,6 @@ if(TaskbarManager.IsPlatformSupported)
 if(TaskbarManager.IsPlatformSupported)
 	TaskbarManager.Instance.SetProgressValue((int)this.totalTime.TotalSeconds - (int)this.time.TotalSeconds, (int)this.totalTime.TotalSeconds, this.Handle);
 </code></pre>
-<p><a href="/files/TimerWin7Taskbar.zip">Download Binary</a>
-<a href="/files/TimerWin7TaskbarSrc.zip">Download Source</a></p>
 
 </div>
 </div>
@@ -842,7 +800,6 @@ if(TaskbarManager.IsPlatformSupported)
 </div>
 <div class="content">
 <p>I recently became interested in doing MVC inside of a Windows Forms app. I found a few MVC frameworks which work with WinForms (<a href="http://stackoverflow.com/questions/2406/looking-for-a-mvc-sample-for-winforms">see here</a>) but they didn't really interest me. Too heavy I felt for what I was looking to do. I ended up with a solution looking something like this:</p>
-<p><a href="http://zacharysnow.net/wp-content/uploads/2010/05/WinFormsMvcSolution.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/05/WinFormsMvcSolution-150x150.png" alt="WinForms MVC Solution" title="WinForms MVC Solution" width="150" height="150" class="alignnone size-thumbnail wp-image-305" /></a></p>
 <p>There is really only one controller and that is the &quot;Application&quot; class. It contains all the methods your app can call to manipulate your models, which are in the &quot;Data&quot; folder / namespace. The &quot;WinFormsApplication&quot; class inherits from the &quot;Application&quot; class and just sets the view to an instance of &quot;WinFormsView&quot;. The &quot;Application&quot; class communicates with the view through the &quot;IView&quot; interface. The &quot;WinFormsView&quot; class is a Windows Forms implementation of that view. The &quot;Application&quot; class and your models are not coupled in any way to your Windows Forms implementation of the view.</p>
 <p>If you want you view to be as dumb as possible, your view can communicate with the &quot;Application&quot; class only through events. In my case though, I choose to go with a smart view and have the view call back to methods in the &quot;Application&quot; class. The &quot;Application&quot; class tells the view when models are loaded and unloaded. The view subscribes to events on the models and reacts to the events.</p>
 <p>All of my forms and controls communicate with each other through the &quot;WinFormsView&quot; class. One control might change the value of a property in the &quot;WinFormsView&quot; class and another control might subscribe to a change event and update as necessary. This keeps the controls and forms slightly less coupled.</p>
