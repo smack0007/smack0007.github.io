@@ -2,9 +2,11 @@ using System;
 
 namespace compiler
 {
-    public class SiteData
+    public class PageData
     {
         public string FileName { get; }
+
+        public string Url => this.FileName.Replace("\\", "/");
 
         public string BasePath { get; }
 
@@ -12,7 +14,7 @@ namespace compiler
 
         public string Body { get; }
 
-        public SiteData(string fileName, string basePath, string title, string body)
+        public PageData(string fileName, string basePath, string title, string body)
         {
             this.FileName = fileName;
             this.BasePath = basePath;

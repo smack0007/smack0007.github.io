@@ -14,7 +14,9 @@ namespace compiler
 
         private static PostTemplate PostTemplate = new PostTemplate();
 
-        private static SiteTemplate SiteTempate = new SiteTemplate();
+        private static PageTemplate PageTemplate = new PageTemplate();
+
+        private static List<PageData> Pages = new List<PageData>();
 
         public static int Main(string[] args)
         {
@@ -42,7 +44,9 @@ namespace compiler
             {
                 var outputDirectory = Path.Combine(outputPath, Path.GetDirectoryName(fileName));
                 var outputFileName = Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(fileName) + ".html");
-                Console.WriteLine($"Post: {fileName} => {outputFileName}");
+                
+                var isPost = fileName.StartsWith("blog" + Path.DirectorySeparatorChar);
+                Console.WriteLine((isPost ? "Post" : "Page") + $": {fileName} => {outputFileName}");
 
                 Directory.CreateDirectory(outputDirectory);
 
@@ -50,17 +54,28 @@ namespace compiler
                     File.ReadAllLines(Path.Combine(inputPath, fileName)),
                     out var frontMatter);
 
-                var postData = new PostData(
-                    frontMatter,
-                    content,
-                    Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + ".html"));
+                if (isPost)
+                {
+                    var postData = new PostData(
+                        frontMatter,
+                        content,
+                        Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + ".html"));
 
-                posts.Add(postData);
+                    posts.Add(postData);
 
-                RenderPost(
-                    fileName,
-                    outputFileName,
-                    postData);
+                    RenderPost(
+                        fileName,
+                        outputFileName,
+                        postData);
+                }
+                else
+                {
+                    RenderPage(
+                        fileName,
+                        outputFileName,
+                        frontMatter["Title"],
+                        content);
+                }
             }
 
             var sb = new StringBuilder(1024);
@@ -92,14 +107,14 @@ namespace compiler
                     true);
             }
             
-            RenderSitePage(
+            RenderPage(
                 "index.html",
                 Path.Combine(outputPath, "index.html"),
                 "The Blog of Zachary Snow",
                 IndexTemplate.Render(new IndexData(posts)));
 
             File.WriteAllText(Path.Combine(outputPath, "feed.rss"), GenerateRssFeed(posts));
-            File.WriteAllText(Path.Combine(outputPath, "sitemap.xml"), GenerateSiteMap(posts));
+            File.WriteAllText(Path.Combine(outputPath, "sitemap.xml"), GenerateSiteMap(Pages));
 
             return 0;
         }
@@ -162,10 +177,10 @@ namespace compiler
             string outputFileName,
             PostData postData)
         {            
-            RenderSitePage(fileName, outputFileName, postData.Title, PostTemplate.Render(postData));
+            RenderPage(fileName, outputFileName, postData.Title, PostTemplate.Render(postData));
         }
 
-        private static void RenderSitePage(
+        private static void RenderPage(
             string fileName,
             string outputFile,
             string title,
@@ -178,9 +193,12 @@ namespace compiler
                 basePath += "../";
             }
 
+            var page = new PageData(fileName, basePath, title, body);
+            Pages.Add(page);
+
             File.WriteAllText(
                 outputFile,
-                SiteTempate.Render(new SiteData(fileName, basePath, title, body)));
+                PageTemplate.Render(page));
         }
 
         private static string GenerateRssFeed(List<PostData> posts)
@@ -217,7 +235,7 @@ namespace compiler
             return sb.ToString();
         }
 
-        private static string GenerateSiteMap(List<PostData> posts)
+        private static string GenerateSiteMap(List<PageData> pages)
         {
             var sb = new StringBuilder(1024);
         
@@ -228,10 +246,10 @@ namespace compiler
             sb.AppendLine("\t\t<loc>http://smack0007.github.io/index.html</loc>");
             sb.AppendLine("\t</url>");
 
-            foreach (var post in posts)
+            foreach (var page in pages)
             {		
                 sb.AppendLine("\t<url>");
-                sb.AppendLine("\t\t<loc>http://smack0007.github.io/" + post.Url + "</loc>");
+                sb.AppendLine("\t\t<loc>http://smack0007.github.io/" + page.Url + "</loc>");
                 sb.AppendLine("\t</url>");
             }
         

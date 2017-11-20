@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace compiler
 {
-    public class SiteTemplate : Template<SiteData>
+    public class PageTemplate : Template<PageData>
     {
-        protected override IEnumerable<string> RenderTemplate(SiteData data)
+        protected override IEnumerable<string> RenderTemplate(PageData data)
         {
-            yield return $@"
-<!doctype html>
+            yield return
+$@"<!doctype html>
 <html lang=""en"">
     <head>
         <meta charset=""utf-8"">
