@@ -27,7 +27,14 @@
         </header>
         <main class="container">
             <div class="posts">
-                <h2>Changing the PlatformTarget in Visual C# Express</h2>
+                <div class="post">
+<h2><a href="blog\2010\changing-the-platformtarge-in-visual-c-express.html">Changing the PlatformTarget in Visual C# Express</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>January 18, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>MSBuild</span>
+</div>
+<div class="content">
 <p>Some project types in Visual C# Express (Empty Project) will not allow you to change the PlatformTarget from the UI. You can still change the target platform though by editing the .csproj file in a text editor. Close the project and open it up in your favorite text editor (I use <a href="http://notepad-plus.sourceforge.net/">Notpad++</a>). The .csproj file is really just a XML file. You should see somewhere in the file something like:</p>
 <pre><code class="language-xml">	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&amp;gt;
 		....
@@ -48,6 +55,8 @@
 </code></pre>
 <p>Save the file and open your project back up. Your project's output should now target only x86.</p>
 
+</div>
+</div>
             </div>
             <aside class="sidebar">
 				<div class="social">

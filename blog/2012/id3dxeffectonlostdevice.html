@@ -27,10 +27,21 @@
         </header>
         <main class="container">
             <div class="posts">
-                <h2>ID3DXEffect::OnLostDevice()</h2>
+                <div class="post">
+<h2><a href="blog\2012\id3dxeffectonlostdevice.html">ID3DXEffect::OnLostDevice()</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>July 20, 2012</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>Direct3D9</span>
+<span class="tags"><i class="fa fa-tags"></i>DirectX</span>
+<span class="tags"><i class="fa fa-tags"></i>ID3DXEffect</span>
+</div>
+<div class="content">
 <p>I fixed a bug yesterday in Snowball related to a lost graphics device. I noticed that when I would use CTRL + ALT + DELETE, my apps were crashing. Turned out it was due to not recovering properly from a lost device.</p>
 <p>The root of the problem was that I needed to call the ID3DXEffect::OnLostDevice() method when the device was being lost. This allows the effect to recover from the lost device. I've made the Effect class in Snowball now do this automatically.</p>
 
+</div>
+</div>
             </div>
             <aside class="sidebar">
 				<div class="social">

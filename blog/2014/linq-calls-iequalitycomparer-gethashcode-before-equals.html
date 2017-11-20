@@ -27,7 +27,16 @@
         </header>
         <main class="container">
             <div class="posts">
-                <h2>LINQ calls IEqualityComparer&lt;T&gt;.GetHashCode() before Equals()</h2>
+                <div class="post">
+<h2><a href="blog\2014\linq-calls-iequalitycomparer-gethashcode-before-equals.html">LINQ calls IEqualityComparer&lt;T&gt;.GetHashCode() before Equals()</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>November 24, 2014</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>LINQ</span>
+<span class="tags"><i class="fa fa-tags"></i>IEqualityComparer</span>
+<span class="tags"><i class="fa fa-tags"></i>GetHashCode</span>
+</div>
+<div class="content">
 <p>This is a problem that has bitten me more than a few times so I thought it was about time to write a blog post about it. It's one of those problems
 that makes you scratch your head for a bit and then the light bulb goes on and you remember you've solved this one before. It occurs whenever you
 use a LINQ extension method which takes an instance of IEqualityComaparer<T>.</p>
@@ -86,6 +95,8 @@ the some method always fails and therefore the Equals method is never called.</p
 </code></pre>
 <p>obj.GetParameters().Length could probably be left out. I haven't ran any tests to determine if it actually improves the performance or not.</p>
 
+</div>
+</div>
             </div>
             <aside class="sidebar">
 				<div class="social">

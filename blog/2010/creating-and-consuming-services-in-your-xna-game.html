@@ -27,7 +27,13 @@
         </header>
         <main class="container">
             <div class="posts">
-                <h2>Creating and consuming services in your XNA Game</h2>
+                <div class="post">
+<h2><a href="blog\2010\creating-and-consuming-services-in-your-xna-game.html">Creating and consuming services in your XNA Game</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>February 18, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+</div>
+<div class="content">
 <p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
 <blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote>
 <p>This article will &quot;<em>attempt</em>&quot; to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.</p>
@@ -267,6 +273,8 @@ this.Services.AddService(typeof(ICamera), new MovingCamera());
 <p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.</p>
 <p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</p>
 
+</div>
+</div>
             </div>
             <aside class="sidebar">
 				<div class="social">

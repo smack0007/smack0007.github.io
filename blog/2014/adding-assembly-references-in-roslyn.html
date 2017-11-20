@@ -27,7 +27,14 @@
         </header>
         <main class="container">
             <div class="posts">
-                <h2>Adding assembly references in Roslyn</h2>
+                <div class="post">
+<h2><a href="blog\2014\adding-assembly-references-in-roslyn.html">Adding assembly references in Roslyn</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>April 15, 2014</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>Roslyn</span>
+</div>
+<div class="content">
 <p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
 <pre><code class="language-csharp">var compilation = Compilation.Create(assemblyName, new CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
 	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;mscorlib&quot;))
@@ -49,6 +56,8 @@ var compilation = CSharpCompilation.Create(assemblyName)
 	.AddSyntaxTrees(syntaxTree);
 </code></pre>
 
+</div>
+</div>
             </div>
             <aside class="sidebar">
 				<div class="social">

@@ -27,12 +27,21 @@
         </header>
         <main class="container">
             <div class="posts">
-                <h2>Visual Studio: Move referenced DLL to different directory after Build</h2>
+                <div class="post">
+<h2><a href="blog\2010\visual-studio-move-referenced-dll-to-different-directory-after-build.html">Visual Studio: Move referenced DLL to different directory after Build</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>July 20, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>MSBuild</span>
+</div>
+<div class="content">
 <p>If you need to move a referenced DLL to a different directory after build, add these commands to the &quot;<strong>Post Build event command line</strong>&quot; box in the &quot;<strong>Build Events</strong>&quot; tab of the project properties:</p>
 <pre><code>mkdir $(TargetDir)dir
 move $(TargetDir)myDLL.dll $(TargetDir)dir\myDLL.dll
 </code></pre>
 
+</div>
+</div>
             </div>
             <aside class="sidebar">
 				<div class="social">

@@ -27,7 +27,13 @@
         </header>
         <main class="container">
             <div class="posts">
-                <h2>Zend_Db_Table as a Model</h2>
+                <div class="post">
+<h2><a href="blog\2008\zend_db_table-as-a-model.html">Zend_Db_Table as a Model</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>June 20, 2008</span>
+<span class="category"><i class="fa fa-folder"></i>php</span>
+</div>
+<div class="content">
 <p>In the Zend Framework, using Zend_Db_Table as your model class is not well advised. This practice can force you to put business logic in other places besides your model class. This may not be a big deal if your logic is simple but imagine the logic is fairly complicated. Now also imagine that the logic changes at some point. This can be a problem if you have this logic written in many different places.</p>
 <p>There's a solution to this problem though. You could write a Model class that uses Zend_Db_Table as a storage medium. Or, you can extend Zend_Db_Table to add your logic to the class. There is a way to simplify this process and that's what this blog post is about.</p>
 <!--more-->
@@ -97,6 +103,8 @@ $foo-&gt;bar = 5;
 <p>Say you have a date field. At different points in your program you pass in different types of date values. At one point, a timestamp. At another, a string representing a date. At another, an instance of Zend_Date. Using this method, you can store the logic for setting the date that gets stored in one place. It's also helpful if for instance you have to change the underlying field in the database. Maybe you had a Date field at first and now it's become a Timestamp. The point is, the logic is in one place.</p>
 <p>This method also more accurately represents what the MVC pattern is supposed to be. There is one place, where the business logic is stored and all the Controller then has to worry about is pushing user input to the Model and requesting output from the Model.</p>
 
+</div>
+</div>
             </div>
             <aside class="sidebar">
 				<div class="social">
