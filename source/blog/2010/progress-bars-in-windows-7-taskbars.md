@@ -10,8 +10,6 @@ Comments: true
 
 I decided to add progress bar to the Windows 7 Taskbar in my Timer app.
 
-<a href="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/06/TimerProgressBar.png" alt="" title="TimerProgressBar" width="139" height="40" class="alignnone size-full wp-image-309" /></a>
-
 I started by downloading and compiling the [Windows API Code Pack](http://code.msdn.microsoft.com/WindowsAPICodePack) in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:
 
 ```c#
@@ -44,6 +42,3 @@ and finally to update the progress bar on each tick:
 if(TaskbarManager.IsPlatformSupported)
 	TaskbarManager.Instance.SetProgressValue((int)this.totalTime.TotalSeconds - (int)this.time.TotalSeconds, (int)this.totalTime.TotalSeconds, this.Handle);
 ```
-
-[Download Binary](/files/TimerWin7Taskbar.zip)
-[Download Source](/files/TimerWin7TaskbarSrc.zip)

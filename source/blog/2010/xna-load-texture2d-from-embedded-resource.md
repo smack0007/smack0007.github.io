@@ -12,8 +12,6 @@ If you're writing an app which uses Xna, you may need to load a texture from an 
 
 First embed the resource in your app. Do so by choosing **Embedded Resource** as the **Build Action** in the properties of the resource.
 
-<a href="http://zacharysnow.net/wp-content/uploads/2010/07/embed-resource.png"><img src="http://zacharysnow.net/wp-content/uploads/2010/07/embed-resource.png" alt="Properties Dialog for a File" title="embed-resource" width="281" height="175" class="alignnone size-full wp-image-339" /></a>
-
 After that you can load the **Texture2D** using a stream handle to the embedded file.
 
 ```c#

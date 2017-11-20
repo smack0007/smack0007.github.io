@@ -8,8 +8,6 @@ Tags: OpenGL
 Comments: true
 ---
 
-<a href="http://zacharysnow.net/wp-content/uploads/2011/03/OpenTKApp2.png"><img src="http://zacharysnow.net/wp-content/uploads/2011/03/OpenTKApp2-150x150.png" alt="" title="OpenTKApp2" width="150" height="150" class="alignnone size-thumbnail wp-image-377" /></a>
-
 I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can [download it](/files/OpenTKApp2.zip).
 
 <!--more-->

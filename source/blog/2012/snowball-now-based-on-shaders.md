@@ -8,8 +8,6 @@ Tags: Shaders, Game Programming
 Comments: true
 ---
 
-<a href="http://zacharysnow.net/wp-content/uploads/2012/06/WavingFlagSample.png"><img src="http://zacharysnow.net/wp-content/uploads/2012/06/WavingFlagSample-300x235.png" alt="" title="Waving Flag Sample" width="300" height="235" class="alignnone size-medium wp-image-519" /></a>
-
 I've now merged the "Shaders" branch back into the "master" branch. All rendering is now based on shaders and no longer on the fixed function pipeline.
 
 The function of the Renderer class was essentially been reduced to pushing data to the GPU and therefore I decided to rename the class to GraphicsBatch. The Begin() overload which would allow you to specify RendererSettings has been removed and been replaced with an overload which allows you to specify an Effect file to use. Also, the DrawLine() method has been removed, although vertical and horizontal lines can still be drawn using the DrawFilledRectangle() method. Better line drawing should be possible through shaders and I hope to eventually make a sample which provides an example.
