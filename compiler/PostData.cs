@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace compiler
 {
@@ -23,6 +25,8 @@ namespace compiler
 
         public string Category => this.FrontMatter["Category"];
 
+        public IEnumerable<string> Tags { get; }
+
         public PostData(FrontMatter frontMatter, string content, string path)
         {
             this.FrontMatter = frontMatter;
@@ -39,6 +43,8 @@ namespace compiler
             {
                 this.Excerpt = this.Content;
             }
+
+            this.Tags = this.FrontMatter["Tags"].Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
         }
     }
 }
