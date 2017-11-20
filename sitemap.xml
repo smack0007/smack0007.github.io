@@ -4,154 +4,160 @@
 		<loc>http://smack0007.github.io/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2008/colors-and-hex.html</loc>
+		<loc>http://smack0007.github.io/about.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2008/zend_db_table-as-a-model.html</loc>
+		<loc>http://smack0007.github.io/blog/2008/colors-and-hex.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2009/calculating-an-angle-from-a-vector2.html</loc>
+		<loc>http://smack0007.github.io/blog/2008/zend_db_table-as-a-model.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2009/drawing-2d-lines-as-rotated-quads.html</loc>
+		<loc>http://smack0007.github.io/blog/2009/calculating-an-angle-from-a-vector2.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2009/spritesheet-class.html</loc>
+		<loc>http://smack0007.github.io/blog/2009/drawing-2d-lines-as-rotated-quads.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2009/the-game-show-host-problem-aka-the-monty-hall-problem.html</loc>
+		<loc>http://smack0007.github.io/blog/2009/spritesheet-class.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/500-downloads-of-the-same-game.html</loc>
+		<loc>http://smack0007.github.io/blog/2009/the-game-show-host-problem-aka-the-monty-hall-problem.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/changing-the-platformtarge-in-visual-c-express.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/500-downloads-of-the-same-game.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/component-glue.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/changing-the-platformtarge-in-visual-c-express.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/creating-and-consuming-services-in-your-xna-game.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/component-glue.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/csharp-extension-methods-in-your-own-library.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/creating-and-consuming-services-in-your-xna-game.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/drawing-rectangles-with-spritebatch.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/csharp-extension-methods-in-your-own-library.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/implementing-basic-dependency-injection-using-services-container.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/drawing-rectangles-with-spritebatch.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/progress-bars-in-windows-7-taskbars.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/implementing-basic-dependency-injection-using-services-container.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/visual-studio-move-referenced-dll-to-different-directory-after-build.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/progress-bars-in-windows-7-taskbars.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/winforms-and-mvc.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/visual-studio-move-referenced-dll-to-different-directory-after-build.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2010/xna-load-texture2d-from-embedded-resource.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/winforms-and-mvc.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/componentglue-on-github.html</loc>
+		<loc>http://smack0007.github.io/blog/2010/xna-load-texture2d-from-embedded-resource.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/favoring-composition-over-inheritance.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/componentglue-on-github.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/getting-started-with-opentk.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/favoring-composition-over-inheritance.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/getting-started-with-slimdx.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/getting-started-with-opentk.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/keeping-splitcontainer-splitterdistance-consistent.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/getting-started-with-slimdx.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/marker-interfaces.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/keeping-splitcontainer-splitterdistance-consistent.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/opentk-simple-movable-sprite.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/marker-interfaces.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/snowball-a-slightly-different-direction.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/opentk-simple-movable-sprite.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/snowball-and-github.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/snowball-a-slightly-different-direction.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/switching-from-git-to-mercurial.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/snowball-and-github.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/using-git-gui-with-cygwin-on-windows-7.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/switching-from-git-to-mercurial.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/what-is-snowball-and-what-do-i-want-to-do-with-it.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/using-git-gui-with-cygwin-on-windows-7.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/winquakecon.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/what-is-snowball-and-what-do-i-want-to-do-with-it.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/wmi-converting-datetime-values-to-datetime-objects.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/winquakecon.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/xaudio2-stop-currently-playing-sound.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/wmi-converting-datetime-values-to-datetime-objects.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2012/getting-started-with-snowball.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/xaudio2-stop-currently-playing-sound.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2012/http-status-codes-as-telephone-calls.html</loc>
+		<loc>http://smack0007.github.io/blog/2012/getting-started-with-snowball.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2012/id3dxeffectonlostdevice.html</loc>
+		<loc>http://smack0007.github.io/blog/2012/http-status-codes-as-telephone-calls.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2012/snowball-is-now-modular.html</loc>
+		<loc>http://smack0007.github.io/blog/2012/id3dxeffectonlostdevice.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2012/snowball-now-based-on-shaders.html</loc>
+		<loc>http://smack0007.github.io/blog/2012/snowball-is-now-modular.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2012/snowball-now-using-sharpdx.html</loc>
+		<loc>http://smack0007.github.io/blog/2012/snowball-now-based-on-shaders.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2012/snowball-shaders-in-progress.html</loc>
+		<loc>http://smack0007.github.io/blog/2012/snowball-now-using-sharpdx.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2012/using-themes-in-visual-studio-express-for-windows-desktop.html</loc>
+		<loc>http://smack0007.github.io/blog/2012/snowball-shaders-in-progress.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2013/component-glue-v1-0.html</loc>
+		<loc>http://smack0007.github.io/blog/2012/using-themes-in-visual-studio-express-for-windows-desktop.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2013/gldotnet-version-0-6-0.html</loc>
+		<loc>http://smack0007.github.io/blog/2013/component-glue-v1-0.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2013/introducing-gldotnet.html</loc>
+		<loc>http://smack0007.github.io/blog/2013/gldotnet-version-0-6-0.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2013/using-component-glue-to-build-your-object-graphs-automatically.html</loc>
+		<loc>http://smack0007.github.io/blog/2013/introducing-gldotnet.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</loc>
+		<loc>http://smack0007.github.io/blog/2013/using-component-glue-to-build-your-object-graphs-automatically.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2014/all-the-cool-kids-are-static.html</loc>
+		<loc>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2014/code-from-when-i-was-young-and-stupid.html</loc>
+		<loc>http://smack0007.github.io/blog/2014/all-the-cool-kids-are-static.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html</loc>
+		<loc>http://smack0007.github.io/blog/2014/code-from-when-i-was-young-and-stupid.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2014/my-experience-with-opengl-vs-direct3d.html</loc>
+		<loc>http://smack0007.github.io/blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.md</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</loc>
+		<loc>http://smack0007.github.io/blog/2014/my-experience-with-opengl-vs-direct3d.md</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.md</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/index.html</loc>
 	</url>
 </urlset>
 
