@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace compiler
 {
@@ -21,10 +22,8 @@ namespace compiler
             yield return "<div class=\"meta\">";
                 yield return $"<span class=\"date\"><i class=\"fa fa-calendar\"></i>{data.Date}</span>";
                 yield return $"<span class=\"category\"><i class=\"fa fa-folder\"></i>{HtmlEncode(data.Category)}</span>";
-                foreach (var tag in data.Tags)
-                {
-                    yield return $"<span class=\"tags\"><i class=\"fa fa-tags\"></i>{HtmlEncode(tag)}</span>";
-                }
+                var tags = data.Tags.Select(x => HtmlEncode(x));
+                yield return $"<span class=\"tags\"><i class=\"fa fa-tags\"></i>{string.Join(", ", tags)}</span>";
             yield return "</div>";
         }
     }

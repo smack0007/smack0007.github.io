@@ -46,7 +46,7 @@ a:hover {
 }
 
 .container {
-    max-width: 60rem;
+    max-width: 80%;
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;
@@ -96,6 +96,10 @@ nav a.active::after {
     margin-bottom: 2.5rem;
 }
 
+.posts {
+    max-width: 75%;
+}
+
 .post h2 {
     margin-bottom: 0;
 }
@@ -112,12 +116,8 @@ nav a.active::after {
     margin-right: 4px;
 }
 
-.posts {
-    max-width: 40rem;
-}
-
 .sidebar {
-    max-width: 20rem;
+    max-width: 20%;
     position: absolute;
     right: 0;
     top: 0;
