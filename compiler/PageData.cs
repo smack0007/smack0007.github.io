@@ -6,7 +6,7 @@ namespace compiler
     {
         public string FileName { get; }
 
-        public string Url => this.FileName.Replace("\\", "/");
+        public string Url => this.FileName.Replace("\\", "/").Replace(".md", ".html");
 
         public string BasePath { get; }
 
