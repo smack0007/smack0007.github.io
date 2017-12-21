@@ -12,7 +12,7 @@ $@"<!doctype html>
 <html lang=""en"">
     <head>
         <meta charset=""utf-8"">
-        <meta name=""viewport"" content=""width=device-width, initial-scale=1, shrink-to-fit=no"">
+        <meta name=""viewport"" content=""width=device-width, initial-scale=1.0, maximum-scale=1"">
         <meta name=""description"" content="""">
         <meta name=""author"" content=""Zachary Snow"">
 
@@ -50,12 +50,19 @@ $@"<!doctype html>
                 <div class=""posts"">
                     {data.Body}
                 </div>
-                <div class=""clear""></div>
-                <div class=""pagination"">
+                <div class=""clear""></div>";
+                
+            if (data.ShowPagination)
+            {
+                yield return
+@"              <div class=""pagination"">
                     <span class=""pagination-item older"">Older</span>
                     <span class=""pagination-item newer"">Newer</span>
-                </div>
-            </div>
+                </div>";
+            }
+            
+            yield return
+@"          </div>
         </div>
         <label for=""sidebar-checkbox"" class=""sidebar-toggle""></label>
     </body>

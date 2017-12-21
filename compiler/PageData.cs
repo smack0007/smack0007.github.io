@@ -14,12 +14,15 @@ namespace compiler
 
         public string Body { get; }
 
-        public PageData(string fileName, string basePath, string title, string body)
+        public bool ShowPagination { get; }
+
+        public PageData(string fileName, string basePath, string title, string body, bool showPagination)
         {
             this.FileName = fileName;
             this.BasePath = basePath;
             this.Title = title;
             this.Body = body;
+            this.ShowPagination = showPagination;
         }
     }
 }

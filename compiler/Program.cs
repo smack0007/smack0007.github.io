@@ -74,7 +74,8 @@ namespace compiler
                         fileName,
                         outputFileName,
                         frontMatter["Title"],
-                        content);
+                        content,
+                        showPagination: false);
                 }
             }
 
@@ -184,7 +185,8 @@ namespace compiler
             string fileName,
             string outputFile,
             string title,
-            string body)
+            string body,
+            bool showPagination = true)
         {
             string basePath = string.Empty;
             string[] pathParts = fileName.Split(new char[] { '/', '\\' });
@@ -193,7 +195,7 @@ namespace compiler
                 basePath += "../";
             }
 
-            var page = new PageData(fileName, basePath, title, body);
+            var page = new PageData(fileName, basePath, title, body, showPagination);
             Pages.Add(page);
 
             File.WriteAllText(
