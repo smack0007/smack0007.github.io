@@ -29,7 +29,7 @@ $@"<!doctype html>
 
             </div>
             <nav class=""sidebar-nav"">
-                <a href=""{data.BasePath}"" class=""sidebar-nav-item{If(data.FileName == "index.html", " active")}"">Home</a>
+                <a href=""{data.BasePath}index.html"" class=""sidebar-nav-item{If(data.FileName == "index.html", " active")}"">Home</a>
                 <a href=""{data.BasePath}about.html"" class=""sidebar-nav-item{If(data.FileName == "about.html", " active")}"">About</a>
             </nav>
         </div>
@@ -42,7 +42,7 @@ $@"<!doctype html>
                         <a href=""{data.BasePath}feed.rss"" class=""rss"" title=""RSS""><i class=""fa fa-rss""></i></a>
                     </div>
                     <h3 class=""masthead-title"">
-                        <a href=""{data.BasePath}"" title=""Home"">The Blog of Zachary Snow</a>
+                        <a href=""{data.BasePath}index.html"" title=""Home"">The Blog of Zachary Snow</a>
                     </h3>
                 </div>
             </div>
