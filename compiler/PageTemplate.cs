@@ -50,6 +50,7 @@ $@"<!doctype html>
                 <div class=""posts"">
                     {data.Body}
                 </div>
+                <div class=""clear""></div>
                 <div class=""pagination"">
                     <span class=""pagination-item older"">Older</span>
                     <span class=""pagination-item newer"">Newer</span>
