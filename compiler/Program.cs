@@ -10,6 +10,8 @@ namespace compiler
 {
     public static class Program
     {
+        public const int PostsPerPage = 5;
+
         private static IndexTemplate IndexTemplate = new IndexTemplate();
 
         private static PostTemplate PostTemplate = new PostTemplate();
@@ -108,11 +110,30 @@ namespace compiler
                     true);
             }
             
-            RenderPage(
-                "index.html",
-                Path.Combine(outputPath, "index.html"),
-                "The Blog of Zachary Snow",
-                IndexTemplate.Render(new IndexData(posts)));
+            int pageCount = (int)Math.Ceiling(posts.Count / (double)PostsPerPage);
+            Console.WriteLine($"{posts.Count} Posts / {pageCount} Pages");
+
+            for (int i = 0; i < pageCount; i++)
+            {
+                string GetPageName(int index)
+                {
+                    if (index < 0 || index >= pageCount)
+                    {
+                        return null;
+                    }
+
+                    return index == 0 ? "index.html" : "page" + (index + 1) + ".html";
+                }
+
+                RenderPage(
+                    GetPageName(i),
+                    Path.Combine(outputPath, GetPageName(i)),
+                    "The Blog of Zachary Snow",
+                    IndexTemplate.Render(new IndexData(posts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage))),
+                    showPagination: true,
+                    paginationOlderLink: GetPageName(i + 1),
+                    paginationNewerLink: GetPageName(i - 1));
+            }
 
             File.WriteAllText(Path.Combine(outputPath, "feed.rss"), GenerateRssFeed(posts));
             File.WriteAllText(Path.Combine(outputPath, "sitemap.xml"), GenerateSiteMap(Pages));
@@ -186,7 +207,9 @@ namespace compiler
             string outputFile,
             string title,
             string body,
-            bool showPagination = true)
+            bool showPagination = true,
+            string paginationOlderLink = null,
+            string paginationNewerLink = null)
         {
             string basePath = string.Empty;
             string[] pathParts = fileName.Split(new char[] { '/', '\\' });
@@ -195,7 +218,7 @@ namespace compiler
                 basePath += "../";
             }
 
-            var page = new PageData(fileName, basePath, title, body, showPagination);
+            var page = new PageData(fileName, basePath, title, body, showPagination, paginationOlderLink, paginationNewerLink);
             Pages.Add(page);
 
             File.WriteAllText(

@@ -55,10 +55,32 @@ $@"<!doctype html>
             if (data.ShowPagination)
             {
                 yield return
-@"              <div class=""pagination"">
-                    <span class=""pagination-item older"">Older</span>
-                    <span class=""pagination-item newer"">Newer</span>
-                </div>";
+@"              <div class=""pagination"">";
+
+                if (data.PaginationOlderLink != null)
+                {
+                    yield return
+$@"                  <a href=""{data.BasePath}{data.PaginationOlderLink}"" class=""pagination-item older"">Older</a>";                    
+                }
+                else
+                {                    
+                    yield return
+@"                  <span class=""pagination-item older"">Older</span>";
+                }
+                    
+                if (data.PaginationNewerLink != null)
+                {
+                    yield return
+$@"                  <a href=""{data.BasePath}{data.PaginationNewerLink}"" class=""pagination-item newer"">Newer</a>";                    
+                }
+                else
+                {
+                    yield return     
+@"                  <span class=""pagination-item newer"">Newer</span>";
+                }
+
+                yield return 
+@"              </div>";
             }
             
             yield return

@@ -10,7 +10,7 @@ namespace compiler
 
         public IndexData(IEnumerable<PostData> posts)
         {
-            this.Posts = posts.OrderByDescending(x => x.SortDate);
+            this.Posts = posts;
         }
     }
 }
