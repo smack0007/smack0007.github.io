@@ -122,7 +122,7 @@ namespace compiler
                         return null;
                     }
 
-                    return index == 0 ? "index.html" : "page" + (index + 1) + ".html";
+                    return index == 0 ? "index.html" : Path.Combine("blog", "page" + (index + 1) + ".html");
                 }
 
                 RenderPage(
