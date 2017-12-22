@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Zachary Snow">
+
+        <title>The Blog of Zachary Snow</title>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+        <link rel="stylesheet" type="text/css" href="../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../feed.rss">
+    </head>
+    <body>
+        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-item">
+
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../index.html" class="sidebar-nav-item">Home</a>
+                <a href="../about.html" class="sidebar-nav-item">About</a>
+            </nav>
+        </div>
+        <div class="wrap">
+            <div class="masthead">
+                <div class="container">
+                    <div class="social">
+                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+                        <a href="../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+                    </div>
+                    <h3 class="masthead-title">
+                        <a href="../index.html" title="Home">The Blog of Zachary Snow</a>
+                    </h3>
+                </div>
+            </div>
+            <div class="container content">
+                <div class="posts">
+                    <div class="post">
+<h2><a href="blog\2010\drawing-rectangles-with-spritebatch.html">Drawing Rectangles with SpriteBatch</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>March 29, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>C#, Code Snippets, Xna</span>
+</div>
+<div class="content">
+<p>Just a quick code snippet which adds an extension method for drawing Rectangles to SpriteBatch:</p>
+<pre><code class="language-c#">public static class SpriteBatchHelper
+{
+	static Texture2D pixel;
+
+	private static void LoadPixel(GraphicsDevice graphicsDevice)
+	{
+		if(pixel == null)
+		{
+			pixel = new Texture2D(graphicsDevice, 1, 1);
+			pixel.SetData&amp;lt;Color&amp;gt;(new Color[] { Color.White });
+		}
+	}
+
+	public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rectangle, Color color)
+	{
+		LoadPixel(spriteBatch.GraphicsDevice);
+		spriteBatch.Draw(pixel, rectangle, color);
+	}
+}
+</code></pre>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2010\csharp-extension-methods-in-your-own-library.html">C# Extension Methods in your own Library</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>March 08, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>C#, Extension Methods</span>
+</div>
+<div class="content">
+<p>Normally I use extension methods in C# to extend a library that I did not write and therefore I have no control over. There are situations where it makes sense to use extension methods for a library that you yourself are writing.</p>
+<p>For example, when you have interfaces in your library. You want to keep the number of methods in that interface as low as possible so that classes implementing the interface don't have to do a lot of heavy lifting. This means cutting out methods in an interface that are for the most part just syntactic sugar for another method in the interface.</p>
+<pre><code class="language-c#">
+public interface IServiceContainer
+{
+    void AddService(Type type, Object provider);
+    object GetService(Type type);
+}
+
+public static class IServiceContainerExtensions
+{
+    public static void AddService&amp;lt;T&amp;gt;(this IServiceContainer services, object provider)
+    {
+        services.AddService(typeof(T), provider);
+    }
+
+    public static T GetService&amp;lt;T&amp;gt;(this IServiceContainer services) where T : class
+    {
+        return services.GetService(typeof(T)) as T;
+    }
+
+    public static T GetRequiredService&amp;lt;T&amp;gt;(this IServiceContainer services) where T : class
+    {
+        T service = services.GetService(typeof(T)) as T;
+
+        if(service == null)
+            throw new ServiceNotFoundException(typeof(T));
+
+        return service;
+    }
+}
+
+</code></pre>
+<p>All of the methods in IServiceContainerExtensions are just helper methods for method in IServiceContainer. By making them extension methods in our own library though, we've made the barrier to entry lower. Other people can implement the interface and in a sense &quot;inherit&quot; the helper methods as well.</p>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2010\creating-and-consuming-services-in-your-xna-game.html">Creating and consuming services in your XNA Game</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>February 18, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i></span>
+</div>
+<div class="content">
+<p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
+<blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote>
+<p>This article will &quot;<em>attempt</em>&quot; to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.</p>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2010\changing-the-platformtarge-in-visual-c-express.html">Changing the PlatformTarget in Visual C# Express</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>January 18, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>MSBuild</span>
+</div>
+<div class="content">
+<p>Some project types in Visual C# Express (Empty Project) will not allow you to change the PlatformTarget from the UI. You can still change the target platform though by editing the .csproj file in a text editor. Close the project and open it up in your favorite text editor (I use <a href="http://notepad-plus.sourceforge.net/">Notpad++</a>). The .csproj file is really just a XML file. You should see somewhere in the file something like:</p>
+<pre><code class="language-xml">	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&amp;gt;
+		....
+	&amp;lt;/PropertyGroup&amp;gt;
+	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Release|AnyCPU' &quot;&amp;gt;
+		....
+	&amp;lt;/PropertyGroup&amp;gt;
+</code></pre>
+<p>Inside the PropertyGroup elements, add the PlatformTarget element:</p>
+<pre><code class="language-xml">	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&amp;gt;
+		....
+		&amp;lt;PlatformTarget&amp;gt;x86*&amp;lt;/PlatformTarget&amp;gt;
+	&amp;lt;/PropertyGroup&amp;gt;
+	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Release|AnyCPU' &quot;&amp;gt;
+		....
+		&amp;lt;PlatformTarget&amp;gt;x86&amp;lt;/PlatformTarget&amp;gt;
+	&amp;lt;/PropertyGroup&amp;gt;
+</code></pre>
+<p>Save the file and open your project back up. Your project's output should now target only x86.</p>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2009\calculating-an-angle-from-a-vector2.html">Calculating an angle from a Vector2</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>February 28, 2009</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>Vectors, Xna</span>
+</div>
+<div class="content">
+<p>When you need to calculate an angle from a Vector2 structure, you can use this piece of code:</p>
+<pre><code class="language-c#">public static class Vector2Helper
+{
+	public static float CalculateAngle(Vector2 v)
+	{
+		float angle = 0.0f;
+
+		if(v != Vector2.Zero)
+		{
+			v.Normalize();
+
+			angle = (float)Math.Acos(v.Y);
+
+			if(v.X &amp;lt; 0.0f)
+			angle = -angle;
+		}
+
+		return angle;
+	}
+}
+</code></pre>
+<p>I used this to calculate an angle from the Vector2 of the Left Stick.</p>
+<p>The original credit for this source code comes from <a href="http://xnagamer.spaces.live.com/blog/cns!EC20BAAE6808B682!139.entry">here</a>.</p>
+
+</div>
+</div>
+                </div>
+                <div class="clear"></div>
+              <div class="pagination">
+                  <a href="../blog\page10.html" class="pagination-item older">Older</a>
+                  <a href="../blog\page8.html" class="pagination-item newer">Newer</a>
+              </div>
+          </div>
+        </div>
+        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    </body>
+</html>

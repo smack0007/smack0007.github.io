@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Zachary Snow">
+
+        <title>The Blog of Zachary Snow</title>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+        <link rel="stylesheet" type="text/css" href="../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../feed.rss">
+    </head>
+    <body>
+        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-item">
+
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../index.html" class="sidebar-nav-item">Home</a>
+                <a href="../about.html" class="sidebar-nav-item">About</a>
+            </nav>
+        </div>
+        <div class="wrap">
+            <div class="masthead">
+                <div class="container">
+                    <div class="social">
+                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+                        <a href="../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+                    </div>
+                    <h3 class="masthead-title">
+                        <a href="../index.html" title="Home">The Blog of Zachary Snow</a>
+                    </h3>
+                </div>
+            </div>
+            <div class="container content">
+                <div class="posts">
+                    <div class="post">
+<h2><a href="blog\2012\snowball-shaders-in-progress.html">Snowball: \Shaders\ in progress</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>June 22, 2012</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>Open Source</span>
+</div>
+<div class="content">
+<p>It's been a long couple of months. I'm in the middle of switching jobs, been on vacation a bit, and have been playing around with OpenGL a bit to get a feel for how that API works compared to Direct3D. As of yesterday I started working on implementing shaders in Snowball.</p>
+<p>In order to implement shaders or Effect(s), there may have to be a few changes to the API / interface of the Renderer class. Nothing significant I don't think but mainly changes to the Begin() method overloads. Today I pushed the branch which contains my initial implementation.</p>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2012\snowball-now-using-sharpdx.html">Snowball now using SharpDX</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>April 16, 2012</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>SharpDX, Open Source, SlimDX</span>
+</div>
+<div class="content">
+<p>For a little while, I was thinking about giving up on Snowball. When you're one guy working on a project that gets to a certain size, it can start to feel a little daunting. You find a bug, and you feel like you need to fix it asap. I don't know if anyone reading this has actually tried Snowball, but if you have, please comment to let me know. It would encourage me.</p>
+<p>I decided to switch Snowball over to <a href="http://code.google.com/p/sharpdx/">SharpDX</a>. It's not that I was unhappy with SlimDX, it just seems like there is a lot more innovation happening on the SharpDX side. I also like the fact that I can include the DLLs in the repository so end users don't have to download another dependency in order to compile it. The Win8 stuff is also quite interesting, although the SlimDX guys say they are working on that.</p>
+<p>I plan to set a road map soon for what I want to include the first release of Snowball. Music and Pixel Shaders are high the list. I've experimented with implementing a UI library but I think I want to push that back for a later release.</p>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2012\getting-started-with-snowball.html">Getting Started with Snowball</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>March 04, 2012</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>C#, .NET, Game Programming</span>
+</div>
+<div class="content">
+<p>My game framework Snowball is far enough along that small games can be developed with it by now. The basic overall design is now laid out and not too much is likely to change as I'm now developing my own small games with it.</p>
+<p>In order to create some kind of documentation on how to use Snowball, I created a Samples folder in the source. In the Samples folder is a WalkingWizard sample. I'm posting this source code here but it can also be viewed on GitHub <a href="https://github.com/smack0007/Snowball/blob/master/Samples/WalkingWizard/WalkingWizardSample.cs">here</a>.</p>
+<script src="https://gist.github.com/2400440.js?file=WalkingWizardSample.cs"></script>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2011\winquakecon.html">WinQuakeCon</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>December 20, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>.NET, Command Shell, Console, Github, Quake, Terminal, Windows, WinQuakeCon</span>
+</div>
+<div class="content">
+<p>I've always wanted a program that would allow me have a command line that I could slide in and out of view as needed like the console from <a href="http://en.wikipedia.org/wiki/Quake_(video_game)">Quake</a>. I never could find one and so I finally got decided to write a tool myself. A picture is below and the source code is on <a href="https://github.com/smack0007/WinQuakeCon">GitHub</a>.</p>
+<p>I'm not putting a download here as I don't consider this finished just yet.</p>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2011\what-is-snowball-and-what-do-i-want-to-do-with-it.html">What is Snowball and what do I want to do with it?</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>October 16, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>2d, C#, CodePlex, Open Source, SlimDX, Xna</span>
+</div>
+<div class="content">
+<p>I originally got the idea for Snowball after working with the Xna Framework. The Xna Framework is a good piece of software for what it is but there are some things about which I just do not agree with:</p>
+<ul>
+<li>The content pipeline only works with content in the serialized .xnb format.</li>
+<li>There are certain content types which can only be loaded via the content pipeline.</li>
+<li>Certain features don't exist on the PC because they don't exist on the XBox or Windows Phone 7.</li>
+</ul>
+<p>Xna was designed as an abstraction layer for all the 3 platforms mentioned in the last point, so that one is somewhat understandable. I don't want to write games for my XBox right now though, so why should things like drawing lines not be available to me?</p>
+<p>With these points in mind I started working on <a href="http://snowball.codeplex.com/">Snowball</a>. It's designed to be an Xna like framework for making 2D games. It uses SlimDX on the backend, but that is completely abstracted away from consumers of the framework. What I want to do is design the API so that the backend can be swapped out <strong>somewhat</strong> painlessly.</p>
+<p>I still have a ways to go before I will consider it a version 1.0 release. As of this writing, I'm transitioning to more of a ContentLoader class style for loading your game's content. Any resource type from within the framework can be loaded by hand if you want, the ContentLoader class will just make it easier. After that I have a few other features like GamePad and Music which I would like to implement before saying I have a Beta type release.</p>
+<p>The future after that is up in the air. I would love to try and have different implementations of the API for Xna and/or OpenTK.</p>
+<p>I recommend for anyone who is interested as to why an API designer choose to implement the API in the way they did to try it for themselves. I have learned many things from this project including why certain design decisions were made by the Xna Framework team.</p>
+
+</div>
+</div>
+                </div>
+                <div class="clear"></div>
+              <div class="pagination">
+                  <a href="../blog\page5.html" class="pagination-item older">Older</a>
+                  <a href="../blog\page3.html" class="pagination-item newer">Newer</a>
+              </div>
+          </div>
+        </div>
+        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    </body>
+</html>

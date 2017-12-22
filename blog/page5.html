@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Zachary Snow">
+
+        <title>The Blog of Zachary Snow</title>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+        <link rel="stylesheet" type="text/css" href="../css/site.css">
+
+        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../feed.rss">
+    </head>
+    <body>
+        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-item">
+
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../index.html" class="sidebar-nav-item">Home</a>
+                <a href="../about.html" class="sidebar-nav-item">About</a>
+            </nav>
+        </div>
+        <div class="wrap">
+            <div class="masthead">
+                <div class="container">
+                    <div class="social">
+                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
+                        <a href="../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
+                    </div>
+                    <h3 class="masthead-title">
+                        <a href="../index.html" title="Home">The Blog of Zachary Snow</a>
+                    </h3>
+                </div>
+            </div>
+            <div class="container content">
+                <div class="posts">
+                    <div class="post">
+<h2><a href="blog\2011\wmi-converting-datetime-values-to-datetime-objects.html">WMI: Converting datetime values to DateTime objects</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>July 12, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>WMI</span>
+</div>
+<div class="content">
+<p>Just a quick post to hopefully save anyone who finds this some time. If you need to convert a datetime value from a WMI query to a native DateTime object in C#, you can use the method ToDateTime() on the ManagementDateTimeConverter class.</p>
+<pre><code class="language-c#">ManagementDateTimeConverter.ToDateTime(dmtfDate);
+</code></pre>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2011\snowball-a-slightly-different-direction.html">Snowball: A Slightly Different Direction</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>July 02, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>CodePlex</span>
+</div>
+<div class="content">
+<p>At first, I had imagined <a href="http://snowball.codeplex.com/">Snowball</a>, now located on Codeplex, to be a framework which would define how your game objects look. I.E. I had a class called GameEntity which I imagined would handle a lot of boiler plate code for you such as setting up Initialize(), Update(), Draw(), etc.</p>
+<p>I've decided to move away from that and let Snowball purely focus on the subsystems of a game, such as Graphics, Sound, Input, etc. Extending from the Game class completely sets up these aspects of your game for you. I think I will include helper components, such as a collision detection system, but I will not force you to use them.</p>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2011\xaudio2-stop-currently-playing-sound.html">XAudio2: Stop Currently Playing Sound</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>July 02, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>SlimDX, XAudio2</span>
+</div>
+<div class="content">
+<p>Using SlimDX, if you want to stop a sound which is currently playing via XAudio2, use the following methods on the SourceVoice object:</p>
+<pre><code class="language-c#">sourceVoice.Stop();
+sourceVoice.FlushSourceBuffers();
+</code></pre>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2011\switching-from-git-to-mercurial.html">Switching from Git to Mercurial</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>June 03, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>Random</span>
+<span class="tags"><i class="fa fa-tags"></i>git, Mercurial</span>
+</div>
+<div class="content">
+<p>I've decided to make the switch from using git to Mercurial. Git's syntax to me is much more complicated than it needs to be and Mercurial seems to be more my style. I find it's much easier to find out how to do things with Mercurial and to be honest, I use about 10% of the functionality in either git or Mercurial.</p>
+<p>This also means I'll be transitioning Snowball to Codeplex I think. I'll be moving it away from GitHub for sure just not 100% sure where.</p>
+
+</div>
+</div>
+<div class="post">
+<h2><a href="blog\2011\marker-interfaces.html">Marker Interfaces</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>May 24, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>Design Patterns</span>
+<span class="tags"><i class="fa fa-tags"></i>Empty Interface, Marker Interfaces</span>
+</div>
+<div class="content">
+<p>In Snowball I was debating adding an empty interface to identify certain classes in my framework as components. I wasn't sure if this was code smell or not so I did some searching on <a href="http://stackoverflow.com/search?q=marker+interface">Stackoverflow</a> and found out this concept is actually called &quot;Marker Interfaces&quot;. Learn something new every day.</p>
+
+</div>
+</div>
+                </div>
+                <div class="clear"></div>
+              <div class="pagination">
+                  <a href="../blog\page6.html" class="pagination-item older">Older</a>
+                  <a href="../blog\page4.html" class="pagination-item newer">Newer</a>
+              </div>
+          </div>
+        </div>
+        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    </body>
+</html>
