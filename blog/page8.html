@@ -39,6 +39,21 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2010\visual-studio-move-referenced-dll-to-different-directory-after-build.html">Visual Studio: Move referenced DLL to different directory after Build</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>July 20, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>MSBuild</span>
+</div>
+<div class="content">
+<p>If you need to move a referenced DLL to a different directory after build, add these commands to the &quot;<strong>Post Build event command line</strong>&quot; box in the &quot;<strong>Build Events</strong>&quot; tab of the project properties:</p>
+<pre><code>mkdir $(TargetDir)dir
+move $(TargetDir)myDLL.dll $(TargetDir)dir\myDLL.dll
+</code></pre>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2010\xna-load-texture2d-from-embedded-resource.html">Xna: Load Texture2D from Embedded Resource</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>July 03, 2010</span>
@@ -112,22 +127,6 @@ if(TaskbarManager.IsPlatformSupported)
 if(TaskbarManager.IsPlatformSupported)
 	TaskbarManager.Instance.SetProgressValue((int)this.totalTime.TotalSeconds - (int)this.time.TotalSeconds, (int)this.totalTime.TotalSeconds, this.Handle);
 </code></pre>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2010\winforms-and-mvc.html">WinForms and MVC</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>May 26, 2010</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>MVC, WinForms</span>
-</div>
-<div class="content">
-<p>I recently became interested in doing MVC inside of a Windows Forms app. I found a few MVC frameworks which work with WinForms (<a href="http://stackoverflow.com/questions/2406/looking-for-a-mvc-sample-for-winforms">see here</a>) but they didn't really interest me. Too heavy I felt for what I was looking to do. I ended up with a solution looking something like this:</p>
-<p>There is really only one controller and that is the &quot;Application&quot; class. It contains all the methods your app can call to manipulate your models, which are in the &quot;Data&quot; folder / namespace. The &quot;WinFormsApplication&quot; class inherits from the &quot;Application&quot; class and just sets the view to an instance of &quot;WinFormsView&quot;. The &quot;Application&quot; class communicates with the view through the &quot;IView&quot; interface. The &quot;WinFormsView&quot; class is a Windows Forms implementation of that view. The &quot;Application&quot; class and your models are not coupled in any way to your Windows Forms implementation of the view.</p>
-<p>If you want you view to be as dumb as possible, your view can communicate with the &quot;Application&quot; class only through events. In my case though, I choose to go with a smart view and have the view call back to methods in the &quot;Application&quot; class. The &quot;Application&quot; class tells the view when models are loaded and unloaded. The view subscribes to events on the models and reacts to the events.</p>
-<p>All of my forms and controls communicate with each other through the &quot;WinFormsView&quot; class. One control might change the value of a property in the &quot;WinFormsView&quot; class and another control might subscribe to a change event and update as necessary. This keeps the controls and forms slightly less coupled.</p>
-<p>It's not a perfect implementation of MVC but it keeps my model logic decoupled enough from my view logic that I can later implement a WPF version of the view I think.</p>
 
 </div>
 </div>

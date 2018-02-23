@@ -39,6 +39,40 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2009\calculating-an-angle-from-a-vector2.html">Calculating an angle from a Vector2</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>February 28, 2009</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>Vectors, Xna</span>
+</div>
+<div class="content">
+<p>When you need to calculate an angle from a Vector2 structure, you can use this piece of code:</p>
+<pre><code class="language-c#">public static class Vector2Helper
+{
+	public static float CalculateAngle(Vector2 v)
+	{
+		float angle = 0.0f;
+
+		if(v != Vector2.Zero)
+		{
+			v.Normalize();
+
+			angle = (float)Math.Acos(v.Y);
+
+			if(v.X &amp;lt; 0.0f)
+			angle = -angle;
+		}
+
+		return angle;
+	}
+}
+</code></pre>
+<p>I used this to calculate an angle from the Vector2 of the Left Stick.</p>
+<p>The original credit for this source code comes from <a href="http://xnagamer.spaces.live.com/blog/cns!EC20BAAE6808B682!139.entry">here</a>.</p>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2009\the-game-show-host-problem-aka-the-monty-hall-problem.html">The Game Show Host Problem, aka The Monty Hall Problem</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>February 12, 2009</span>
@@ -296,23 +330,10 @@ spriteBatch.End();
 
 </div>
 </div>
-<div class="post">
-<h2><a href="blog\2008\zend_db_table-as-a-model.html">Zend_Db_Table as a Model</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>June 20, 2008</span>
-<span class="category"><i class="fa fa-folder"></i>php</span>
-<span class="tags"><i class="fa fa-tags"></i></span>
-</div>
-<div class="content">
-<p>In the Zend Framework, using Zend_Db_Table as your model class is not well advised. This practice can force you to put business logic in other places besides your model class. This may not be a big deal if your logic is simple but imagine the logic is fairly complicated. Now also imagine that the logic changes at some point. This can be a problem if you have this logic written in many different places.</p>
-<p>There's a solution to this problem though. You could write a Model class that uses Zend_Db_Table as a storage medium. Or, you can extend Zend_Db_Table to add your logic to the class. There is a way to simplify this process and that's what this blog post is about.</p>
-
-</div>
-</div>
                 </div>
                 <div class="clear"></div>
               <div class="pagination">
-                  <span class="pagination-item older">Older</span>
+                  <a href="../blog\page11.html" class="pagination-item older">Older</a>
                   <a href="../blog\page9.html" class="pagination-item newer">Newer</a>
               </div>
           </div>

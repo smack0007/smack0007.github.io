@@ -39,6 +39,28 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2011\what-is-snowball-and-what-do-i-want-to-do-with-it.html">What is Snowball and what do I want to do with it?</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>October 16, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>2d, C#, CodePlex, Open Source, SlimDX, Xna</span>
+</div>
+<div class="content">
+<p>I originally got the idea for Snowball after working with the Xna Framework. The Xna Framework is a good piece of software for what it is but there are some things about which I just do not agree with:</p>
+<ul>
+<li>The content pipeline only works with content in the serialized .xnb format.</li>
+<li>There are certain content types which can only be loaded via the content pipeline.</li>
+<li>Certain features don't exist on the PC because they don't exist on the XBox or Windows Phone 7.</li>
+</ul>
+<p>Xna was designed as an abstraction layer for all the 3 platforms mentioned in the last point, so that one is somewhat understandable. I don't want to write games for my XBox right now though, so why should things like drawing lines not be available to me?</p>
+<p>With these points in mind I started working on <a href="http://snowball.codeplex.com/">Snowball</a>. It's designed to be an Xna like framework for making 2D games. It uses SlimDX on the backend, but that is completely abstracted away from consumers of the framework. What I want to do is design the API so that the backend can be swapped out <strong>somewhat</strong> painlessly.</p>
+<p>I still have a ways to go before I will consider it a version 1.0 release. As of this writing, I'm transitioning to more of a ContentLoader class style for loading your game's content. Any resource type from within the framework can be loaded by hand if you want, the ContentLoader class will just make it easier. After that I have a few other features like GamePad and Music which I would like to implement before saying I have a Beta type release.</p>
+<p>The future after that is up in the air. I would love to try and have different implementations of the API for Xna and/or OpenTK.</p>
+<p>I recommend for anyone who is interested as to why an API designer choose to implement the API in the way they did to try it for themselves. I have learned many things from this project including why certain design decisions were made by the Xna Framework team.</p>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2011\wmi-converting-datetime-values-to-datetime-objects.html">WMI: Converting datetime values to DateTime objects</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>July 12, 2011</span>
@@ -90,18 +112,6 @@ sourceVoice.FlushSourceBuffers();
 <div class="content">
 <p>I've decided to make the switch from using git to Mercurial. Git's syntax to me is much more complicated than it needs to be and Mercurial seems to be more my style. I find it's much easier to find out how to do things with Mercurial and to be honest, I use about 10% of the functionality in either git or Mercurial.</p>
 <p>This also means I'll be transitioning Snowball to Codeplex I think. I'll be moving it away from GitHub for sure just not 100% sure where.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2011\marker-interfaces.html">Marker Interfaces</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>May 24, 2011</span>
-<span class="category"><i class="fa fa-folder"></i>Design Patterns</span>
-<span class="tags"><i class="fa fa-tags"></i>Empty Interface, Marker Interfaces</span>
-</div>
-<div class="content">
-<p>In Snowball I was debating adding an empty interface to identify certain classes in my framework as components. I wasn't sure if this was code smell or not so I did some searching on <a href="http://stackoverflow.com/search?q=marker+interface">Stackoverflow</a> and found out this concept is actually called &quot;Marker Interfaces&quot;. Learn something new every day.</p>
 
 </div>
 </div>

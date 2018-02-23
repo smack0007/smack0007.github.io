@@ -39,6 +39,20 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2013\introducing-gldotnet.html">Introducing GLDotNet</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>January 02, 2013</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>C#, OpenGL, .NET, Open Source</span>
+</div>
+<div class="content">
+<p>Today I released a project I've been playing around with for a year or so on Codeplex. It's called <a href="https://gldotnet.codeplex.com/">GLDotNet</a>. From the project description:</p>
+<p><em>C# wrapper for OpenGL. Partially generated from the OpenGL spec and partially written by hand, the aim is to have a flexible and native feeling C# binding.</em></p>
+<p>I have generated functions from the OpenGL spec excluding 1 or 2 but unfortunately of the generated code is untested. There is a demo project included in the source code. The Github repository is located here: <a href="https://github.com/smack0007/GLDotNet">https://github.com/smack0007/GLDotNet</a></p>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2012\http-status-codes-as-telephone-calls.html">HTTP Status Codes as Telephone Calls</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>December 18, 2012</span>
@@ -115,21 +129,6 @@
 <div class="content">
 <p>I fixed a bug yesterday in Snowball related to a lost graphics device. I noticed that when I would use CTRL + ALT + DELETE, my apps were crashing. Turned out it was due to not recovering properly from a lost device.</p>
 <p>The root of the problem was that I needed to call the ID3DXEffect::OnLostDevice() method when the device was being lost. This allows the effect to recover from the lost device. I've made the Effect class in Snowball now do this automatically.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2012\snowball-now-based-on-shaders.html">Snowball: Now based on shaders</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>June 26, 2012</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>Shaders, Game Programming</span>
-</div>
-<div class="content">
-<p>I've now merged the &quot;Shaders&quot; branch back into the &quot;master&quot; branch. All rendering is now based on shaders and no longer on the fixed function pipeline.</p>
-<p>The function of the Renderer class was essentially been reduced to pushing data to the GPU and therefore I decided to rename the class to GraphicsBatch. The Begin() overload which would allow you to specify RendererSettings has been removed and been replaced with an overload which allows you to specify an Effect file to use. Also, the DrawLine() method has been removed, although vertical and horizontal lines can still be drawn using the DrawFilledRectangle() method. Better line drawing should be possible through shaders and I hope to eventually make a sample which provides an example.</p>
-<p>I've added a sample (pictured above) which demonstrates using a custom shader. By default, GraphicsBatch uses a BasicEffect class which is basically the old way of rendering implemented in a shader.</p>
-<p>In order for shaders to work properly when using GraphicsBatch, the GraphicsBatch class must pass a few parameters to the shader. At the moment, this only includes a transform matrix but may include more parameters in the future. The GraphicsBatchEffectWrapper can be used to wrap custom effects which you write in order to work with GraphicsBatch correctly. GraphicsBatchEffectWrapper will pass the parameters to your shader by following a standard naming convention. For example, the transform matrix is passed to your shader through a parameter named &quot;TransformMatrix&quot;.  You can also write you own class which implements IGraphicsBatchEffect. See the sample for an example of using the wrapper class.</p>
 
 </div>
 </div>

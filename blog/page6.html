@@ -39,6 +39,18 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2011\marker-interfaces.html">Marker Interfaces</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>May 24, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>Design Patterns</span>
+<span class="tags"><i class="fa fa-tags"></i>Empty Interface, Marker Interfaces</span>
+</div>
+<div class="content">
+<p>In Snowball I was debating adding an empty interface to identify certain classes in my framework as components. I wasn't sure if this was code smell or not so I did some searching on <a href="http://stackoverflow.com/search?q=marker+interface">Stackoverflow</a> and found out this concept is actually called &quot;Marker Interfaces&quot;. Learn something new every day.</p>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2011\componentglue-on-github.html">ComponentGlue on GitHub</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>May 10, 2011</span>
@@ -169,70 +181,6 @@ namespace SlimDXApp1
 			// Cleans up COM handles
 			foreach(var item in ObjectTable.Objects)
 				item.Dispose();
-		}
-	}
-}
-</code></pre>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2011\getting-started-with-opentk.html">Getting started with OpenTK</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>March 29, 2011</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>OpenGL</span>
-</div>
-<div class="content">
-<p>I started experimenting with <a href="http://www.opentk.com">OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.</p>
-<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.</p>
-<pre><code class="language-c#">using System;
-using System.Drawing;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-
-namespace OpenTKApp1
-{
-	public class AppWindow : GameWindow
-	{
-		public AppWindow()
-		{
-			this.Title = &quot;OpenTK App 1&quot;;
-			this.WindowBorder = WindowBorder.Fixed;
-			this.ClientSize = new Size(800, 600);			
-		}
-
-		protected override void OnRenderFrame(FrameEventArgs e)
-		{
-			base.OnRenderFrame(e);
-
-			GL.ClearColor(Color.CornflowerBlue);
-			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-			GL.MatrixMode(MatrixMode.Projection);
-			GL.LoadIdentity();
-			GL.Ortho(0, 800, 600, 0, -1, 1);
-			GL.Viewport(0, 0, 800, 600);
-			
-			GL.Begin(BeginMode.Triangles);
-			GL.Color3(Color.Red);
-			GL.Vertex3(400, 150, 0);
-			GL.Color3(Color.Green);
-			GL.Vertex3(600, 450, 0);
-			GL.Color3(Color.Blue);
-			GL.Vertex3(200, 450, 0);
-			GL.End();
-
-			GL.Flush();
-			this.SwapBuffers();
-		}
-
-		[STAThread]
-		public static void Main()
-		{
-			AppWindow window = new AppWindow();
-			window.Run();
 		}
 	}
 }

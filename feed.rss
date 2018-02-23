@@ -4,7 +4,7 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 22 Dec 2017 22:21:57 GMT</lastBuildDate>
+	<lastBuildDate>Fri, 23 Feb 2018 07:31:52 GMT</lastBuildDate>
 	<pubDate>Thu, 09 Jul 2015 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
@@ -15,6 +15,20 @@ batch files though.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</link>
 		<guid>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</guid>
+		<pubDate>Thu, 09 Jul 2015 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Snowball V2.0]]></title>
+		<description><![CDATA[<p>I haven't written anything new here in a very long time and a lot has happened since then. I started a new job at
+<a href="https://www.beumergroup.com">BeumerGroup</a> this year and now work mostly in TypeScript writing an html5 spa app.</p>
+<p>In my spare time I've decided to working on version 2.0 of my <a href="https://github.com/smack0007/Snowball">Snowball</a>,
+my 2D game framework. I've been playing around with the idea for a while now. This version will be developed directly
+for .net core and will be developed with cross platform capability in mind. The api will look similar but will have
+some changes.</p>
+<p>The old repo is still available on my <a href="https://github.com/smack0007/">github</a> at <a href="https://github.com/smack0007/Snowball_v1">https://github.com/smack0007/Snowball_v1</a>.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2018/snowball-2.html</link>
+		<guid>http://smack0007.github.io/blog/2018/snowball-2.html</guid>
 		<pubDate>Thu, 09 Jul 2015 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -247,24 +261,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2011/winquakecon.html</link>
 		<guid>http://smack0007.github.io/blog/2011/winquakecon.html</guid>
 		<pubDate>Tue, 20 Dec 2011 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[What is Snowball and what do I want to do with it?]]></title>
-		<description><![CDATA[<p>I originally got the idea for Snowball after working with the Xna Framework. The Xna Framework is a good piece of software for what it is but there are some things about which I just do not agree with:</p>
-<ul>
-<li>The content pipeline only works with content in the serialized .xnb format.</li>
-<li>There are certain content types which can only be loaded via the content pipeline.</li>
-<li>Certain features don't exist on the PC because they don't exist on the XBox or Windows Phone 7.</li>
-</ul>
-<p>Xna was designed as an abstraction layer for all the 3 platforms mentioned in the last point, so that one is somewhat understandable. I don't want to write games for my XBox right now though, so why should things like drawing lines not be available to me?</p>
-<p>With these points in mind I started working on <a href="http://snowball.codeplex.com/">Snowball</a>. It's designed to be an Xna like framework for making 2D games. It uses SlimDX on the backend, but that is completely abstracted away from consumers of the framework. What I want to do is design the API so that the backend can be swapped out <strong>somewhat</strong> painlessly.</p>
-<p>I still have a ways to go before I will consider it a version 1.0 release. As of this writing, I'm transitioning to more of a ContentLoader class style for loading your game's content. Any resource type from within the framework can be loaded by hand if you want, the ContentLoader class will just make it easier. After that I have a few other features like GamePad and Music which I would like to implement before saying I have a Beta type release.</p>
-<p>The future after that is up in the air. I would love to try and have different implementations of the API for Xna and/or OpenTK.</p>
-<p>I recommend for anyone who is interested as to why an API designer choose to implement the API in the way they did to try it for themselves. I have learned many things from this project including why certain design decisions were made by the Xna Framework team.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2011/what-is-snowball-and-what-do-i-want-to-do-with-it.html</link>
-		<guid>http://smack0007.github.io/blog/2011/what-is-snowball-and-what-do-i-want-to-do-with-it.html</guid>
-		<pubDate>Sun, 16 Oct 2011 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
