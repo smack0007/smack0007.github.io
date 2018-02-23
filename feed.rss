@@ -4,19 +4,9 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 23 Feb 2018 07:31:52 GMT</lastBuildDate>
-	<pubDate>Thu, 09 Jul 2015 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 23 Feb 2018 07:34:28 GMT</lastBuildDate>
+	<pubDate>Fri, 23 Feb 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
-	<item>
-		<title><![CDATA[Using batch files as the task runner in Visual Studio Code]]></title>
-		<description><![CDATA[<p><a href="https://code.visualstudio.com/">Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples
-I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use
-batch files though.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</link>
-		<guid>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</guid>
-		<pubDate>Thu, 09 Jul 2015 00:00:00 GMT</pubDate>
-	</item>
 	<item>
 		<title><![CDATA[Snowball V2.0]]></title>
 		<description><![CDATA[<p>I haven't written anything new here in a very long time and a lot has happened since then. I started a new job at
@@ -29,6 +19,16 @@ some changes.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/snowball-2.html</link>
 		<guid>http://smack0007.github.io/blog/2018/snowball-2.html</guid>
+		<pubDate>Fri, 23 Feb 2018 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Using batch files as the task runner in Visual Studio Code]]></title>
+		<description><![CDATA[<p><a href="https://code.visualstudio.com/">Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples
+I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use
+batch files though.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</link>
+		<guid>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</guid>
 		<pubDate>Thu, 09 Jul 2015 00:00:00 GMT</pubDate>
 	</item>
 	<item>
