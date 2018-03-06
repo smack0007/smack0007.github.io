@@ -39,6 +39,19 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2011\switching-from-git-to-mercurial.html">Switching from Git to Mercurial</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>June 03, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>Random</span>
+<span class="tags"><i class="fa fa-tags"></i>git, Mercurial</span>
+</div>
+<div class="content">
+<p>I've decided to make the switch from using git to Mercurial. Git's syntax to me is much more complicated than it needs to be and Mercurial seems to be more my style. I find it's much easier to find out how to do things with Mercurial and to be honest, I use about 10% of the functionality in either git or Mercurial.</p>
+<p>This also means I'll be transitioning Snowball to Codeplex I think. I'll be moving it away from GitHub for sure just not 100% sure where.</p>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2011\marker-interfaces.html">Marker Interfaces</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>May 24, 2011</span>
@@ -101,90 +114,6 @@ DEL IconCache.db /a
 EXIT
 </code></pre>
 <p>After that your icon should be there as you want.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2011\getting-started-with-slimdx.html">Getting started with SlimDX</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>March 31, 2011</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>DirectX</span>
-</div>
-<div class="content">
-<p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href="http://sharpdx.org/">SharpDX</a>.</p>
-<p>Since I tried OpenTK, I decided to give <a href="http://slimdx.org/">SlimDX</a> a try as well. So, here's a simple getting started app:</p>
-<pre><code class="language-c#">using System;
-using System.Drawing;
-using System.Windows.Forms;
-using SlimDX;
-using SlimDX.Direct3D9;
-using SlimDX.Windows;
-
-namespace SlimDXApp1
-{
-	public partial class SlimDXApp1Form : RenderForm
-	{
-		struct Vertex
-		{
-			public Vector4 Position;
-			public int Color;
-		}
-
-		Device device;
-		VertexDeclaration vertexDeclaration;
-		
-		public SlimDXApp1Form()
-			: base(&quot;SlimDXApp1&quot;)
-		{
-			this.ClientSize = new Size(800, 600);
-
-			this.device = new Device(new Direct3D(), 0, DeviceType.Hardware, this.Handle, CreateFlags.HardwareVertexProcessing, new PresentParameters()
-            {
-                BackBufferWidth = this.ClientSize.Width,
-                BackBufferHeight = this.ClientSize.Height
-            });
-
-			this.vertexDeclaration = new VertexDeclaration(this.device, new[] {
-        		new VertexElement(0, 0, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, 0),
-        		new VertexElement(0, 16, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, 0),
-				VertexElement.VertexDeclarationEnd
-        	});
-		}
-
-		public void Run()
-		{
-			MessagePump.Run(this, () =&gt;
-			{
-				this.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-				this.device.BeginScene();
-
-				this.device.VertexDeclaration = this.vertexDeclaration;
-
-				this.device.DrawUserPrimitives&lt;Vertex&gt;(PrimitiveType.TriangleList, 1, new[] {
-					new Vertex() { Color = Color.Red.ToArgb(), Position = new Vector4(400.0f, 100.0f, 0.5f, 1.0f) },
-					new Vertex() { Color = Color.Blue.ToArgb(), Position = new Vector4(650.0f, 500.0f, 0.5f, 1.0f) },
-					new Vertex() { Color = Color.Green.ToArgb(), Position = new Vector4(150.0f, 500.0f, 0.5f, 1.0f) }
-				});
-				
-				this.device.EndScene();
-				this.device.Present();
-			});
-		}
-
-		[STAThread]
-		static void Main()
-		{
-			SlimDXApp1Form form = new SlimDXApp1Form();
-			form.Run();
-
-			// Cleans up COM handles
-			foreach(var item in ObjectTable.Objects)
-				item.Dispose();
-		}
-	}
-}
-</code></pre>
 
 </div>
 </div>

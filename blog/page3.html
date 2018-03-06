@@ -39,6 +39,27 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2013\gldotnet-version-0-6-0.html">GLDotNet Version 0.6.0</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>February 19, 2013</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>C#, OpenGL, .NET</span>
+</div>
+<div class="content">
+<p>I just released GLDotNet Version 0.6.0.</p>
+<h2>Changelog:</h2>
+<ul>
+<li>**GLDotNet.Toolkit**: Assembly containing simple app framework.</li>
+<li>**GLDotNet.Objects**: Assembly containing higher level objects such as Texture2D and VertexBuffer.</li>
+<li>More overloads added to GLContext class.</li>
+<li>byte and sbyte are now mapped correctly in generated code.</li>
+<li>Fixed the naming of some functions so as not to include type notation, i.e. Color4u.</li>
+<li>Decreased the number of enum values output.</li>
+</ul>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2013\introducing-gldotnet.html">Introducing GLDotNet</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>January 02, 2013</span>
@@ -116,19 +137,6 @@
 </ol>
 </blockquote>
 <p><a href="http://alinconstantin.blogspot.de/2012/09/using-color-themes-with-visual-studio.html">Source</a></p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2012\id3dxeffectonlostdevice.html">ID3DXEffect::OnLostDevice()</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>July 20, 2012</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>Direct3D9, DirectX, ID3DXEffect</span>
-</div>
-<div class="content">
-<p>I fixed a bug yesterday in Snowball related to a lost graphics device. I noticed that when I would use CTRL + ALT + DELETE, my apps were crashing. Turned out it was due to not recovering properly from a lost device.</p>
-<p>The root of the problem was that I needed to call the ID3DXEffect::OnLostDevice() method when the device was being lost. This allows the effect to recover from the lost device. I've made the Effect class in Snowball now do this automatically.</p>
 
 </div>
 </div>

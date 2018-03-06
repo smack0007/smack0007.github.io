@@ -4,9 +4,51 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Tue, 27 Feb 2018 08:52:49 GMT</lastBuildDate>
-	<pubDate>Fri, 23 Feb 2018 00:00:00 GMT</pubDate>
+	<lastBuildDate>Tue, 06 Mar 2018 07:50:21 GMT</lastBuildDate>
+	<pubDate>Tue, 06 Mar 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Poor Man's Template Engine in C#]]></title>
+		<description><![CDATA[<p>If you're looking for a poor man's solution to a templating engine for .net and don't really need
+the overhead a complete template engine brings with it, I've come up with the following solution:</p>
+<pre><code class="language-c#">public abstract class Template&lt;T&gt;
+{
+    public string Render(T data)
+    {
+        return string.Join(Environment.NewLine, RenderTemplate(data));
+    }
+
+    protected abstract IEnumerable&lt;string&gt; RenderTemplate(T data);
+}
+
+public class PeopleTemplate : Template&lt;IEnumerable&lt;Person&gt;&gt;
+{
+    protected override IEnumerable&lt;string&gt; RenderTemplate(IEnumerable&lt;Person&gt; people)
+    {
+        foreach (var person in people)
+            yield return $&quot;{person.FirstName} {person.LastName}&quot;;
+    }
+}
+</code></pre>
+<p>This can then be consumed with:</p>
+<pre><code class="language-c#">var people = new Person[]
+{
+    new Person() { FirstName = &quot;Stan&quot;, LastName = &quot;Marsh&quot; },
+    new Person() { FirstName = &quot;Kyle&quot;, LastName = &quot;Broflovski&quot; },
+    new Person() { FirstName = &quot;Kenny&quot;, LastName = &quot;McCormick&quot; },
+    new Person() { FirstName = &quot;Eric&quot;, LastName = &quot;Cartman&quot; },
+};
+
+var template = new PeopleTemplate();
+Console.WriteLine(template.Render(people));
+</code></pre>
+<p>This is a really barebones solution but it works. In future posts I will build on
+this idea further to make our templating solution more powerful.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html</link>
+		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html</guid>
+		<pubDate>Tue, 06 Mar 2018 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Snowball V2.0]]></title>
 		<description><![CDATA[<p>I haven't written anything new here in a very long time and a lot has happened since then. I started a new job at
@@ -252,15 +294,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2012/getting-started-with-snowball.html</link>
 		<guid>http://smack0007.github.io/blog/2012/getting-started-with-snowball.html</guid>
 		<pubDate>Sun, 04 Mar 2012 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[WinQuakeCon]]></title>
-		<description><![CDATA[<p>I've always wanted a program that would allow me have a command line that I could slide in and out of view as needed like the console from <a href="http://en.wikipedia.org/wiki/Quake_(video_game)">Quake</a>. I never could find one and so I finally got decided to write a tool myself. A picture is below and the source code is on <a href="https://github.com/smack0007/WinQuakeCon">GitHub</a>.</p>
-<p>I'm not putting a download here as I don't consider this finished just yet.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2011/winquakecon.html</link>
-		<guid>http://smack0007.github.io/blog/2011/winquakecon.html</guid>
-		<pubDate>Tue, 20 Dec 2011 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>

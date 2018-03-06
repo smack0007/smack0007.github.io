@@ -39,6 +39,39 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2010\progress-bars-in-windows-7-taskbars.html">Progress Bar in Windows 7 Taskbars</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>June 01, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>.NET, C#, Windows 7</span>
+</div>
+<div class="content">
+<p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.</p>
+<p>I started by downloading and compiling the <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows API Code Pack</a> in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:</p>
+<pre><code class="language-c#">using Microsoft.WindowsAPICodePack.Taskbar;
+</code></pre>
+<p>to your using statements. When the clock starts running I create the progress bar in the taskbar with:</p>
+<pre><code class="language-c#">// Initialize progress bar
+if(TaskbarManager.IsPlatformSupported)
+{
+	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
+	TaskbarManager.Instance.SetProgressValue(0, (int)this.totalTime.TotalSeconds, this.Handle);
+}
+</code></pre>
+<p>to stop the progress bar:</p>
+<pre><code class="language-c#">// Stop progress bar
+if(TaskbarManager.IsPlatformSupported)
+	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
+</code></pre>
+<p>and finally to update the progress bar on each tick:</p>
+<pre><code class="language-c#">// Update progress bar
+if(TaskbarManager.IsPlatformSupported)
+	TaskbarManager.Instance.SetProgressValue((int)this.totalTime.TotalSeconds - (int)this.time.TotalSeconds, (int)this.totalTime.TotalSeconds, this.Handle);
+</code></pre>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2010\winforms-and-mvc.html">WinForms and MVC</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>May 26, 2010</span>
@@ -142,36 +175,6 @@ public static class IServiceContainerExtensions
 <p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
 <blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote>
 <p>This article will &quot;<em>attempt</em>&quot; to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2010\changing-the-platformtarge-in-visual-c-express.html">Changing the PlatformTarget in Visual C# Express</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>January 18, 2010</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>MSBuild</span>
-</div>
-<div class="content">
-<p>Some project types in Visual C# Express (Empty Project) will not allow you to change the PlatformTarget from the UI. You can still change the target platform though by editing the .csproj file in a text editor. Close the project and open it up in your favorite text editor (I use <a href="http://notepad-plus.sourceforge.net/">Notpad++</a>). The .csproj file is really just a XML file. You should see somewhere in the file something like:</p>
-<pre><code class="language-xml">	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&amp;gt;
-		....
-	&amp;lt;/PropertyGroup&amp;gt;
-	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Release|AnyCPU' &quot;&amp;gt;
-		....
-	&amp;lt;/PropertyGroup&amp;gt;
-</code></pre>
-<p>Inside the PropertyGroup elements, add the PlatformTarget element:</p>
-<pre><code class="language-xml">	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&amp;gt;
-		....
-		&amp;lt;PlatformTarget&amp;gt;x86*&amp;lt;/PlatformTarget&amp;gt;
-	&amp;lt;/PropertyGroup&amp;gt;
-	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Release|AnyCPU' &quot;&amp;gt;
-		....
-		&amp;lt;PlatformTarget&amp;gt;x86&amp;lt;/PlatformTarget&amp;gt;
-	&amp;lt;/PropertyGroup&amp;gt;
-</code></pre>
-<p>Save the file and open your project back up. Your project's output should now target only x86.</p>
 
 </div>
 </div>

@@ -39,6 +39,36 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2010\changing-the-platformtarge-in-visual-c-express.html">Changing the PlatformTarget in Visual C# Express</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>January 18, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>MSBuild</span>
+</div>
+<div class="content">
+<p>Some project types in Visual C# Express (Empty Project) will not allow you to change the PlatformTarget from the UI. You can still change the target platform though by editing the .csproj file in a text editor. Close the project and open it up in your favorite text editor (I use <a href="http://notepad-plus.sourceforge.net/">Notpad++</a>). The .csproj file is really just a XML file. You should see somewhere in the file something like:</p>
+<pre><code class="language-xml">	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&amp;gt;
+		....
+	&amp;lt;/PropertyGroup&amp;gt;
+	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Release|AnyCPU' &quot;&amp;gt;
+		....
+	&amp;lt;/PropertyGroup&amp;gt;
+</code></pre>
+<p>Inside the PropertyGroup elements, add the PlatformTarget element:</p>
+<pre><code class="language-xml">	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' &quot;&amp;gt;
+		....
+		&amp;lt;PlatformTarget&amp;gt;x86*&amp;lt;/PlatformTarget&amp;gt;
+	&amp;lt;/PropertyGroup&amp;gt;
+	&amp;lt;PropertyGroup Condition=&quot; '$(Configuration)|$(Platform)' == 'Release|AnyCPU' &quot;&amp;gt;
+		....
+		&amp;lt;PlatformTarget&amp;gt;x86&amp;lt;/PlatformTarget&amp;gt;
+	&amp;lt;/PropertyGroup&amp;gt;
+</code></pre>
+<p>Save the file and open your project back up. Your project's output should now target only x86.</p>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2009\calculating-an-angle-from-a-vector2.html">Calculating an angle from a Vector2</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>February 28, 2009</span>
@@ -315,18 +345,6 @@ spriteBatch.End();
 <p>Which loads a spritesheet with sprites of size 64x64. It then draws the first Sprite in the SpriteSheet. You of course wouldn't want to load the spritesheet every frame as well.</p>
 <p>Feel free to use this code without restriction.</p>
 <p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2008\colors-and-hex.html">Colors and Hex</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>December 21, 2008</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>Xna</span>
-</div>
-<div class="content">
-<p>I recently needed to write out Color(s) as an xml attribute. I wrote 2 methods to read and write the Color(s) as Hex strings. Here ya go:</p>
 
 </div>
 </div>

@@ -39,6 +39,19 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2010\component-glue.html">Component Glue</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>November 02, 2010</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>C#, CodePlex, IoC, Open Source</span>
+</div>
+<div class="content">
+<p>The other day I started an open source project for an <a href="http://www.martinfowler.com/articles/injection.html">IoC Container</a> I call <a href="http://componentglue.codeplex.com/">Component Glue</a>. It's in a toy / learning tool status right now and I don't know how far I actually want to take the project. More to come though.</p>
+<p><a href="http://componentglue.codeplex.com/">Component Glue on Codeplex</a></p>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2010\visual-studio-move-referenced-dll-to-different-directory-after-build.html">Visual Studio: Move referenced DLL to different directory after Build</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>July 20, 2010</span>
@@ -94,39 +107,6 @@ return Texture2D.FromFile(graphicsDevice, stream);
 <p>My little Xna game that I wrote nearly 2 years ago reached the 500 downloads mark (binaries and source) the other day. With that said, I'd like to say that I'm working on version 2.0.</p>
 <p>In version 2.0 I'm going to make the code more event driven. The old code uses the Xna Game class and in the new version I'll be making it WinForms based. Almost a complete rewrite.</p>
 <p>My work so far is available through SVN on the project's <a href="http://samegamexna.codeplex.com/">Codeplex page</a>.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2010\progress-bars-in-windows-7-taskbars.html">Progress Bar in Windows 7 Taskbars</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>June 01, 2010</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>.NET, C#, Windows 7</span>
-</div>
-<div class="content">
-<p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.</p>
-<p>I started by downloading and compiling the <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows API Code Pack</a> in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:</p>
-<pre><code class="language-c#">using Microsoft.WindowsAPICodePack.Taskbar;
-</code></pre>
-<p>to your using statements. When the clock starts running I create the progress bar in the taskbar with:</p>
-<pre><code class="language-c#">// Initialize progress bar
-if(TaskbarManager.IsPlatformSupported)
-{
-	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
-	TaskbarManager.Instance.SetProgressValue(0, (int)this.totalTime.TotalSeconds, this.Handle);
-}
-</code></pre>
-<p>to stop the progress bar:</p>
-<pre><code class="language-c#">// Stop progress bar
-if(TaskbarManager.IsPlatformSupported)
-	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
-</code></pre>
-<p>and finally to update the progress bar on each tick:</p>
-<pre><code class="language-c#">// Update progress bar
-if(TaskbarManager.IsPlatformSupported)
-	TaskbarManager.Instance.SetProgressValue((int)this.totalTime.TotalSeconds - (int)this.time.TotalSeconds, (int)this.totalTime.TotalSeconds, this.Handle);
-</code></pre>
 
 </div>
 </div>
