@@ -1,5 +1,6 @@
 ---
-Title: Poor Man's Template Engine in C#
+Title: Poor Man's Template Engine in C# Part 1
+Subtitle: Groundwork
 Date: 2018-03-06
 Category: c#
 Tags: c#, template, template-engine

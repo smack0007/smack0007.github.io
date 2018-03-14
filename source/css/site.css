@@ -1,3 +1,17 @@
+@media (min-width: 56rem) {
+    .container {
+        max-width: inherit;
+        padding: 0 3.5rem;
+    }
+}
+
+@media (min-width: 38rem){
+    .container {
+        max-width: inherit;
+        padding: 0 3.5rem;
+    }
+}
+
 .social {
     float: right;
 }
@@ -17,4 +31,13 @@
 
 .clear {
     clear: both;
+}
+
+.post h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #808080;
+    font-size: 1rem;
+    text-align: right;
+    font-style: italic;
 }

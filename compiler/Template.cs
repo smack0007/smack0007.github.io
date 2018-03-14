@@ -12,11 +12,11 @@ namespace compiler
         }
 
         protected abstract IEnumerable<string> RenderTemplate(T data);
-
-        protected static string Include<TData>(Func<TData, IEnumerable<string>> renderFunc, TData data) => string.Join(Environment.NewLine, renderFunc(data));
+        
+        protected static string HtmlEncode(string input) => WebUtility.HtmlEncode(input);
 
         protected static string If(bool condition, string trueString, string falseString = null) => condition ? trueString : falseString;
         
-        protected static string HtmlEncode(string input) => WebUtility.HtmlEncode(input);
+        protected static string Include<TData>(Func<TData, IEnumerable<string>> renderFunc, TData data) => string.Join(Environment.NewLine, renderFunc(data));
     }
 }

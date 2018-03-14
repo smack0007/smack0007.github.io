@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Markdig;
 
 namespace compiler
@@ -152,7 +153,7 @@ namespace compiler
             ExtractMarkdownParts(lines, out frontMatterLines, out contentLines);
 
             frontMatter = FrontMatter.Parse(frontMatterLines);
-            return Markdown.ToHtml(string.Join(Environment.NewLine, contentLines));
+            return Markdown.ToHtml(ReplaceVariables(string.Join(Environment.NewLine, contentLines)));
         }
 
         private static void ExtractMarkdownParts(string[] lines, out string[] frontMatter, out string[] contentLines)
@@ -192,6 +193,18 @@ namespace compiler
 
             contentLines = new string[lines.Length - markdownStart];
             Array.Copy(lines, markdownStart, contentLines, 0, lines.Length - markdownStart);
+        }
+
+        private static string ReplaceVariables(string input)
+        {
+            return Regex.Replace(input, "\\{\\{.*\\}\\}", (m) => {
+                switch (m.ToString())
+                {
+                    case "{{baseUrl}}": return "http://smack0007.github.io";
+                }
+
+                return m.ToString();
+            });
         }
 
         public static void RenderPost(

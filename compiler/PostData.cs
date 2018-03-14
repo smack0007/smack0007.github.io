@@ -19,6 +19,8 @@ namespace compiler
 
         public string Title => this.FrontMatter["Title"];
 
+        public string Subtitle => this.FrontMatter["Subtitle"];
+
         public DateTime SortDate => DateTime.ParseExact(this.FrontMatter["Date"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
         public string Date => this.SortDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-us"));
