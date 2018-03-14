@@ -39,6 +39,70 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2011\favoring-composition-over-inheritance.html">Favoring Composition over Inheritance</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>January 18, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>Design Patterns</span>
+<span class="tags"><i class="fa fa-tags"></i>Composition over Inheritance</span>
+</div>
+<div class="content">
+<p>You may have heard the expression before &quot;Favor Composition over Inheritance&quot;, but do you know what it means and how to apply it? Lets take this code for example:</p>
+<pre><code class="language-c#">abstract class Car
+{
+	public Color Color { get; protected set; }
+	public Engine Engine { get; protected set; }
+}
+
+class ElectricCar : Car
+{
+	public ElectricCar()
+	{
+		this.Color = Color.Blue;
+		this.Engine = new ElectricEngine();
+	}
+}
+
+class SportsCar : Car
+{
+	public SportsCar()
+	{
+		this.Color = Color.Red;
+		this.Engine = new V8Engine();
+	}
+}
+
+class Truck : Car
+{
+	public Truck()
+	{
+		this.Color = Color.White;
+		this.Engine = new DieselEngine();
+	}
+}
+</code></pre>
+<p>In this contrived example, we've defined three types of cars. Each instance of each of the cars will always have the same color and same engine. What happens when we need a 4th type? We have to define another class. By refactoring this code, we can compose a car type by giving it a color and an engine:</p>
+<pre><code class="language-c#">class Car
+{
+	public Color Color { get; private set; }
+	public Engine Engine { get; private set; }
+	
+	public Car(Color color, Engine engine)
+	{
+		this.Color = color;
+		this.Engine = engine;
+	}
+}
+
+Car electricCar = new Car(Color.Blue, new ElectricEngine());
+Car sportsCar = new Car(Color.Red, new V8Engine());
+Car truck = new Car(Color.White, new DieselEngine());
+Car familyCar = new Car(Color.Black, new V4Engine());
+</code></pre>
+<p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</p>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2010\component-glue.html">Component Glue</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>November 02, 2010</span>
@@ -93,20 +157,6 @@ return Texture2D.FromFile(graphicsDevice, stream);
 </div>
 <div class="content">
 <p>By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2010\500-downloads-of-the-same-game.html">500 Downloads of the Same Game</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>June 09, 2010</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>CodePlex, Same Game Xna, WinForms, Xna</span>
-</div>
-<div class="content">
-<p>My little Xna game that I wrote nearly 2 years ago reached the 500 downloads mark (binaries and source) the other day. With that said, I'd like to say that I'm working on version 2.0.</p>
-<p>In version 2.0 I'm going to make the code more event driven. The old code uses the Xna Game class and in the new version I'll be making it WinForms based. Almost a complete rewrite.</p>
-<p>My work so far is available through SVN on the project's <a href="http://samegamexna.codeplex.com/">Codeplex page</a>.</p>
 
 </div>
 </div>

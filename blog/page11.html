@@ -39,6 +39,189 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2009\spritesheet-class.html">SpriteSheet Class</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>January 09, 2009</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>SpriteSheet, Xna</span>
+</div>
+<div class="content">
+<p>I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.</p>
+<p>It's very simple. Only reads sprites from left to right and assumes all Sprites are the same width and height.</p>
+<pre><code class="language-csharp">#region Using
+using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+#endregion
+
+namespace Snow.Xna.Graphics
+{
+	/// &lt;summary&gt;
+	/// Spritesheet class.
+	/// &lt;/summary&gt;
+	public class SpriteSheet
+	{
+		#region Fields
+
+		string name;
+
+		Texture2D texture;
+
+		Rectangle[] rectangles;
+
+		int spriteWidth, spriteHeight;
+
+		#endregion
+
+		#region Properties
+
+		/// &lt;summary&gt;
+		/// The name of this SpriteSheet.
+		/// &lt;/summary&gt;
+		public string Name
+		{
+			get { return name; }
+		}
+
+		/// &lt;summary&gt;
+		/// The texture for this SpriteSheet.
+		/// &lt;/summary&gt;
+		public Texture2D Texture
+		{
+			get { return texture; }
+		}
+
+		/// &lt;summary&gt;
+		/// Returns a rectangle for a sprite in the SpriteSheet.
+		/// &lt;/summary&gt;
+		/// &lt;param name=&quot;i&quot;&gt;index&lt;/param&gt;
+		/// &lt;returns&gt;&lt;/returns&gt;
+		public Rectangle this[int i]
+		{
+			get { return rectangles[i]; }
+		}
+
+		/// &lt;summary&gt;
+		/// The number of sprites in this SpriteSheet.
+		/// &lt;/summary&gt;
+		public int Count
+		{
+			get { return rectangles.Length; }
+		}
+
+		/// &lt;summary&gt;
+		/// The width of the texture.
+		/// &lt;/summary&gt;
+		public int Width
+		{
+			get { return texture.Width; }
+		}
+
+		/// &lt;summary&gt;
+		/// The width of each sprite in the SpriteSheet.
+		/// &lt;/summary&gt;
+		public int SpriteWidth
+		{
+			get { return spriteWidth; }
+		}
+
+		/// &lt;summary&gt;
+		/// The height of the texture.
+		/// &lt;/summary&gt;
+		public int Height
+		{
+			get { return texture.Height; }
+		}
+
+		/// &lt;summary&gt;
+		/// The height of each sprite in the SpriteSheet.
+		/// &lt;/summary&gt;
+		public int SpriteHeight
+		{
+			get { return spriteHeight; }
+		}
+
+		#endregion
+
+		/// &lt;summary&gt;
+		/// Create a new SpriteSheet and determine the number of sprites in the sheet.
+		/// &lt;/summary&gt;
+		/// &lt;param name=&quot;texture&quot;&gt;&lt;/param&gt;
+		/// &lt;param name=&quot;spriteWidth&quot;&gt;Width of each sprite.&lt;/param&gt;
+		/// &lt;param name=&quot;spriteHeight&quot;&gt;Height of each sprite.&lt;/param&gt;
+		public SpriteSheet(string name, Texture2D texture, int spriteWidth, int spriteHeight)
+			: this(name, texture, spriteWidth, spriteHeight, 0)
+		{
+		}
+
+		/// &lt;summary&gt;
+		/// Create a new SpriteSheet.
+		/// &lt;/summary&gt;
+		/// &lt;param name=&quot;texture&quot;&gt;&lt;/param&gt;
+		/// &lt;param name=&quot;spriteWidth&quot;&gt;Width of each sprite.&lt;/param&gt;
+		/// &lt;param name=&quot;spriteHeight&quot;&gt;Height of each sprite.&lt;/param&gt;
+		/// &lt;param name=&quot;count&quot;&gt;The number of sprites in the sheet.&lt;/param&gt;
+		public SpriteSheet(string name, Texture2D texture, int spriteWidth, int spriteHeight, int count)
+		{
+			this.name = name;
+			this.texture = texture;
+			this.spriteWidth = spriteWidth;
+			this.spriteHeight = spriteHeight;
+
+			if(count == 0)
+			{
+				int numX = texture.Width / spriteWidth;
+				int numY = texture.Height / spriteHeight;
+
+				rectangles = new Rectangle[numX * numY];
+			}
+			else
+			{
+				rectangles = new Rectangle[count];
+			}
+
+			int x = 0, y = 0;
+			for(int i = 0; i &lt; rectangles.Length; i++)
+			{
+				rectangles[i] = new Rectangle(x, y, spriteWidth, spriteHeight);
+
+				x += spriteWidth;
+				if(x &gt;= texture.Width)
+				{
+					x = 0;
+					y += spriteHeight;
+				}
+			}
+		}
+
+		public static implicit operator Texture2D(SpriteSheet spriteSheet)
+		{
+			return spriteSheet.Texture;
+		}
+	}
+}
+</code></pre>
+<p>You can create a new SpriteSheet and use it like this:</p>
+<p>`</p>
+<pre><code class="language-c#">SpriteSheet spriteSheet = new SpriteSheet(&quot;tiles&quot;, Content.Load&lt;texture2D&gt;(&quot;tiles&quot;), 64, 64);
+
+spriteBatch.Begin();
+
+spriteBatch.Draw(spriteSheet,
+		        new Rectangle(0, 0, spriteSheet.SpriteWidth, spriteSheet.SpriteHeight),
+			spriteSheet[0],
+			Color.White);
+
+spriteBatch.End();
+</code></pre>
+<p>`</p>
+<p>Which loads a spritesheet with sprites of size 64x64. It then draws the first Sprite in the SpriteSheet. You of course wouldn't want to load the spritesheet every frame as well.</p>
+<p>Feel free to use this code without restriction.</p>
+<p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</p>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2008\colors-and-hex.html">Colors and Hex</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>December 21, 2008</span>

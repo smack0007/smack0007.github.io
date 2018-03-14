@@ -39,6 +39,21 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
+<h2><a href="blog\2011\xaudio2-stop-currently-playing-sound.html">XAudio2: Stop Currently Playing Sound</a></h2>
+<div class="meta">
+<span class="date"><i class="fa fa-calendar"></i>July 02, 2011</span>
+<span class="category"><i class="fa fa-folder"></i>.NET</span>
+<span class="tags"><i class="fa fa-tags"></i>SlimDX, XAudio2</span>
+</div>
+<div class="content">
+<p>Using SlimDX, if you want to stop a sound which is currently playing via XAudio2, use the following methods on the SourceVoice object:</p>
+<pre><code class="language-c#">sourceVoice.Stop();
+sourceVoice.FlushSourceBuffers();
+</code></pre>
+
+</div>
+</div>
+<div class="post">
 <h2><a href="blog\2011\switching-from-git-to-mercurial.html">Switching from Git to Mercurial</a></h2>
 <div class="meta">
 <span class="date"><i class="fa fa-calendar"></i>June 03, 2011</span>
@@ -84,36 +99,6 @@
 </div>
 <div class="content">
 <p>I started writing a 2D Game Engine on <a href="https://github.com/">GitHub</a>. I call it <a href="https://github.com/smack0007/Snowball">Snowball</a> because I'm original like that.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2011\using-git-gui-with-cygwin-on-windows-7.html">Using git-gui with Cygwin on Windows 7</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>April 07, 2011</span>
-<span class="category"><i class="fa fa-folder"></i>Random</span>
-<span class="tags"><i class="fa fa-tags"></i>Cygwin, git, git-gui, Windows 7</span>
-</div>
-<div class="content">
-<p>I've started using git via <a href="http://www.cygwin.com/">cygwin</a> and was running into trouble trying to pin it to my taskbar in Windows 7.</p>
-<p>First I created a .bat file in the c:\cygwin folder which launches the app standalone:</p>
-<pre><code>@@echo off
-
-C:
-chdir C:\cygwin\bin
-
-start run.exe git gui
-</code></pre>
-<p>You can change paths accordingly. Now run the batch file and pin the program to the taskbar. You'll notice after you close the app, the icon changes and it won't launch again.</p>
-<p>Right click on the shortcut while holding shift and choose properties. Change the target to the batch file we wrote. You can change the icon to the git-gui icon by pointing the shortcut icon to &quot;C:\cygwin\usr\share\git-gui\lib\git-gui.ico&quot;.</p>
-<p>Now if you click on the icon, the git-gui app should start up. Kill your explorer.exe in task manager and restart. If the icon is still the genie lamp, you'll need to clear your icon cache to get the icon to look right. Credit for that from <a href="http://superuser.com/questions/72756/changing-windows-7-pinned-taskbar-icons">here</a>. Kill your explorer.exe again and while explorer is gone, start cmd.exe. From there enter the following commands:</p>
-<pre><code>CD /d %userprofile%\AppData\Local
-
-DEL IconCache.db /a
-
-EXIT
-</code></pre>
-<p>After that your icon should be there as you want.</p>
 
 </div>
 </div>

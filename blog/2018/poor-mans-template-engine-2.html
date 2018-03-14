@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="Zachary Snow">
 
-        <title>Poor Man's Template Engine in C# Part 1</title>
+        <title>Poor Man's Template Engine in C# Part 2</title>
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
         <link rel="stylesheet" type="text/css" href="../../css/site.css">
 
@@ -39,16 +39,16 @@
             <div class="container content">
                 <div class="posts">
                     <div class="post">
-<h2><a href="blog\2018\poor-mans-template-engine-1.html">Poor Man&#39;s Template Engine in C# Part 1</a></h2>
+<h2><a href="blog\2018\poor-mans-template-engine-2.html">Poor Man&#39;s Template Engine in C# Part 2</a></h2>
 <div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>March 06, 2018</span>
+<span class="date"><i class="fa fa-calendar"></i>March 14, 2018</span>
 <span class="category"><i class="fa fa-folder"></i>c#</span>
 <span class="tags"><i class="fa fa-tags"></i>c#, template, template-engine</span>
 </div>
-<h3>Groundwork</h3>
+<h3>HtmlEncode and If</h3>
 <div class="content">
-<p>If you're looking for a poor man's solution to a templating engine for .net and don't really need
-the overhead a complete template engine brings with it, I've come up with the following solution:</p>
+<p>In our <a href="http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html">last episode</a> we laid the groundwork for our
+simple template engine. In this episode we'll introduce our first 2 helper functions:</p>
 <pre><code class="language-c#">public abstract class Template&lt;T&gt;
 {
     public string Render(T data)
@@ -57,31 +57,29 @@ the overhead a complete template engine brings with it, I've come up with the fo
     }
 
     protected abstract IEnumerable&lt;string&gt; RenderTemplate(T data);
-}
 
-public class PeopleTemplate : Template&lt;IEnumerable&lt;Person&gt;&gt;
+    protected static string HtmlEncode(string input) =&gt; WebUtility.HtmlEncode(input);
+
+    protected static string If(bool condition, string trueString, string falseString = null) =&gt; condition ? trueString : falseString;
+}
+</code></pre>
+<p>The first helper function <code>HtmlEncode</code> is fairly self explanitory. Use it to encode a string so that it is valid html.</p>
+<p><code>If</code> can be used inside an interpolated string to optionally include a string or include a different string depending on
+if condition is true or false.</p>
+<pre><code class="language-c#">public class PathTemplate : Template&lt;string[]&gt;
 {
-    protected override IEnumerable&lt;string&gt; RenderTemplate(IEnumerable&lt;Person&gt; people)
+    protected override IEnumerable&lt;string&gt; RenderTemplate(string[] paths)
     {
-        foreach (var person in people)
-            yield return $&quot;{person.FirstName} {person.LastName}&quot;;
+        string output = &quot;&quot;;
+
+        for (int i = 0; i &lt; paths.Length; i++)
+            output += $&quot;{paths[i]}{If(i &lt; paths.Length - 1, HtmlEncode(&quot; &gt;&quot;))}&quot;;
+
+        yield return output;
     }
 }
 </code></pre>
-<p>This can then be consumed with:</p>
-<pre><code class="language-c#">var people = new Person[]
-{
-    new Person() { FirstName = &quot;Stan&quot;, LastName = &quot;Marsh&quot; },
-    new Person() { FirstName = &quot;Kyle&quot;, LastName = &quot;Broflovski&quot; },
-    new Person() { FirstName = &quot;Kenny&quot;, LastName = &quot;McCormick&quot; },
-    new Person() { FirstName = &quot;Eric&quot;, LastName = &quot;Cartman&quot; },
-};
-
-var template = new PeopleTemplate();
-Console.WriteLine(template.Render(people));
-</code></pre>
-<p>This is a really barebones solution but it works. In future posts I will build on
-this idea further to make our templating solution more powerful.</p>
+<p>Next time we'll talk about including templates inside of other templates.</p>
 
 </div>
 </div>
