@@ -21,10 +21,10 @@ namespace compiler
             yield return $"<h2><a href=\"{data.Path}\">{HtmlEncode(data.Title)}</a></h2>";   
 
             yield return "<div class=\"meta\">";
-                yield return $"<span class=\"date\"><i class=\"fa fa-calendar\"></i>{data.Date}</span>";
-                yield return $"<span class=\"category\"><i class=\"fa fa-folder\"></i>{HtmlEncode(data.Category)}</span>";
+                yield return $"<span class=\"date\"><span class=\"fas fa-calendar-alt\"></span>{data.Date}</span>";
+                yield return $"<span class=\"category\"><span class=\"fas fa-folder\"></span>{HtmlEncode(data.Category)}</span>";
                 var tags = data.Tags.Select(x => HtmlEncode(x));
-                yield return $"<span class=\"tags\"><i class=\"fa fa-tags\"></i>{string.Join(", ", tags)}</span>";
+                yield return $"<span class=\"tags\"><span class=\"fas fa-tags\"></span>{string.Join(", ", tags)}</span>";
             yield return "</div>";
 
             if (!string.IsNullOrEmpty(data.Subtitle))

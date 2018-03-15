@@ -37,9 +37,9 @@ $@"<!doctype html>
             <div class=""masthead"">
                 <div class=""container"">
                     <div class=""social"">
-                        <a href=""http://twitter.com/smack0007"" class=""twitter"" title=""Twitter""><i class=""fa fa-twitter""></i></a>
-                        <a href=""http://github.com/smack0007"" class=""github"" title=""Github""><i class=""fa fa-github""></i></a>
-                        <a href=""{data.BasePath}feed.rss"" class=""rss"" title=""RSS""><i class=""fa fa-rss""></i></a>
+                        <a href=""http://twitter.com/smack0007"" class=""twitter"" title=""Twitter""><span class=""fab fa-twitter""></span></a>
+                        <a href=""http://github.com/smack0007"" class=""github"" title=""Github""><span class=""fab fa-github""></span></a>
+                        <a href=""{data.BasePath}feed.rss"" class=""rss"" title=""RSS""><span class=""fas fa-rss""></span></a>
                     </div>
                     <h3 class=""masthead-title"">
                         <a href=""{data.BasePath}index.html"" title=""Home"">The Blog of Zachary Snow</a>
