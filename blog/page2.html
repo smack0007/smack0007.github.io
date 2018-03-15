@@ -1,139 +1,18 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
-
-        <title>The Blog of Zachary Snow</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="../css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../index.html" class="sidebar-nav-item">Home</a>
-                <a href="../about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="../index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2014\my-experience-with-opengl-vs-direct3d.html">My Experience with OpenGL vs Direct3D</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>November 18, 2014</span>
-<span class="category"><i class="fa fa-folder"></i>Graphics</span>
-<span class="tags"><i class="fa fa-tags"></i>OpenGL, Direct3D</span>
-</div>
-<div class="content">
-<p>I've struggled a lot with myself over whether I should use OpenGL or Direct3D. There is no blanket answer to this question that anyone can tell you.
-Both APIs have a very different feel and which one you prefer can only be decided on your own.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2014\code-from-when-i-was-young-and-stupid.html">Code from when I was young and stupid and needed the money</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>June 18, 2014</span>
-<span class="category"><i class="fa fa-folder"></i>Random</span>
-<span class="tags"><i class="fa fa-tags"></i>Old Code, Cplusplus, Young</span>
-</div>
-<div class="content">
-<p>We have had 2 interns at work for the past few weeks and one of the tasks we gave them was to implement <a href="http://en.wikipedia.org/wiki/Quick_sort">Quicksort</a>.
-This got me to thinking about my youth and some of the code I wrote back then. I've decided to post it.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2014\adding-assembly-references-in-roslyn.html">Adding assembly references in Roslyn</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>April 15, 2014</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>Roslyn</span>
-</div>
-<div class="content">
-<p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
-<pre><code class="language-csharp">var compilation = Compilation.Create(assemblyName, new CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;mscorlib&quot;))
-	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;System&quot;))
-	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;System.Core&quot;))
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=../css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=../feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=../index.html class=sidebar-nav-item>Home</a> <a href=../about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=../feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=../index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2014\my-experience-with-opengl-vs-direct3d.html>My Experience with OpenGL vs Direct3D</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>November 18, 2014</span> <span class=category><i class="fa fa-folder"></i>Graphics</span> <span class=tags><i class="fa fa-tags"></i>OpenGL, Direct3D</span></div><div class=content><p>I've struggled a lot with myself over whether I should use OpenGL or Direct3D. There is no blanket answer to this question that anyone can tell you. Both APIs have a very different feel and which one you prefer can only be decided on your own.</div></div><div class=post><h2><a href=blog\2014\code-from-when-i-was-young-and-stupid.html>Code from when I was young and stupid and needed the money</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>June 18, 2014</span> <span class=category><i class="fa fa-folder"></i>Random</span> <span class=tags><i class="fa fa-tags"></i>Old Code, Cplusplus, Young</span></div><div class=content><p>We have had 2 interns at work for the past few weeks and one of the tasks we gave them was to implement <a href=http://en.wikipedia.org/wiki/Quick_sort>Quicksort</a>. This got me to thinking about my youth and some of the code I wrote back then. I've decided to post it.</div></div><div class=post><h2><a href=blog\2014\adding-assembly-references-in-roslyn.html>Adding assembly references in Roslyn</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>April 15, 2014</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i>Roslyn</span></div><div class=content><p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:
+<pre><code class=language-csharp>var compilation = Compilation.Create(assemblyName, new CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+	.AddReferences(MetadataReference.CreateAssemblyReference("mscorlib"))
+	.AddReferences(MetadataReference.CreateAssemblyReference("System"))
+	.AddReferences(MetadataReference.CreateAssemblyReference("System.Core"))
 	.AddReferences(new MetadataFileReference(this.GetType().Assembly.Location))
 	.AddSyntaxTrees(syntaxTree);
-</code></pre>
-<p>The static factory method &quot;MetadataReference.CreateAssemblyReference&quot; added a reference to global assemblies such as &quot;mscorlib.dll&quot; or &quot;System.dll&quot;. In the Roslyn preview,
-the same be achieved like so:</p>
-<pre><code class="language-csharp">var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
+</code></pre><p>The static factory method "MetadataReference.CreateAssemblyReference" added a reference to global assemblies such as "mscorlib.dll" or "System.dll". In the Roslyn preview, the same be achieved like so:
+<pre><code class=language-csharp>var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
 
 var compilation = CSharpCompilation.Create(assemblyName)
 	.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, &quot;mscorlib.dll&quot;)))
-	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, &quot;System.dll&quot;)))
-	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, &quot;System.Core.dll&quot;)))
+	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, "mscorlib.dll")))
+	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, "System.dll")))
+	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, "System.Core.dll")))
 	.AddReferences(new MetadataFileReference(Assembly.GetEntryAssembly().Location))
 	.AddSyntaxTrees(syntaxTree);
-</code></pre>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2014\all-the-cool-kids-are-static.html">All the cool kids are static</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>March 09, 2014</span>
-<span class="category"><i class="fa fa-folder"></i>Random</span>
-<span class="tags"><i class="fa fa-tags"></i>Static Websites</span>
-</div>
-<div class="content">
-<p>Seems like all the cool kids these days have converted their websites to completely static ones. I'm looking at you <a href="http://haacked.com">Mr. Haacked</a>. I thought this was a pretty cool idea and a chance
-to really refresh my website so I decided to take a stab at it. It's currently a work in progress.</p>
-<p>I ended up writing my own tool I call <a href="http://github.com/smack0007/Gatsby">Gatsby</a> to do it. I also set up the whole deploy process myself involving pushing to <a href="http://github.com/smack0007/zacharysnow.net">Github</a>
-which then informs my website to pull from the Github repository. Hopefully that will be a blog post in the not too distance future.</p>
-<p>Sorry for any inconvenience.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2013\using-component-glue-to-build-your-object-graphs-automatically.html">Using Component Glue to build your object graphs automatically</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>July 26, 2013</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>Open Source, Dependency Injection, IoC, C#, .NET</span>
-</div>
-<div class="content">
-<p>Component Glue is an IoC container and you use it of course to wire up your object graphs for you. Component Glue can also build your object graphs for you automatically if there are no interfaces involved. Take this example:</p>
-<script src="https://gist.github.com/smack0007/6091538.js"></script>
-<p>In After.cs, you can see that Component Glue is able to build the entire object graph for us. This will include all future dependencies as well so long as interfaces don't come into play. Should an interface be needed, you can just bind that single component.</p>
-<p>This is a very powerful thing. If one component needs to take on a dependency, just ask for it in the constructor and Component Glue will handle it for you.</p>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <a href="../blog\page3.html" class="pagination-item older">Older</a>
-                  <a href="../index.html" class="pagination-item newer">Newer</a>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre></div></div><div class=post><h2><a href=blog\2014\all-the-cool-kids-are-static.html>All the cool kids are static</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>March 09, 2014</span> <span class=category><i class="fa fa-folder"></i>Random</span> <span class=tags><i class="fa fa-tags"></i>Static Websites</span></div><div class=content><p>Seems like all the cool kids these days have converted their websites to completely static ones. I'm looking at you <a href=http://haacked.com>Mr. Haacked</a>. I thought this was a pretty cool idea and a chance to really refresh my website so I decided to take a stab at it. It's currently a work in progress.<p>I ended up writing my own tool I call <a href=http://github.com/smack0007/Gatsby>Gatsby</a> to do it. I also set up the whole deploy process myself involving pushing to <a href=http://github.com/smack0007/zacharysnow.net>Github</a> which then informs my website to pull from the Github repository. Hopefully that will be a blog post in the not too distance future.<p>Sorry for any inconvenience.</div></div><div class=post><h2><a href=blog\2013\using-component-glue-to-build-your-object-graphs-automatically.html>Using Component Glue to build your object graphs automatically</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>July 26, 2013</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i>Open Source, Dependency Injection, IoC, C#, .NET</span></div><div class=content><p>Component Glue is an IoC container and you use it of course to wire up your object graphs for you. Component Glue can also build your object graphs for you automatically if there are no interfaces involved. Take this example:</p><script src=https://gist.github.com/smack0007/6091538.js></script><p>In After.cs, you can see that Component Glue is able to build the entire object graph for us. This will include all future dependencies as well so long as interfaces don't come into play. Should an interface be needed, you can just bind that single component.<p>This is a very powerful thing. If one component needs to take on a dependency, just ask for it in the constructor and Component Glue will handle it for you.</div></div></div><div class=clear></div><div class=pagination><a href=../blog\page3.html class="pagination-item older">Older</a> <a href=../index.html class="pagination-item newer">Newer</a></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

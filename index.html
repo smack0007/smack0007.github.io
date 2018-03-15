@@ -1,189 +1,58 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
-
-        <title>The Blog of Zachary Snow</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="index.html" class="sidebar-nav-item active">Home</a>
-                <a href="about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2018\poor-mans-template-engine-2.html">Poor Man&#39;s Template Engine in C# Part 2</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>March 14, 2018</span>
-<span class="category"><i class="fa fa-folder"></i>c#</span>
-<span class="tags"><i class="fa fa-tags"></i>c#, template, template-engine</span>
-</div>
-<h3>HtmlEncode and If</h3>
-<div class="content">
-<p>In our <a href="http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html">last episode</a> we laid the groundwork for our
-simple template engine. In this episode we'll introduce our first 2 helper functions:</p>
-<pre><code class="language-c#">public abstract class Template&lt;T&gt;
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class="sidebar-nav-item active">Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2018\poor-mans-template-engine-2.html>Poor Man's Template Engine in C# Part 2</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>March 14, 2018</span> <span class=category><i class="fa fa-folder"></i>c#</span> <span class=tags><i class="fa fa-tags"></i>c#, template, template-engine</span></div><h3>HtmlEncode and If</h3><div class=content><p>In our <a href=http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html>last episode</a> we laid the groundwork for our simple template engine. In this episode we'll introduce our first 2 helper functions:
+<pre><code class=language-c#>public abstract class Template&lt;T>
 {
     public string Render(T data)
     {
         return string.Join(Environment.NewLine, RenderTemplate(data));
     }
 
-    protected abstract IEnumerable&lt;string&gt; RenderTemplate(T data);
+    protected abstract IEnumerable&lt;string> RenderTemplate(T data);
 
-    protected static string HtmlEncode(string input) =&gt; WebUtility.HtmlEncode(input);
+    protected static string HtmlEncode(string input) => WebUtility.HtmlEncode(input);
 
-    protected static string If(bool condition, string trueString, string falseString = null) =&gt; condition ? trueString : falseString;
+    protected static string If(bool condition, string trueString, string falseString = null) => condition ? trueString : falseString;
 }
-</code></pre>
-<p>The first helper function <code>HtmlEncode</code> is fairly self explanitory. Use it to encode a string so that it is valid html.</p>
-<p><code>If</code> can be used inside an interpolated string to optionally include a string or include a different string depending on
-if condition is true or false.</p>
-<pre><code class="language-c#">public class PathTemplate : Template&lt;string[]&gt;
+</code></pre><p>The first helper function <code>HtmlEncode</code> is fairly self explanitory. Use it to encode a string so that it is valid html.<p><code>If</code> can be used inside an interpolated string to optionally include a string or include a different string depending on if condition is true or false.
+<pre><code class=language-c#>public class PathTemplate : Template&lt;string[]>
 {
-    protected override IEnumerable&lt;string&gt; RenderTemplate(string[] paths)
+    protected override IEnumerable&lt;string> RenderTemplate(string[] paths)
     {
-        string output = &quot;&quot;;
+        string output = "";
 
         for (int i = 0; i &lt; paths.Length; i++)
-            output += $&quot;{paths[i]}{If(i &lt; paths.Length - 1, HtmlEncode(&quot; &gt;&quot;))}&quot;;
+            output += $"{paths[i]}{If(i &lt; paths.Length - 1, HtmlEncode(" >"))}";
 
         yield return output;
     }
 }
-</code></pre>
-<p>Next time we'll talk about including templates inside of other templates.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2018\poor-mans-template-engine-1.html">Poor Man&#39;s Template Engine in C# Part 1</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>March 06, 2018</span>
-<span class="category"><i class="fa fa-folder"></i>c#</span>
-<span class="tags"><i class="fa fa-tags"></i>c#, template, template-engine</span>
-</div>
-<h3>Groundwork</h3>
-<div class="content">
-<p>If you're looking for a poor man's solution to a templating engine for .net and don't really need
-the overhead a complete template engine brings with it, I've come up with the following solution:</p>
-<pre><code class="language-c#">public abstract class Template&lt;T&gt;
+</code></pre><p>Next time we'll talk about including templates inside of other templates.</div></div><div class=post><h2><a href=blog\2018\poor-mans-template-engine-1.html>Poor Man's Template Engine in C# Part 1</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>March 06, 2018</span> <span class=category><i class="fa fa-folder"></i>c#</span> <span class=tags><i class="fa fa-tags"></i>c#, template, template-engine</span></div><h3>Groundwork</h3><div class=content><p>If you're looking for a poor man's solution to a templating engine for .net and don't really need the overhead a complete template engine brings with it, I've come up with the following solution:
+<pre><code class=language-c#>public abstract class Template&lt;T>
 {
     public string Render(T data)
     {
         return string.Join(Environment.NewLine, RenderTemplate(data));
     }
 
-    protected abstract IEnumerable&lt;string&gt; RenderTemplate(T data);
+    protected abstract IEnumerable&lt;string> RenderTemplate(T data);
 }
 
-public class PeopleTemplate : Template&lt;IEnumerable&lt;Person&gt;&gt;
+public class PeopleTemplate : Template&lt;IEnumerable&lt;Person>>
 {
-    protected override IEnumerable&lt;string&gt; RenderTemplate(IEnumerable&lt;Person&gt; people)
+    protected override IEnumerable&lt;string> RenderTemplate(IEnumerable&lt;Person> people)
     {
         foreach (var person in people)
-            yield return $&quot;{person.FirstName} {person.LastName}&quot;;
+            yield return $"{person.FirstName} {person.LastName}";
     }
 }
-</code></pre>
-<p>This can then be consumed with:</p>
-<pre><code class="language-c#">var people = new Person[]
+</code></pre><p>This can then be consumed with:
+<pre><code class=language-c#>var people = new Person[]
 {
-    new Person() { FirstName = &quot;Stan&quot;, LastName = &quot;Marsh&quot; },
-    new Person() { FirstName = &quot;Kyle&quot;, LastName = &quot;Broflovski&quot; },
-    new Person() { FirstName = &quot;Kenny&quot;, LastName = &quot;McCormick&quot; },
-    new Person() { FirstName = &quot;Eric&quot;, LastName = &quot;Cartman&quot; },
+    new Person() { FirstName = "Stan", LastName = "Marsh" },
+    new Person() { FirstName = "Kyle", LastName = "Broflovski" },
+    new Person() { FirstName = "Kenny", LastName = "McCormick" },
+    new Person() { FirstName = "Eric", LastName = "Cartman" },
 };
 
 var template = new PeopleTemplate();
 Console.WriteLine(template.Render(people));
-</code></pre>
-<p>This is a really barebones solution but it works. In future posts I will build on
-this idea further to make our templating solution more powerful.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2018\snowball-2.html">Snowball V2.0</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>February 23, 2018</span>
-<span class="category"><i class="fa fa-folder"></i>Snowball</span>
-<span class="tags"><i class="fa fa-tags"></i>Snowball, c#</span>
-</div>
-<div class="content">
-<p>I haven't written anything new here in a very long time and a lot has happened since then. I started a new job at
-<a href="https://www.beumergroup.com">BeumerGroup</a> this year and now work mostly in TypeScript writing an html5 spa app.</p>
-<p>In my spare time I've decided to working on version 2.0 of my <a href="https://github.com/smack0007/Snowball">Snowball</a>,
-my 2D game framework. I've been playing around with the idea for a while now. This version will be developed directly
-for .net core and will be developed with cross platform capability in mind. The api will look similar but will have
-some changes.</p>
-<p>The old repo is still available on my <a href="https://github.com/smack0007/">github</a> at <a href="https://github.com/smack0007/Snowball_v1">https://github.com/smack0007/Snowball_v1</a>.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2015\using-batch-files-as-task-runner-vs-code.html">Using batch files as the task runner in Visual Studio Code</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>July 09, 2015</span>
-<span class="category"><i class="fa fa-folder"></i>Visual Studio</span>
-<span class="tags"><i class="fa fa-tags"></i>Visual Studio, Visual Studio Code, Batch Files</span>
-</div>
-<div class="content">
-<p><a href="https://code.visualstudio.com/">Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples
-I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use
-batch files though.</p>
-
-</div>
-</div>
-<div class="post">
-<h2><a href="blog\2014\linq-calls-iequalitycomparer-gethashcode-before-equals.html">LINQ calls IEqualityComparer&lt;T&gt;.GetHashCode() before Equals()</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>November 24, 2014</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>LINQ, IEqualityComparer, GetHashCode</span>
-</div>
-<div class="content">
-<p>This is a problem that has bitten me more than a few times so I thought it was about time to write a blog post about it. It's one of those problems
-that makes you scratch your head for a bit and then the light bulb goes on and you remember you've solved this one before. It occurs whenever you
-use a LINQ extension method which takes an instance of IEqualityComaparer<T>.</p>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <a href="blog\page2.html" class="pagination-item older">Older</a>
-                  <span class="pagination-item newer">Newer</span>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre><p>This is a really barebones solution but it works. In future posts I will build on this idea further to make our templating solution more powerful.</div></div><div class=post><h2><a href=blog\2018\snowball-2.html>Snowball V2.0</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>February 23, 2018</span> <span class=category><i class="fa fa-folder"></i>Snowball</span> <span class=tags><i class="fa fa-tags"></i>Snowball, c#</span></div><div class=content><p>I haven't written anything new here in a very long time and a lot has happened since then. I started a new job at <a href=https://www.beumergroup.com>BeumerGroup</a> this year and now work mostly in TypeScript writing an html5 spa app.<p>In my spare time I've decided to working on version 2.0 of my <a href=https://github.com/smack0007/Snowball>Snowball</a>, my 2D game framework. I've been playing around with the idea for a while now. This version will be developed directly for .net core and will be developed with cross platform capability in mind. The api will look similar but will have some changes.<p>The old repo is still available on my <a href=https://github.com/smack0007/ >github</a> at <a href=https://github.com/smack0007/Snowball_v1>https://github.com/smack0007/Snowball_v1</a>.</div></div><div class=post><h2><a href=blog\2015\using-batch-files-as-task-runner-vs-code.html>Using batch files as the task runner in Visual Studio Code</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>July 09, 2015</span> <span class=category><i class="fa fa-folder"></i>Visual Studio</span> <span class=tags><i class="fa fa-tags"></i>Visual Studio, Visual Studio Code, Batch Files</span></div><div class=content><p><a href=https://code.visualstudio.com/ >Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use batch files though.</div></div><div class=post><h2><a href=blog\2014\linq-calls-iequalitycomparer-gethashcode-before-equals.html>LINQ calls IEqualityComparer&lt;T>.GetHashCode() before Equals()</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>November 24, 2014</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i>LINQ, IEqualityComparer, GetHashCode</span></div><div class=content><p>This is a problem that has bitten me more than a few times so I thought it was about time to write a blog post about it. It's one of those problems that makes you scratch your head for a bit and then the light bulb goes on and you remember you've solved this one before. It occurs whenever you use a LINQ extension method which takes an instance of IEqualityComaparer<t>.</t></div></div></div><div class=clear></div><div class=pagination><a href=blog\page2.html class="pagination-item older">Older</a> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

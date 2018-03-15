@@ -1,54 +1,5 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
-
-        <title>Getting started with SlimDX</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="../../css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="sidebar-nav-item">Home</a>
-                <a href="../../about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="../../index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2011\getting-started-with-slimdx.html">Getting started with SlimDX</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>March 31, 2011</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>DirectX</span>
-</div>
-<div class="content">
-<p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href="http://sharpdx.org/">SharpDX</a>.</p>
-<p>Since I tried OpenTK, I decided to give <a href="http://slimdx.org/">SlimDX</a> a try as well. So, here's a simple getting started app:</p>
-<pre><code class="language-c#">using System;
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Getting started with SlimDX</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=../../css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=../../feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=../../index.html class=sidebar-nav-item>Home</a> <a href=../../about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=../../feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=../../index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2011\getting-started-with-slimdx.html>Getting started with SlimDX</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>March 31, 2011</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i>DirectX</span></div><div class=content><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href=http://sharpdx.org/ >SharpDX</a>.<p>Since I tried OpenTK, I decided to give <a href=http://slimdx.org/ >SlimDX</a> a try as well. So, here's a simple getting started app:
+<pre><code class=language-c#>using System;
 using System.Drawing;
 using System.Windows.Forms;
 using SlimDX;
@@ -69,7 +20,7 @@ namespace SlimDXApp1
 		VertexDeclaration vertexDeclaration;
 		
 		public SlimDXApp1Form()
-			: base(&quot;SlimDXApp1&quot;)
+			: base("SlimDXApp1")
 		{
 			this.ClientSize = new Size(800, 600);
 
@@ -88,14 +39,14 @@ namespace SlimDXApp1
 
 		public void Run()
 		{
-			MessagePump.Run(this, () =&gt;
+			MessagePump.Run(this, () =>
 			{
 				this.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
 				this.device.BeginScene();
 
 				this.device.VertexDeclaration = this.vertexDeclaration;
 
-				this.device.DrawUserPrimitives&lt;Vertex&gt;(PrimitiveType.TriangleList, 1, new[] {
+				this.device.DrawUserPrimitives&lt;Vertex>(PrimitiveType.TriangleList, 1, new[] {
 					new Vertex() { Color = Color.Red.ToArgb(), Position = new Vector4(400.0f, 100.0f, 0.5f, 1.0f) },
 					new Vertex() { Color = Color.Blue.ToArgb(), Position = new Vector4(650.0f, 500.0f, 0.5f, 1.0f) },
 					new Vertex() { Color = Color.Green.ToArgb(), Position = new Vector4(150.0f, 500.0f, 0.5f, 1.0f) }
@@ -118,18 +69,4 @@ namespace SlimDXApp1
 		}
 	}
 }
-</code></pre>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <span class="pagination-item older">Older</span>
-                  <span class="pagination-item newer">Newer</span>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre></div></div></div><div class=clear></div><div class=pagination><span class="pagination-item older">Older</span> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

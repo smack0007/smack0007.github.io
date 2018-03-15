@@ -1,54 +1,5 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
-
-        <title>C# Extension Methods in your own Library</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="../../css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="sidebar-nav-item">Home</a>
-                <a href="../../about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="../../index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2010\csharp-extension-methods-in-your-own-library.html">C# Extension Methods in your own Library</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>March 08, 2010</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>C#, Extension Methods</span>
-</div>
-<div class="content">
-<p>Normally I use extension methods in C# to extend a library that I did not write and therefore I have no control over. There are situations where it makes sense to use extension methods for a library that you yourself are writing.</p>
-<p>For example, when you have interfaces in your library. You want to keep the number of methods in that interface as low as possible so that classes implementing the interface don't have to do a lot of heavy lifting. This means cutting out methods in an interface that are for the most part just syntactic sugar for another method in the interface.</p>
-<pre><code class="language-c#">
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>C# Extension Methods in your own Library</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=../../css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=../../feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=../../index.html class=sidebar-nav-item>Home</a> <a href=../../about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=../../feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=../../index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2010\csharp-extension-methods-in-your-own-library.html>C# Extension Methods in your own Library</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>March 08, 2010</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i>C#, Extension Methods</span></div><div class=content><p>Normally I use extension methods in C# to extend a library that I did not write and therefore I have no control over. There are situations where it makes sense to use extension methods for a library that you yourself are writing.<p>For example, when you have interfaces in your library. You want to keep the number of methods in that interface as low as possible so that classes implementing the interface don't have to do a lot of heavy lifting. This means cutting out methods in an interface that are for the most part just syntactic sugar for another method in the interface.
+<pre><code class=language-c#>
 public interface IServiceContainer
 {
     void AddService(Type type, Object provider);
@@ -78,19 +29,4 @@ public static class IServiceContainerExtensions
     }
 }
 
-</code></pre>
-<p>All of the methods in IServiceContainerExtensions are just helper methods for method in IServiceContainer. By making them extension methods in our own library though, we've made the barrier to entry lower. Other people can implement the interface and in a sense &quot;inherit&quot; the helper methods as well.</p>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <span class="pagination-item older">Older</span>
-                  <span class="pagination-item newer">Newer</span>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre><p>All of the methods in IServiceContainerExtensions are just helper methods for method in IServiceContainer. By making them extension methods in our own library though, we've made the barrier to entry lower. Other people can implement the interface and in a sense "inherit" the helper methods as well.</div></div></div><div class=clear></div><div class=pagination><span class="pagination-item older">Older</span> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

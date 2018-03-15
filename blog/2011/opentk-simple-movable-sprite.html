@@ -1,54 +1,6 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>OpenTK: Simple Movable Sprite</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=../../css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=../../feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=../../index.html class=sidebar-nav-item>Home</a> <a href=../../about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=../../feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=../../index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2011\opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>March 29, 2011</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.
 
-        <title>OpenTK: Simple Movable Sprite</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="../../css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="sidebar-nav-item">Home</a>
-                <a href="../../about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="../../index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2011\opentk-simple-movable-sprite.html">OpenTK: Simple Movable Sprite</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>March 29, 2011</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>OpenGL</span>
-</div>
-<div class="content">
-<p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href="/files/OpenTKApp2.zip">download it</a>.</p>
-<!--more-->
-<pre><code class="language-c#">using System;
+<pre><code class=language-c#>using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -66,7 +18,7 @@ namespace OpenTKApp2
 
 		public AppWindow()
 		{
-			this.Title = &quot;OpenTK App 2&quot;;
+			this.Title = "OpenTK App 2";
 			this.WindowBorder = WindowBorder.Fixed;
 			this.ClientSize = new Size(800, 600);
 		}
@@ -88,7 +40,7 @@ namespace OpenTKApp2
 			GL.GenTextures(1, out this.texture);
 			GL.BindTexture(TextureTarget.Texture2D, this.texture);
 
-			Bitmap bitmap = new Bitmap(&quot;ship.png&quot;);
+			Bitmap bitmap = new Bitmap("ship.png");
 			bitmap.MakeTransparent(Color.Magenta);
 
 			BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
@@ -160,19 +112,4 @@ namespace OpenTKApp2
 		}
 	}
 }
-</code></pre>
-<p><a href="/files/OpenTKApp2.zip">Download Visual Studio Project</a></p>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <span class="pagination-item older">Older</span>
-                  <span class="pagination-item newer">Newer</span>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre><p><a href=/files/OpenTKApp2.zip>Download Visual Studio Project</a></div></div></div><div class=clear></div><div class=pagination><span class="pagination-item older">Older</span> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

@@ -1,53 +1,5 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
-
-        <title>Favoring Composition over Inheritance</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="../../css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="sidebar-nav-item">Home</a>
-                <a href="../../about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="../../index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2011\favoring-composition-over-inheritance.html">Favoring Composition over Inheritance</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>January 18, 2011</span>
-<span class="category"><i class="fa fa-folder"></i>Design Patterns</span>
-<span class="tags"><i class="fa fa-tags"></i>Composition over Inheritance</span>
-</div>
-<div class="content">
-<p>You may have heard the expression before &quot;Favor Composition over Inheritance&quot;, but do you know what it means and how to apply it? Lets take this code for example:</p>
-<pre><code class="language-c#">abstract class Car
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Favoring Composition over Inheritance</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=../../css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=../../feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=../../index.html class=sidebar-nav-item>Home</a> <a href=../../about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=../../feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=../../index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2011\favoring-composition-over-inheritance.html>Favoring Composition over Inheritance</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>January 18, 2011</span> <span class=category><i class="fa fa-folder"></i>Design Patterns</span> <span class=tags><i class="fa fa-tags"></i>Composition over Inheritance</span></div><div class=content><p>You may have heard the expression before "Favor Composition over Inheritance", but do you know what it means and how to apply it? Lets take this code for example:
+<pre><code class=language-c#>abstract class Car
 {
 	public Color Color { get; protected set; }
 	public Engine Engine { get; protected set; }
@@ -79,9 +31,8 @@ class Truck : Car
 		this.Engine = new DieselEngine();
 	}
 }
-</code></pre>
-<p>In this contrived example, we've defined three types of cars. Each instance of each of the cars will always have the same color and same engine. What happens when we need a 4th type? We have to define another class. By refactoring this code, we can compose a car type by giving it a color and an engine:</p>
-<pre><code class="language-c#">class Car
+</code></pre><p>In this contrived example, we've defined three types of cars. Each instance of each of the cars will always have the same color and same engine. What happens when we need a 4th type? We have to define another class. By refactoring this code, we can compose a car type by giving it a color and an engine:
+<pre><code class=language-c#>class Car
 {
 	public Color Color { get; private set; }
 	public Engine Engine { get; private set; }
@@ -97,19 +48,4 @@ Car electricCar = new Car(Color.Blue, new ElectricEngine());
 Car sportsCar = new Car(Color.Red, new V8Engine());
 Car truck = new Car(Color.White, new DieselEngine());
 Car familyCar = new Car(Color.Black, new V4Engine());
-</code></pre>
-<p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</p>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <span class="pagination-item older">Older</span>
-                  <span class="pagination-item newer">Newer</span>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre><p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</div></div></div><div class=clear></div><div class=pagination><span class="pagination-item older">Older</span> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

@@ -1,57 +1,5 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
-
-        <title>Creating and consuming services in your XNA Game</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="../../css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="sidebar-nav-item">Home</a>
-                <a href="../../about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="../../index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2010\creating-and-consuming-services-in-your-xna-game.html">Creating and consuming services in your XNA Game</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>February 18, 2010</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i></span>
-</div>
-<div class="content">
-<p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
-<blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote>
-<p>This article will &quot;<em>attempt</em>&quot; to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.</p>
-<!--more-->
-<p>The most obvious place to use the GameServiceContainer is in your GameComponent(s). But first, lets talk about &quot;<a href="http://en.wikipedia.org/wiki/Coupling_(computer_science)">Coupling</a>&quot;. Let's assume you have the following components:</p>
-<pre><code class="language-c#">class FooComponent : GameComponent
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Creating and consuming services in your XNA Game</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=../../css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=../../feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=../../index.html class=sidebar-nav-item>Home</a> <a href=../../about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=../../feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=../../index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2010\creating-and-consuming-services-in-your-xna-game.html>Creating and consuming services in your XNA Game</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>February 18, 2010</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i></span></div><div class=content><p>The <a href=http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx>GameServiceContainer</a> implements the <a href=http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx>IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:<blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote><p>This article will "<em>attempt</em>" to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.<p>The most obvious place to use the GameServiceContainer is in your GameComponent(s). But first, lets talk about "<a href=http://en.wikipedia.org/wiki/Coupling_(computer_science)>Coupling</a>". Let's assume you have the following components:
+<pre><code class=language-c#>class FooComponent : GameComponent
 {
 	public FooComponent(Game game)
 		: base(game)
@@ -80,10 +28,8 @@ class BarComponent : GameComponent
 		// Do something based on result.
 	}
 }
-</code></pre>
-<p>There's nothing wrong with the code, but BarComponent has a dependency on FooComponent. BarComponent directly interacts with FooComponent and therefore any change made to FooComponent indirectly affects BarComponent. For instance, let's assume the constructor for FooComponent needs to be modified. That means we now have to update not only the FooComponent class but as well the BarComponent class. Throw in a few more components with dependencies on FooComponent and you could start to get headache really fast. This design is highly coupled.</p>
-<p>Let's try a slight redesign:</p>
-<pre><code class="language-c#">class FooComponent : GameComponent
+</code></pre><p>There's nothing wrong with the code, but BarComponent has a dependency on FooComponent. BarComponent directly interacts with FooComponent and therefore any change made to FooComponent indirectly affects BarComponent. For instance, let's assume the constructor for FooComponent needs to be modified. That means we now have to update not only the FooComponent class but as well the BarComponent class. Throw in a few more components with dependencies on FooComponent and you could start to get headache really fast. This design is highly coupled.<p>Let's try a slight redesign:
+<pre><code class=language-c#>class FooComponent : GameComponent
 {
 	public FooComponent(Game game)
 		: base(game)
@@ -112,9 +58,8 @@ class BarComponent : GameComponent
 		// Do something based on result.
 	}
 }
-</code></pre>
-<p>We've now eliminated the construction of the FooComponent from within the BarComponent. The design is better but still not that great. BarComponent is still directly relying on and communicating with FooComponent. We want to change BarComponent so that it has no direct dependency on a concrete implementation of FooComponent. We'll create an interface:</p>
-<pre><code class="language-c#">interface IFooService
+</code></pre><p>We've now eliminated the construction of the FooComponent from within the BarComponent. The design is better but still not that great. BarComponent is still directly relying on and communicating with FooComponent. We want to change BarComponent so that it has no direct dependency on a concrete implementation of FooComponent. We'll create an interface:
+<pre><code class=language-c#>interface IFooService
 {
 	int DoFoo();
 }
@@ -148,9 +93,8 @@ class BarComponent : GameComponent
 		// Do something based on result.
 	}
 }
-</code></pre>
-<p>We can now change FooComponent as much as we want and BarComponent will be unaffected. BarComponent now communicates with FooComponent through the IFooService interface. This also allows us to have multiple implementations of DoFoo():</p>
-<pre><code class="language-c#">class SimpleFooComponent : GameComponent, IFooService
+</code></pre><p>We can now change FooComponent as much as we want and BarComponent will be unaffected. BarComponent now communicates with FooComponent through the IFooService interface. This also allows us to have multiple implementations of DoFoo():
+<pre><code class=language-c#>class SimpleFooComponent : GameComponent, IFooService
 {
 	public SimpleFooComponent(Game game)
 		: base(game)
@@ -159,7 +103,7 @@ class BarComponent : GameComponent
 	
 	public int DoFoo()
 	{
-		return 5; // The class says &quot;Simple&quot;
+		return 5; // The class says "Simple"
 	}
 }
 
@@ -177,10 +121,8 @@ class ComplexFooComponent : GameComponent, IFooService
 		return result;
 	}
 }
-</code></pre>
-<p>We can pass BarComponent an instance of SimpleFooComponent or ComplexFooComponent. Whatever the situation may call for.</p>
-<p>Where does GameServiceContainer fit into all of this? You can use the GameServiceContainer to hold all your &quot;Services&quot;. Add whatever class will implement the IFooService and then from within your BarComponent you can query for it:</p>
-<pre><code class="language-c#">class BarComponent : GameComponent
+</code></pre><p>We can pass BarComponent an instance of SimpleFooComponent or ComplexFooComponent. Whatever the situation may call for.<p>Where does GameServiceContainer fit into all of this? You can use the GameServiceContainer to hold all your "Services". Add whatever class will implement the IFooService and then from within your BarComponent you can query for it:
+<pre><code class=language-c#>class BarComponent : GameComponent
 {
 	IFooService foo;
 
@@ -194,7 +136,7 @@ class ComplexFooComponent : GameComponent, IFooService
 		this.foo = this.Game.Services.GetService(typeof(IFooService)) as IFooService;
 		
 		if(this.foo == null)
-			throw new InvalidOperationException(&quot;IFooService not found.&quot;);
+			throw new InvalidOperationException("IFooService not found.");
 	}
 	
 	public void DoBar()
@@ -206,9 +148,8 @@ class ComplexFooComponent : GameComponent, IFooService
 
 // In your Game's constructor.
 this.Services.AddService(typeof(IFooService), new SimpleFooComponent(this));
-</code></pre>
-<p>Not only does BarComponent no longer require an instance of IFooService in its constructor, it also no longer matters if the instance of IFooService is constructed before or after the BarComponent. So long as all the services BarComponent requires are in the GameServiceContainer before Initialize() is called, it doesn't matter what order your components are constructed in. Now, suppose that BarComponent didn't necessarily depend on IFooService and instead the behavior of DoBar() is changed based on whether or not IFooService is available:</p>
-<pre><code class="language-c#">class BarComponent : GameComponent
+</code></pre><p>Not only does BarComponent no longer require an instance of IFooService in its constructor, it also no longer matters if the instance of IFooService is constructed before or after the BarComponent. So long as all the services BarComponent requires are in the GameServiceContainer before Initialize() is called, it doesn't matter what order your components are constructed in. Now, suppose that BarComponent didn't necessarily depend on IFooService and instead the behavior of DoBar() is changed based on whether or not IFooService is available:
+<pre><code class=language-c#>class BarComponent : GameComponent
 {
 	IFooService foo;
 
@@ -233,9 +174,8 @@ this.Services.AddService(typeof(IFooService), new SimpleFooComponent(this));
 		return result;
 	}
 }
-</code></pre>
-<p>Service providers don't always have to be GameComponent(s). Our BarComponent needs a Camera class now:</p>
-<pre><code class="language-c#">interface ICamera
+</code></pre><p>Service providers don't always have to be GameComponent(s). Our BarComponent needs a Camera class now:
+<pre><code class=language-c#>interface ICamera
 {
 	Matrix Transform { get; }
 }
@@ -280,21 +220,4 @@ class BarComponent : DrawableGameComponent
 
 // In your Game's constructor.
 this.Services.AddService(typeof(ICamera), new MovingCamera());
-</code></pre>
-<p>BarComponent uses the camera's Transform matrix and doesn't care how it is calculated. It's completely decoupled from the camera's implementation.</p>
-<p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.</p>
-<p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</p>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <span class="pagination-item older">Older</span>
-                  <span class="pagination-item newer">Newer</span>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre><p>BarComponent uses the camera's Transform matrix and doesn't care how it is calculated. It's completely decoupled from the camera's implementation.<p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.<p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</div></div></div><div class=clear></div><div class=pagination><span class="pagination-item older">Older</span> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

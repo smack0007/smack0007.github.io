@@ -1,82 +1,18 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
-
-        <title>Adding assembly references in Roslyn</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="../../css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="sidebar-nav-item">Home</a>
-                <a href="../../about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="../../index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2014\adding-assembly-references-in-roslyn.html">Adding assembly references in Roslyn</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>April 15, 2014</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>Roslyn</span>
-</div>
-<div class="content">
-<p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
-<pre><code class="language-csharp">var compilation = Compilation.Create(assemblyName, new CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;mscorlib&quot;))
-	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;System&quot;))
-	.AddReferences(MetadataReference.CreateAssemblyReference(&quot;System.Core&quot;))
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Adding assembly references in Roslyn</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=../../css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=../../feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=../../index.html class=sidebar-nav-item>Home</a> <a href=../../about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=../../feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=../../index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2014\adding-assembly-references-in-roslyn.html>Adding assembly references in Roslyn</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>April 15, 2014</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i>Roslyn</span></div><div class=content><p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:
+<pre><code class=language-csharp>var compilation = Compilation.Create(assemblyName, new CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+	.AddReferences(MetadataReference.CreateAssemblyReference("mscorlib"))
+	.AddReferences(MetadataReference.CreateAssemblyReference("System"))
+	.AddReferences(MetadataReference.CreateAssemblyReference("System.Core"))
 	.AddReferences(new MetadataFileReference(this.GetType().Assembly.Location))
 	.AddSyntaxTrees(syntaxTree);
-</code></pre>
-<p>The static factory method &quot;MetadataReference.CreateAssemblyReference&quot; added a reference to global assemblies such as &quot;mscorlib.dll&quot; or &quot;System.dll&quot;. In the Roslyn preview,
-the same be achieved like so:</p>
-<pre><code class="language-csharp">var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
+</code></pre><p>The static factory method "MetadataReference.CreateAssemblyReference" added a reference to global assemblies such as "mscorlib.dll" or "System.dll". In the Roslyn preview, the same be achieved like so:
+<pre><code class=language-csharp>var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
 
 var compilation = CSharpCompilation.Create(assemblyName)
 	.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, &quot;mscorlib.dll&quot;)))
-	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, &quot;System.dll&quot;)))
-	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, &quot;System.Core.dll&quot;)))
+	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, "mscorlib.dll")))
+	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, "System.dll")))
+	.AddReferences(new MetadataFileReference(Path.Combine(assemblyPath, "System.Core.dll")))
 	.AddReferences(new MetadataFileReference(Assembly.GetEntryAssembly().Location))
 	.AddSyntaxTrees(syntaxTree);
-</code></pre>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <span class="pagination-item older">Older</span>
-                  <span class="pagination-item newer">Newer</span>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre></div></div></div><div class=clear></div><div class=pagination><span class="pagination-item older">Older</span> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

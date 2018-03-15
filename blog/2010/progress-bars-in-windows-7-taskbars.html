@@ -1,84 +1,18 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
-
-        <title>Progress Bar in Windows 7 Taskbars</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="../../css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="sidebar-nav-item">Home</a>
-                <a href="../../about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="../../index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2010\progress-bars-in-windows-7-taskbars.html">Progress Bar in Windows 7 Taskbars</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>June 01, 2010</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>.NET, C#, Windows 7</span>
-</div>
-<div class="content">
-<p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.</p>
-<p>I started by downloading and compiling the <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows API Code Pack</a> in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:</p>
-<pre><code class="language-c#">using Microsoft.WindowsAPICodePack.Taskbar;
-</code></pre>
-<p>to your using statements. When the clock starts running I create the progress bar in the taskbar with:</p>
-<pre><code class="language-c#">// Initialize progress bar
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Progress Bar in Windows 7 Taskbars</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=../../css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=../../feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=../../index.html class=sidebar-nav-item>Home</a> <a href=../../about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=../../feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=../../index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2010\progress-bars-in-windows-7-taskbars.html>Progress Bar in Windows 7 Taskbars</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>June 01, 2010</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i>.NET, C#, Windows 7</span></div><div class=content><p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.<p>I started by downloading and compiling the <a href=http://code.msdn.microsoft.com/WindowsAPICodePack>Windows API Code Pack</a> in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:
+<pre><code class=language-c#>using Microsoft.WindowsAPICodePack.Taskbar;
+</code></pre><p>to your using statements. When the clock starts running I create the progress bar in the taskbar with:
+<pre><code class=language-c#>// Initialize progress bar
 if(TaskbarManager.IsPlatformSupported)
 {
 	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
 	TaskbarManager.Instance.SetProgressValue(0, (int)this.totalTime.TotalSeconds, this.Handle);
 }
-</code></pre>
-<p>to stop the progress bar:</p>
-<pre><code class="language-c#">// Stop progress bar
+</code></pre><p>to stop the progress bar:
+<pre><code class=language-c#>// Stop progress bar
 if(TaskbarManager.IsPlatformSupported)
 	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
-</code></pre>
-<p>and finally to update the progress bar on each tick:</p>
-<pre><code class="language-c#">// Update progress bar
+</code></pre><p>and finally to update the progress bar on each tick:
+<pre><code class=language-c#>// Update progress bar
 if(TaskbarManager.IsPlatformSupported)
 	TaskbarManager.Instance.SetProgressValue((int)this.totalTime.TotalSeconds - (int)this.time.TotalSeconds, (int)this.totalTime.TotalSeconds, this.Handle);
-</code></pre>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <span class="pagination-item older">Older</span>
-                  <span class="pagination-item newer">Newer</span>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre></div></div></div><div class=clear></div><div class=pagination><span class="pagination-item older">Older</span> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

@@ -1,69 +1,17 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Zachary Snow">
-
-        <title>Implementing basic Dependency Injection using a Service Container</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-        <link rel="stylesheet" type="text/css" href="../../css/site.css">
-
-        <link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="../../feed.rss">
-    </head>
-    <body>
-        <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-item">
-
-            </div>
-            <nav class="sidebar-nav">
-                <a href="../../index.html" class="sidebar-nav-item">Home</a>
-                <a href="../../about.html" class="sidebar-nav-item">About</a>
-            </nav>
-        </div>
-        <div class="wrap">
-            <div class="masthead">
-                <div class="container">
-                    <div class="social">
-                        <a href="http://twitter.com/smack0007" class="twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="http://github.com/smack0007" class="github" title="Github"><i class="fa fa-github"></i></a>
-                        <a href="../../feed.rss" class="rss" title="RSS"><i class="fa fa-rss"></i></a>
-                    </div>
-                    <h3 class="masthead-title">
-                        <a href="../../index.html" title="Home">The Blog of Zachary Snow</a>
-                    </h3>
-                </div>
-            </div>
-            <div class="container content">
-                <div class="posts">
-                    <div class="post">
-<h2><a href="blog\2010\implementing-basic-dependency-injection-using-services-container.html">Implementing basic Dependency Injection using a Service Container</a></h2>
-<div class="meta">
-<span class="date"><i class="fa fa-calendar"></i>June 21, 2010</span>
-<span class="category"><i class="fa fa-folder"></i>.NET</span>
-<span class="tags"><i class="fa fa-tags"></i>.NET, C#, Dependency Injection, Design Patterns, Service Continer</span>
-</div>
-<div class="content">
-<p>By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection.</p>
-<!--more-->
-<p>We'll start by defining the <strong>Injectable</strong> attribute.</p>
-<pre><code class="language-c#">[AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Property,
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Implementing basic Dependency Injection using a Service Container</title><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=../../css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=../../feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=../../index.html class=sidebar-nav-item>Home</a> <a href=../../about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><i class="fa fa-twitter"></i></a> <a href=http://github.com/smack0007 class=github title=Github><i class="fa fa-github"></i></a> <a href=../../feed.rss class=rss title=RSS><i class="fa fa-rss"></i></a></div><h3 class=masthead-title><a href=../../index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog\2010\implementing-basic-dependency-injection-using-services-container.html>Implementing basic Dependency Injection using a Service Container</a></h2><div class=meta><span class=date><i class="fa fa-calendar"></i>June 21, 2010</span> <span class=category><i class="fa fa-folder"></i>.NET</span> <span class=tags><i class="fa fa-tags"></i>.NET, C#, Dependency Injection, Design Patterns, Service Continer</span></div><div class=content><p>By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection.<p>We'll start by defining the <strong>Injectable</strong> attribute.
+<pre><code class=language-c#>[AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Property,
 	AllowMultiple = false, Inherited = true)]
 public class InjectableAttribute : Attribute
 {
 }
-</code></pre>
-<p>We'll use this attribute to mark our constructors and properties for dependency injection. Next we'll define an interface for our dependency injector:</p>
-<pre><code class="language-c#">public interface IDependencyInjector
+</code></pre><p>We'll use this attribute to mark our constructors and properties for dependency injection. Next we'll define an interface for our dependency injector:
+<pre><code class=language-c#>public interface IDependencyInjector
 {
 	T Construct&amp;lt;T&amp;gt;();
 	void Inject(object instance);
 }
-</code></pre>
-<p>We'll define our service container like so:</p>
-<pre><code class="language-c#">public class ServiceContainer : IDependencyInjector, IServiceProvider
+</code></pre><p>We'll define our service container like so:
+<pre><code class=language-c#>public class ServiceContainer : IDependencyInjector, IServiceProvider
 {
 	Dictionary&amp;lt;Type, Object&amp;gt; services;
 
@@ -76,18 +24,18 @@ public class InjectableAttribute : Attribute
 	public void AddService(Type type, Object provider)
 	{
 		if(null == type)
-			throw new ArgumentNullException(&quot;type&quot;);
+			throw new ArgumentNullException("type");
 
 		if(null == provider)
-			throw new ArgumentNullException(&quot;provider&quot;);
+			throw new ArgumentNullException("provider");
 
 		if(this.services.ContainsKey(type))
-			throw new InvalidOperationException(&quot;A provider is already registered the type &quot; + type);
+			throw new InvalidOperationException("A provider is already registered the type " + type);
 
 		var providerType = provider.GetType();
 
 		if(!type.IsAssignableFrom(providerType))
-			throw new InvalidOperationException(providerType + &quot; is not an instance of &quot; + type);
+			throw new InvalidOperationException(providerType + " is not an instance of " + type);
 
 		this.services.Add(type, provider);
 	}
@@ -95,7 +43,7 @@ public class InjectableAttribute : Attribute
 	public object GetService(Type type)
 	{
 		if(null == type)
-			throw new ArgumentNullException(&quot;type&quot;);
+			throw new ArgumentNullException("type");
 
 		if(this.services.ContainsKey(type))
 			return this.services[type];
@@ -106,7 +54,7 @@ public class InjectableAttribute : Attribute
 	public void RemoveService(Type type)
 	{
 		if(null == type)
-			throw new ArgumentNullException(&quot;type&quot;);
+			throw new ArgumentNullException("type");
 
 		this.services.Remove(type);
 	}
@@ -123,7 +71,7 @@ public class InjectableAttribute : Attribute
 			object service = this.GetService(type);
 
 			if(service == null)
-				throw new InvalidOperationException(&quot;Failed to find &quot; + type + &quot; depenedency.&quot;);
+				throw new InvalidOperationException("Failed to find " + type + " depenedency.");
 
 			return service;
 		}
@@ -148,7 +96,7 @@ public class InjectableAttribute : Attribute
 		}
 
 		if(injectableConstructor == null)
-			throw new InvalidOperationException(&quot;No injectable constructor found.&quot;);
+			throw new InvalidOperationException("No injectable constructor found.");
 
 		var parameters = injectableConstructor.GetParameters();
 		var services = new object[parameters.Length];
@@ -169,7 +117,7 @@ public class InjectableAttribute : Attribute
 				if(attribute is InjectableAttribute)
 				{
 					if(!property.CanWrite)
-						throw new InvalidOperationException(property.Name + &quot; is marked as Injectable but not writable.&quot;);
+						throw new InvalidOperationException(property.Name + " is marked as Injectable but not writable.");
 
 					property.SetValue(instance, GetInjectableService(property.PropertyType), null);
 				}
@@ -177,9 +125,8 @@ public class InjectableAttribute : Attribute
 		}
 	}
 }
-</code></pre>
-<p>You can now construct new instances and inject dependencies on existing instances. Some usage examples:</p>
-<pre><code class="language-c#">public interface IFoo
+</code></pre><p>You can now construct new instances and inject dependencies on existing instances. Some usage examples:
+<pre><code class=language-c#>public interface IFoo
 {
 	int Value { get; }
 }
@@ -226,7 +173,7 @@ public class Bar : IBar
 
 	public void DoIt()
 	{
-		Console.WriteLine(this.Value + &quot;: &quot; + this.foo.Value);
+		Console.WriteLine(this.Value + ": " + this.foo.Value);
 	}
 }
 
@@ -248,7 +195,7 @@ public class Baz
 							
 	public void DoIt()
 	{
-		Console.WriteLine(this.Bar.Value + &quot; | &quot; + this.Foo.Value);
+		Console.WriteLine(this.Bar.Value + " | " + this.Foo.Value);
 	}
 }
 
@@ -264,7 +211,7 @@ class Program
 
 		var bar = container.Construct&amp;lt;Bar&amp;gt;();
 		container.AddService(typeof(IBar), bar);
-		bar.Value = &quot;Hello World!&quot;;
+		bar.Value = "Hello World!";
 		bar.DoIt();
 
 		var baz = new Baz();
@@ -272,18 +219,4 @@ class Program
 		baz.DoIt();
 	}
 }
-</code></pre>
-
-</div>
-</div>
-                </div>
-                <div class="clear"></div>
-              <div class="pagination">
-                  <span class="pagination-item older">Older</span>
-                  <span class="pagination-item newer">Newer</span>
-              </div>
-          </div>
-        </div>
-        <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    </body>
-</html>
+</code></pre></div></div></div><div class=clear></div><div class=pagination><span class="pagination-item older">Older</span> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>
