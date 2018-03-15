@@ -227,7 +227,7 @@ namespace compiler
             string outputFileName,
             PostData postData)
         {            
-            RenderPage(fileName, outputFileName, postData.Title, PostTemplate.Render(postData));
+            RenderPage(fileName, outputFileName, postData.Title, PostTemplate.Render(postData), showPagination: false);
         }
 
         private static void RenderPage(
