@@ -41,3 +41,11 @@
     text-align: right;
     font-style: italic;
 }
+
+pre {
+    overflow-x: auto;
+}
+
+pre code {
+    white-space: pre;
+}
