@@ -6,6 +6,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Markdig;
+using NUglify;
+using NUglify.Css;
+using NUglify.Html;
 
 namespace compiler
 {
@@ -20,6 +23,17 @@ namespace compiler
         private static PageTemplate PageTemplate = new PageTemplate();
 
         private static List<PageData> Pages = new List<PageData>();
+
+        public static readonly CssSettings CssSettings = new CssSettings()
+        {
+            CommentMode = CssComment.None
+        };
+
+        public static readonly HtmlSettings HtmlSettings = new HtmlSettings()
+        {
+            CollapseWhitespaces = true,
+            PrettyPrint = false,
+        };
 
         public static int Main(string[] args)
         {
@@ -89,13 +103,11 @@ namespace compiler
                 
                 var css = File.ReadAllText(Path.Combine(inputPath, cssFile));
 
-                if (!cssFile.EndsWith(".min.css"))
-                    css = $" /* {cssFile} */ " + Utility.RemoveWhiteSpaceFromCss(css);
-
                 sb.Append(css);                
             }
+            
             Directory.CreateDirectory(Path.Combine(outputPath, "css"));
-            File.WriteAllText(Path.Combine(outputPath, "css", "site.css"), sb.ToString());
+            File.WriteAllText(Path.Combine(outputPath, "css", "site.css"), Uglify.Css(sb.ToString(), CssSettings).Code);
 
             foreach (var staticFile in staticFiles)
             {
@@ -126,8 +138,11 @@ namespace compiler
                     return index == 0 ? "index.html" : Path.Combine("blog", "page" + (index + 1) + ".html");
                 }
 
+                var pageName = GetPageName(i);
+                Console.WriteLine($"Index: {pageName}");
+
                 RenderPage(
-                    GetPageName(i),
+                    pageName,
                     Path.Combine(outputPath, GetPageName(i)),
                     "The Blog of Zachary Snow",
                     IndexTemplate.Render(new IndexData(posts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage))),
@@ -226,17 +241,16 @@ namespace compiler
         {
             string basePath = string.Empty;
             string[] pathParts = fileName.Split(new char[] { '/', '\\' });
+            
             for (int i = 0; i < pathParts.Length - 1; i++)
-            {
                 basePath += "../";
-            }
 
             var page = new PageData(fileName, basePath, title, body, showPagination, paginationOlderLink, paginationNewerLink);
             Pages.Add(page);
 
             File.WriteAllText(
                 outputFile,
-                PageTemplate.Render(page));
+                Uglify.Html(PageTemplate.Render(page), HtmlSettings).Code);
         }
 
         private static string GenerateRssFeed(List<PostData> posts)
