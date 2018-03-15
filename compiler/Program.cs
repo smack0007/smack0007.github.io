@@ -14,6 +14,10 @@ namespace compiler
 {
     public static class Program
     {
+        public const string BlogTitle = "The Blog of Zachary Snow";
+
+        public const string BaseUrl = "http://smack0007.github.io";
+
         public const int PostsPerPage = 5;
 
         private static IndexTemplate IndexTemplate = new IndexTemplate();
@@ -24,12 +28,12 @@ namespace compiler
 
         private static List<PageData> Pages = new List<PageData>();
 
-        public static readonly CssSettings CssSettings = new CssSettings()
+        private static readonly CssSettings CssSettings = new CssSettings()
         {
             CommentMode = CssComment.None
         };
 
-        public static readonly HtmlSettings HtmlSettings = new HtmlSettings()
+        private static readonly HtmlSettings HtmlSettings = new HtmlSettings()
         {
             CollapseWhitespaces = true,
             PrettyPrint = false,
@@ -144,7 +148,7 @@ namespace compiler
                 RenderPage(
                     pageName,
                     Path.Combine(outputPath, GetPageName(i)),
-                    "The Blog of Zachary Snow",
+                    BlogTitle,
                     IndexTemplate.Render(new IndexData(posts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage))),
                     showPagination: true,
                     paginationOlderLink: GetPageName(i + 1),
@@ -215,14 +219,14 @@ namespace compiler
             return Regex.Replace(input, "\\{\\{.*\\}\\}", (m) => {
                 switch (m.ToString())
                 {
-                    case "{{baseUrl}}": return "http://smack0007.github.io";
+                    case "{{baseUrl}}": return BaseUrl;
                 }
 
                 return m.ToString();
             });
         }
 
-        public static void RenderPost(
+        private static void RenderPost(
             string fileName,
             string outputFileName,
             PostData postData)
@@ -262,21 +266,21 @@ namespace compiler
             sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
             sb.AppendLine("<rss version=\"2.0\">");
             sb.AppendLine("\t<channel>");
-            sb.AppendLine("\t<title>The Blog of Zachary Snow</title>");
-            sb.AppendLine("\t<description>The Blog of Zachary Snow</description>");
-            sb.AppendLine("\t<link>http://smack0007.github.io/</link>");
-            sb.AppendLine("\t<lastBuildDate>" + DateTime.Now.ToString("r") + "</lastBuildDate>");
-            sb.AppendLine("\t<pubDate>" + pubDate.ToString("r") + "</pubDate>");
+            sb.AppendLine($"\t<title>{BlogTitle}</title>");
+            sb.AppendLine($"\t<description>{BlogTitle}</description>");
+            sb.AppendLine($"\t<link>{BaseUrl}/</link>");
+            sb.AppendLine($"\t<lastBuildDate>{DateTime.Now.ToString("r")}</lastBuildDate>");
+            sb.AppendLine($"\t<pubDate>{pubDate.ToString("r")}</pubDate>");
             sb.AppendLine("\t<ttl>1800</ttl>");
             
             foreach (var post in posts.OrderByDescending(x => x.SortDate).Take(20))
             {	
                 sb.AppendLine("\t<item>");
-                sb.AppendLine("\t\t<title><![CDATA[" + post.Title + "]]></title>");
-                sb.AppendLine("\t\t<description><![CDATA[" + post.Excerpt + "]]></description>");
-                sb.AppendLine("\t\t<link>http://smack0007.github.io/" + post.Url + "</link>");
-                sb.AppendLine("\t\t<guid>http://smack0007.github.io/" + post.Url + "</guid>");
-                sb.AppendLine("\t\t<pubDate>" + post.SortDate.ToString("r") + "</pubDate>");
+                sb.AppendLine($"\t\t<title><![CDATA[{post.Title}]]></title>");
+                sb.AppendLine($"\t\t<description><![CDATA[{post.Excerpt}]]></description>");
+                sb.AppendLine($"\t\t<link>{BaseUrl}/{post.Url}</link>");
+                sb.AppendLine($"\t\t<guid>{BaseUrl}/{post.Url}</guid>");
+                sb.AppendLine($"\t\t<pubDate>{post.SortDate.ToString("r")}</pubDate>");
                 sb.AppendLine("\t</item>");
             }
 
@@ -295,29 +299,15 @@ namespace compiler
             sb.AppendLine("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
                     
             sb.AppendLine("\t<url>");
-            sb.AppendLine("\t\t<loc>http://smack0007.github.io/index.html</loc>");
+            sb.AppendLine($"\t\t<loc>{BaseUrl}/index.html</loc>");
             sb.AppendLine("\t</url>");
 
             foreach (var page in pages)
             {		
                 sb.AppendLine("\t<url>");
-                sb.AppendLine("\t\t<loc>http://smack0007.github.io/" + page.Url + "</loc>");
+                sb.AppendLine($"\t\t<loc>{BaseUrl}/{page.Url}</loc>");
                 sb.AppendLine("\t</url>");
             }
-        
-            // foreach (var page in site.Pages)
-            // {		
-            //     sb.AppendLine("\t<url>");
-            //     sb.AppendLine("\t\t<loc>http://smack0007.github.io/" + page.Permalink + "</loc>");
-            //     sb.AppendLine("\t</url>");
-            // }
-            
-            // foreach (var page in site.GeneratorPages.Where(x => x.Data.IsRedirect != true))
-            // {		
-            //     sb.AppendLine("\t<url>");
-            //     sb.AppendLine("\t\t<loc>http://smack0007.github.io/" + page.Permalink + "</loc>");
-            //     sb.AppendLine("\t</url>");
-            // }
         
             sb.AppendLine("</urlset>");
             sb.AppendLine();
