@@ -1,7 +1,7 @@
 PUSHD %~dp0
 
 PUSHD bin
-git push https://$(access.token)@github.com/smack0007/smack0007.github.io.git head:master
+git push https://%1@github.com/smack0007/smack0007.github.io.git head:master
 POPD
 
 POPD
