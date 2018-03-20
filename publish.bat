@@ -1,5 +1,9 @@
-git config --global credential.helper store
-git config --global push.default matching
-ECHO "https://%1:x-oauth-basic@github.com`n" > "%USERPROFILE%\.git-credentials"
-cd bin
-git push origin
+PUSHD %~dp0
+
+PUSHD bin
+git push https://$(access.token)@github.com/smack0007/smack0007.github.io.git head:master
+POPD
+
+POPD
+
+EXIT 0
