@@ -14,6 +14,7 @@ PUSHD bin
 git config user.name "smack0007"
 git config user.email zachary.snow@gmail.com
 git add -A && git commit -F "..\commit.msg"
+git push https://%1@github.com/smack0007/smack0007.github.io.git head:master
 POPD
 
 DEL commit.msg
