@@ -4,33 +4,33 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 21 Mar 2018 13:04:45 GMT</lastBuildDate>
+	<lastBuildDate>Wed, 21 Mar 2018 15:07:26 GMT</lastBuildDate>
 	<pubDate>Wed, 14 Mar 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
 		<title><![CDATA[Poor Man's Template Engine in C# Part 2]]></title>
 		<description><![CDATA[<p>In our <a href="http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html">last episode</a> we laid the groundwork for our
 simple template engine. In this episode we'll introduce our first 2 helper functions:</p>
-<pre><code class="language-c#">public abstract class Template&lt;T&gt;
+<pre><code class="language-c#">namespace Pmte
 {
-    public string Render(T data)
-    {
-        return string.Join(Environment.NewLine, RenderTemplate(data));
+    public delegate IEnumerable&lt;string&gt; Template&lt;TData&gt;(TData data);
+
+    public static class TemplateExtensions
+    {   
+        public static string Render(this IEnumerable&lt;string&gt; templateResult) =&gt; string.Join(Environment.NewLine, templateResult);
+
+        public static string HtmlEncode(string input) =&gt; WebUtility.HtmlEncode(input);
+
+        public static string If(bool condition, string trueString, string falseString = null) =&gt; condition ? trueString : falseString;
     }
-
-    protected abstract IEnumerable&lt;string&gt; RenderTemplate(T data);
-
-    protected static string HtmlEncode(string input) =&gt; WebUtility.HtmlEncode(input);
-
-    protected static string If(bool condition, string trueString, string falseString = null) =&gt; condition ? trueString : falseString;
 }
 </code></pre>
 <p>The first helper function <code>HtmlEncode</code> is fairly self explanitory. Use it to encode a string so that it is valid html.</p>
 <p><code>If</code> can be used inside an interpolated string to optionally include a string or include a different string depending on
 if condition is true or false.</p>
-<pre><code class="language-c#">public class PathTemplate : Template&lt;string[]&gt;
+<pre><code class="language-c#">public static class Templates
 {
-    protected override IEnumerable&lt;string&gt; RenderTemplate(string[] paths)
+    public static IEnumerable&lt;string&gt; Path(string[] paths)
     {
         string output = &quot;&quot;;
 
@@ -51,19 +51,22 @@ if condition is true or false.</p>
 		<title><![CDATA[Poor Man's Template Engine in C# Part 1]]></title>
 		<description><![CDATA[<p>If you're looking for a poor man's solution to a templating engine for .net and don't really need
 the overhead a complete template engine brings with it, I've come up with the following solution:</p>
-<pre><code class="language-c#">public abstract class Template&lt;T&gt;
+<pre><code class="language-c#">namespace Pmte
 {
-    public string Render(T data)
-    {
-        return string.Join(Environment.NewLine, RenderTemplate(data));
+    public delegate IEnumerable&lt;string&gt; Template&lt;TData&gt;(TData data);
+
+    public static class TemplateExtensions
+    {   
+        public static string Render(this IEnumerable&lt;string&gt; templateResult) =&gt; string.Join(Environment.NewLine, templateResult);
     }
-
-    protected abstract IEnumerable&lt;string&gt; RenderTemplate(T data);
 }
+</code></pre>
+<p>Implement a template like so:</p>
+<pre><code class="language-c#">using static Pmte.TemplateExtensions;
 
-public class PeopleTemplate : Template&lt;IEnumerable&lt;Person&gt;&gt;
+public static class Templates
 {
-    protected override IEnumerable&lt;string&gt; RenderTemplate(IEnumerable&lt;Person&gt; people)
+    public static IEnumerable&lt;string&gt; PeopleList(IEnumerable&lt;Person&gt; people)
     {
         foreach (var person in people)
             yield return $&quot;{person.FirstName} {person.LastName}&quot;;
@@ -79,8 +82,7 @@ public class PeopleTemplate : Template&lt;IEnumerable&lt;Person&gt;&gt;
     new Person() { FirstName = &quot;Eric&quot;, LastName = &quot;Cartman&quot; },
 };
 
-var template = new PeopleTemplate();
-Console.WriteLine(template.Render(people));
+Console.WriteLine(Templates.PeopleList(people).Render());
 </code></pre>
 <p>This is a really barebones solution but it works. In future posts I will build on
 this idea further to make our templating solution more powerful.</p>
