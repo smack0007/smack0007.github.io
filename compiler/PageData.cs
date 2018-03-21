@@ -8,7 +8,7 @@ namespace compiler
 
         public string Url => this.FileName.Replace("\\", "/").Replace(".md", ".html");
 
-        public string BasePath { get; }
+        public string BaseUrl { get; }
 
         public string Title { get; }
 
@@ -20,10 +20,10 @@ namespace compiler
 
         public string PaginationNewerLink { get; }
 
-        public PageData(string fileName, string basePath, string title, string body, bool showPagination, string paginationOlderLink, string paginationNewerLink)
+        public PageData(string fileName, string baseUrl, string title, string body, bool showPagination, string paginationOlderLink, string paginationNewerLink)
         {
             this.FileName = fileName;
-            this.BasePath = basePath;
+            this.BaseUrl = baseUrl;
             this.Title = title;
             this.Body = body;
             this.ShowPagination = showPagination;

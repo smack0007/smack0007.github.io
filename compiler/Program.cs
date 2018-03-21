@@ -20,12 +20,6 @@ namespace compiler
 
         public const int PostsPerPage = 5;
 
-        private static IndexTemplate IndexTemplate = new IndexTemplate();
-
-        private static PostTemplate PostTemplate = new PostTemplate();
-
-        private static PageTemplate PageTemplate = new PageTemplate();
-
         private static List<PageData> Pages = new List<PageData>();
 
         private static readonly CssSettings CssSettings = new CssSettings()
@@ -77,10 +71,12 @@ namespace compiler
 
                 if (isPost)
                 {
+                    string path = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + ".html");
+
                     var postData = new PostData(
                         frontMatter,
                         content,
-                        Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + ".html"));
+                        path);
 
                     posts.Add(postData);
 
@@ -149,7 +145,7 @@ namespace compiler
                     pageName,
                     Path.Combine(outputPath, GetPageName(i)),
                     BlogTitle,
-                    IndexTemplate.Render(new IndexData(posts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage))),
+                    Templates.Index(new IndexData(posts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage))).Render(),
                     showPagination: true,
                     paginationOlderLink: GetPageName(i + 1),
                     paginationNewerLink: GetPageName(i - 1));
@@ -231,7 +227,7 @@ namespace compiler
             string outputFileName,
             PostData postData)
         {            
-            RenderPage(fileName, outputFileName, postData.Title, PostTemplate.Render(postData), showPagination: false);
+            RenderPage(fileName, outputFileName, postData.Title, Templates.Post(postData).Render(), showPagination: false);
         }
 
         private static void RenderPage(
@@ -243,18 +239,31 @@ namespace compiler
             string paginationOlderLink = null,
             string paginationNewerLink = null)
         {
-            string basePath = string.Empty;
-            string[] pathParts = fileName.Split(new char[] { '/', '\\' });
-            
-            for (int i = 0; i < pathParts.Length - 1; i++)
-                basePath += "../";
+            var page = new PageData(
+                fileName,
+                CalculateBaseUrl(fileName),
+                title,
+                body,
+                showPagination,
+                paginationOlderLink,
+                paginationNewerLink);
 
-            var page = new PageData(fileName, basePath, title, body, showPagination, paginationOlderLink, paginationNewerLink);
             Pages.Add(page);
 
             File.WriteAllText(
                 outputFile,
-                Uglify.Html(PageTemplate.Render(page), HtmlSettings).Code);
+                Uglify.Html(Templates.Page(page).Render(), HtmlSettings).Code);
+        }
+
+        private static string CalculateBaseUrl(string fileName)
+        {
+            string basePath = string.Empty;
+            string[] pathParts = fileName.Split(new char[] { '/', '\\' });
+
+            for (int i = 0; i < pathParts.Length - 1; i++)
+                basePath += "../";
+            
+            return basePath;
         }
 
         private static string GenerateRssFeed(List<PostData> posts)
