@@ -10,18 +10,18 @@ In our [last episode]({{baseUrl}}/blog/2018/poor-mans-template-engine-1.html) we
 simple template engine. In this episode we'll introduce our first 2 helper functions:
 
 ```c#
-public abstract class Template<T>
+namespace Pmte
 {
-    public string Render(T data)
-    {
-        return string.Join(Environment.NewLine, RenderTemplate(data));
+    public delegate IEnumerable<string> Template<TData>(TData data);
+
+    public static class TemplateExtensions
+    {   
+        public static string Render(this IEnumerable<string> templateResult) => string.Join(Environment.NewLine, templateResult);
+
+        public static string HtmlEncode(string input) => WebUtility.HtmlEncode(input);
+
+        public static string If(bool condition, string trueString, string falseString = null) => condition ? trueString : falseString;
     }
-
-    protected abstract IEnumerable<string> RenderTemplate(T data);
-
-    protected static string HtmlEncode(string input) => WebUtility.HtmlEncode(input);
-
-    protected static string If(bool condition, string trueString, string falseString = null) => condition ? trueString : falseString;
 }
 ```
 
@@ -31,9 +31,9 @@ The first helper function `HtmlEncode` is fairly self explanitory. Use it to enc
 if condition is true or false.
 
 ```c#
-public class PathTemplate : Template<string[]>
+public static class Templates
 {
-    protected override IEnumerable<string> RenderTemplate(string[] paths)
+    public static IEnumerable<string> Path(string[] paths)
     {
         string output = "";
 

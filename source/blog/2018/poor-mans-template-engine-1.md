@@ -10,19 +10,25 @@ If you're looking for a poor man's solution to a templating engine for .net and 
 the overhead a complete template engine brings with it, I've come up with the following solution:
 
 ```c#
-public abstract class Template<T>
+namespace Pmte
 {
-    public string Render(T data)
-    {
-        return string.Join(Environment.NewLine, RenderTemplate(data));
+    public delegate IEnumerable<string> Template<TData>(TData data);
+
+    public static class TemplateExtensions
+    {   
+        public static string Render(this IEnumerable<string> templateResult) => string.Join(Environment.NewLine, templateResult);
     }
-
-    protected abstract IEnumerable<string> RenderTemplate(T data);
 }
+```
 
-public class PeopleTemplate : Template<IEnumerable<Person>>
+Implement a template like so:
+
+```c#
+using static Pmte.TemplateExtensions;
+
+public static class Templates
 {
-    protected override IEnumerable<string> RenderTemplate(IEnumerable<Person> people)
+    public static IEnumerable<string> PeopleList(IEnumerable<Person> people)
     {
         foreach (var person in people)
             yield return $"{person.FirstName} {person.LastName}";
@@ -41,8 +47,7 @@ var people = new Person[]
     new Person() { FirstName = "Eric", LastName = "Cartman" },
 };
 
-var template = new PeopleTemplate();
-Console.WriteLine(template.Render(people));
+Console.WriteLine(Templates.PeopleList(people).Render());
 ```
 
 This is a really barebones solution but it works. In future posts I will build on
