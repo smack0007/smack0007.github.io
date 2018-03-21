@@ -12,6 +12,19 @@
     }
 }
 
+.masthead {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3rem;
+    background: #fff;
+}
+
+.content {
+    margin-top: 5rem;
+}
+
 .social {
     float: right;
 }
@@ -40,6 +53,10 @@
     font-size: 1rem;
     text-align: right;
     font-style: italic;
+}
+
+.post .content {
+    margin-top: 0;
 }
 
 pre {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using static compiler.Template;
+using static compiler.TemplateExtensions;
 
 namespace compiler
 {
@@ -15,7 +15,6 @@ namespace compiler
                 yield return "</div>";
             yield return "</div>";
         }
-
         
         public static IEnumerable<string> PostHeader(PostData data)
         {
