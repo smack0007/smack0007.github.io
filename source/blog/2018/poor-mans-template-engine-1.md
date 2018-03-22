@@ -21,6 +21,9 @@ namespace Pmte
 }
 ```
 
+We define a template as being any function that returns an `IEnumerable<string>`. We are going to build a functional style
+template engine. TemplateExtensions will contain methods for working with templates and template results.
+
 Implement a template like so:
 
 ```c#
@@ -50,5 +53,4 @@ var people = new Person[]
 Console.WriteLine(Templates.PeopleList(people).Render());
 ```
 
-This is a really barebones solution but it works. In future posts I will build on
-this idea further to make our templating solution more powerful.
+In future episodes we will build more functions to make our template engine more powerful.

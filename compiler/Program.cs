@@ -9,6 +9,7 @@ using Markdig;
 using NUglify;
 using NUglify.Css;
 using NUglify.Html;
+using ColorCode;
 
 namespace compiler
 {
@@ -153,6 +154,15 @@ namespace compiler
 
             File.WriteAllText(Path.Combine(outputPath, "feed.rss"), GenerateRssFeed(posts));
             File.WriteAllText(Path.Combine(outputPath, "sitemap.xml"), GenerateSiteMap(Pages));
+
+            var csharpstring = "public void Method()\n{\n}";
+            var formatter = new HtmlFormatter();
+            var html = formatter.GetHtmlString(csharpstring, Languages.CSharp);
+
+            File.WriteAllText(
+                Path.Combine(outputPath, "test.html"),
+                html
+            );
 
             return 0;
         }

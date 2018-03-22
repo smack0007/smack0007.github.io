@@ -6,6 +6,8 @@
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.14.9" />
     <PackageReference Include="NUglify" Version="1.5.9" />
+    <PackageReference Include="ColorCode.Core" Version="2.0.3" />
+    <PackageReference Include="ColorCode.Html" Version="2.0.3" />
   </ItemGroup>
   <Target Name="BuildSite" AfterTargets="AfterBuild" Condition=" $(BuildSite) == true ">
     <Exec WorkingDirectory="$(MSBuildThisFileDirectory)" Command="dotnet run -- &quot;$(MSBuildThisFileDirectory)..\source\\&quot; &quot;$(MSBuildThisFileDirectory)..\bin\\&quot;" />

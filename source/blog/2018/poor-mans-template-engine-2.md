@@ -6,7 +6,7 @@ Category: c#
 Tags: c#, template, template-engine
 ---
 
-In our [last episode]({{baseUrl}}/blog/2018/poor-mans-template-engine-1.html) we laid the groundwork for our
+In our [last episode](blog/2018/poor-mans-template-engine-1.html) we laid the groundwork for our
 simple template engine. In this episode we'll introduce our first 2 helper functions:
 
 ```c#
@@ -31,6 +31,8 @@ The first helper function `HtmlEncode` is fairly self explanitory. Use it to enc
 if condition is true or false.
 
 ```c#
+using static Pmte.TemplateExtensions;
+
 public static class Templates
 {
     public static IEnumerable<string> Path(string[] paths)
