@@ -8,7 +8,7 @@
         public static string Render(this IEnumerable&lt;string> templateResult) => string.Join(Environment.NewLine, templateResult);
     }
 }
-</code></pre><p>Implement a template like so:
+</code></pre><p>We define a template as being any function that returns an <code>IEnumerable&lt;string></code>. We are going to build a functional style template engine. TemplateExtensions will contain methods for working with templates and template results.<p>Implement a template like so:
 <pre><code class=language-c#>using static Pmte.TemplateExtensions;
 
 public static class Templates
@@ -29,4 +29,4 @@ public static class Templates
 };
 
 Console.WriteLine(Templates.PeopleList(people).Render());
-</code></pre><p>This is a really barebones solution but it works. In future posts I will build on this idea further to make our templating solution more powerful.</div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>
+</code></pre><p>In future episodes we will build more functions to make our template engine more powerful.</div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

@@ -1,4 +1,60 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=""><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class="sidebar-nav-item active">Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2018/poor-mans-template-engine-2.html>Poor Man's Template Engine in C# Part 2</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 14, 2018</span> <span class=category><span class="fas fa-folder"></span>c#</span> <span class=tags><span class="fas fa-tags"></span>c#, template, template-engine</span></div><h3>HtmlEncode and If</h3><div class=content><p>In our <a href=http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html>last episode</a> we laid the groundwork for our simple template engine. In this episode we'll introduce our first 2 helper functions:
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=""><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class="sidebar-nav-item active">Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2018/poor-mans-template-engine-3.html>Poor Man's Template Engine in C# Part 3</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 22, 2018</span> <span class=category><span class="fas fa-folder"></span>c#</span> <span class=tags><span class="fas fa-tags"></span>c#, template, template-engine</span></div><h3>Include</h3><div class=content><p>In our <a href=blog/2018/poor-mans-template-engine-2.html>last episode</a> we implemeted the first two helper funcitons <code>HtmlEncode</code> and <code>If</code>. Today we want to implement <code>Include</code>:
+<pre><code class=language-c#>namespace Pmte
+{
+    public delegate IEnumerable&lt;string> Template&lt;TData>(TData data);
+
+    public static class TemplateExtensions
+    {   
+        public static string Render(this IEnumerable&lt;string> templateResult) => string.Join(Environment.NewLine, templateResult);
+
+        public static string HtmlEncode(string input) => WebUtility.HtmlEncode(input);
+
+        public static string If(bool condition, string trueString, string falseString = null) => condition ? trueString : falseString;
+
+        public static string Include&lt;TData>(Template&lt;TData> template, TData data) =>
+            template(data).Render();
+    }
+}
+</code></pre><p>Include can be used by specifying the template function and the data used to call the template function. The rendered result is returned.<p>Example usage:
+<pre><code class=language-c#>using static Pmte.TemplateExtensions;
+
+public static class Templates
+{
+    public static IEnumerable&lt;string> Post(PostData post)
+    {
+        yield return "&lt;div class=\"post\">";
+            yield return Include(PostHeader, post);
+            yield return "&lt;div class=\"content\">";
+                yield return post.Content;
+            yield return "&lt;/div>";
+        yield return "&lt;/div>";
+    }
+    
+    public static IEnumerable&lt;string> PostHeader(PostData post)
+    {
+        yield return $"&lt;h2>&lt;a href=\"{post.Url}\">{HtmlEncode(post.Title)}&lt;/a>&lt;/h2>";   
+
+        yield return "&lt;div class=\"meta\">";
+            yield return $"&lt;span class=\"date\">{post.Date}&lt;/span>";
+            yield return $"&lt;span class=\"category\">{HtmlEncode(post.Category)}&lt;/span>";
+        yield return "&lt;/div>";
+    }
+
+    public static IEnumerable&lt;string> PostsList(IEnumerable&lt;PostData> posts)
+    {
+        yield return "&lt;div class=\"posts\">";
+
+        foreach (var post in posts)
+        {
+            yield return "&lt;div class=\"post\">";
+                yield return Include(PostHeader, post);
+            yield return "&lt;/div>";
+        }
+
+        yield return "&lt;/div>";
+    }
+}
+</code></pre><p>We reuse the <code>PostHeader</code> template in both the <code>Post</code> and <code>PostsList</code> templates.</div></div><div class=post><h2><a href=blog/2018/poor-mans-template-engine-2.html>Poor Man's Template Engine in C# Part 2</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 14, 2018</span> <span class=category><span class="fas fa-folder"></span>c#</span> <span class=tags><span class="fas fa-tags"></span>c#, template, template-engine</span></div><h3>HtmlEncode and If</h3><div class=content><p>In our <a href=blog/2018/poor-mans-template-engine-1.html>last episode</a> we laid the groundwork for our simple template engine. In this episode we'll introduce our first 2 helper functions:
 <pre><code class=language-c#>namespace Pmte
 {
     public delegate IEnumerable&lt;string> Template&lt;TData>(TData data);
@@ -13,7 +69,9 @@
     }
 }
 </code></pre><p>The first helper function <code>HtmlEncode</code> is fairly self explanitory. Use it to encode a string so that it is valid html.<p><code>If</code> can be used inside an interpolated string to optionally include a string or include a different string depending on if condition is true or false.
-<pre><code class=language-c#>public static class Templates
+<pre><code class=language-c#>using static Pmte.TemplateExtensions;
+
+public static class Templates
 {
     public static IEnumerable&lt;string> Path(string[] paths)
     {
@@ -35,7 +93,7 @@
         public static string Render(this IEnumerable&lt;string> templateResult) => string.Join(Environment.NewLine, templateResult);
     }
 }
-</code></pre><p>Implement a template like so:
+</code></pre><p>We define a template as being any function that returns an <code>IEnumerable&lt;string></code>. We are going to build a functional style template engine. TemplateExtensions will contain methods for working with templates and template results.<p>Implement a template like so:
 <pre><code class=language-c#>using static Pmte.TemplateExtensions;
 
 public static class Templates
@@ -56,4 +114,4 @@ public static class Templates
 };
 
 Console.WriteLine(Templates.PeopleList(people).Render());
-</code></pre><p>This is a really barebones solution but it works. In future posts I will build on this idea further to make our templating solution more powerful.</div></div><div class=post><h2><a href=blog/2018/snowball-2.html>Snowball V2.0</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>February 23, 2018</span> <span class=category><span class="fas fa-folder"></span>Snowball</span> <span class=tags><span class="fas fa-tags"></span>Snowball, c#</span></div><div class=content><p>I haven't written anything new here in a very long time and a lot has happened since then. I started a new job at <a href=https://www.beumergroup.com>BeumerGroup</a> this year and now work mostly in TypeScript writing an html5 spa app.<p>In my spare time I've decided to working on version 2.0 of my <a href=https://github.com/smack0007/Snowball>Snowball</a>, my 2D game framework. I've been playing around with the idea for a while now. This version will be developed directly for .net core and will be developed with cross platform capability in mind. The api will look similar but will have some changes.<p>The old repo is still available on my <a href=https://github.com/smack0007/ >github</a> at <a href=https://github.com/smack0007/Snowball_v1>https://github.com/smack0007/Snowball_v1</a>.</div></div><div class=post><h2><a href=blog/2015/using-batch-files-as-task-runner-vs-code.html>Using batch files as the task runner in Visual Studio Code</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>July 09, 2015</span> <span class=category><span class="fas fa-folder"></span>Visual Studio</span> <span class=tags><span class="fas fa-tags"></span>Visual Studio, Visual Studio Code, Batch Files</span></div><div class=content><p><a href=https://code.visualstudio.com/ >Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use batch files though.</div></div><div class=post><h2><a href=blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html>LINQ calls IEqualityComparer&lt;T>.GetHashCode() before Equals()</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>November 24, 2014</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>LINQ, IEqualityComparer, GetHashCode</span></div><div class=content><p>This is a problem that has bitten me more than a few times so I thought it was about time to write a blog post about it. It's one of those problems that makes you scratch your head for a bit and then the light bulb goes on and you remember you've solved this one before. It occurs whenever you use a LINQ extension method which takes an instance of IEqualityComaparer<t>.</t></div></div></div><div class=clear></div><div class=pagination><a href=blog\page2.html class="pagination-item older">Older</a> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>
+</code></pre><p>In future episodes we will build more functions to make our template engine more powerful.</div></div><div class=post><h2><a href=blog/2018/snowball-2.html>Snowball V2.0</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>February 23, 2018</span> <span class=category><span class="fas fa-folder"></span>Snowball</span> <span class=tags><span class="fas fa-tags"></span>Snowball, c#</span></div><div class=content><p>I haven't written anything new here in a very long time and a lot has happened since then. I started a new job at <a href=https://www.beumergroup.com>BeumerGroup</a> this year and now work mostly in TypeScript writing an html5 spa app.<p>In my spare time I've decided to working on version 2.0 of my <a href=https://github.com/smack0007/Snowball>Snowball</a>, my 2D game framework. I've been playing around with the idea for a while now. This version will be developed directly for .net core and will be developed with cross platform capability in mind. The api will look similar but will have some changes.<p>The old repo is still available on my <a href=https://github.com/smack0007/ >github</a> at <a href=https://github.com/smack0007/Snowball_v1>https://github.com/smack0007/Snowball_v1</a>.</div></div><div class=post><h2><a href=blog/2015/using-batch-files-as-task-runner-vs-code.html>Using batch files as the task runner in Visual Studio Code</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>July 09, 2015</span> <span class=category><span class="fas fa-folder"></span>Visual Studio</span> <span class=tags><span class="fas fa-tags"></span>Visual Studio, Visual Studio Code, Batch Files</span></div><div class=content><p><a href=https://code.visualstudio.com/ >Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use batch files though.</div></div></div><div class=clear></div><div class=pagination><a href=blog\page2.html class="pagination-item older">Older</a> <span class="pagination-item newer">Newer</span></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

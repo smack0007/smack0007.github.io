@@ -4,12 +4,80 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 21 Mar 2018 15:07:26 GMT</lastBuildDate>
-	<pubDate>Wed, 14 Mar 2018 00:00:00 GMT</pubDate>
+	<lastBuildDate>Thu, 22 Mar 2018 09:18:16 GMT</lastBuildDate>
+	<pubDate>Thu, 22 Mar 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
+		<title><![CDATA[Poor Man's Template Engine in C# Part 3]]></title>
+		<description><![CDATA[<p>In our <a href="blog/2018/poor-mans-template-engine-2.html">last episode</a> we implemeted the first
+two helper funcitons <code>HtmlEncode</code> and <code>If</code>. Today we want to implement <code>Include</code>:</p>
+<pre><code class="language-c#">namespace Pmte
+{
+    public delegate IEnumerable&lt;string&gt; Template&lt;TData&gt;(TData data);
+
+    public static class TemplateExtensions
+    {   
+        public static string Render(this IEnumerable&lt;string&gt; templateResult) =&gt; string.Join(Environment.NewLine, templateResult);
+
+        public static string HtmlEncode(string input) =&gt; WebUtility.HtmlEncode(input);
+
+        public static string If(bool condition, string trueString, string falseString = null) =&gt; condition ? trueString : falseString;
+
+        public static string Include&lt;TData&gt;(Template&lt;TData&gt; template, TData data) =&gt;
+            template(data).Render();
+    }
+}
+</code></pre>
+<p>Include can be used by specifying the template function and the data used to call the template function. The rendered result is returned.</p>
+<p>Example usage:</p>
+<pre><code class="language-c#">using static Pmte.TemplateExtensions;
+
+public static class Templates
+{
+    public static IEnumerable&lt;string&gt; Post(PostData post)
+    {
+        yield return &quot;&lt;div class=\&quot;post\&quot;&gt;&quot;;
+            yield return Include(PostHeader, post);
+            yield return &quot;&lt;div class=\&quot;content\&quot;&gt;&quot;;
+                yield return post.Content;
+            yield return &quot;&lt;/div&gt;&quot;;
+        yield return &quot;&lt;/div&gt;&quot;;
+    }
+    
+    public static IEnumerable&lt;string&gt; PostHeader(PostData post)
+    {
+        yield return $&quot;&lt;h2&gt;&lt;a href=\&quot;{post.Url}\&quot;&gt;{HtmlEncode(post.Title)}&lt;/a&gt;&lt;/h2&gt;&quot;;   
+
+        yield return &quot;&lt;div class=\&quot;meta\&quot;&gt;&quot;;
+            yield return $&quot;&lt;span class=\&quot;date\&quot;&gt;{post.Date}&lt;/span&gt;&quot;;
+            yield return $&quot;&lt;span class=\&quot;category\&quot;&gt;{HtmlEncode(post.Category)}&lt;/span&gt;&quot;;
+        yield return &quot;&lt;/div&gt;&quot;;
+    }
+
+    public static IEnumerable&lt;string&gt; PostsList(IEnumerable&lt;PostData&gt; posts)
+    {
+        yield return &quot;&lt;div class=\&quot;posts\&quot;&gt;&quot;;
+
+        foreach (var post in posts)
+        {
+            yield return &quot;&lt;div class=\&quot;post\&quot;&gt;&quot;;
+                yield return Include(PostHeader, post);
+            yield return &quot;&lt;/div&gt;&quot;;
+        }
+
+        yield return &quot;&lt;/div&gt;&quot;;
+    }
+}
+</code></pre>
+<p>We reuse the <code>PostHeader</code> template in both the <code>Post</code> and <code>PostsList</code> templates.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</link>
+		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</guid>
+		<pubDate>Thu, 22 Mar 2018 00:00:00 GMT</pubDate>
+	</item>
+	<item>
 		<title><![CDATA[Poor Man's Template Engine in C# Part 2]]></title>
-		<description><![CDATA[<p>In our <a href="http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html">last episode</a> we laid the groundwork for our
+		<description><![CDATA[<p>In our <a href="blog/2018/poor-mans-template-engine-1.html">last episode</a> we laid the groundwork for our
 simple template engine. In this episode we'll introduce our first 2 helper functions:</p>
 <pre><code class="language-c#">namespace Pmte
 {
@@ -28,7 +96,9 @@ simple template engine. In this episode we'll introduce our first 2 helper funct
 <p>The first helper function <code>HtmlEncode</code> is fairly self explanitory. Use it to encode a string so that it is valid html.</p>
 <p><code>If</code> can be used inside an interpolated string to optionally include a string or include a different string depending on
 if condition is true or false.</p>
-<pre><code class="language-c#">public static class Templates
+<pre><code class="language-c#">using static Pmte.TemplateExtensions;
+
+public static class Templates
 {
     public static IEnumerable&lt;string&gt; Path(string[] paths)
     {
@@ -61,6 +131,8 @@ the overhead a complete template engine brings with it, I've come up with the fo
     }
 }
 </code></pre>
+<p>We define a template as being any function that returns an <code>IEnumerable&lt;string&gt;</code>. We are going to build a functional style
+template engine. TemplateExtensions will contain methods for working with templates and template results.</p>
 <p>Implement a template like so:</p>
 <pre><code class="language-c#">using static Pmte.TemplateExtensions;
 
@@ -84,8 +156,7 @@ public static class Templates
 
 Console.WriteLine(Templates.PeopleList(people).Render());
 </code></pre>
-<p>This is a really barebones solution but it works. In future posts I will build on
-this idea further to make our templating solution more powerful.</p>
+<p>In future episodes we will build more functions to make our template engine more powerful.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html</link>
 		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html</guid>
@@ -316,16 +387,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2012/snowball-shaders-in-progress.html</link>
 		<guid>http://smack0007.github.io/blog/2012/snowball-shaders-in-progress.html</guid>
 		<pubDate>Fri, 22 Jun 2012 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Snowball now using SharpDX]]></title>
-		<description><![CDATA[<p>For a little while, I was thinking about giving up on Snowball. When you're one guy working on a project that gets to a certain size, it can start to feel a little daunting. You find a bug, and you feel like you need to fix it asap. I don't know if anyone reading this has actually tried Snowball, but if you have, please comment to let me know. It would encourage me.</p>
-<p>I decided to switch Snowball over to <a href="http://code.google.com/p/sharpdx/">SharpDX</a>. It's not that I was unhappy with SlimDX, it just seems like there is a lot more innovation happening on the SharpDX side. I also like the fact that I can include the DLLs in the repository so end users don't have to download another dependency in order to compile it. The Win8 stuff is also quite interesting, although the SlimDX guys say they are working on that.</p>
-<p>I plan to set a road map soon for what I want to include the first release of Snowball. Music and Pixel Shaders are high the list. I've experimented with implementing a UI library but I think I want to push that back for a later release.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2012/snowball-now-using-sharpdx.html</link>
-		<guid>http://smack0007.github.io/blog/2012/snowball-now-using-sharpdx.html</guid>
-		<pubDate>Mon, 16 Apr 2012 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>

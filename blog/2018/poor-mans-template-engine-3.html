@@ -1,0 +1,57 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Poor Man's Template Engine in C# Part 3</title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2018/poor-mans-template-engine-3.html>Poor Man's Template Engine in C# Part 3</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 22, 2018</span> <span class=category><span class="fas fa-folder"></span>c#</span> <span class=tags><span class="fas fa-tags"></span>c#, template, template-engine</span></div><h3>Include</h3><div class=content><p>In our <a href=blog/2018/poor-mans-template-engine-2.html>last episode</a> we implemeted the first two helper funcitons <code>HtmlEncode</code> and <code>If</code>. Today we want to implement <code>Include</code>:
+<pre><code class=language-c#>namespace Pmte
+{
+    public delegate IEnumerable&lt;string> Template&lt;TData>(TData data);
+
+    public static class TemplateExtensions
+    {   
+        public static string Render(this IEnumerable&lt;string> templateResult) => string.Join(Environment.NewLine, templateResult);
+
+        public static string HtmlEncode(string input) => WebUtility.HtmlEncode(input);
+
+        public static string If(bool condition, string trueString, string falseString = null) => condition ? trueString : falseString;
+
+        public static string Include&lt;TData>(Template&lt;TData> template, TData data) =>
+            template(data).Render();
+    }
+}
+</code></pre><p>Include can be used by specifying the template function and the data used to call the template function. The rendered result is returned.<p>Example usage:
+<pre><code class=language-c#>using static Pmte.TemplateExtensions;
+
+public static class Templates
+{
+    public static IEnumerable&lt;string> Post(PostData post)
+    {
+        yield return "&lt;div class=\"post\">";
+            yield return Include(PostHeader, post);
+            yield return "&lt;div class=\"content\">";
+                yield return post.Content;
+            yield return "&lt;/div>";
+        yield return "&lt;/div>";
+    }
+    
+    public static IEnumerable&lt;string> PostHeader(PostData post)
+    {
+        yield return $"&lt;h2>&lt;a href=\"{post.Url}\">{HtmlEncode(post.Title)}&lt;/a>&lt;/h2>";   
+
+        yield return "&lt;div class=\"meta\">";
+            yield return $"&lt;span class=\"date\">{post.Date}&lt;/span>";
+            yield return $"&lt;span class=\"category\">{HtmlEncode(post.Category)}&lt;/span>";
+        yield return "&lt;/div>";
+    }
+
+    public static IEnumerable&lt;string> PostsList(IEnumerable&lt;PostData> posts)
+    {
+        yield return "&lt;div class=\"posts\">";
+
+        foreach (var post in posts)
+        {
+            yield return "&lt;div class=\"post\">";
+                yield return Include(PostHeader, post);
+            yield return "&lt;/div>";
+        }
+
+        yield return "&lt;/div>";
+    }
+}
+</code></pre><p>We reuse the <code>PostHeader</code> template in both the <code>Post</code> and <code>PostsList</code> templates.</div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>
