@@ -66,9 +66,7 @@ namespace compiler
 
                 Directory.CreateDirectory(outputDirectory);
 
-                var content = ProcessMarkdown(
-                    File.ReadAllLines(Path.Combine(inputPath, fileName)),
-                    out var frontMatter);
+                (var frontMatter, var content) = ProcessMarkdown(File.ReadAllLines(Path.Combine(inputPath, fileName)));
 
                 if (isPost)
                 {
@@ -155,36 +153,39 @@ namespace compiler
             File.WriteAllText(Path.Combine(outputPath, "feed.rss"), GenerateRssFeed(posts));
             File.WriteAllText(Path.Combine(outputPath, "sitemap.xml"), GenerateSiteMap(Pages));
 
-            var csharpstring = "public void Method()\n{\n}";
-            var formatter = new HtmlFormatter();
-            var html = formatter.GetHtmlString(csharpstring, Languages.CSharp);
+            // var csharpstring = "public void Method()\n{\n}";
+            // var formatter = new HtmlFormatter();
+            // var html = formatter.GetHtmlString(csharpstring, Languages.CSharp);
 
-            File.WriteAllText(
-                Path.Combine(outputPath, "test.html"),
-                html
-            );
+            // File.WriteAllText(
+            //     Path.Combine(outputPath, "test.html"),
+            //     html
+            // );
 
             return 0;
         }
 
-        private static string ProcessMarkdown(
-            string[] lines,
-            out FrontMatter frontMatter)
+        private static (FrontMatter FrontMatter, string Content) ProcessMarkdown(string[] lines)
         {
             lines = Utility.TrimEmptyLines(lines);
 
-            string[] frontMatterLines;
-            string[] contentLines;
-            ExtractMarkdownParts(lines, out frontMatterLines, out contentLines);
+            (var frontMatterLines, var contentLines) = ExtractMarkdownParts(lines);
 
-            frontMatter = FrontMatter.Parse(frontMatterLines);
-            return Markdown.ToHtml(ReplaceVariables(string.Join(Environment.NewLine, contentLines)));
+            var frontMatter = FrontMatter.Parse(frontMatterLines);
+
+            var pipeline = new MarkdownPipelineBuilder()
+                .UseAdvancedExtensions();
+
+            return (
+                frontMatter,
+                Markdown.ToHtml(ReplaceVariables(string.Join(Environment.NewLine, contentLines)))
+            );
         }
 
-        private static void ExtractMarkdownParts(string[] lines, out string[] frontMatter, out string[] contentLines)
+        private static (string[] FrontMatter, string[] Content) ExtractMarkdownParts(string[] lines)
         {
-            frontMatter = null;
-            contentLines = null;
+            string[] frontMatter = null;
+            string[] content = null;
 
             int markdownStart = 0;
 
@@ -200,8 +201,8 @@ namespace compiler
 
                 if (frontMatterEnd != lines.Length)
                 {
-                    contentLines = new string[frontMatterEnd - 1];
-                    Array.Copy(lines, 1, contentLines, 0, frontMatterEnd - 1);
+                    content = new string[frontMatterEnd - 1];
+                    Array.Copy(lines, 1, content, 0, frontMatterEnd - 1);
                 }
 
                 markdownStart = frontMatterEnd + 1;
@@ -216,8 +217,10 @@ namespace compiler
             while (lines[markdownStart].Trim().Length == 0)
                 markdownStart++;
 
-            contentLines = new string[lines.Length - markdownStart];
-            Array.Copy(lines, markdownStart, contentLines, 0, lines.Length - markdownStart);
+            content = new string[lines.Length - markdownStart];
+            Array.Copy(lines, markdownStart, content, 0, lines.Length - markdownStart);
+
+            return (frontMatter, content);
         }
 
         private static string ReplaceVariables(string input)
