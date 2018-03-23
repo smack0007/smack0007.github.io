@@ -11,25 +11,25 @@ Comments: true
 Some project types in Visual C# Express (Empty Project) will not allow you to change the PlatformTarget from the UI. You can still change the target platform though by editing the .csproj file in a text editor. Close the project and open it up in your favorite text editor (I use [Notpad++](http://notepad-plus.sourceforge.net/)). The .csproj file is really just a XML file. You should see somewhere in the file something like:
 
 ```xml
-	&lt;PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' "&gt;
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		....
-	&lt;/PropertyGroup&gt;
-	&lt;PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' "&gt;
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		....
-	&lt;/PropertyGroup&gt;
+	</PropertyGroup>
 ```
 
 Inside the PropertyGroup elements, add the PlatformTarget element:
 
 ```xml
-	&lt;PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' "&gt;
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		....
-		&lt;PlatformTarget&gt;x86*&lt;/PlatformTarget&gt;
-	&lt;/PropertyGroup&gt;
-	&lt;PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' "&gt;
+		<PlatformTarget>x86</PlatformTarget>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		....
-		&lt;PlatformTarget&gt;x86&lt;/PlatformTarget&gt;
-	&lt;/PropertyGroup&gt;
+		<PlatformTarget>x86</PlatformTarget>
+	</PropertyGroup>
 ```
 
 Save the file and open your project back up. Your project's output should now target only x86.

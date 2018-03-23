@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.14.9" />
+    <PackageReference Include="CommonMark.NET" Version="0.15.1" />
     <PackageReference Include="NUglify" Version="1.5.9" />
     <PackageReference Include="ColorCode.Core" Version="2.0.3" />
     <PackageReference Include="ColorCode.Html" Version="2.0.3" />
