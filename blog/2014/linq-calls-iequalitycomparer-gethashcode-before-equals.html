@@ -1,39 +1,45 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>LINQ calls IEqualityComparer<t>.GetHashCode() before Equals()</t></title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html>LINQ calls IEqualityComparer&lt;T>.GetHashCode() before Equals()</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>November 24, 2014</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>LINQ, IEqualityComparer, GetHashCode</span></div><div class=content><p>This is a problem that has bitten me more than a few times so I thought it was about time to write a blog post about it. It's one of those problems that makes you scratch your head for a bit and then the light bulb goes on and you remember you've solved this one before. It occurs whenever you use a LINQ extension method which takes an instance of IEqualityComaparer<t>.</t><p>Here is our sample IEqualityComparer:
-<pre><code class=language-c#>class MethodInfoComparer : IEqualityComparer&lt;MethodInfo>
+<pre><code class=language-c#>
+<span style=color:#00f>class</span> MethodInfoComparer : IEqualityComparer&lt;MethodInfo>
 {		
-	public bool Equals(MethodInfo x, MethodInfo y)
+	<span style=color:#00f>public</span> <span style=color:#00f>bool</span> Equals(MethodInfo x, MethodInfo y)
 	{
-		if (x.Name != y.Name)
-			return false;
+		<span style=color:#00f>if</span> (x.Name != y.Name)
+			<span style=color:#00f>return</span> <span style=color:#00f>false</span>;
 
-		if (x.ReturnType != y.ReturnType)
-			return false;
+		<span style=color:#00f>if</span> (x.ReturnType != y.ReturnType)
+			<span style=color:#00f>return</span> <span style=color:#00f>false</span>;
 
-		var xParameters = x.GetParameters();
-		var yParameters = y.GetParameters();
+		<span style=color:#00f>var</span> xParameters = x.GetParameters();
+		<span style=color:#00f>var</span> yParameters = y.GetParameters();
 
-		if (xParameters.Length != yParameters.Length)
-			return false;
+		<span style=color:#00f>if</span> (xParameters.Length != yParameters.Length)
+			<span style=color:#00f>return</span> <span style=color:#00f>false</span>;
 
-		for (int i = 0; i &lt; xParameters.Length; i++)
+		<span style=color:#00f>for</span> (<span style=color:#00f>int</span> i = <span>0</span>; i &lt; xParameters.Length; i++)
 		{
-			if (xParameters[i].ParameterType != yParameters[i].ParameterType)
-				return false;
+			<span style=color:#00f>if</span> (xParameters[i].ParameterType != yParameters[i].ParameterType)
+				<span style=color:#00f>return</span> <span style=color:#00f>false</span>;
 		}
 
-		return true;
+		<span style=color:#00f>return</span> <span style=color:#00f>true</span>;
 	}
 
-	public int GetHashCode(MethodInfo obj)
+	<span style=color:#00f>public</span> <span style=color:#00f>int</span> GetHashCode(MethodInfo obj)
 	{
-		return obj.GetHashCode();
+		<span style=color:#00f>return</span> obj.GetHashCode();
 	}
 }
+
 </code></pre><p>Given two instances of MethodInfo, it attempts to compare them using the name, return type, and the parameter names and types. GetHashCode() calls obj.GetHashCode() for simplicity.<p>Here is our LINQ statement:
-<pre><code class=language-c#>return this.GetType().GetMethods().Except(typeof(BaseClass).GetMethods(), new MethodInfoComparer());
+<pre><code class=language-c#>
+<span style=color:#00f>return</span> <span style=color:#00f>this</span>.GetType().GetMethods().Except(<span style=color:#00f>typeof</span>(BaseClass).GetMethods(), <span style=color:#00f>new</span> MethodInfoComparer());
+
 </code></pre><p>The LINQ statment should return only the public methods of the derived class and filter out those of the base class. It doesn't work though. Attempting to debug the problem by setting a breakpoint inside of the Equals method reveals the method is never called. This is the part where you usually have to scratch your head for about 2 or 3 minutes.<p>The problem is in the implementation of the GetHashCode method. LINQ calls the GetHashCode method and compares the results from both objects before calling the Equals method. This is an optimization as GetHashCode should be fast where as Equals may not be. From MSDN:<blockquote><p>A hash function is used to <em>quickly</em> generate a number (hash code) that corresponds to the value of an object.</blockquote><p>MethodInfo doesn't seem to implement GetHashCode based on any values of the instance. Comparing the hash codes of 2 MethodInfo objects which actually represent the some method always fails and therefore the Equals method is never called.<p>A better implementation of GetHashCode for this use case is:
-<pre><code class=language-c#>public int GetHashCode(MethodInfo obj)
+<pre><code class=language-c#>
+<span style=color:#00f>public</span> <span style=color:#00f>int</span> GetHashCode(MethodInfo obj)
 {
-	return obj.Name.GetHashCode() ^ obj.GetParameters().Length;
+	<span style=color:#00f>return</span> obj.Name.GetHashCode() ^ obj.GetParameters().Length;
 }
+
 </code></pre><p>obj.GetParameters().Length could probably be left out. I haven't ran any tests to determine if it actually improves the performance or not.</div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

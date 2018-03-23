@@ -1,222 +1,230 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Implementing basic Dependency Injection using a Service Container</title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2010/implementing-basic-dependency-injection-using-services-container.html>Implementing basic Dependency Injection using a Service Container</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>June 21, 2010</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>.NET, C#, Dependency Injection, Design Patterns, Service Continer</span></div><div class=content><p>By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection.<p>We'll start by defining the <strong>Injectable</strong> attribute.
-<pre><code class=language-c#>[AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Property,
-	AllowMultiple = false, Inherited = true)]
-public class InjectableAttribute : Attribute
+<pre><code class=language-c#>
+[AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Property,
+	AllowMultiple = <span style=color:#00f>false</span>, Inherited = <span style=color:#00f>true</span>)]
+<span style=color:#00f>public</span> <span style=color:#00f>class</span> InjectableAttribute : Attribute
 {
 }
+
 </code></pre><p>We'll use this attribute to mark our constructors and properties for dependency injection. Next we'll define an interface for our dependency injector:
-<pre><code class=language-c#>public interface IDependencyInjector
+<pre><code class=language-c#>
+<span style=color:#00f>public</span> <span style=color:#00f>interface</span> IDependencyInjector
 {
 	T Construct&amp;lt;T&amp;gt;();
-	void Inject(object instance);
+	<span style=color:#00f>void</span> Inject(<span style=color:#00f>object</span> instance);
 }
+
 </code></pre><p>We'll define our service container like so:
-<pre><code class=language-c#>public class ServiceContainer : IDependencyInjector, IServiceProvider
+<pre><code class=language-c#>
+<span style=color:#00f>public</span> <span style=color:#00f>class</span> ServiceContainer : IDependencyInjector, IServiceProvider
 {
 	Dictionary&amp;lt;Type, Object&amp;gt; services;
 
-	public ServiceContainer()
-		: base()
+	<span style=color:#00f>public</span> ServiceContainer()
+		: <span style=color:#00f>base</span>()
 	{
-		this.services = new Dictionary&amp;lt;Type, object&amp;gt;();
+		<span style=color:#00f>this</span>.services = <span style=color:#00f>new</span> Dictionary&amp;lt;Type, <span style=color:#00f>object</span>&amp;gt;();
 	}
 
-	public void AddService(Type type, Object provider)
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> AddService(Type type, Object provider)
 	{
-		if(null == type)
-			throw new ArgumentNullException("type");
+		<span style=color:#00f>if</span>(<span style=color:#00f>null</span> == type)
+			<span style=color:#00f>throw</span> <span style=color:#00f>new</span> ArgumentNullException(<span style=color:#a31515>"type"</span>);
 
-		if(null == provider)
-			throw new ArgumentNullException("provider");
+		<span style=color:#00f>if</span>(<span style=color:#00f>null</span> == provider)
+			<span style=color:#00f>throw</span> <span style=color:#00f>new</span> ArgumentNullException(<span style=color:#a31515>"provider"</span>);
 
-		if(this.services.ContainsKey(type))
-			throw new InvalidOperationException("A provider is already registered the type " + type);
+		<span style=color:#00f>if</span>(<span style=color:#00f>this</span>.services.ContainsKey(type))
+			<span style=color:#00f>throw</span> <span style=color:#00f>new</span> InvalidOperationException(<span style=color:#a31515>"A provider is already registered the type "</span> + type);
 
-		var providerType = provider.GetType();
+		<span style=color:#00f>var</span> providerType = provider.GetType();
 
-		if(!type.IsAssignableFrom(providerType))
-			throw new InvalidOperationException(providerType + " is not an instance of " + type);
+		<span style=color:#00f>if</span>(!type.IsAssignableFrom(providerType))
+			<span style=color:#00f>throw</span> <span style=color:#00f>new</span> InvalidOperationException(providerType + <span style=color:#a31515>" is not an instance of "</span> + type);
 
-		this.services.Add(type, provider);
+		<span style=color:#00f>this</span>.services.Add(type, provider);
 	}
 
-	public object GetService(Type type)
+	<span style=color:#00f>public</span> <span style=color:#00f>object</span> GetService(Type type)
 	{
-		if(null == type)
-			throw new ArgumentNullException("type");
+		<span style=color:#00f>if</span>(<span style=color:#00f>null</span> == type)
+			<span style=color:#00f>throw</span> <span style=color:#00f>new</span> ArgumentNullException(<span style=color:#a31515>"type"</span>);
 
-		if(this.services.ContainsKey(type))
-			return this.services[type];
+		<span style=color:#00f>if</span>(<span style=color:#00f>this</span>.services.ContainsKey(type))
+			<span style=color:#00f>return</span> <span style=color:#00f>this</span>.services[type];
 					
-		return null;
+		<span style=color:#00f>return</span> <span style=color:#00f>null</span>;
 	}
 
-	public void RemoveService(Type type)
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> RemoveService(Type type)
 	{
-		if(null == type)
-			throw new ArgumentNullException("type");
+		<span style=color:#00f>if</span>(<span style=color:#00f>null</span> == type)
+			<span style=color:#00f>throw</span> <span style=color:#00f>new</span> ArgumentNullException(<span style=color:#a31515>"type"</span>);
 
-		this.services.Remove(type);
+		<span style=color:#00f>this</span>.services.Remove(type);
 	}
 
-	protected object GetInjectableService(Type type)
+	<span style=color:#00f>protected</span> <span style=color:#00f>object</span> GetInjectableService(Type type)
 	{
-		if(type == typeof(IDependencyInjector) ||
-		   type == typeof(IServiceProvider))
+		<span style=color:#00f>if</span>(type == <span style=color:#00f>typeof</span>(IDependencyInjector) ||
+		   type == <span style=color:#00f>typeof</span>(IServiceProvider))
 		{
-			return this;
+			<span style=color:#00f>return</span> <span style=color:#00f>this</span>;
 		}
-		else
+		<span style=color:#00f>else</span>
 		{
-			object service = this.GetService(type);
+			<span style=color:#00f>object</span> service = <span style=color:#00f>this</span>.GetService(type);
 
-			if(service == null)
-				throw new InvalidOperationException("Failed to find " + type + " depenedency.");
+			<span style=color:#00f>if</span>(service == <span style=color:#00f>null</span>)
+				<span style=color:#00f>throw</span> <span style=color:#00f>new</span> InvalidOperationException(<span style=color:#a31515>"Failed to find "</span> + type + <span style=color:#a31515>" depenedency."</span>);
 
-			return service;
+			<span style=color:#00f>return</span> service;
 		}
 	}
 
-	public T Construct&amp;lt;T&amp;gt;()
+	<span style=color:#00f>public</span> T Construct&amp;lt;T&amp;gt;()
 	{
-		ConstructorInfo injectableConstructor = null;
-		foreach(ConstructorInfo constructor in typeof(T).GetConstructors())
+		ConstructorInfo injectableConstructor = <span style=color:#00f>null</span>;
+		<span style=color:#00f>foreach</span>(ConstructorInfo constructor <span style=color:#00f>in</span> <span style=color:#00f>typeof</span>(T).GetConstructors())
 		{
-			foreach(Attribute attribute in constructor.GetCustomAttributes(true))
+			<span style=color:#00f>foreach</span>(Attribute attribute <span style=color:#00f>in</span> constructor.GetCustomAttributes(<span style=color:#00f>true</span>))
 			{
-				if(attribute is InjectableAttribute)
+				<span style=color:#00f>if</span>(attribute <span style=color:#00f>is</span> InjectableAttribute)
 				{
 					injectableConstructor = constructor;
-					break;
+					<span style=color:#00f>break</span>;
 				}
 			}
 
-			if(injectableConstructor != null)
-				break;
+			<span style=color:#00f>if</span>(injectableConstructor != <span style=color:#00f>null</span>)
+				<span style=color:#00f>break</span>;
 		}
 
-		if(injectableConstructor == null)
-			throw new InvalidOperationException("No injectable constructor found.");
+		<span style=color:#00f>if</span>(injectableConstructor == <span style=color:#00f>null</span>)
+			<span style=color:#00f>throw</span> <span style=color:#00f>new</span> InvalidOperationException(<span style=color:#a31515>"No injectable constructor found."</span>);
 
-		var parameters = injectableConstructor.GetParameters();
-		var services = new object[parameters.Length];
+		<span style=color:#00f>var</span> parameters = injectableConstructor.GetParameters();
+		<span style=color:#00f>var</span> services = <span style=color:#00f>new</span> <span style=color:#00f>object</span>[parameters.Length];
 
-		int i = 0;
-		foreach(ParameterInfo parameter in parameters)
+		<span style=color:#00f>int</span> i = <span>0</span>;
+		<span style=color:#00f>foreach</span>(ParameterInfo parameter <span style=color:#00f>in</span> parameters)
 			services[i++] = GetInjectableService(parameter.ParameterType);
 
-		return (T)injectableConstructor.Invoke(services);
+		<span style=color:#00f>return</span> (T)injectableConstructor.Invoke(services);
 	}
 
-	public void Inject(object instance)
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> Inject(<span style=color:#00f>object</span> instance)
 	{
-		foreach(PropertyInfo property in instance.GetType().GetProperties())
+		<span style=color:#00f>foreach</span>(PropertyInfo property <span style=color:#00f>in</span> instance.GetType().GetProperties())
 		{
-			foreach(Attribute attribute in property.GetCustomAttributes(true))
+			<span style=color:#00f>foreach</span>(Attribute attribute <span style=color:#00f>in</span> property.GetCustomAttributes(<span style=color:#00f>true</span>))
 			{
-				if(attribute is InjectableAttribute)
+				<span style=color:#00f>if</span>(attribute <span style=color:#00f>is</span> InjectableAttribute)
 				{
-					if(!property.CanWrite)
-						throw new InvalidOperationException(property.Name + " is marked as Injectable but not writable.");
+					<span style=color:#00f>if</span>(!property.CanWrite)
+						<span style=color:#00f>throw</span> <span style=color:#00f>new</span> InvalidOperationException(property.Name + <span style=color:#a31515>" is marked as Injectable but not writable."</span>);
 
-					property.SetValue(instance, GetInjectableService(property.PropertyType), null);
+					property.SetValue(instance, GetInjectableService(property.PropertyType), <span style=color:#00f>null</span>);
 				}
 			}
 		}
 	}
 }
+
 </code></pre><p>You can now construct new instances and inject dependencies on existing instances. Some usage examples:
-<pre><code class=language-c#>public interface IFoo
+<pre><code class=language-c#>
+<span style=color:#00f>public</span> <span style=color:#00f>interface</span> IFoo
 {
-	int Value { get; }
+	<span style=color:#00f>int</span> Value { <span style=color:#00f>get</span>; }
 }
 
-public class Foo : IFoo
+<span style=color:#00f>public</span> <span style=color:#00f>class</span> Foo : IFoo
 {
-	public int Value
+	<span style=color:#00f>public</span> <span style=color:#00f>int</span> Value
 	{
-		get;
-		set;
+		<span style=color:#00f>get</span>;
+		<span style=color:#00f>set</span>;
 	}
 
 	[Injectable]
-	public Foo()
+	<span style=color:#00f>public</span> Foo()
 	{
 	}
 
-	public void DoIt()
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> DoIt()
 	{
-		Console.WriteLine(this.Value);
+		Console.WriteLine(<span style=color:#00f>this</span>.Value);
 	}
 }
 
-public interface IBar
+<span style=color:#00f>public</span> <span style=color:#00f>interface</span> IBar
 {
-	string Value { get; }
+	<span style=color:#00f>string</span> Value { <span style=color:#00f>get</span>; }
 }
 
-public class Bar : IBar
+<span style=color:#00f>public</span> <span style=color:#00f>class</span> Bar : IBar
 {
 	IFoo foo;
 
-	public string Value
+	<span style=color:#00f>public</span> <span style=color:#00f>string</span> Value
 	{
-		get;
-		set;
+		<span style=color:#00f>get</span>;
+		<span style=color:#00f>set</span>;
 	}
 
 	[Injectable]
-	public Bar(IFoo foo)
+	<span style=color:#00f>public</span> Bar(IFoo foo)
 	{
-		this.foo = foo;
+		<span style=color:#00f>this</span>.foo = foo;
 	}
 
-	public void DoIt()
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> DoIt()
 	{
-		Console.WriteLine(this.Value + ": " + this.foo.Value);
+		Console.WriteLine(<span style=color:#00f>this</span>.Value + <span style=color:#a31515>": "</span> + <span style=color:#00f>this</span>.foo.Value);
 	}
 }
 
-public class Baz
+<span style=color:#00f>public</span> <span style=color:#00f>class</span> Baz
 {
 	[Injectable]
-	public IFoo Foo
+	<span style=color:#00f>public</span> IFoo Foo
 	{
-		get;
-		set;
+		<span style=color:#00f>get</span>;
+		<span style=color:#00f>set</span>;
 	}
 
 	[Injectable]
-	public IBar Bar
+	<span style=color:#00f>public</span> IBar Bar
 	{
-		get;
-		set;
+		<span style=color:#00f>get</span>;
+		<span style=color:#00f>set</span>;
 	}
 							
-	public void DoIt()
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> DoIt()
 	{
-		Console.WriteLine(this.Bar.Value + " | " + this.Foo.Value);
+		Console.WriteLine(<span style=color:#00f>this</span>.Bar.Value + <span style=color:#a31515>" | "</span> + <span style=color:#00f>this</span>.Foo.Value);
 	}
 }
 
-class Program
+<span style=color:#00f>class</span> Program
 {
-	static void Main(string[] args)
+	<span style=color:#00f>static</span> <span style=color:#00f>void</span> Main(<span style=color:#00f>string</span>[] args)
 	{
-		var container = new ServiceContainer();
+		<span style=color:#00f>var</span> container = <span style=color:#00f>new</span> ServiceContainer();
 
-		var foo = container.Construct&amp;lt;Foo&amp;gt;();
-		foo.Value = 5;
-		container.AddService(typeof(IFoo), foo);
+		<span style=color:#00f>var</span> foo = container.Construct&amp;lt;Foo&amp;gt;();
+		foo.Value = <span>5</span>;
+		container.AddService(<span style=color:#00f>typeof</span>(IFoo), foo);
 
-		var bar = container.Construct&amp;lt;Bar&amp;gt;();
-		container.AddService(typeof(IBar), bar);
-		bar.Value = "Hello World!";
+		<span style=color:#00f>var</span> bar = container.Construct&amp;lt;Bar&amp;gt;();
+		container.AddService(<span style=color:#00f>typeof</span>(IBar), bar);
+		bar.Value = <span style=color:#a31515>"Hello World!"</span>;
 		bar.DoIt();
 
-		var baz = new Baz();
+		<span style=color:#00f>var</span> baz = <span style=color:#00f>new</span> Baz();
 		container.Inject(baz);
 		baz.DoIt();
 	}
 }
+
 </code></pre></div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

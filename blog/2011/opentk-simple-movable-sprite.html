@@ -1,35 +1,36 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>OpenTK: Simple Movable Sprite</title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.
 
-<pre><code class=language-c#>using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
+<pre><code class=language-c#>
+<span style=color:#00f>using</span> System;
+<span style=color:#00f>using</span> System.Drawing;
+<span style=color:#00f>using</span> System.Drawing.Imaging;
+<span style=color:#00f>using</span> System.IO;
+<span style=color:#00f>using</span> OpenTK;
+<span style=color:#00f>using</span> OpenTK.Graphics;
+<span style=color:#00f>using</span> OpenTK.Graphics.OpenGL;
+<span style=color:#00f>using</span> OpenTK.Input;
 
-namespace OpenTKApp2
+<span style=color:#00f>namespace</span> OpenTKApp2
 {
-	public class AppWindow : GameWindow
+	<span style=color:#00f>public</span> <span style=color:#00f>class</span> AppWindow : GameWindow
 	{
-		int texture;
-		float x, y;
+		<span style=color:#00f>int</span> texture;
+		<span style=color:#00f>float</span> x, y;
 
-		public AppWindow()
+		<span style=color:#00f>public</span> AppWindow()
 		{
-			this.Title = "OpenTK App 2";
-			this.WindowBorder = WindowBorder.Fixed;
-			this.ClientSize = new Size(800, 600);
+			<span style=color:#00f>this</span>.Title = <span style=color:#a31515>"OpenTK App 2"</span>;
+			<span style=color:#00f>this</span>.WindowBorder = WindowBorder.Fixed;
+			<span style=color:#00f>this</span>.ClientSize = <span style=color:#00f>new</span> Size(<span>800</span>, <span>600</span>);
 		}
 
-		protected override void OnLoad(EventArgs e)
+		<span style=color:#00f>protected</span> <span style=color:#00f>override</span> <span style=color:#00f>void</span> OnLoad(EventArgs e)
 		{
-			base.OnLoad(e);
+			<span style=color:#00f>base</span>.OnLoad(e);
 			
 			GL.ClearColor(Color.CornflowerBlue);
-			GL.Ortho(0, 800, 600, 0, -1, 1);
-			GL.Viewport(0, 0, 800, 600);
+			GL.Ortho(<span>0</span>, <span>800</span>, <span>600</span>, <span>0</span>, -<span>1</span>, <span>1</span>);
+			GL.Viewport(<span>0</span>, <span>0</span>, <span>800</span>, <span>600</span>);
 
 			GL.Enable(EnableCap.Texture2D);
 			GL.Enable(EnableCap.Blend);
@@ -37,52 +38,52 @@ namespace OpenTKApp2
 
 			GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
 
-			GL.GenTextures(1, out this.texture);
-			GL.BindTexture(TextureTarget.Texture2D, this.texture);
+			GL.GenTextures(<span>1</span>, <span style=color:#00f>out</span> <span style=color:#00f>this</span>.texture);
+			GL.BindTexture(TextureTarget.Texture2D, <span style=color:#00f>this</span>.texture);
 
-			Bitmap bitmap = new Bitmap("ship.png");
+			Bitmap bitmap = <span style=color:#00f>new</span> Bitmap(<span style=color:#a31515>"ship.png"</span>);
 			bitmap.MakeTransparent(Color.Magenta);
 
-			BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+			BitmapData data = bitmap.LockBits(<span style=color:#00f>new</span> Rectangle(<span>0</span>, <span>0</span>, bitmap.Width, bitmap.Height),
 				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
+			GL.TexImage2D(TextureTarget.Texture2D, <span>0</span>, PixelInternalFormat.Rgba, data.Width, data.Height, <span>0</span>,
 				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 
 			bitmap.UnlockBits(data);
 			bitmap.Dispose();
 
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (<span style=color:#00f>int</span>)TextureMinFilter.Linear);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (<span style=color:#00f>int</span>)TextureMagFilter.Linear);
 
-			this.x = 40f;
-			this.y = 41.5f;
+			<span style=color:#00f>this</span>.x = 40f;
+			<span style=color:#00f>this</span>.y = <span>41</span>.5f;
 		}
 
-		protected override void OnUpdateFrame(FrameEventArgs e)
+		<span style=color:#00f>protected</span> <span style=color:#00f>override</span> <span style=color:#00f>void</span> OnUpdateFrame(FrameEventArgs e)
 		{
-			base.OnUpdateFrame(e);
+			<span style=color:#00f>base</span>.OnUpdateFrame(e);
 
-			float dx = 0.0f;
-			float dy = 0.0f;
+			<span style=color:#00f>float</span> dx = <span>0</span>.0f;
+			<span style=color:#00f>float</span> dy = <span>0</span>.0f;
 
-			if(this.Keyboard[Key.Left])
-				dx = -1.0f;
-			else if(this.Keyboard[Key.Right])
-				dx = 1.0f;
+			<span style=color:#00f>if</span>(<span style=color:#00f>this</span>.Keyboard[Key.Left])
+				dx = -<span>1</span>.0f;
+			<span style=color:#00f>else</span> <span style=color:#00f>if</span>(<span style=color:#00f>this</span>.Keyboard[Key.Right])
+				dx = <span>1</span>.0f;
 
-			if(this.Keyboard[Key.Up])
-				dy = -1.0f;
-			else if(this.Keyboard[Key.Down])
-				dy = 1.0f;
+			<span style=color:#00f>if</span>(<span style=color:#00f>this</span>.Keyboard[Key.Up])
+				dy = -<span>1</span>.0f;
+			<span style=color:#00f>else</span> <span style=color:#00f>if</span>(<span style=color:#00f>this</span>.Keyboard[Key.Down])
+				dy = <span>1</span>.0f;
 
-			this.x += 100.0f * dx * (float)e.Time;
-			this.y += 100.0f * dy * (float)e.Time;
+			<span style=color:#00f>this</span>.x += <span>100</span>.0f * dx * (<span style=color:#00f>float</span>)e.Time;
+			<span style=color:#00f>this</span>.y += <span>100</span>.0f * dy * (<span style=color:#00f>float</span>)e.Time;
 		}
 
-		protected override void OnRenderFrame(FrameEventArgs e)
+		<span style=color:#00f>protected</span> <span style=color:#00f>override</span> <span style=color:#00f>void</span> OnRenderFrame(FrameEventArgs e)
 		{
-			base.OnRenderFrame(e);
+			<span style=color:#00f>base</span>.OnRenderFrame(e);
 						
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
@@ -90,26 +91,27 @@ namespace OpenTKApp2
 			GL.LoadIdentity();
 
 			GL.Begin(BeginMode.Quads);
-			GL.TexCoord2(0, 0);
-			GL.Vertex2(this.x - 40.0f, this.y - 41.5f);
-			GL.TexCoord2(1, 0);
-			GL.Vertex2(this.x + 40.0f, this.y - 41.5f);
-			GL.TexCoord2(1, 1);
-			GL.Vertex2(this.x + 40.0f, this.y + 41.5f);
-			GL.TexCoord2(0, 1);
-			GL.Vertex2(this.x - 40.0f, this.y + 41.5f);
+			GL.TexCoord2(<span>0</span>, <span>0</span>);
+			GL.Vertex2(<span style=color:#00f>this</span>.x - <span>40</span>.0f, <span style=color:#00f>this</span>.y - <span>41</span>.5f);
+			GL.TexCoord2(<span>1</span>, <span>0</span>);
+			GL.Vertex2(<span style=color:#00f>this</span>.x + <span>40</span>.0f, <span style=color:#00f>this</span>.y - <span>41</span>.5f);
+			GL.TexCoord2(<span>1</span>, <span>1</span>);
+			GL.Vertex2(<span style=color:#00f>this</span>.x + <span>40</span>.0f, <span style=color:#00f>this</span>.y + <span>41</span>.5f);
+			GL.TexCoord2(<span>0</span>, <span>1</span>);
+			GL.Vertex2(<span style=color:#00f>this</span>.x - <span>40</span>.0f, <span style=color:#00f>this</span>.y + <span>41</span>.5f);
 			GL.End();
 
 			GL.Flush();
-			this.SwapBuffers();
+			<span style=color:#00f>this</span>.SwapBuffers();
 		}
 
 		[STAThread]
-		public static void Main()
+		<span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>void</span> Main()
 		{
-			AppWindow window = new AppWindow();
-			window.Run(60);
+			AppWindow window = <span style=color:#00f>new</span> AppWindow();
+			window.Run(<span>60</span>);
 		}
 	}
 }
+
 </code></pre><p><a href=/files/OpenTKApp2.zip>Download Visual Studio Project</a></div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

@@ -1,32 +1,38 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Poor Man's Template Engine in C# Part 1</title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2018/poor-mans-template-engine-1.html>Poor Man's Template Engine in C# Part 1</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 06, 2018</span> <span class=category><span class="fas fa-folder"></span>c#</span> <span class=tags><span class="fas fa-tags"></span>c#, template, template-engine</span></div><h3>Groundwork</h3><div class=content><p>If you're looking for a poor man's solution to a templating engine for .net and don't really need the overhead a complete template engine brings with it, I've come up with the following solution:
-<pre><code class=language-c#>namespace Pmte
+<pre><code class=language-c#>
+<span style=color:#00f>namespace</span> Pmte
 {
-    public delegate IEnumerable&lt;string> Template&lt;TData>(TData data);
+    <span style=color:#00f>public</span> <span style=color:#00f>delegate</span> IEnumerable&lt;<span style=color:#00f>string</span>> Template&lt;TData>(TData data);
 
-    public static class TemplateExtensions
+    <span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>class</span> TemplateExtensions
     {   
-        public static string Render(this IEnumerable&lt;string> templateResult) => string.Join(Environment.NewLine, templateResult);
+        <span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>string</span> Render(<span style=color:#00f>this</span> IEnumerable&lt;<span style=color:#00f>string</span>> templateResult) => <span style=color:#00f>string</span>.Join(Environment.NewLine, templateResult);
     }
 }
-</code></pre><p>We define a template as being any function that returns an <code>IEnumerable&lt;string></code>. We are going to build a functional style template engine. TemplateExtensions will contain methods for working with templates and template results.<p>Implement a template like so:
-<pre><code class=language-c#>using static Pmte.TemplateExtensions;
 
-public static class Templates
+</code></pre><p>We define a template as being any function that returns an <code>IEnumerable&lt;string></code>. We are going to build a functional style template engine. TemplateExtensions will contain methods for working with templates and template results.<p>Implement a template like so:
+<pre><code class=language-c#>
+<span style=color:#00f>using</span> <span style=color:#00f>static</span> Pmte.TemplateExtensions;
+
+<span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>class</span> Templates
 {
-    public static IEnumerable&lt;string> PeopleList(IEnumerable&lt;Person> people)
+    <span style=color:#00f>public</span> <span style=color:#00f>static</span> IEnumerable&lt;<span style=color:#00f>string</span>> PeopleList(IEnumerable&lt;Person> people)
     {
-        foreach (var person in people)
-            yield return $"{person.FirstName} {person.LastName}";
+        <span style=color:#00f>foreach</span> (<span style=color:#00f>var</span> person <span style=color:#00f>in</span> people)
+            <span style=color:#00f>yield</span> <span style=color:#00f>return</span> $<span style=color:#a31515>"{person.FirstName} {person.LastName}"</span>;
     }
 }
+
 </code></pre><p>This can then be consumed with:
-<pre><code class=language-c#>var people = new Person[]
+<pre><code class=language-c#>
+<span style=color:#00f>var</span> people = <span style=color:#00f>new</span> Person[]
 {
-    new Person() { FirstName = "Stan", LastName = "Marsh" },
-    new Person() { FirstName = "Kyle", LastName = "Broflovski" },
-    new Person() { FirstName = "Kenny", LastName = "McCormick" },
-    new Person() { FirstName = "Eric", LastName = "Cartman" },
+    <span style=color:#00f>new</span> Person() { FirstName = <span style=color:#a31515>"Stan"</span>, LastName = <span style=color:#a31515>"Marsh"</span> },
+    <span style=color:#00f>new</span> Person() { FirstName = <span style=color:#a31515>"Kyle"</span>, LastName = <span style=color:#a31515>"Broflovski"</span> },
+    <span style=color:#00f>new</span> Person() { FirstName = <span style=color:#a31515>"Kenny"</span>, LastName = <span style=color:#a31515>"McCormick"</span> },
+    <span style=color:#00f>new</span> Person() { FirstName = <span style=color:#a31515>"Eric"</span>, LastName = <span style=color:#a31515>"Cartman"</span> },
 };
 
 Console.WriteLine(Templates.PeopleList(people).Render());
+
 </code></pre><p>In future episodes we will build more functions to make our template engine more powerful.</div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

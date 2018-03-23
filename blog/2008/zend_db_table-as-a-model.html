@@ -1,61 +1,65 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Zend_Db_Table as a Model</title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2008/zend_db_table-as-a-model.html>Zend_Db_Table as a Model</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>June 20, 2008</span> <span class=category><span class="fas fa-folder"></span>php</span> <span class=tags><span class="fas fa-tags"></span></span></div><div class=content><p>In the Zend Framework, using Zend_Db_Table as your model class is not well advised. This practice can force you to put business logic in other places besides your model class. This may not be a big deal if your logic is simple but imagine the logic is fairly complicated. Now also imagine that the logic changes at some point. This can be a problem if you have this logic written in many different places.<p>There's a solution to this problem though. You could write a Model class that uses Zend_Db_Table as a storage medium. Or, you can extend Zend_Db_Table to add your logic to the class. There is a way to simplify this process and that's what this blog post is about.<p>For starters, I always like to extend Zend_Db_Table with some intermediate class that I call Db_Table. I do the same for Zend_Db_Table_Row.
-<pre><code class=language-php>class Db_Table extends Zend_Db_Table { ... }
-class Db_Table_Row extends Zend_Db_Table_Row { ... }
+<pre><code class=language-php>
+<span style=color:#00f>class</span> Db_Table <span style=color:#00f>extends</span> Zend_Db_Table { ... }
+<span style=color:#00f>class</span> Db_Table_Row <span style=color:#00f>extends</span> Zend_Db_Table_Row { ... }
+
 </code></pre><p>Why do I do this? Say at some later point I figure out that I need some function that the Zend Framework doesn't provide. I just stick that code in Db_Table and now all my Db_Table classes have that functionality. This is actually a good idea for a lot of things in the Zend Framework. Even if you don't add any functionality yourself now, it makes it easier later to add it if you need to.
-<pre><code class=language-php>class Db_Table_Row extends Zend_Db_Table_Row
+<pre><code class=language-php>
+<span style=color:#00f>class</span> Db_Table_Row <span style=color:#00f>extends</span> Zend_Db_Table_Row
 {
-	public function __get($key)
+	<span style=color:#00f>public</span> <span style=color:#00f>function</span> __get($key)
 	{
-		$inflector = new Zend_Filter_Word_UnderscoreToCamelCase();
+		$inflector = <span style=color:#00f>new</span> Zend_Filter_Word_UnderscoreToCamelCase();
 		
-		$method = 'get' . $inflector->filter($key);
+		$method = <span style=color:#a31515>'get'</span> . $inflector->filter($key);
 		
-		if(method_exists($this, $method))
-			return $this->{$method}();
+		<span style=color:#00f>if</span>(method_exists($this, $method))
+			<span style=color:#00f>return</span> $this->{$method}();
 		
-		return parent::__get($key);
+		<span style=color:#00f>return</span> parent::__get($key);
 	}
 	
-	public function __set($key, $value)
+	<span style=color:#00f>public</span> <span style=color:#00f>function</span> __set($key, $value)
 	{
-		$inflector = new Zend_Filter_Word_UnderscoreToCamelCase();
+		$inflector = <span style=color:#00f>new</span> Zend_Filter_Word_UnderscoreToCamelCase();
 		
-		$method = 'set' . $inflector->filter($key);
+		$method = <span style=color:#a31515>'set'</span> . $inflector->filter($key);
 		
-		if(method_exists($this, $method))
-			return $this->{$method}($value);
+		<span style=color:#00f>if</span>(method_exists($this, $method))
+			<span style=color:#00f>return</span> $this->{$method}($value);
 			
-	        return parent::__set($key, $value);
+	        <span style=color:#00f>return</span> parent::__set($key, $value);
 	}
 	
-	public function markModified($key)
+	<span style=color:#00f>public</span> <span style=color:#00f>function</span> markModified($key)
 	{
 		$this->_modifiedFields[$key] = true;
 	}
 }
 
-class Foo extends Db_Table_Row
+<span style=color:#00f>class</span> Foo <span style=color:#00f>extends</span> Db_Table_Row
 {
-        public function getBar()
+        <span style=color:#00f>public</span> <span style=color:#00f>function</span> getBar()
         {
-                // You must use $this->_data[$key] to access the values in
-                // the underlying database. Using $this->bar would cause
-                // an infinite loop.
-                return $this->_data['bar'] + 5;
+                <span style=color:#008000>// You must use $this->_data[$key] to access the values in</span>
+                <span style=color:#008000>// the underlying database. Using $this->bar would cause</span>
+                <span style=color:#008000>// an infinite loop.</span>
+                <span style=color:#00f>return</span> $this->_data[<span style=color:#a31515>'bar'</span>] + 5;
         }
 
-        public function setBar($value)
+        <span style=color:#00f>public</span> <span style=color:#00f>function</span> setBar($value)
         {
-                $this->_data['bar'] = $value - 5;
+                $this->_data[<span style=color:#a31515>'bar'</span>] = $value - 5;
                 
-                // This next line tells the underlying Zend_Db_Table class that
-                // the value of 'bar' has changed and it should be written to the
-                // database.
-                $this->markModified('bar');
+                <span style=color:#008000>// This next line tells the underlying Zend_Db_Table class that</span>
+                <span style=color:#008000>// the value of 'bar' has changed and it should be written to the</span>
+                <span style=color:#008000>// database.</span>
+                $this->markModified(<span style=color:#a31515>'bar'</span>);
         }
 }
 
-// Now, if foo is a valid instance
-echo $foo->bar;
+<span style=color:#008000>// Now, if foo is a valid instance</span>
+<span style=color:#00f>echo</span> $foo->bar;
 $foo->bar = 5;
+
 </code></pre><p>In this case, when accessing $foo->bar, the method getBar() will be called and the result will be whatever is stored in the database plus 5. Also, when doing $foo->bar = 5, setBar($value) will be called and the number 0 will be stored in the database instead of 5. Granted this is a fairly simple example but I'll explain a better one.<p>Say you have a date field. At different points in your program you pass in different types of date values. At one point, a timestamp. At another, a string representing a date. At another, an instance of Zend_Date. Using this method, you can store the logic for setting the date that gets stored in one place. It's also helpful if for instance you have to change the underlying field in the database. Maybe you had a Date field at first and now it's become a Timestamp. The point is, the logic is in one place.<p>This method also more accurately represents what the MVC pattern is supposed to be. There is one place, where the business logic is stored and all the Controller then has to worry about is pushing user input to the Model and requesting output from the Model.</div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

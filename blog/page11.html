@@ -1,22 +1,23 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2009/drawing-2d-lines-as-rotated-quads.html>Drawing 2D Lines as Rotated Quads</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>February 07, 2009</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span></span></div><div class=content><p>I haven't had much time lately with work but one question I've seen asked many many times is how to draw lines of different widths. So, to cut to the chase I'll share the code I've used to do it.
-<pre><code class=language-c#>public void DrawLine(Vector3 p1, Color c1, Vector3 p2, Color c2, int width)
+<pre><code class=language-c#>
+<span style=color:#00f>public</span> <span style=color:#00f>void</span> DrawLine(Vector3 p1, Color c1, Vector3 p2, Color c2, <span style=color:#00f>int</span> width)
 {
-	float distance = Vector3.Distance(p1, p2);
-	float halfDistance = distance / 2.0f;
-	float halfWidth = width / 2.0f;
+	<span style=color:#00f>float</span> distance = Vector3.Distance(p1, p2);
+	<span style=color:#00f>float</span> halfDistance = distance / <span>2</span>.0f;
+	<span style=color:#00f>float</span> halfWidth = width / <span>2</span>.0f;
 
 	Vector3 difference = p2 - p1;
-	Vector3 destination = new Vector3(p1.X + difference.X / 2.0f, p1.Y + difference.Y / 2.0f, p1.Z + difference.Z);
+	Vector3 destination = <span style=color:#00f>new</span> Vector3(p1.X + difference.X / <span>2</span>.0f, p1.Y + difference.Y / <span>2</span>.0f, p1.Z + difference.Z);
 
-	// Calculate angle between two points
-	float angle = (float)Math.Atan2(difference.Y, difference.X);
+	<span style=color:#008000>// Calculate angle between two points</span>
+	<span style=color:#00f>float</span> angle = (<span style=color:#00f>float</span>)Math.Atan2(difference.Y, difference.X);
 
 	Vector3 v1, v2, v3, v4;
 
-	v1 = new Vector3(-halfDistance, -halfWidth, 0); // Top Left
-	v2 = new Vector3(halfDistance, -halfWidth, 0); // Top Right
-	v3 = new Vector3(halfDistance, halfWidth, 0); // Bottom Right
-	v4 = new Vector3(-halfDistance, halfWidth, 0); // Bottom Left
+	v1 = <span style=color:#00f>new</span> Vector3(-halfDistance, -halfWidth, <span>0</span>); <span style=color:#008000>// Top Left</span>
+	v2 = <span style=color:#00f>new</span> Vector3(halfDistance, -halfWidth, <span>0</span>); <span style=color:#008000>// Top Right</span>
+	v3 = <span style=color:#00f>new</span> Vector3(halfDistance, halfWidth, <span>0</span>); <span style=color:#008000>// Bottom Right</span>
+	v4 = <span style=color:#00f>new</span> Vector3(-halfDistance, halfWidth, <span>0</span>); <span style=color:#008000>// Bottom Left</span>
 
 	Matrix m =
 		Matrix.Identity *
@@ -30,168 +31,173 @@
 
 	DrawQuad(v1, c1, v2, c2, v3, c2, v4, c1);
 }
+
 </code></pre><p>I've left a lot of fluff code out. I usually check if the line is a width of 1 and draw a normal line. I also left out the code on how to draw a quad as that can be found many other places already.</div></div><div class=post><h2><a href=blog/2009/spritesheet-class.html>SpriteSheet Class</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>January 09, 2009</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>SpriteSheet, Xna</span></div><div class=content><p>I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.<p>It's very simple. Only reads sprites from left to right and assumes all Sprites are the same width and height.
-<pre><code class=language-csharp>#region Using
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-#endregion
+<pre><code class=language-csharp>
+<span style=color:#00f>#region</span> Using
+<span style=color:#00f>using</span> System;
+<span style=color:#00f>using</span> Microsoft.Xna.Framework;
+<span style=color:#00f>using</span> Microsoft.Xna.Framework.Graphics;
+<span style=color:#00f>#endregion</span>
 
-namespace Snow.Xna.Graphics
+<span style=color:#00f>namespace</span> Snow.Xna.Graphics
 {
-	/// &lt;summary>
-	/// Spritesheet class.
-	/// &lt;/summary>
-	public class SpriteSheet
+	<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+	<span style=color:#808080>///</span><span style=color:#008000> Spritesheet class.</span>
+	<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+	<span style=color:#00f>public</span> <span style=color:#00f>class</span> SpriteSheet
 	{
-		#region Fields
+		<span style=color:#00f>#region</span> Fields
 
-		string name;
+		<span style=color:#00f>string</span> name;
 
 		Texture2D texture;
 
 		Rectangle[] rectangles;
 
-		int spriteWidth, spriteHeight;
+		<span style=color:#00f>int</span> spriteWidth, spriteHeight;
 
-		#endregion
+		<span style=color:#00f>#endregion</span>
 
-		#region Properties
+		<span style=color:#00f>#region</span> Properties
 
-		/// &lt;summary>
-		/// The name of this SpriteSheet.
-		/// &lt;/summary>
-		public string Name
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> The name of this SpriteSheet.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#00f>public</span> <span style=color:#00f>string</span> Name
 		{
-			get { return name; }
+			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> name; }
 		}
 
-		/// &lt;summary>
-		/// The texture for this SpriteSheet.
-		/// &lt;/summary>
-		public Texture2D Texture
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> The texture for this SpriteSheet.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#00f>public</span> Texture2D Texture
 		{
-			get { return texture; }
+			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> texture; }
 		}
 
-		/// &lt;summary>
-		/// Returns a rectangle for a sprite in the SpriteSheet.
-		/// &lt;/summary>
-		/// &lt;param name="i">index&lt;/param>
-		/// &lt;returns>&lt;/returns>
-		public Rectangle this[int i]
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> Returns a rectangle for a sprite in the SpriteSheet.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="i"></span><span style=color:#008000>index&lt;/param></span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;returns></span><span style=color:#808080>&lt;/returns></span>
+		<span style=color:#00f>public</span> Rectangle <span style=color:#00f>this</span>[<span style=color:#00f>int</span> i]
 		{
-			get { return rectangles[i]; }
+			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> rectangles[i]; }
 		}
 
-		/// &lt;summary>
-		/// The number of sprites in this SpriteSheet.
-		/// &lt;/summary>
-		public int Count
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> The number of sprites in this SpriteSheet.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#00f>public</span> <span style=color:#00f>int</span> Count
 		{
-			get { return rectangles.Length; }
+			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> rectangles.Length; }
 		}
 
-		/// &lt;summary>
-		/// The width of the texture.
-		/// &lt;/summary>
-		public int Width
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> The width of the texture.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#00f>public</span> <span style=color:#00f>int</span> Width
 		{
-			get { return texture.Width; }
+			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> texture.Width; }
 		}
 
-		/// &lt;summary>
-		/// The width of each sprite in the SpriteSheet.
-		/// &lt;/summary>
-		public int SpriteWidth
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> The width of each sprite in the SpriteSheet.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#00f>public</span> <span style=color:#00f>int</span> SpriteWidth
 		{
-			get { return spriteWidth; }
+			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> spriteWidth; }
 		}
 
-		/// &lt;summary>
-		/// The height of the texture.
-		/// &lt;/summary>
-		public int Height
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> The height of the texture.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#00f>public</span> <span style=color:#00f>int</span> Height
 		{
-			get { return texture.Height; }
+			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> texture.Height; }
 		}
 
-		/// &lt;summary>
-		/// The height of each sprite in the SpriteSheet.
-		/// &lt;/summary>
-		public int SpriteHeight
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> The height of each sprite in the SpriteSheet.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#00f>public</span> <span style=color:#00f>int</span> SpriteHeight
 		{
-			get { return spriteHeight; }
+			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> spriteHeight; }
 		}
 
-		#endregion
+		<span style=color:#00f>#endregion</span>
 
-		/// &lt;summary>
-		/// Create a new SpriteSheet and determine the number of sprites in the sheet.
-		/// &lt;/summary>
-		/// &lt;param name="texture">&lt;/param>
-		/// &lt;param name="spriteWidth">Width of each sprite.&lt;/param>
-		/// &lt;param name="spriteHeight">Height of each sprite.&lt;/param>
-		public SpriteSheet(string name, Texture2D texture, int spriteWidth, int spriteHeight)
-			: this(name, texture, spriteWidth, spriteHeight, 0)
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> Create a new SpriteSheet and determine the number of sprites in the sheet.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="texture"></span><span style=color:#808080>&lt;/param></span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="spriteWidth"></span><span style=color:#008000>Width of each sprite.&lt;/param></span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="spriteHeight"></span><span style=color:#008000>Height of each sprite.&lt;/param></span>
+		<span style=color:#00f>public</span> SpriteSheet(<span style=color:#00f>string</span> name, Texture2D texture, <span style=color:#00f>int</span> spriteWidth, <span style=color:#00f>int</span> spriteHeight)
+			: <span style=color:#00f>this</span>(name, texture, spriteWidth, spriteHeight, <span>0</span>)
 		{
 		}
 
-		/// &lt;summary>
-		/// Create a new SpriteSheet.
-		/// &lt;/summary>
-		/// &lt;param name="texture">&lt;/param>
-		/// &lt;param name="spriteWidth">Width of each sprite.&lt;/param>
-		/// &lt;param name="spriteHeight">Height of each sprite.&lt;/param>
-		/// &lt;param name="count">The number of sprites in the sheet.&lt;/param>
-		public SpriteSheet(string name, Texture2D texture, int spriteWidth, int spriteHeight, int count)
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
+		<span style=color:#808080>///</span><span style=color:#008000> Create a new SpriteSheet.</span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="texture"></span><span style=color:#808080>&lt;/param></span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="spriteWidth"></span><span style=color:#008000>Width of each sprite.&lt;/param></span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="spriteHeight"></span><span style=color:#008000>Height of each sprite.&lt;/param></span>
+		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="count"></span><span style=color:#008000>The number of sprites in the sheet.&lt;/param></span>
+		<span style=color:#00f>public</span> SpriteSheet(<span style=color:#00f>string</span> name, Texture2D texture, <span style=color:#00f>int</span> spriteWidth, <span style=color:#00f>int</span> spriteHeight, <span style=color:#00f>int</span> count)
 		{
-			this.name = name;
-			this.texture = texture;
-			this.spriteWidth = spriteWidth;
-			this.spriteHeight = spriteHeight;
+			<span style=color:#00f>this</span>.name = name;
+			<span style=color:#00f>this</span>.texture = texture;
+			<span style=color:#00f>this</span>.spriteWidth = spriteWidth;
+			<span style=color:#00f>this</span>.spriteHeight = spriteHeight;
 
-			if(count == 0)
+			<span style=color:#00f>if</span>(count == <span>0</span>)
 			{
-				int numX = texture.Width / spriteWidth;
-				int numY = texture.Height / spriteHeight;
+				<span style=color:#00f>int</span> numX = texture.Width / spriteWidth;
+				<span style=color:#00f>int</span> numY = texture.Height / spriteHeight;
 
-				rectangles = new Rectangle[numX * numY];
+				rectangles = <span style=color:#00f>new</span> Rectangle[numX * numY];
 			}
-			else
+			<span style=color:#00f>else</span>
 			{
-				rectangles = new Rectangle[count];
+				rectangles = <span style=color:#00f>new</span> Rectangle[count];
 			}
 
-			int x = 0, y = 0;
-			for(int i = 0; i &lt; rectangles.Length; i++)
+			<span style=color:#00f>int</span> x = <span>0</span>, y = <span>0</span>;
+			<span style=color:#00f>for</span>(<span style=color:#00f>int</span> i = <span>0</span>; i &lt; rectangles.Length; i++)
 			{
-				rectangles[i] = new Rectangle(x, y, spriteWidth, spriteHeight);
+				rectangles[i] = <span style=color:#00f>new</span> Rectangle(x, y, spriteWidth, spriteHeight);
 
 				x += spriteWidth;
-				if(x >= texture.Width)
+				<span style=color:#00f>if</span>(x >= texture.Width)
 				{
-					x = 0;
+					x = <span>0</span>;
 					y += spriteHeight;
 				}
 			}
 		}
 
-		public static implicit operator Texture2D(SpriteSheet spriteSheet)
+		<span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>implicit</span> <span style=color:#00f>operator</span> Texture2D(SpriteSheet spriteSheet)
 		{
-			return spriteSheet.Texture;
+			<span style=color:#00f>return</span> spriteSheet.Texture;
 		}
 	}
 }
+
 </code></pre><p>You can create a new SpriteSheet and use it like this:<p>`
-<pre><code class=language-c#>SpriteSheet spriteSheet = new SpriteSheet("tiles", Content.Load&lt;texture2D>("tiles"), 64, 64);
+<pre><code class=language-c#>
+SpriteSheet spriteSheet = <span style=color:#00f>new</span> SpriteSheet(<span style=color:#a31515>"tiles"</span>, Content.Load&lt;texture2D>(<span style=color:#a31515>"tiles"</span>), <span>64</span>, <span>64</span>);
 
 spriteBatch.Begin();
 
 spriteBatch.Draw(spriteSheet,
-		        new Rectangle(0, 0, spriteSheet.SpriteWidth, spriteSheet.SpriteHeight),
-			spriteSheet[0],
+		        <span style=color:#00f>new</span> Rectangle(<span>0</span>, <span>0</span>, spriteSheet.SpriteWidth, spriteSheet.SpriteHeight),
+			spriteSheet[<span>0</span>],
 			Color.White);
 
 spriteBatch.End();
+
 </code></pre><p>`<p>Which loads a spritesheet with sprites of size 64x64. It then draws the first Sprite in the SpriteSheet. You of course wouldn't want to load the spritesheet every frame as well.<p>Feel free to use this code without restriction.<p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</div></div><div class=post><h2><a href=blog/2008/colors-and-hex.html>Colors and Hex</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>December 21, 2008</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>Xna</span></div><div class=content><p>I recently needed to write out Color(s) as an xml attribute. I wrote 2 methods to read and write the Color(s) as Hex strings. Here ya go:</div></div><div class=post><h2><a href=blog/2008/zend_db_table-as-a-model.html>Zend_Db_Table as a Model</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>June 20, 2008</span> <span class=category><span class="fas fa-folder"></span>php</span> <span class=tags><span class="fas fa-tags"></span></span></div><div class=content><p>In the Zend Framework, using Zend_Db_Table as your model class is not well advised. This practice can force you to put business logic in other places besides your model class. This may not be a big deal if your logic is simple but imagine the logic is fairly complicated. Now also imagine that the logic changes at some point. This can be a problem if you have this logic written in many different places.<p>There's a solution to this problem though. You could write a Model class that uses Zend_Db_Table as a storage medium. Or, you can extend Zend_Db_Table to add your logic to the class. There is a way to simplify this process and that's what this blog post is about.</div></div></div><div class=clear></div><div class=pagination><span class="pagination-item older">Older</span> <a href=blog\page10.html class="pagination-item newer">Newer</a></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

@@ -12,125 +12,129 @@ DEL IconCache.db /a
 
 EXIT
 </code></pre><p>After that your icon should be there as you want.</div></div><div class=post><h2><a href=blog/2011/getting-started-with-slimdx.html>Getting started with SlimDX</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 31, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>DirectX</span></div><div class=content><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href=http://sharpdx.org/ >SharpDX</a>.<p>Since I tried OpenTK, I decided to give <a href=http://slimdx.org/ >SlimDX</a> a try as well. So, here's a simple getting started app:
-<pre><code class=language-c#>using System;
-using System.Drawing;
-using System.Windows.Forms;
-using SlimDX;
-using SlimDX.Direct3D9;
-using SlimDX.Windows;
+<pre><code class=language-c#>
+<span style=color:#00f>using</span> System;
+<span style=color:#00f>using</span> System.Drawing;
+<span style=color:#00f>using</span> System.Windows.Forms;
+<span style=color:#00f>using</span> SlimDX;
+<span style=color:#00f>using</span> SlimDX.Direct3D9;
+<span style=color:#00f>using</span> SlimDX.Windows;
 
-namespace SlimDXApp1
+<span style=color:#00f>namespace</span> SlimDXApp1
 {
-	public partial class SlimDXApp1Form : RenderForm
+	<span style=color:#00f>public</span> <span style=color:#00f>partial</span> <span style=color:#00f>class</span> SlimDXApp1Form : RenderForm
 	{
-		struct Vertex
+		<span style=color:#00f>struct</span> Vertex
 		{
-			public Vector4 Position;
-			public int Color;
+			<span style=color:#00f>public</span> Vector4 Position;
+			<span style=color:#00f>public</span> <span style=color:#00f>int</span> Color;
 		}
 
 		Device device;
 		VertexDeclaration vertexDeclaration;
 		
-		public SlimDXApp1Form()
-			: base("SlimDXApp1")
+		<span style=color:#00f>public</span> SlimDXApp1Form()
+			: <span style=color:#00f>base</span>(<span style=color:#a31515>"SlimDXApp1"</span>)
 		{
-			this.ClientSize = new Size(800, 600);
+			<span style=color:#00f>this</span>.ClientSize = <span style=color:#00f>new</span> Size(<span>800</span>, <span>600</span>);
 
-			this.device = new Device(new Direct3D(), 0, DeviceType.Hardware, this.Handle, CreateFlags.HardwareVertexProcessing, new PresentParameters()
+			<span style=color:#00f>this</span>.device = <span style=color:#00f>new</span> Device(<span style=color:#00f>new</span> Direct3D(), <span>0</span>, DeviceType.Hardware, <span style=color:#00f>this</span>.Handle, CreateFlags.HardwareVertexProcessing, <span style=color:#00f>new</span> PresentParameters()
             {
-                BackBufferWidth = this.ClientSize.Width,
-                BackBufferHeight = this.ClientSize.Height
+                BackBufferWidth = <span style=color:#00f>this</span>.ClientSize.Width,
+                BackBufferHeight = <span style=color:#00f>this</span>.ClientSize.Height
             });
 
-			this.vertexDeclaration = new VertexDeclaration(this.device, new[] {
-        		new VertexElement(0, 0, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, 0),
-        		new VertexElement(0, 16, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, 0),
+			<span style=color:#00f>this</span>.vertexDeclaration = <span style=color:#00f>new</span> VertexDeclaration(<span style=color:#00f>this</span>.device, <span style=color:#00f>new</span>[] {
+        		<span style=color:#00f>new</span> VertexElement(<span>0</span>, <span>0</span>, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, <span>0</span>),
+        		<span style=color:#00f>new</span> VertexElement(<span>0</span>, <span>16</span>, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, <span>0</span>),
 				VertexElement.VertexDeclarationEnd
         	});
 		}
 
-		public void Run()
+		<span style=color:#00f>public</span> <span style=color:#00f>void</span> Run()
 		{
-			MessagePump.Run(this, () =>
+			MessagePump.Run(<span style=color:#00f>this</span>, () =>
 			{
-				this.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-				this.device.BeginScene();
+				<span style=color:#00f>this</span>.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, <span>1</span>.0f, <span>0</span>);
+				<span style=color:#00f>this</span>.device.BeginScene();
 
-				this.device.VertexDeclaration = this.vertexDeclaration;
+				<span style=color:#00f>this</span>.device.VertexDeclaration = <span style=color:#00f>this</span>.vertexDeclaration;
 
-				this.device.DrawUserPrimitives&lt;Vertex>(PrimitiveType.TriangleList, 1, new[] {
-					new Vertex() { Color = Color.Red.ToArgb(), Position = new Vector4(400.0f, 100.0f, 0.5f, 1.0f) },
-					new Vertex() { Color = Color.Blue.ToArgb(), Position = new Vector4(650.0f, 500.0f, 0.5f, 1.0f) },
-					new Vertex() { Color = Color.Green.ToArgb(), Position = new Vector4(150.0f, 500.0f, 0.5f, 1.0f) }
+				<span style=color:#00f>this</span>.device.DrawUserPrimitives&lt;Vertex>(PrimitiveType.TriangleList, <span>1</span>, <span style=color:#00f>new</span>[] {
+					<span style=color:#00f>new</span> Vertex() { Color = Color.Red.ToArgb(), Position = <span style=color:#00f>new</span> Vector4(<span>400</span>.0f, <span>100</span>.0f, <span>0</span>.5f, <span>1</span>.0f) },
+					<span style=color:#00f>new</span> Vertex() { Color = Color.Blue.ToArgb(), Position = <span style=color:#00f>new</span> Vector4(<span>650</span>.0f, <span>500</span>.0f, <span>0</span>.5f, <span>1</span>.0f) },
+					<span style=color:#00f>new</span> Vertex() { Color = Color.Green.ToArgb(), Position = <span style=color:#00f>new</span> Vector4(<span>150</span>.0f, <span>500</span>.0f, <span>0</span>.5f, <span>1</span>.0f) }
 				});
 				
-				this.device.EndScene();
-				this.device.Present();
+				<span style=color:#00f>this</span>.device.EndScene();
+				<span style=color:#00f>this</span>.device.Present();
 			});
 		}
 
 		[STAThread]
-		static void Main()
+		<span style=color:#00f>static</span> <span style=color:#00f>void</span> Main()
 		{
-			SlimDXApp1Form form = new SlimDXApp1Form();
+			SlimDXApp1Form form = <span style=color:#00f>new</span> SlimDXApp1Form();
 			form.Run();
 
-			// Cleans up COM handles
-			foreach(var item in ObjectTable.Objects)
+			<span style=color:#008000>// Cleans up COM handles</span>
+			<span style=color:#00f>foreach</span>(<span style=color:#00f>var</span> item <span style=color:#00f>in</span> ObjectTable.Objects)
 				item.Dispose();
 		}
 	}
 }
-</code></pre></div></div><div class=post><h2><a href=blog/2011/getting-started-with-opentk.html>Getting started with OpenTK</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I started experimenting with <a href=http://www.opentk.com>OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.
-<pre><code class=language-c#>using System;
-using System.Drawing;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 
-namespace OpenTKApp1
+</code></pre></div></div><div class=post><h2><a href=blog/2011/getting-started-with-opentk.html>Getting started with OpenTK</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I started experimenting with <a href=http://www.opentk.com>OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.
+<pre><code class=language-c#>
+<span style=color:#00f>using</span> System;
+<span style=color:#00f>using</span> System.Drawing;
+<span style=color:#00f>using</span> OpenTK;
+<span style=color:#00f>using</span> OpenTK.Graphics;
+<span style=color:#00f>using</span> OpenTK.Graphics.OpenGL;
+
+<span style=color:#00f>namespace</span> OpenTKApp1
 {
-	public class AppWindow : GameWindow
+	<span style=color:#00f>public</span> <span style=color:#00f>class</span> AppWindow : GameWindow
 	{
-		public AppWindow()
+		<span style=color:#00f>public</span> AppWindow()
 		{
-			this.Title = "OpenTK App 1";
-			this.WindowBorder = WindowBorder.Fixed;
-			this.ClientSize = new Size(800, 600);			
+			<span style=color:#00f>this</span>.Title = <span style=color:#a31515>"OpenTK App 1"</span>;
+			<span style=color:#00f>this</span>.WindowBorder = WindowBorder.Fixed;
+			<span style=color:#00f>this</span>.ClientSize = <span style=color:#00f>new</span> Size(<span>800</span>, <span>600</span>);			
 		}
 
-		protected override void OnRenderFrame(FrameEventArgs e)
+		<span style=color:#00f>protected</span> <span style=color:#00f>override</span> <span style=color:#00f>void</span> OnRenderFrame(FrameEventArgs e)
 		{
-			base.OnRenderFrame(e);
+			<span style=color:#00f>base</span>.OnRenderFrame(e);
 
 			GL.ClearColor(Color.CornflowerBlue);
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadIdentity();
-			GL.Ortho(0, 800, 600, 0, -1, 1);
-			GL.Viewport(0, 0, 800, 600);
+			GL.Ortho(<span>0</span>, <span>800</span>, <span>600</span>, <span>0</span>, -<span>1</span>, <span>1</span>);
+			GL.Viewport(<span>0</span>, <span>0</span>, <span>800</span>, <span>600</span>);
 			
 			GL.Begin(BeginMode.Triangles);
 			GL.Color3(Color.Red);
-			GL.Vertex3(400, 150, 0);
+			GL.Vertex3(<span>400</span>, <span>150</span>, <span>0</span>);
 			GL.Color3(Color.Green);
-			GL.Vertex3(600, 450, 0);
+			GL.Vertex3(<span>600</span>, <span>450</span>, <span>0</span>);
 			GL.Color3(Color.Blue);
-			GL.Vertex3(200, 450, 0);
+			GL.Vertex3(<span>200</span>, <span>450</span>, <span>0</span>);
 			GL.End();
 
 			GL.Flush();
-			this.SwapBuffers();
+			<span style=color:#00f>this</span>.SwapBuffers();
 		}
 
 		[STAThread]
-		public static void Main()
+		<span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>void</span> Main()
 		{
-			AppWindow window = new AppWindow();
+			AppWindow window = <span style=color:#00f>new</span> AppWindow();
 			window.Run();
 		}
 	}
 }
+
 </code></pre></div></div><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.</div></div></div><div class=clear></div><div class=pagination><a href=blog\page8.html class="pagination-item older">Older</a> <a href=blog\page6.html class="pagination-item newer">Newer</a></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

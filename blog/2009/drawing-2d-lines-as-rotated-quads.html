@@ -1,22 +1,23 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Drawing 2D Lines as Rotated Quads</title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2009/drawing-2d-lines-as-rotated-quads.html>Drawing 2D Lines as Rotated Quads</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>February 07, 2009</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span></span></div><div class=content><p>I haven't had much time lately with work but one question I've seen asked many many times is how to draw lines of different widths. So, to cut to the chase I'll share the code I've used to do it.
-<pre><code class=language-c#>public void DrawLine(Vector3 p1, Color c1, Vector3 p2, Color c2, int width)
+<pre><code class=language-c#>
+<span style=color:#00f>public</span> <span style=color:#00f>void</span> DrawLine(Vector3 p1, Color c1, Vector3 p2, Color c2, <span style=color:#00f>int</span> width)
 {
-	float distance = Vector3.Distance(p1, p2);
-	float halfDistance = distance / 2.0f;
-	float halfWidth = width / 2.0f;
+	<span style=color:#00f>float</span> distance = Vector3.Distance(p1, p2);
+	<span style=color:#00f>float</span> halfDistance = distance / <span>2</span>.0f;
+	<span style=color:#00f>float</span> halfWidth = width / <span>2</span>.0f;
 
 	Vector3 difference = p2 - p1;
-	Vector3 destination = new Vector3(p1.X + difference.X / 2.0f, p1.Y + difference.Y / 2.0f, p1.Z + difference.Z);
+	Vector3 destination = <span style=color:#00f>new</span> Vector3(p1.X + difference.X / <span>2</span>.0f, p1.Y + difference.Y / <span>2</span>.0f, p1.Z + difference.Z);
 
-	// Calculate angle between two points
-	float angle = (float)Math.Atan2(difference.Y, difference.X);
+	<span style=color:#008000>// Calculate angle between two points</span>
+	<span style=color:#00f>float</span> angle = (<span style=color:#00f>float</span>)Math.Atan2(difference.Y, difference.X);
 
 	Vector3 v1, v2, v3, v4;
 
-	v1 = new Vector3(-halfDistance, -halfWidth, 0); // Top Left
-	v2 = new Vector3(halfDistance, -halfWidth, 0); // Top Right
-	v3 = new Vector3(halfDistance, halfWidth, 0); // Bottom Right
-	v4 = new Vector3(-halfDistance, halfWidth, 0); // Bottom Left
+	v1 = <span style=color:#00f>new</span> Vector3(-halfDistance, -halfWidth, <span>0</span>); <span style=color:#008000>// Top Left</span>
+	v2 = <span style=color:#00f>new</span> Vector3(halfDistance, -halfWidth, <span>0</span>); <span style=color:#008000>// Top Right</span>
+	v3 = <span style=color:#00f>new</span> Vector3(halfDistance, halfWidth, <span>0</span>); <span style=color:#008000>// Bottom Right</span>
+	v4 = <span style=color:#00f>new</span> Vector3(-halfDistance, halfWidth, <span>0</span>); <span style=color:#008000>// Bottom Left</span>
 
 	Matrix m =
 		Matrix.Identity *
@@ -30,4 +31,5 @@
 
 	DrawQuad(v1, c1, v2, c2, v3, c2, v4, c1);
 }
+
 </code></pre><p>I've left a lot of fluff code out. I usually check if the line is a width of 1 and draw a normal line. I also left out the code on how to draw a quad as that can be found many other places already.</div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

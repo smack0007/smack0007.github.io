@@ -1,103 +1,104 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Code from when I was young and stupid and needed the money</title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2014/code-from-when-i-was-young-and-stupid.html>Code from when I was young and stupid and needed the money</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>June 18, 2014</span> <span class=category><span class="fas fa-folder"></span>Random</span> <span class=tags><span class="fas fa-tags"></span>Old Code, Cplusplus, Young</span></div><div class=content><p>We have had 2 interns at work for the past few weeks and one of the tasks we gave them was to implement <a href=http://en.wikipedia.org/wiki/Quick_sort>Quicksort</a>. This got me to thinking about my youth and some of the code I wrote back then. I've decided to post it.<p>Here is one of my old implementations of Quicksort:
-<pre><code class=language-c++>void Sort(int i, int j)
+<pre><code class=language-c++>
+<span style=color:#00f>void</span> Sort(<span style=color:#00f>int</span> i, <span style=color:#00f>int</span> j)
 {
 	T temp;
 
-	if(i&lt;j)
+	<span style=color:#00f>if</span>(i&lt;j)
 	{
-		if(i == j-1) // 2 items
+		<span style=color:#00f>if</span>(i == j-1) <span style=color:#008000>// 2 items</span>
 		{
-			if(m_data[i] > m_data[j])
+			<span style=color:#00f>if</span>(m_data[i] > m_data[j])
 			{
 				temp = m_data[i];
 				m_data[i] = m_data[j];
 				m_data[j] = temp;
 			}
 		}
-		else if(i == j-2) // 3 items
+		<span style=color:#00f>else</span> <span style=color:#00f>if</span>(i == j-2) <span style=color:#008000>// 3 items</span>
 		{
-			if(m_data[i] > m_data[i+1])
+			<span style=color:#00f>if</span>(m_data[i] > m_data[i+1])
 			{
 				temp = m_data[i];
 				m_data[i] = m_data[i+1];
 				m_data[i+1] = temp;
 			}
 
-			if(m_data[i+1] > m_data[i+2])
+			<span style=color:#00f>if</span>(m_data[i+1] > m_data[i+2])
 			{
 				temp = m_data[i+1];
 				m_data[i+1] = m_data[i+2];
 				m_data[i+2] = temp;
 			}
 
-			if(m_data[i] > m_data[i+1])
+			<span style=color:#00f>if</span>(m_data[i] > m_data[i+1])
 			{
 				temp = m_data[i];
 				m_data[i] = m_data[i+1];
 				m_data[i+1] = temp;
 			}
 		}
-		else if(i == j-3) // 4 items
+		<span style=color:#00f>else</span> <span style=color:#00f>if</span>(i == j-3) <span style=color:#008000>// 4 items</span>
 		{
-			if(m_data[i] > m_data[i+1])
+			<span style=color:#00f>if</span>(m_data[i] > m_data[i+1])
 			{
 				temp = m_data[i];
 				m_data[i] = m_data[i+1];
 				m_data[i+1] = temp;
 			}
 
-			if(m_data[i+1] > m_data[i+2])
+			<span style=color:#00f>if</span>(m_data[i+1] > m_data[i+2])
 			{
 				temp = m_data[i+1];
 				m_data[i+1] = m_data[i+2];
 				m_data[i+2] = temp;
 			}
 		
-			if(m_data[i+2] > m_data[i+3])
+			<span style=color:#00f>if</span>(m_data[i+2] > m_data[i+3])
 			{
 				temp = m_data[i+2];
 				m_data[i+2] = m_data[i+3];
 				m_data[i+3] = temp;
 			}
 
-			if(m_data[i] > m_data[i+1])
+			<span style=color:#00f>if</span>(m_data[i] > m_data[i+1])
 			{
 				temp = m_data[i];
 				m_data[i] = m_data[i+1];
 				m_data[i+1] = temp;
 			}
 
-			if(m_data[i+1] > m_data[i+2])
+			<span style=color:#00f>if</span>(m_data[i+1] > m_data[i+2])
 			{
 				temp = m_data[i+1];
 				m_data[i+1] = m_data[i+2];
 				m_data[i+2] = temp;
 			}
 
-			if(m_data[i] > m_data[i+1])
+			<span style=color:#00f>if</span>(m_data[i] > m_data[i+1])
 			{
 				temp = m_data[i];
 				m_data[i] = m_data[i+1];
 				m_data[i+1] = temp;
 			}
 		}
-		else // 5 or more items
+		<span style=color:#00f>else</span> <span style=color:#008000>// 5 or more items</span>
 		{
-			int pivot = j;
-			int up = i-1;
-			int down = pivot;
+			<span style=color:#00f>int</span> pivot = j;
+			<span style=color:#00f>int</span> up = i-1;
+			<span style=color:#00f>int</span> down = pivot;
 
-			while(up&lt;down)
+			<span style=color:#00f>while</span>(up&lt;down)
 			{
-				while((m_data[++up] &lt; m_data[pivot]) &amp;&amp; up&lt;down);
+				<span style=color:#00f>while</span>((m_data[++up] &lt; m_data[pivot]) &amp;&amp; up&lt;down);
 
-				if(up>=down)
-					break;
+				<span style=color:#00f>if</span>(up>=down)
+					<span style=color:#00f>break</span>;
 
-				while((m_data[--down] > m_data[pivot]) &amp;&amp; up&lt;down);
+				<span style=color:#00f>while</span>((m_data[--down] > m_data[pivot]) &amp;&amp; up&lt;down);
 
-				if(up>=down)
-					break;
+				<span style=color:#00f>if</span>(up>=down)
+					<span style=color:#00f>break</span>;
 
 				temp = m_data[up];
 				m_data[up] = m_data[down];
@@ -113,29 +114,31 @@
 		}
 	}
 }
+
 </code></pre><p>And here is another:
-<pre><code class=language-c++>template&lt;class T>
-void CArray&lt;T>::Sort(int (*Compare)(T &amp;item1, T &amp;item2), int left, int right)
+<pre><code class=language-c++>
+<span style=color:#00f>template</span>&lt;<span style=color:#00f>class</span> T>
+<span style=color:#00f>void</span> CArray&lt;T>::Sort(<span style=color:#00f>int</span> (*Compare)(T &amp;item1, T &amp;item2), <span style=color:#00f>int</span> left, <span style=color:#00f>int</span> right)
 {
-	if(left >= right)
-		return;
+	<span style=color:#00f>if</span>(left >= right)
+		<span style=color:#00f>return</span>;
 
-	int up = left-1;
-	int down = right;
-	int pivot = m_array[right];
+	<span style=color:#00f>int</span> up = left-1;
+	<span style=color:#00f>int</span> down = right;
+	<span style=color:#00f>int</span> pivot = m_array[right];
 
-	if(right == left + 1)
-		if(Compare(m_array[left], m_array[right]) == 1)
+	<span style=color:#00f>if</span>(right == left + 1)
+		<span style=color:#00f>if</span>(Compare(m_array[left], m_array[right]) == 1)
 		{
 			Swap(left, right);
-			return;
+			<span style=color:#00f>return</span>;
 		}
 
-	while(true)
+	<span style=color:#00f>while</span>(<span style=color:#00f>true</span>)
 	{
-		while(Compare(m_array[++up], pivot) == -1 &amp;&amp; up&lt;down);
-		while(Compare(m_array[--down], pivot) == 1 &amp;&amp; up&lt;down); 
-		if(up>=down) break;
+		<span style=color:#00f>while</span>(Compare(m_array[++up], pivot) == -1 &amp;&amp; up&lt;down);
+		<span style=color:#00f>while</span>(Compare(m_array[--down], pivot) == 1 &amp;&amp; up&lt;down); 
+		<span style=color:#00f>if</span>(up>=down) <span style=color:#00f>break</span>;
 		Swap(up, down);
 	}
 
@@ -143,4 +146,5 @@ void CArray&lt;T>::Sort(int (*Compare)(T &amp;item1, T &amp;item2), int left, in
 	Sort(Compare, left, up-1);
 	Sort(Compare, up+1, right);
 }
+
 </code></pre><p>The first example seems to be from 2004 and the second example seems to be from 2006, though I'm not sure how much I can actually trust the timestamps on the files. It is interesting to see how far I progressed in the timespan of about 2 years. 2004 would have been right in the middle of college and 2006 was torwards the end of my college time.<p>In the second example I think I had actually been a "professional" (aka I got paid a little money on the side) programmer for a few months. Like I said, I was young and stupid and I needed the money.</div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>

@@ -1,22 +1,24 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Using batch files as the task runner in Visual Studio Code</title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2015/using-batch-files-as-task-runner-vs-code.html>Using batch files as the task runner in Visual Studio Code</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>July 09, 2015</span> <span class=category><span class="fas fa-folder"></span>Visual Studio</span> <span class=tags><span class="fas fa-tags"></span>Visual Studio, Visual Studio Code, Batch Files</span></div><div class=content><p><a href=https://code.visualstudio.com/ >Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use batch files though.<p>An example tasks.json:
-<pre><code class=language-js>{
-	"version": "0.1.0",
-	"command": "${workspaceRoot}/runTask.bat",
-	"isShellCommand": true,
-	"showOutput": "always",
-	"args": [],
-	"tasks": [
+<pre><code class=language-js>
+{
+	<span style=color:#a31515>"version"</span>: <span style=color:#a31515>"0.1.0"</span>,
+	<span style=color:#a31515>"command"</span>: <span style=color:#a31515>"${workspaceRoot}/runTask.bat"</span>,
+	<span style=color:#a31515>"isShellCommand"</span>: <span style=color:#00f>true</span>,
+	<span style=color:#a31515>"showOutput"</span>: <span style=color:#a31515>"always"</span>,
+	<span style=color:#a31515>"args"</span>: [],
+	<span style=color:#a31515>"tasks"</span>: [
 		{
-			"taskName": "build",
-			"isBuildCommand": true,
-			"showOutput": "always"
+			<span style=color:#a31515>"taskName"</span>: <span style=color:#a31515>"build"</span>,
+			<span style=color:#a31515>"isBuildCommand"</span>: <span style=color:#00f>true</span>,
+			<span style=color:#a31515>"showOutput"</span>: <span style=color:#a31515>"always"</span>
 		},
 		{
-			"taskName": "serve",
-			"showOutput": "never"
+			<span style=color:#a31515>"taskName"</span>: <span style=color:#a31515>"serve"</span>,
+			<span style=color:#a31515>"showOutput"</span>: <span style=color:#a31515>"never"</span>
 		}
 	]
 }
+
 </code></pre><p>This sets the batch file "runTask.bat" in the root of your workspace as the task runner. There are two tasks which can be started: "build" and "serve". "build" can be started with "ctrl+shift+T" and "serve" can be started via "ctrl+shift+P" and typing "run task". I like to map this shortcut to "ctrl+shift+R".<p>Here is how runTask.bat should look:
 <pre><code>@@ECHO OFF
 

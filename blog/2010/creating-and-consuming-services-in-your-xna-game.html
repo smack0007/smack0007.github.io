@@ -1,223 +1,237 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Creating and consuming services in your XNA Game</title><base href=../../ ><link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"><link rel=stylesheet type=text/css href=css/site.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><input type=checkbox class=sidebar-checkbox id=sidebar-checkbox><div class=sidebar id=sidebar><div class=sidebar-item></div><nav class=sidebar-nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></div><div class=wrap><div class=masthead><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h3 class=masthead-title><a href=index.html title=Home>The Blog of Zachary Snow</a></h3></div></div><div class="container content"><div class=posts><div class=post><h2><a href=blog/2010/creating-and-consuming-services-in-your-xna-game.html>Creating and consuming services in your XNA Game</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>February 18, 2010</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span></span></div><div class=content><p>The <a href=http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx>GameServiceContainer</a> implements the <a href=http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx>IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:<blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote><p>This article will "<em>attempt</em>" to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.<p>The most obvious place to use the GameServiceContainer is in your GameComponent(s). But first, lets talk about "<a href=http://en.wikipedia.org/wiki/Coupling_(computer_science)>Coupling</a>". Let's assume you have the following components:
-<pre><code class=language-c#>class FooComponent : GameComponent
+<pre><code class=language-c#>
+<span style=color:#00f>class</span> FooComponent : GameComponent
 {
-	public FooComponent(Game game)
-		: base(game)
+	<span style=color:#00f>public</span> FooComponent(Game game)
+		: <span style=color:#00f>base</span>(game)
 	{
 	}
 	
-	public int DoFoo()
+	<span style=color:#00f>public</span> <span style=color:#00f>int</span> DoFoo()
 	{
-		// Do something and return an int.
+		<span style=color:#008000>// Do something and return an int.</span>
 	}
 }
 
-class BarComponent : GameComponent
+<span style=color:#00f>class</span> BarComponent : GameComponent
 {
 	FooComponent foo;
 
-	public BarComponent(Game game)
-		: base(game)
+	<span style=color:#00f>public</span> BarComponent(Game game)
+		: <span style=color:#00f>base</span>(game)
 	{
-		this.foo = new FooComponent(game);
+		<span style=color:#00f>this</span>.foo = <span style=color:#00f>new</span> FooComponent(game);
 	}
 	
-	public void DoBar()
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> DoBar()
 	{
-		int result = this.foo.DoFoo();
-		// Do something based on result.
+		<span style=color:#00f>int</span> result = <span style=color:#00f>this</span>.foo.DoFoo();
+		<span style=color:#008000>// Do something based on result.</span>
 	}
 }
+
 </code></pre><p>There's nothing wrong with the code, but BarComponent has a dependency on FooComponent. BarComponent directly interacts with FooComponent and therefore any change made to FooComponent indirectly affects BarComponent. For instance, let's assume the constructor for FooComponent needs to be modified. That means we now have to update not only the FooComponent class but as well the BarComponent class. Throw in a few more components with dependencies on FooComponent and you could start to get headache really fast. This design is highly coupled.<p>Let's try a slight redesign:
-<pre><code class=language-c#>class FooComponent : GameComponent
+<pre><code class=language-c#>
+<span style=color:#00f>class</span> FooComponent : GameComponent
 {
-	public FooComponent(Game game)
-		: base(game)
+	<span style=color:#00f>public</span> FooComponent(Game game)
+		: <span style=color:#00f>base</span>(game)
 	{
 	}
 	
-	public int DoFoo()
+	<span style=color:#00f>public</span> <span style=color:#00f>int</span> DoFoo()
 	{
-		// Do something and return an int.
+		<span style=color:#008000>// Do something and return an int.</span>
 	}
 }
 
-class BarComponent : GameComponent
+<span style=color:#00f>class</span> BarComponent : GameComponent
 {
 	FooComponent foo;
 
-	public BarComponent(Game game, FooComponent foo)
-		: base(game)
+	<span style=color:#00f>public</span> BarComponent(Game game, FooComponent foo)
+		: <span style=color:#00f>base</span>(game)
 	{
-		this.foo = foo;
+		<span style=color:#00f>this</span>.foo = foo;
 	}
 	
-	public void DoBar()
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> DoBar()
 	{
-		int result = this.foo.DoFoo();
-		// Do something based on result.
+		<span style=color:#00f>int</span> result = <span style=color:#00f>this</span>.foo.DoFoo();
+		<span style=color:#008000>// Do something based on result.</span>
 	}
 }
+
 </code></pre><p>We've now eliminated the construction of the FooComponent from within the BarComponent. The design is better but still not that great. BarComponent is still directly relying on and communicating with FooComponent. We want to change BarComponent so that it has no direct dependency on a concrete implementation of FooComponent. We'll create an interface:
-<pre><code class=language-c#>interface IFooService
+<pre><code class=language-c#>
+<span style=color:#00f>interface</span> IFooService
 {
-	int DoFoo();
+	<span style=color:#00f>int</span> DoFoo();
 }
 
-class FooComponent : GameComponent, IFooService
+<span style=color:#00f>class</span> FooComponent : GameComponent, IFooService
 {
-	public FooComponent(Game game)
-		: base(game)
+	<span style=color:#00f>public</span> FooComponent(Game game)
+		: <span style=color:#00f>base</span>(game)
 	{
 	}
 	
-	public int DoFoo()
+	<span style=color:#00f>public</span> <span style=color:#00f>int</span> DoFoo()
 	{
-		// Do something and return an int.
+		<span style=color:#008000>// Do something and return an int.</span>
 	}
 }
 
-class BarComponent : GameComponent
+<span style=color:#00f>class</span> BarComponent : GameComponent
 {
 	IFooService foo;
 
-	public BarComponent(Game game, IFooService foo)
-		: base(game)
+	<span style=color:#00f>public</span> BarComponent(Game game, IFooService foo)
+		: <span style=color:#00f>base</span>(game)
 	{
-		this.foo = foo;
+		<span style=color:#00f>this</span>.foo = foo;
 	}
 	
-	public void DoBar()
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> DoBar()
 	{
-		int result = this.foo.DoFoo();
-		// Do something based on result.
+		<span style=color:#00f>int</span> result = <span style=color:#00f>this</span>.foo.DoFoo();
+		<span style=color:#008000>// Do something based on result.</span>
 	}
 }
+
 </code></pre><p>We can now change FooComponent as much as we want and BarComponent will be unaffected. BarComponent now communicates with FooComponent through the IFooService interface. This also allows us to have multiple implementations of DoFoo():
-<pre><code class=language-c#>class SimpleFooComponent : GameComponent, IFooService
+<pre><code class=language-c#>
+<span style=color:#00f>class</span> SimpleFooComponent : GameComponent, IFooService
 {
-	public SimpleFooComponent(Game game)
-		: base(game)
+	<span style=color:#00f>public</span> SimpleFooComponent(Game game)
+		: <span style=color:#00f>base</span>(game)
 	{
 	}
 	
-	public int DoFoo()
+	<span style=color:#00f>public</span> <span style=color:#00f>int</span> DoFoo()
 	{
-		return 5; // The class says "Simple"
+		<span style=color:#00f>return</span> <span>5</span>; <span style=color:#008000>// The class says "Simple"</span>
 	}
 }
 
-class ComplexFooComponent : GameComponent, IFooService
+<span style=color:#00f>class</span> ComplexFooComponent : GameComponent, IFooService
 {
-	public ComplexFooComponent(Game game)
-		: base(game)
+	<span style=color:#00f>public</span> ComplexFooComponent(Game game)
+		: <span style=color:#00f>base</span>(game)
 	{
 	}
 	
-	public int DoFoo()
+	<span style=color:#00f>public</span> <span style=color:#00f>int</span> DoFoo()
 	{
-		int result = 0;
-		// Do some very complex calculation
-		return result;
+		<span style=color:#00f>int</span> result = <span>0</span>;
+		<span style=color:#008000>// Do some very complex calculation</span>
+		<span style=color:#00f>return</span> result;
 	}
 }
+
 </code></pre><p>We can pass BarComponent an instance of SimpleFooComponent or ComplexFooComponent. Whatever the situation may call for.<p>Where does GameServiceContainer fit into all of this? You can use the GameServiceContainer to hold all your "Services". Add whatever class will implement the IFooService and then from within your BarComponent you can query for it:
-<pre><code class=language-c#>class BarComponent : GameComponent
+<pre><code class=language-c#>
+<span style=color:#00f>class</span> BarComponent : GameComponent
 {
 	IFooService foo;
 
-	public BarComponent(Game game)
-		: base(game)
+	<span style=color:#00f>public</span> BarComponent(Game game)
+		: <span style=color:#00f>base</span>(game)
 	{
 	}
 	
-	public override void Initialize()
+	<span style=color:#00f>public</span> <span style=color:#00f>override</span> <span style=color:#00f>void</span> Initialize()
 	{
-		this.foo = this.Game.Services.GetService(typeof(IFooService)) as IFooService;
+		<span style=color:#00f>this</span>.foo = <span style=color:#00f>this</span>.Game.Services.GetService(<span style=color:#00f>typeof</span>(IFooService)) <span style=color:#00f>as</span> IFooService;
 		
-		if(this.foo == null)
-			throw new InvalidOperationException("IFooService not found.");
+		<span style=color:#00f>if</span>(<span style=color:#00f>this</span>.foo == <span style=color:#00f>null</span>)
+			<span style=color:#00f>throw</span> <span style=color:#00f>new</span> InvalidOperationException(<span style=color:#a31515>"IFooService not found."</span>);
 	}
 	
-	public void DoBar()
+	<span style=color:#00f>public</span> <span style=color:#00f>void</span> DoBar()
 	{
-		int result = this.foo.DoFoo();
-		// Do something based on result.
+		<span style=color:#00f>int</span> result = <span style=color:#00f>this</span>.foo.DoFoo();
+		<span style=color:#008000>// Do something based on result.</span>
 	}
 }
 
-// In your Game's constructor.
-this.Services.AddService(typeof(IFooService), new SimpleFooComponent(this));
+<span style=color:#008000>// In your Game's constructor.</span>
+<span style=color:#00f>this</span>.Services.AddService(<span style=color:#00f>typeof</span>(IFooService), <span style=color:#00f>new</span> SimpleFooComponent(<span style=color:#00f>this</span>));
+
 </code></pre><p>Not only does BarComponent no longer require an instance of IFooService in its constructor, it also no longer matters if the instance of IFooService is constructed before or after the BarComponent. So long as all the services BarComponent requires are in the GameServiceContainer before Initialize() is called, it doesn't matter what order your components are constructed in. Now, suppose that BarComponent didn't necessarily depend on IFooService and instead the behavior of DoBar() is changed based on whether or not IFooService is available:
-<pre><code class=language-c#>class BarComponent : GameComponent
+<pre><code class=language-c#>
+<span style=color:#00f>class</span> BarComponent : GameComponent
 {
 	IFooService foo;
 
-	public BarComponent(Game game)
-		: base(game)
+	<span style=color:#00f>public</span> BarComponent(Game game)
+		: <span style=color:#00f>base</span>(game)
 	{
 	}
 	
-	public override void Initialize()
+	<span style=color:#00f>public</span> <span style=color:#00f>override</span> <span style=color:#00f>void</span> Initialize()
 	{
-		this.foo = this.Game.Services.GetService(typeof(IFooService)) as IFooService;
+		<span style=color:#00f>this</span>.foo = <span style=color:#00f>this</span>.Game.Services.GetService(<span style=color:#00f>typeof</span>(IFooService)) <span style=color:#00f>as</span> IFooService;
 	}
 	
-	public intDoBar()
+	<span style=color:#00f>public</span> intDoBar()
 	{
-		// If the IFooService is available, delegate to the DoFoo() method.
-		if(this.foo != null)
-			return this.foo.DoFoo();
+		<span style=color:#008000>// If the IFooService is available, delegate to the DoFoo() method.</span>
+		<span style=color:#00f>if</span>(<span style=color:#00f>this</span>.foo != <span style=color:#00f>null</span>)
+			<span style=color:#00f>return</span> <span style=color:#00f>this</span>.foo.DoFoo();
 		
-		int result = 0;
-		// Otherwise do some other calculation.
-		return result;
+		<span style=color:#00f>int</span> result = <span>0</span>;
+		<span style=color:#008000>// Otherwise do some other calculation.</span>
+		<span style=color:#00f>return</span> result;
 	}
 }
+
 </code></pre><p>Service providers don't always have to be GameComponent(s). Our BarComponent needs a Camera class now:
-<pre><code class=language-c#>interface ICamera
+<pre><code class=language-c#>
+<span style=color:#00f>interface</span> ICamera
 {
-	Matrix Transform { get; }
+	Matrix Transform { <span style=color:#00f>get</span>; }
 }
 
-class IdentityCamera : ICamera
+<span style=color:#00f>class</span> IdentityCamera : ICamera
 {
-	public Matrix Transform
+	<span style=color:#00f>public</span> Matrix Transform
 	{
-		get { return Matrix.Identity; }
+		<span style=color:#00f>get</span> { <span style=color:#00f>return</span> Matrix.Identity; }
 	}
 }
 
-class MovingCamera : ICamera
+<span style=color:#00f>class</span> MovingCamera : ICamera
 {
-	public Matrix Transform
+	<span style=color:#00f>public</span> Matrix Transform
 	{
-		get;
-		set;
+		<span style=color:#00f>get</span>;
+		<span style=color:#00f>set</span>;
 	}
 }
 
-class BarComponent : DrawableGameComponent
+<span style=color:#00f>class</span> BarComponent : DrawableGameComponent
 {
 	ICamera camera;
 
-	public BarComponent(Game game)
-		: base(game)
+	<span style=color:#00f>public</span> BarComponent(Game game)
+		: <span style=color:#00f>base</span>(game)
 	{
 	}
 	
-	public override void Initialize()
+	<span style=color:#00f>public</span> <span style=color:#00f>override</span> <span style=color:#00f>void</span> Initialize()
 	{
-		this.camera = this.Game.Services.GetService(typeof(ICamera)) as ICamera;
+		<span style=color:#00f>this</span>.camera = <span style=color:#00f>this</span>.Game.Services.GetService(<span style=color:#00f>typeof</span>(ICamera)) <span style=color:#00f>as</span> ICamera;
 	}
 	
-	public override void Draw(GameTime gameTime)
+	<span style=color:#00f>public</span> <span style=color:#00f>override</span> <span style=color:#00f>void</span> Draw(GameTime gameTime)
 	{
-		Matrix transform = this.camera.Transform;
-		// Draw based on the transform matrix
+		Matrix transform = <span style=color:#00f>this</span>.camera.Transform;
+		<span style=color:#008000>// Draw based on the transform matrix</span>
 	}
 }
 
-// In your Game's constructor.
-this.Services.AddService(typeof(ICamera), new MovingCamera());
+<span style=color:#008000>// In your Game's constructor.</span>
+<span style=color:#00f>this</span>.Services.AddService(<span style=color:#00f>typeof</span>(ICamera), <span style=color:#00f>new</span> MovingCamera());
+
 </code></pre><p>BarComponent uses the camera's Transform matrix and doesn't care how it is calculated. It's completely decoupled from the camera's implementation.<p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.<p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</div></div></div><div class=clear></div></div></div><label for=sidebar-checkbox class=sidebar-toggle></label>
