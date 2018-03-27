@@ -45,36 +45,40 @@ $@"<!doctype html>
         <title>{data.Title}</title>
         <base href=""{data.BaseUrl}"">
 
-        <link rel=""stylesheet"" href=""http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400"">
-        <link rel=""stylesheet"" type=""text/css"" href=""css/site.css"">
+        <link href=""https://fonts.googleapis.com/css?family=Open+Sans"" rel=""stylesheet"">
+        <link rel=""stylesheet"" type=""text/css"" href=""css/style.css"">
 
         <link rel=""alternate"" type=""application/rss+xml"" title=""The Blog of Zachary Snow"" href=""feed.rss"">
     </head>
     <body>
-        <input type=""checkbox"" class=""sidebar-checkbox"" id=""sidebar-checkbox"" />
-        <div class=""sidebar"" id=""sidebar"">
-            <div class=""sidebar-item"">
-
-            </div>
-            <nav class=""sidebar-nav"">
-                <a href=""index.html"" class=""sidebar-nav-item{If(data.FileName == "index.html", " active")}"">Home</a>
-                <a href=""about.html"" class=""sidebar-nav-item{If(data.FileName == "about.html", " active")}"">About</a>
-            </nav>
-        </div>
         <div class=""wrap"">
-            <div class=""masthead"">
+            <header id=""header"">
                 <div class=""container"">
                     <div class=""social"">
                         <a href=""http://twitter.com/smack0007"" class=""twitter"" title=""Twitter""><span class=""fab fa-twitter""></span></a>
                         <a href=""http://github.com/smack0007"" class=""github"" title=""Github""><span class=""fab fa-github""></span></a>
                         <a href=""feed.rss"" class=""rss"" title=""RSS""><span class=""fas fa-rss""></span></a>
                     </div>
-                    <h3 class=""masthead-title"">
+                    <h1>
                         <a href=""index.html"" title=""Home"">The Blog of Zachary Snow</a>
-                    </h3>
+                    </h1>
                 </div>
+            </header>
+            <aside id=""sidebar"">
+                <nav>
+                    <a href=""index.html"" class=""sidebar-nav-item{If(data.FileName == "index.html", " active")}"">Home</a>
+                    <a href=""about.html"" class=""sidebar-nav-item{If(data.FileName == "about.html", " active")}"">About</a>
+                </nav>
+            </aside>
+            <div class=""hamburger"" onclick=""toggleHamburger(this)"">
+                <div class=""bar1""></div>
+                <div class=""bar2""></div>
+                <div class=""bar3""></div>
             </div>
-            <div class=""container content"">
+            <script type=""text/javascript"">
+                function toggleHamburger(x) {{ x.classList.toggle(""active""); document.getElementById('sidebar').classList.toggle('active'); }}
+            </script>
+            <div id=""content"" class=""container"">
                 <div class=""posts"">
                     {data.Body}
                 </div>

@@ -4,10 +4,11 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CommonMark.NET" Version="0.15.1" />
-    <PackageReference Include="NUglify" Version="1.5.9" />
     <PackageReference Include="ColorCode.Core" Version="2.0.3" />
     <PackageReference Include="ColorCode.Html" Version="2.0.3" />
+    <PackageReference Include="CommonMark.NET" Version="0.15.1" />
+    <PackageReference Include="NUglify" Version="1.5.9" />
+    <PackageReference Include="SharpScss" Version="1.3.8" />
   </ItemGroup>
   <Target Name="BuildSite" AfterTargets="AfterBuild" Condition=" $(BuildSite) == true ">
     <Exec WorkingDirectory="$(MSBuildThisFileDirectory)" Command="dotnet run -- &quot;$(MSBuildThisFileDirectory)..\source\\&quot; &quot;$(MSBuildThisFileDirectory)..\bin\\&quot;" />

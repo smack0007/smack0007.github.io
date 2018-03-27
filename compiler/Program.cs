@@ -11,6 +11,7 @@ using NUglify.Css;
 using NUglify.Html;
 using ColorCode;
 using System.Net;
+using SharpScss;
 
 namespace compiler
 {
@@ -24,7 +25,7 @@ namespace compiler
 
         private static List<PageData> Pages = new List<PageData>();
 
-        private static readonly CssSettings CssSettings = new CssSettings()
+        private static readonly CssSettings UglifyCssSettings = new CssSettings()
         {
             CommentMode = CssComment.None
         };
@@ -52,7 +53,7 @@ namespace compiler
 
             var files = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories).Select(x => x.Substring(inputPath.Length)).ToArray();
             var markdownFiles = files.Where(x => Path.GetExtension(x) == ".md");
-            var cssFiles = files.Where(x => Path.GetExtension(x) == ".css");
+            var cssFiles = files.Where(x => Path.GetExtension(x) == ".css" || Path.GetExtension(x) == ".scss");
             var staticFiles = files.Except(markdownFiles).Except(cssFiles);
 
             var posts = new List<PostData>();
@@ -96,18 +97,33 @@ namespace compiler
                 }
             }
 
-            var sb = new StringBuilder(1024);
-            foreach (var cssFile in cssFiles)
-            {
-                Console.WriteLine($"Css: {cssFile}");
+            // var sb = new StringBuilder(1024);
+            // foreach (var cssFile in cssFiles)
+            // {
+            //     Console.WriteLine($"Css: {cssFile}");
                 
-                var css = File.ReadAllText(Path.Combine(inputPath, cssFile));
+            //     var css = File.ReadAllText(Path.Combine(inputPath, cssFile));
 
-                sb.Append(css);                
-            }
+            //     sb.Append(css);                
+            // }
             
-            Directory.CreateDirectory(Path.Combine(outputPath, "css"));
-            File.WriteAllText(Path.Combine(outputPath, "css", "site.css"), Uglify.Css(sb.ToString(), CssSettings).Code);
+            // Directory.CreateDirectory(Path.Combine(outputPath, "css"));
+            // File.WriteAllText(Path.Combine(outputPath, "css", "site.css"), Uglify.Css(sb.ToString(), CssSettings).Code);
+
+            var cssInputPath = Path.Combine(inputPath, "css");
+
+            var scssOptions = new ScssOptions()
+            {
+                TryImport = (string file, string path, out string scss, out string map) =>
+                {
+                    scss = File.ReadAllText(Path.Combine(cssInputPath, file));
+                    map = null;
+                    return true;
+                }
+            };
+
+            var cssResult = Scss.ConvertToCss(File.ReadAllText(Path.Combine(cssInputPath, "style.scss")), scssOptions);
+            File.WriteAllText(Path.Combine(outputPath, "css", "style.css"), Uglify.Css(cssResult.Css, UglifyCssSettings).Code);
 
             foreach (var staticFile in staticFiles)
             {
@@ -153,15 +169,6 @@ namespace compiler
 
             File.WriteAllText(Path.Combine(outputPath, "feed.rss"), GenerateRssFeed(posts));
             File.WriteAllText(Path.Combine(outputPath, "sitemap.xml"), GenerateSiteMap(Pages));
-
-            // var csharpstring = "public void Method()\n{\n}";
-            // var formatter = new HtmlFormatter();
-            // var html = formatter.GetHtmlString(csharpstring, Languages.CSharp);
-
-            // File.WriteAllText(
-            //     Path.Combine(outputPath, "test.html"),
-            //     html
-            // );
 
             return 0;
         }
