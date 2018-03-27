@@ -78,7 +78,7 @@ $@"<!doctype html>
             <script type=""text/javascript"">
                 function toggleHamburger(x) {{ x.classList.toggle(""active""); document.getElementById('sidebar').classList.toggle('active'); }}
             </script>
-            <div id=""content"" class=""container"">
+            <main class=""container"">
                 <div class=""posts"">
                     {data.Body}
                 </div>
@@ -116,9 +116,8 @@ $@"                  <a href=""{data.PaginationNewerLink}"" class=""pagination-i
             }
             
             yield return
-@"          </div>
+@"          </main>
         </div>
-        <label for=""sidebar-checkbox"" class=""sidebar-toggle""></label>
     </body>
 </html>";
         }

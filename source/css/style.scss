@@ -242,7 +242,7 @@ header {
     }
 }
 
-#content {
+main {
     margin-top: 6rem;
 
     .post {
@@ -289,44 +289,39 @@ pre code {
 }
 
 .pagination {
-    overflow: hidden; /* clearfix */
-    margin-left: -1rem;
-    margin-right: -1rem;
+    overflow: hidden;
     color: #ccc;
     text-align: center;
+
+    .pagination-item {
+        display: inline-block;
+        padding: 1rem;
+        border: 1px solid #eee;
+    }
+
+    a:hover {
+        background-color: #f5f5f5;
+    }
 }
   
-/* Pagination items can be `span`s or `a`s */
-  .pagination-item {
-    display: block;
-    padding: 1rem;
-    border: 1px solid #eee;
-  }
-  .pagination-item:first-child {
-    margin-bottom: -1px;
-  }
-  
-  /* Only provide a hover state for linked pagination items */
-  a.pagination-item:hover {
-    background-color: #f5f5f5;
-  }
-  
-  @media (min-width: 30rem) {
+@media (min-width: $largeViewWidth) {
     .pagination {
-      margin: 3rem 0;
+        margin: 3rem 0;
+
+        .pagination-item {
+            float: left;
+            width: 45%;
+        }
+
+        .pagination-item:first-child {
+            border-top-left-radius:    4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .pagination-item:last-child {
+            margin-left: -1px;
+            border-top-right-radius:    4px;
+            border-bottom-right-radius: 4px;
+        }
     }
-    .pagination-item {
-      float: left;
-      width: 50%;
-    }
-    .pagination-item:first-child {
-      margin-bottom: 0;
-      border-top-left-radius:    4px;
-      border-bottom-left-radius: 4px;
-    }
-    .pagination-item:last-child {
-      margin-left: -1px;
-      border-top-right-radius:    4px;
-      border-bottom-right-radius: 4px;
-    }
-  }
+}
