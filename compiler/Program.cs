@@ -97,19 +97,6 @@ namespace compiler
                 }
             }
 
-            // var sb = new StringBuilder(1024);
-            // foreach (var cssFile in cssFiles)
-            // {
-            //     Console.WriteLine($"Css: {cssFile}");
-                
-            //     var css = File.ReadAllText(Path.Combine(inputPath, cssFile));
-
-            //     sb.Append(css);                
-            // }
-            
-            // Directory.CreateDirectory(Path.Combine(outputPath, "css"));
-            // File.WriteAllText(Path.Combine(outputPath, "css", "site.css"), Uglify.Css(sb.ToString(), CssSettings).Code);
-
             var cssInputPath = Path.Combine(inputPath, "css");
 
             var scssOptions = new ScssOptions()

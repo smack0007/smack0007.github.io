@@ -66,8 +66,8 @@ $@"<!doctype html>
             </header>
             <aside id=""sidebar"">
                 <nav>
-                    <a href=""index.html"" class=""sidebar-nav-item{If(data.FileName == "index.html", " active")}"">Home</a>
-                    <a href=""about.html"" class=""sidebar-nav-item{If(data.FileName == "about.html", " active")}"">About</a>
+                    <a href=""index.html"" class=""sidebar-nav-item{If(data.FileName.EndsWith("index.html"), " active")}"">Home</a>
+                    <a href=""about.html"" class=""sidebar-nav-item{If(data.FileName.EndsWith("about.md"), " active")}"">About</a>
                 </nav>
             </aside>
             <div id=""hamburger"" onclick=""toggleHamburger(this)"">
