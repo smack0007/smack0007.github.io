@@ -27,8 +27,8 @@ namespace compiler
             this.Title = title;
             this.Body = body;
             this.ShowPagination = showPagination;
-            this.PaginationOlderLink = paginationOlderLink;
-            this.PaginationNewerLink = paginationNewerLink;
+            this.PaginationOlderLink = paginationOlderLink?.Replace("\\", "/");
+            this.PaginationNewerLink = paginationNewerLink?.Replace("\\", "/");
         }
     }
 }
