@@ -7,7 +7,9 @@ Tags: c#, template, template-engine
 ---
 
 In our [last episode](blog/2018/poor-mans-template-engine-1.html) we laid the groundwork for our
-simple template engine. In this episode we'll introduce our first 2 helper functions:
+simple template engine. In this episode we'll introduce our first 2 helper functions.
+
+<!--more-->
 
 ```c#
 namespace Pmte

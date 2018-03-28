@@ -7,7 +7,9 @@ Tags: c#, template, template-engine
 ---
 
 In our [last episode](blog/2018/poor-mans-template-engine-2.html) we implemeted the first
-two helper funcitons `HtmlEncode` and `If`. Today we want to implement `Include`:
+two helper funcitons `HtmlEncode` and `If`. Today we want to implement `Include`.
+
+<!--more-->
 
 ```c#
 namespace Pmte

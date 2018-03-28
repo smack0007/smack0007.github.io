@@ -7,7 +7,9 @@ Tags: c#, template, template-engine
 ---
 
 If you're looking for a poor man's solution to a templating engine for .net and don't really need
-the overhead a complete template engine brings with it, I've come up with the following solution:
+the overhead a complete template engine brings with it, I've come up with the following solution.
+
+<!--more-->
 
 ```c#
 namespace Pmte
