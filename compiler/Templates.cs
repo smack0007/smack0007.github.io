@@ -70,7 +70,7 @@ $@"<!doctype html>
                     <a href=""about.html"" class=""sidebar-nav-item{If(data.FileName == "about.html", " active")}"">About</a>
                 </nav>
             </aside>
-            <div class=""hamburger"" onclick=""toggleHamburger(this)"">
+            <div id=""hamburger"" onclick=""toggleHamburger(this)"">
                 <div class=""bar1""></div>
                 <div class=""bar2""></div>
                 <div class=""bar3""></div>

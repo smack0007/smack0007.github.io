@@ -2,9 +2,10 @@
 @import 'fontawesome-all.css';
 
 $largeViewWidth: 48rem;
+$headerHeight: 60px;
 $text-color: #515151;
 $link-color: #268bd2;
-$header-font-size: 2rem;
+$headerFontSize: 1.8rem;
 
 html, body {
     overflow-x: hidden;
@@ -46,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: $header-font-size;
+    font-size: $headerFontSize;
 }
 
 h2 {
@@ -136,11 +137,14 @@ header {
     left: 0;
     width: 100%;
     background: #fff;
-    padding: 1rem 0;
     border-bottom: 1px solid #eee;
+    height: $headerHeight;
+    max-height: $headerHeight;
+    overflow: hidden;
 
     h1 {
         margin-left: 3rem;
+        line-height: $headerHeight;
 
         a {
             color: $text-color;
@@ -150,9 +154,10 @@ header {
     .social {
         display: none;
         float: right;
+        line-height: $headerHeight;
 
         a {
-            font-size: $header-font-size - 0.5rem;
+            font-size: $headerFontSize - 0.5rem;
         }
     }
 }
@@ -206,11 +211,11 @@ header {
     display: block;
 }
 
-.hamburger {
+#hamburger {
     display: block;
     position: fixed;
     left: 1rem;
-    top: 1.4rem;
+    top: 0.6rem;
     cursor: pointer;
 
     .bar1, .bar2, .bar3 {
@@ -222,7 +227,7 @@ header {
     }
 }
 
-.hamburger.active {
+#hamburger.active {
     .bar1, .bar2, .bar3 {
         background-color: #fff;
     }
@@ -243,7 +248,7 @@ header {
 }
 
 main {
-    margin-top: 6rem;
+    margin-top: $headerHeight + 20px;
 
     .post {
         margin-bottom: 4rem;
