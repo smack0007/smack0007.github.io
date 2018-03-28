@@ -1,169 +1,163 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>SpriteSheet Class</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2009/spritesheet-class.html>SpriteSheet Class</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>January 09, 2009</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>SpriteSheet, Xna</span></div><div class=content><p>I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.<p>It's very simple. Only reads sprites from left to right and assumes all Sprites are the same width and height.
-<pre><code class=language-csharp>
-<span style=color:#00f>#region</span> Using
-<span style=color:#00f>using</span> System;
-<span style=color:#00f>using</span> Microsoft.Xna.Framework;
-<span style=color:#00f>using</span> Microsoft.Xna.Framework.Graphics;
-<span style=color:#00f>#endregion</span>
+<pre><code class=language-csharp><span class=preprocessorKeyword>#region</span> Using
+<span class=keyword>using</span> System;
+<span class=keyword>using</span> Microsoft.Xna.Framework;
+<span class=keyword>using</span> Microsoft.Xna.Framework.Graphics;
+<span class=preprocessorKeyword>#endregion</span>
 
-<span style=color:#00f>namespace</span> Snow.Xna.Graphics
+<span class=keyword>namespace</span> Snow.Xna.Graphics
 {
-	<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-	<span style=color:#808080>///</span><span style=color:#008000> Spritesheet class.</span>
-	<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-	<span style=color:#00f>public</span> <span style=color:#00f>class</span> SpriteSheet
+	<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+	<span class=xmlDocTag>///</span><span class=xmlDocComment> Spritesheet class.</span>
+	<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+	<span class=keyword>public</span> <span class=keyword>class</span> SpriteSheet
 	{
-		<span style=color:#00f>#region</span> Fields
+		<span class=preprocessorKeyword>#region</span> Fields
 
-		<span style=color:#00f>string</span> name;
+		<span class=keyword>string</span> name;
 
 		Texture2D texture;
 
 		Rectangle[] rectangles;
 
-		<span style=color:#00f>int</span> spriteWidth, spriteHeight;
+		<span class=keyword>int</span> spriteWidth, spriteHeight;
 
-		<span style=color:#00f>#endregion</span>
+		<span class=preprocessorKeyword>#endregion</span>
 
-		<span style=color:#00f>#region</span> Properties
+		<span class=preprocessorKeyword>#region</span> Properties
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> The name of this SpriteSheet.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#00f>public</span> <span style=color:#00f>string</span> Name
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> The name of this SpriteSheet.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=keyword>public</span> <span class=keyword>string</span> Name
 		{
-			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> name; }
+			<span class=keyword>get</span> { <span class=keyword>return</span> name; }
 		}
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> The texture for this SpriteSheet.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#00f>public</span> Texture2D Texture
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> The texture for this SpriteSheet.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=keyword>public</span> Texture2D Texture
 		{
-			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> texture; }
+			<span class=keyword>get</span> { <span class=keyword>return</span> texture; }
 		}
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> Returns a rectangle for a sprite in the SpriteSheet.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="i"></span><span style=color:#008000>index&lt;/param></span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;returns></span><span style=color:#808080>&lt;/returns></span>
-		<span style=color:#00f>public</span> Rectangle <span style=color:#00f>this</span>[<span style=color:#00f>int</span> i]
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> Returns a rectangle for a sprite in the SpriteSheet.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="i"></span><span class=xmlDocComment>index&lt;/param></span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;returns></span><span class=xmlDocTag>&lt;/returns></span>
+		<span class=keyword>public</span> Rectangle <span class=keyword>this</span>[<span class=keyword>int</span> i]
 		{
-			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> rectangles[i]; }
+			<span class=keyword>get</span> { <span class=keyword>return</span> rectangles[i]; }
 		}
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> The number of sprites in this SpriteSheet.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#00f>public</span> <span style=color:#00f>int</span> Count
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> The number of sprites in this SpriteSheet.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=keyword>public</span> <span class=keyword>int</span> Count
 		{
-			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> rectangles.Length; }
+			<span class=keyword>get</span> { <span class=keyword>return</span> rectangles.Length; }
 		}
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> The width of the texture.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#00f>public</span> <span style=color:#00f>int</span> Width
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> The width of the texture.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=keyword>public</span> <span class=keyword>int</span> Width
 		{
-			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> texture.Width; }
+			<span class=keyword>get</span> { <span class=keyword>return</span> texture.Width; }
 		}
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> The width of each sprite in the SpriteSheet.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#00f>public</span> <span style=color:#00f>int</span> SpriteWidth
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> The width of each sprite in the SpriteSheet.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=keyword>public</span> <span class=keyword>int</span> SpriteWidth
 		{
-			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> spriteWidth; }
+			<span class=keyword>get</span> { <span class=keyword>return</span> spriteWidth; }
 		}
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> The height of the texture.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#00f>public</span> <span style=color:#00f>int</span> Height
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> The height of the texture.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=keyword>public</span> <span class=keyword>int</span> Height
 		{
-			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> texture.Height; }
+			<span class=keyword>get</span> { <span class=keyword>return</span> texture.Height; }
 		}
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> The height of each sprite in the SpriteSheet.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#00f>public</span> <span style=color:#00f>int</span> SpriteHeight
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> The height of each sprite in the SpriteSheet.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=keyword>public</span> <span class=keyword>int</span> SpriteHeight
 		{
-			<span style=color:#00f>get</span> { <span style=color:#00f>return</span> spriteHeight; }
+			<span class=keyword>get</span> { <span class=keyword>return</span> spriteHeight; }
 		}
 
-		<span style=color:#00f>#endregion</span>
+		<span class=preprocessorKeyword>#endregion</span>
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> Create a new SpriteSheet and determine the number of sprites in the sheet.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="texture"></span><span style=color:#808080>&lt;/param></span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="spriteWidth"></span><span style=color:#008000>Width of each sprite.&lt;/param></span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="spriteHeight"></span><span style=color:#008000>Height of each sprite.&lt;/param></span>
-		<span style=color:#00f>public</span> SpriteSheet(<span style=color:#00f>string</span> name, Texture2D texture, <span style=color:#00f>int</span> spriteWidth, <span style=color:#00f>int</span> spriteHeight)
-			: <span style=color:#00f>this</span>(name, texture, spriteWidth, spriteHeight, <span>0</span>)
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> Create a new SpriteSheet and determine the number of sprites in the sheet.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="texture"></span><span class=xmlDocTag>&lt;/param></span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteWidth"></span><span class=xmlDocComment>Width of each sprite.&lt;/param></span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteHeight"></span><span class=xmlDocComment>Height of each sprite.&lt;/param></span>
+		<span class=keyword>public</span> SpriteSheet(<span class=keyword>string</span> name, Texture2D texture, <span class=keyword>int</span> spriteWidth, <span class=keyword>int</span> spriteHeight)
+			: <span class=keyword>this</span>(name, texture, spriteWidth, spriteHeight, <span class=number>0</span>)
 		{
 		}
 
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;summary></span>
-		<span style=color:#808080>///</span><span style=color:#008000> Create a new SpriteSheet.</span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;/summary></span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="texture"></span><span style=color:#808080>&lt;/param></span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="spriteWidth"></span><span style=color:#008000>Width of each sprite.&lt;/param></span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="spriteHeight"></span><span style=color:#008000>Height of each sprite.&lt;/param></span>
-		<span style=color:#808080>///</span> <span style=color:#808080>&lt;param name="count"></span><span style=color:#008000>The number of sprites in the sheet.&lt;/param></span>
-		<span style=color:#00f>public</span> SpriteSheet(<span style=color:#00f>string</span> name, Texture2D texture, <span style=color:#00f>int</span> spriteWidth, <span style=color:#00f>int</span> spriteHeight, <span style=color:#00f>int</span> count)
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
+		<span class=xmlDocTag>///</span><span class=xmlDocComment> Create a new SpriteSheet.</span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="texture"></span><span class=xmlDocTag>&lt;/param></span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteWidth"></span><span class=xmlDocComment>Width of each sprite.&lt;/param></span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteHeight"></span><span class=xmlDocComment>Height of each sprite.&lt;/param></span>
+		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="count"></span><span class=xmlDocComment>The number of sprites in the sheet.&lt;/param></span>
+		<span class=keyword>public</span> SpriteSheet(<span class=keyword>string</span> name, Texture2D texture, <span class=keyword>int</span> spriteWidth, <span class=keyword>int</span> spriteHeight, <span class=keyword>int</span> count)
 		{
-			<span style=color:#00f>this</span>.name = name;
-			<span style=color:#00f>this</span>.texture = texture;
-			<span style=color:#00f>this</span>.spriteWidth = spriteWidth;
-			<span style=color:#00f>this</span>.spriteHeight = spriteHeight;
+			<span class=keyword>this</span>.name = name;
+			<span class=keyword>this</span>.texture = texture;
+			<span class=keyword>this</span>.spriteWidth = spriteWidth;
+			<span class=keyword>this</span>.spriteHeight = spriteHeight;
 
-			<span style=color:#00f>if</span>(count == <span>0</span>)
+			<span class=keyword>if</span>(count == <span class=number>0</span>)
 			{
-				<span style=color:#00f>int</span> numX = texture.Width / spriteWidth;
-				<span style=color:#00f>int</span> numY = texture.Height / spriteHeight;
+				<span class=keyword>int</span> numX = texture.Width / spriteWidth;
+				<span class=keyword>int</span> numY = texture.Height / spriteHeight;
 
-				rectangles = <span style=color:#00f>new</span> Rectangle[numX * numY];
+				rectangles = <span class=keyword>new</span> Rectangle[numX * numY];
 			}
-			<span style=color:#00f>else</span>
+			<span class=keyword>else</span>
 			{
-				rectangles = <span style=color:#00f>new</span> Rectangle[count];
+				rectangles = <span class=keyword>new</span> Rectangle[count];
 			}
 
-			<span style=color:#00f>int</span> x = <span>0</span>, y = <span>0</span>;
-			<span style=color:#00f>for</span>(<span style=color:#00f>int</span> i = <span>0</span>; i &lt; rectangles.Length; i++)
+			<span class=keyword>int</span> x = <span class=number>0</span>, y = <span class=number>0</span>;
+			<span class=keyword>for</span>(<span class=keyword>int</span> i = <span class=number>0</span>; i &lt; rectangles.Length; i++)
 			{
-				rectangles[i] = <span style=color:#00f>new</span> Rectangle(x, y, spriteWidth, spriteHeight);
+				rectangles[i] = <span class=keyword>new</span> Rectangle(x, y, spriteWidth, spriteHeight);
 
 				x += spriteWidth;
-				<span style=color:#00f>if</span>(x >= texture.Width)
+				<span class=keyword>if</span>(x >= texture.Width)
 				{
-					x = <span>0</span>;
+					x = <span class=number>0</span>;
 					y += spriteHeight;
 				}
 			}
 		}
 
-		<span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>implicit</span> <span style=color:#00f>operator</span> Texture2D(SpriteSheet spriteSheet)
+		<span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>implicit</span> <span class=keyword>operator</span> Texture2D(SpriteSheet spriteSheet)
 		{
-			<span style=color:#00f>return</span> spriteSheet.Texture;
+			<span class=keyword>return</span> spriteSheet.Texture;
 		}
 	}
-}
-
-</code></pre><p>You can create a new SpriteSheet and use it like this:<p>`
-<pre><code class=language-c#>
-SpriteSheet spriteSheet = <span style=color:#00f>new</span> SpriteSheet(<span style=color:#a31515>"tiles"</span>, Content.Load&lt;texture2D>(<span style=color:#a31515>"tiles"</span>), <span>64</span>, <span>64</span>);
+}</code></pre><p>You can create a new SpriteSheet and use it like this:<p>`
+<pre><code class=language-c#>SpriteSheet spriteSheet = <span class=keyword>new</span> SpriteSheet(<span class=string>"tiles"</span>, Content.Load&lt;texture2D>(<span class=string>"tiles"</span>), <span class=number>64</span>, <span class=number>64</span>);
 
 spriteBatch.Begin();
 
 spriteBatch.Draw(spriteSheet,
-		        <span style=color:#00f>new</span> Rectangle(<span>0</span>, <span>0</span>, spriteSheet.SpriteWidth, spriteSheet.SpriteHeight),
-			spriteSheet[<span>0</span>],
+		        <span class=keyword>new</span> Rectangle(<span class=number>0</span>, <span class=number>0</span>, spriteSheet.SpriteWidth, spriteSheet.SpriteHeight),
+			spriteSheet[<span class=number>0</span>],
 			Color.White);
 
-spriteBatch.End();
-
-</code></pre><p>`<p>Which loads a spritesheet with sprites of size 64x64. It then draws the first Sprite in the SpriteSheet. You of course wouldn't want to load the spritesheet every frame as well.<p>Feel free to use this code without restriction.<p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</div></div></div><div class=clear></div></main></div>
+spriteBatch.End();</code></pre><p>`<p>Which loads a spritesheet with sprites of size 64x64. It then draws the first Sprite in the SpriteSheet. You of course wouldn't want to load the spritesheet every frame as well.<p>Feel free to use this code without restriction.<p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</div></div></div><div class=clear></div></main></div>

@@ -1,74 +1,71 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Getting started with SlimDX</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2011/getting-started-with-slimdx.html>Getting started with SlimDX</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 31, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>DirectX</span></div><div class=content><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href=http://sharpdx.org/ >SharpDX</a>.<p>Since I tried OpenTK, I decided to give <a href=http://slimdx.org/ >SlimDX</a> a try as well. So, here's a simple getting started app:
-<pre><code class=language-c#>
-<span style=color:#00f>using</span> System;
-<span style=color:#00f>using</span> System.Drawing;
-<span style=color:#00f>using</span> System.Windows.Forms;
-<span style=color:#00f>using</span> SlimDX;
-<span style=color:#00f>using</span> SlimDX.Direct3D9;
-<span style=color:#00f>using</span> SlimDX.Windows;
+<pre><code class=language-c#><span class=keyword>using</span> System;
+<span class=keyword>using</span> System.Drawing;
+<span class=keyword>using</span> System.Windows.Forms;
+<span class=keyword>using</span> SlimDX;
+<span class=keyword>using</span> SlimDX.Direct3D9;
+<span class=keyword>using</span> SlimDX.Windows;
 
-<span style=color:#00f>namespace</span> SlimDXApp1
+<span class=keyword>namespace</span> SlimDXApp1
 {
-	<span style=color:#00f>public</span> <span style=color:#00f>partial</span> <span style=color:#00f>class</span> SlimDXApp1Form : RenderForm
+	<span class=keyword>public</span> <span class=keyword>partial</span> <span class=keyword>class</span> SlimDXApp1Form : RenderForm
 	{
-		<span style=color:#00f>struct</span> Vertex
+		<span class=keyword>struct</span> Vertex
 		{
-			<span style=color:#00f>public</span> Vector4 Position;
-			<span style=color:#00f>public</span> <span style=color:#00f>int</span> Color;
+			<span class=keyword>public</span> Vector4 Position;
+			<span class=keyword>public</span> <span class=keyword>int</span> Color;
 		}
 
 		Device device;
 		VertexDeclaration vertexDeclaration;
 		
-		<span style=color:#00f>public</span> SlimDXApp1Form()
-			: <span style=color:#00f>base</span>(<span style=color:#a31515>"SlimDXApp1"</span>)
+		<span class=keyword>public</span> SlimDXApp1Form()
+			: <span class=keyword>base</span>(<span class=string>"SlimDXApp1"</span>)
 		{
-			<span style=color:#00f>this</span>.ClientSize = <span style=color:#00f>new</span> Size(<span>800</span>, <span>600</span>);
+			<span class=keyword>this</span>.ClientSize = <span class=keyword>new</span> Size(<span class=number>800</span>, <span class=number>600</span>);
 
-			<span style=color:#00f>this</span>.device = <span style=color:#00f>new</span> Device(<span style=color:#00f>new</span> Direct3D(), <span>0</span>, DeviceType.Hardware, <span style=color:#00f>this</span>.Handle, CreateFlags.HardwareVertexProcessing, <span style=color:#00f>new</span> PresentParameters()
+			<span class=keyword>this</span>.device = <span class=keyword>new</span> Device(<span class=keyword>new</span> Direct3D(), <span class=number>0</span>, DeviceType.Hardware, <span class=keyword>this</span>.Handle, CreateFlags.HardwareVertexProcessing, <span class=keyword>new</span> PresentParameters()
             {
-                BackBufferWidth = <span style=color:#00f>this</span>.ClientSize.Width,
-                BackBufferHeight = <span style=color:#00f>this</span>.ClientSize.Height
+                BackBufferWidth = <span class=keyword>this</span>.ClientSize.Width,
+                BackBufferHeight = <span class=keyword>this</span>.ClientSize.Height
             });
 
-			<span style=color:#00f>this</span>.vertexDeclaration = <span style=color:#00f>new</span> VertexDeclaration(<span style=color:#00f>this</span>.device, <span style=color:#00f>new</span>[] {
-        		<span style=color:#00f>new</span> VertexElement(<span>0</span>, <span>0</span>, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, <span>0</span>),
-        		<span style=color:#00f>new</span> VertexElement(<span>0</span>, <span>16</span>, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, <span>0</span>),
+			<span class=keyword>this</span>.vertexDeclaration = <span class=keyword>new</span> VertexDeclaration(<span class=keyword>this</span>.device, <span class=keyword>new</span>[] {
+        		<span class=keyword>new</span> VertexElement(<span class=number>0</span>, <span class=number>0</span>, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, <span class=number>0</span>),
+        		<span class=keyword>new</span> VertexElement(<span class=number>0</span>, <span class=number>16</span>, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, <span class=number>0</span>),
 				VertexElement.VertexDeclarationEnd
         	});
 		}
 
-		<span style=color:#00f>public</span> <span style=color:#00f>void</span> Run()
+		<span class=keyword>public</span> <span class=keyword>void</span> Run()
 		{
-			MessagePump.Run(<span style=color:#00f>this</span>, () =>
+			MessagePump.Run(<span class=keyword>this</span>, () =>
 			{
-				<span style=color:#00f>this</span>.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, <span>1</span>.0f, <span>0</span>);
-				<span style=color:#00f>this</span>.device.BeginScene();
+				<span class=keyword>this</span>.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, <span class=number>1</span>.0f, <span class=number>0</span>);
+				<span class=keyword>this</span>.device.BeginScene();
 
-				<span style=color:#00f>this</span>.device.VertexDeclaration = <span style=color:#00f>this</span>.vertexDeclaration;
+				<span class=keyword>this</span>.device.VertexDeclaration = <span class=keyword>this</span>.vertexDeclaration;
 
-				<span style=color:#00f>this</span>.device.DrawUserPrimitives&lt;Vertex>(PrimitiveType.TriangleList, <span>1</span>, <span style=color:#00f>new</span>[] {
-					<span style=color:#00f>new</span> Vertex() { Color = Color.Red.ToArgb(), Position = <span style=color:#00f>new</span> Vector4(<span>400</span>.0f, <span>100</span>.0f, <span>0</span>.5f, <span>1</span>.0f) },
-					<span style=color:#00f>new</span> Vertex() { Color = Color.Blue.ToArgb(), Position = <span style=color:#00f>new</span> Vector4(<span>650</span>.0f, <span>500</span>.0f, <span>0</span>.5f, <span>1</span>.0f) },
-					<span style=color:#00f>new</span> Vertex() { Color = Color.Green.ToArgb(), Position = <span style=color:#00f>new</span> Vector4(<span>150</span>.0f, <span>500</span>.0f, <span>0</span>.5f, <span>1</span>.0f) }
+				<span class=keyword>this</span>.device.DrawUserPrimitives&lt;Vertex>(PrimitiveType.TriangleList, <span class=number>1</span>, <span class=keyword>new</span>[] {
+					<span class=keyword>new</span> Vertex() { Color = Color.Red.ToArgb(), Position = <span class=keyword>new</span> Vector4(<span class=number>400</span>.0f, <span class=number>100</span>.0f, <span class=number>0</span>.5f, <span class=number>1</span>.0f) },
+					<span class=keyword>new</span> Vertex() { Color = Color.Blue.ToArgb(), Position = <span class=keyword>new</span> Vector4(<span class=number>650</span>.0f, <span class=number>500</span>.0f, <span class=number>0</span>.5f, <span class=number>1</span>.0f) },
+					<span class=keyword>new</span> Vertex() { Color = Color.Green.ToArgb(), Position = <span class=keyword>new</span> Vector4(<span class=number>150</span>.0f, <span class=number>500</span>.0f, <span class=number>0</span>.5f, <span class=number>1</span>.0f) }
 				});
 				
-				<span style=color:#00f>this</span>.device.EndScene();
-				<span style=color:#00f>this</span>.device.Present();
+				<span class=keyword>this</span>.device.EndScene();
+				<span class=keyword>this</span>.device.Present();
 			});
 		}
 
 		[STAThread]
-		<span style=color:#00f>static</span> <span style=color:#00f>void</span> Main()
+		<span class=keyword>static</span> <span class=keyword>void</span> Main()
 		{
-			SlimDXApp1Form form = <span style=color:#00f>new</span> SlimDXApp1Form();
+			SlimDXApp1Form form = <span class=keyword>new</span> SlimDXApp1Form();
 			form.Run();
 
-			<span style=color:#008000>// Cleans up COM handles</span>
-			<span style=color:#00f>foreach</span>(<span style=color:#00f>var</span> item <span style=color:#00f>in</span> ObjectTable.Objects)
+			<span class=comment>// Cleans up COM handles</span>
+			<span class=keyword>foreach</span>(<span class=keyword>var</span> item <span class=keyword>in</span> ObjectTable.Objects)
 				item.Dispose();
 		}
 	}
-}
-
-</code></pre></div></div></div><div class=clear></div></main></div>
+}</code></pre></div></div></div><div class=clear></div></main></div>

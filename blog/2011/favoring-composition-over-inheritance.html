@@ -1,55 +1,49 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Favoring Composition over Inheritance</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2011/favoring-composition-over-inheritance.html>Favoring Composition over Inheritance</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>January 18, 2011</span> <span class=category><span class="fas fa-folder"></span>Design Patterns</span> <span class=tags><span class="fas fa-tags"></span>Composition over Inheritance</span></div><div class=content><p>You may have heard the expression before "Favor Composition over Inheritance", but do you know what it means and how to apply it? Lets take this code for example:
-<pre><code class=language-c#>
-<span style=color:#00f>abstract</span> <span style=color:#00f>class</span> Car
+<pre><code class=language-c#><span class=keyword>abstract</span> <span class=keyword>class</span> Car
 {
-	<span style=color:#00f>public</span> Color Color { <span style=color:#00f>get</span>; <span style=color:#00f>protected</span> <span style=color:#00f>set</span>; }
-	<span style=color:#00f>public</span> Engine Engine { <span style=color:#00f>get</span>; <span style=color:#00f>protected</span> <span style=color:#00f>set</span>; }
+	<span class=keyword>public</span> Color Color { <span class=keyword>get</span>; <span class=keyword>protected</span> <span class=keyword>set</span>; }
+	<span class=keyword>public</span> Engine Engine { <span class=keyword>get</span>; <span class=keyword>protected</span> <span class=keyword>set</span>; }
 }
 
-<span style=color:#00f>class</span> ElectricCar : Car
+<span class=keyword>class</span> ElectricCar : Car
 {
-	<span style=color:#00f>public</span> ElectricCar()
+	<span class=keyword>public</span> ElectricCar()
 	{
-		<span style=color:#00f>this</span>.Color = Color.Blue;
-		<span style=color:#00f>this</span>.Engine = <span style=color:#00f>new</span> ElectricEngine();
+		<span class=keyword>this</span>.Color = Color.Blue;
+		<span class=keyword>this</span>.Engine = <span class=keyword>new</span> ElectricEngine();
 	}
 }
 
-<span style=color:#00f>class</span> SportsCar : Car
+<span class=keyword>class</span> SportsCar : Car
 {
-	<span style=color:#00f>public</span> SportsCar()
+	<span class=keyword>public</span> SportsCar()
 	{
-		<span style=color:#00f>this</span>.Color = Color.Red;
-		<span style=color:#00f>this</span>.Engine = <span style=color:#00f>new</span> V8Engine();
+		<span class=keyword>this</span>.Color = Color.Red;
+		<span class=keyword>this</span>.Engine = <span class=keyword>new</span> V8Engine();
 	}
 }
 
-<span style=color:#00f>class</span> Truck : Car
+<span class=keyword>class</span> Truck : Car
 {
-	<span style=color:#00f>public</span> Truck()
+	<span class=keyword>public</span> Truck()
 	{
-		<span style=color:#00f>this</span>.Color = Color.White;
-		<span style=color:#00f>this</span>.Engine = <span style=color:#00f>new</span> DieselEngine();
+		<span class=keyword>this</span>.Color = Color.White;
+		<span class=keyword>this</span>.Engine = <span class=keyword>new</span> DieselEngine();
 	}
-}
-
-</code></pre><p>In this contrived example, we've defined three types of cars. Each instance of each of the cars will always have the same color and same engine. What happens when we need a 4th type? We have to define another class. By refactoring this code, we can compose a car type by giving it a color and an engine:
-<pre><code class=language-c#>
-<span style=color:#00f>class</span> Car
+}</code></pre><p>In this contrived example, we've defined three types of cars. Each instance of each of the cars will always have the same color and same engine. What happens when we need a 4th type? We have to define another class. By refactoring this code, we can compose a car type by giving it a color and an engine:
+<pre><code class=language-c#><span class=keyword>class</span> Car
 {
-	<span style=color:#00f>public</span> Color Color { <span style=color:#00f>get</span>; <span style=color:#00f>private</span> <span style=color:#00f>set</span>; }
-	<span style=color:#00f>public</span> Engine Engine { <span style=color:#00f>get</span>; <span style=color:#00f>private</span> <span style=color:#00f>set</span>; }
+	<span class=keyword>public</span> Color Color { <span class=keyword>get</span>; <span class=keyword>private</span> <span class=keyword>set</span>; }
+	<span class=keyword>public</span> Engine Engine { <span class=keyword>get</span>; <span class=keyword>private</span> <span class=keyword>set</span>; }
 	
-	<span style=color:#00f>public</span> Car(Color color, Engine engine)
+	<span class=keyword>public</span> Car(Color color, Engine engine)
 	{
-		<span style=color:#00f>this</span>.Color = color;
-		<span style=color:#00f>this</span>.Engine = engine;
+		<span class=keyword>this</span>.Color = color;
+		<span class=keyword>this</span>.Engine = engine;
 	}
 }
 
-Car electricCar = <span style=color:#00f>new</span> Car(Color.Blue, <span style=color:#00f>new</span> ElectricEngine());
-Car sportsCar = <span style=color:#00f>new</span> Car(Color.Red, <span style=color:#00f>new</span> V8Engine());
-Car truck = <span style=color:#00f>new</span> Car(Color.White, <span style=color:#00f>new</span> DieselEngine());
-Car familyCar = <span style=color:#00f>new</span> Car(Color.Black, <span style=color:#00f>new</span> V4Engine());
-
-</code></pre><p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</div></div></div><div class=clear></div></main></div>
+Car electricCar = <span class=keyword>new</span> Car(Color.Blue, <span class=keyword>new</span> ElectricEngine());
+Car sportsCar = <span class=keyword>new</span> Car(Color.Red, <span class=keyword>new</span> V8Engine());
+Car truck = <span class=keyword>new</span> Car(Color.White, <span class=keyword>new</span> DieselEngine());
+Car familyCar = <span class=keyword>new</span> Car(Color.Black, <span class=keyword>new</span> V4Engine());</code></pre><p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</div></div></div><div class=clear></div></main></div>

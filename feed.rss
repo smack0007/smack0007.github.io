@@ -4,76 +4,13 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 28 Mar 2018 11:03:36 GMT</lastBuildDate>
+	<lastBuildDate>Wed, 28 Mar 2018 11:59:47 GMT</lastBuildDate>
 	<pubDate>Thu, 22 Mar 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
 		<title><![CDATA[Poor Man's Template Engine in C# Part 3]]></title>
 		<description><![CDATA[<p>In our <a href="blog/2018/poor-mans-template-engine-2.html">last episode</a> we implemeted the first
-two helper funcitons <code>HtmlEncode</code> and <code>If</code>. Today we want to implement <code>Include</code>:</p>
-<pre><code class="language-c#">
-<span style="color:#0000FF;">namespace</span> Pmte
-{
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">delegate</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; Template&lt;TData&gt;(TData data);
-
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">class</span> TemplateExtensions
-    {   
-        <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">string</span> Render(<span style="color:#0000FF;">this</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; templateResult) =&gt; <span style="color:#0000FF;">string</span>.Join(Environment.NewLine, templateResult);
-
-        <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">string</span> HtmlEncode(<span style="color:#0000FF;">string</span> input) =&gt; WebUtility.HtmlEncode(input);
-
-        <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">string</span> If(<span style="color:#0000FF;">bool</span> condition, <span style="color:#0000FF;">string</span> trueString, <span style="color:#0000FF;">string</span> falseString = <span style="color:#0000FF;">null</span>) =&gt; condition ? trueString : falseString;
-
-        <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">string</span> Include&lt;TData&gt;(Template&lt;TData&gt; template, TData data) =&gt;
-            template(data).Render();
-    }
-}
-
-</pre></code>
-<p>Include can be used by specifying the template function and the data used to call the template function. The rendered result is returned.</p>
-<p>Example usage:</p>
-<pre><code class="language-c#">
-<span style="color:#0000FF;">using</span> <span style="color:#0000FF;">static</span> Pmte.TemplateExtensions;
-
-<span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">class</span> Templates
-{
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; Post(PostData post)
-    {
-        <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;div class=\&quot;post\&quot;&gt;&quot;</span>;
-            <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> Include(PostHeader, post);
-            <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;div class=\&quot;content\&quot;&gt;&quot;</span>;
-                <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> post.Content;
-            <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;/div&gt;&quot;</span>;
-        <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;/div&gt;&quot;</span>;
-    }
-    
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; PostHeader(PostData post)
-    {
-        <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> $<span style="color:#A31515;">&quot;&lt;h2&gt;&lt;a href=\&quot;{post.Url}\&quot;&gt;{HtmlEncode(post.Title)}&lt;/a&gt;&lt;/h2&gt;&quot;</span>;   
-
-        <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;div class=\&quot;meta\&quot;&gt;&quot;</span>;
-            <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> $<span style="color:#A31515;">&quot;&lt;span class=\&quot;date\&quot;&gt;{post.Date}&lt;/span&gt;&quot;</span>;
-            <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> $<span style="color:#A31515;">&quot;&lt;span class=\&quot;category\&quot;&gt;{HtmlEncode(post.Category)}&lt;/span&gt;&quot;</span>;
-        <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;/div&gt;&quot;</span>;
-    }
-
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; PostsList(IEnumerable&lt;PostData&gt; posts)
-    {
-        <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;div class=\&quot;posts\&quot;&gt;&quot;</span>;
-
-        <span style="color:#0000FF;">foreach</span> (<span style="color:#0000FF;">var</span> post <span style="color:#0000FF;">in</span> posts)
-        {
-            <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;div class=\&quot;post\&quot;&gt;&quot;</span>;
-                <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> Include(PostHeader, post);
-            <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;/div&gt;&quot;</span>;
-        }
-
-        <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> <span style="color:#A31515;">&quot;&lt;/div&gt;&quot;</span>;
-    }
-}
-
-</pre></code>
-<p>We reuse the <code>PostHeader</code> template in both the <code>Post</code> and <code>PostsList</code> templates.</p>
+two helper funcitons <code>HtmlEncode</code> and <code>If</code>. Today we want to implement <code>Include</code>.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</link>
 		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</guid>
@@ -82,44 +19,7 @@ two helper funcitons <code>HtmlEncode</code> and <code>If</code>. Today we want 
 	<item>
 		<title><![CDATA[Poor Man's Template Engine in C# Part 2]]></title>
 		<description><![CDATA[<p>In our <a href="blog/2018/poor-mans-template-engine-1.html">last episode</a> we laid the groundwork for our
-simple template engine. In this episode we'll introduce our first 2 helper functions:</p>
-<pre><code class="language-c#">
-<span style="color:#0000FF;">namespace</span> Pmte
-{
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">delegate</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; Template&lt;TData&gt;(TData data);
-
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">class</span> TemplateExtensions
-    {   
-        <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">string</span> Render(<span style="color:#0000FF;">this</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; templateResult) =&gt; <span style="color:#0000FF;">string</span>.Join(Environment.NewLine, templateResult);
-
-        <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">string</span> HtmlEncode(<span style="color:#0000FF;">string</span> input) =&gt; WebUtility.HtmlEncode(input);
-
-        <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">string</span> If(<span style="color:#0000FF;">bool</span> condition, <span style="color:#0000FF;">string</span> trueString, <span style="color:#0000FF;">string</span> falseString = <span style="color:#0000FF;">null</span>) =&gt; condition ? trueString : falseString;
-    }
-}
-
-</pre></code>
-<p>The first helper function <code>HtmlEncode</code> is fairly self explanitory. Use it to encode a string so that it is valid html.</p>
-<p><code>If</code> can be used inside an interpolated string to optionally include a string or include a different string depending on
-if condition is true or false.</p>
-<pre><code class="language-c#">
-<span style="color:#0000FF;">using</span> <span style="color:#0000FF;">static</span> Pmte.TemplateExtensions;
-
-<span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">class</span> Templates
-{
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; Path(<span style="color:#0000FF;">string</span>[] paths)
-    {
-        <span style="color:#0000FF;">string</span> output = <span style="color:#A31515;">&quot;&quot;</span>;
-
-        <span style="color:#0000FF;">for</span> (<span style="color:#0000FF;">int</span> i = <span>0</span>; i &lt; paths.Length; i++)
-            output += $<span style="color:#A31515;">&quot;{paths[i]}{If(i &lt; paths.Length - 1, HtmlEncode(&quot;</span> &gt;<span style="color:#A31515;">&quot;))}&quot;</span>;
-
-        <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> output;
-    }
-}
-
-</pre></code>
-<p>Next time we'll talk about including templates inside of other templates.</p>
+simple template engine. In this episode we'll introduce our first 2 helper functions.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-2.html</link>
 		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-2.html</guid>
@@ -128,49 +28,7 @@ if condition is true or false.</p>
 	<item>
 		<title><![CDATA[Poor Man's Template Engine in C# Part 1]]></title>
 		<description><![CDATA[<p>If you're looking for a poor man's solution to a templating engine for .net and don't really need
-the overhead a complete template engine brings with it, I've come up with the following solution:</p>
-<pre><code class="language-c#">
-<span style="color:#0000FF;">namespace</span> Pmte
-{
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">delegate</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; Template&lt;TData&gt;(TData data);
-
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">class</span> TemplateExtensions
-    {   
-        <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">string</span> Render(<span style="color:#0000FF;">this</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; templateResult) =&gt; <span style="color:#0000FF;">string</span>.Join(Environment.NewLine, templateResult);
-    }
-}
-
-</pre></code>
-<p>We define a template as being any function that returns an <code>IEnumerable&lt;string&gt;</code>. We are going to build a functional style
-template engine. TemplateExtensions will contain methods for working with templates and template results.</p>
-<p>Implement a template like so:</p>
-<pre><code class="language-c#">
-<span style="color:#0000FF;">using</span> <span style="color:#0000FF;">static</span> Pmte.TemplateExtensions;
-
-<span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> <span style="color:#0000FF;">class</span> Templates
-{
-    <span style="color:#0000FF;">public</span> <span style="color:#0000FF;">static</span> IEnumerable&lt;<span style="color:#0000FF;">string</span>&gt; PeopleList(IEnumerable&lt;Person&gt; people)
-    {
-        <span style="color:#0000FF;">foreach</span> (<span style="color:#0000FF;">var</span> person <span style="color:#0000FF;">in</span> people)
-            <span style="color:#0000FF;">yield</span> <span style="color:#0000FF;">return</span> $<span style="color:#A31515;">&quot;{person.FirstName} {person.LastName}&quot;</span>;
-    }
-}
-
-</pre></code>
-<p>This can then be consumed with:</p>
-<pre><code class="language-c#">
-<span style="color:#0000FF;">var</span> people = <span style="color:#0000FF;">new</span> Person[]
-{
-    <span style="color:#0000FF;">new</span> Person() { FirstName = <span style="color:#A31515;">&quot;Stan&quot;</span>, LastName = <span style="color:#A31515;">&quot;Marsh&quot;</span> },
-    <span style="color:#0000FF;">new</span> Person() { FirstName = <span style="color:#A31515;">&quot;Kyle&quot;</span>, LastName = <span style="color:#A31515;">&quot;Broflovski&quot;</span> },
-    <span style="color:#0000FF;">new</span> Person() { FirstName = <span style="color:#A31515;">&quot;Kenny&quot;</span>, LastName = <span style="color:#A31515;">&quot;McCormick&quot;</span> },
-    <span style="color:#0000FF;">new</span> Person() { FirstName = <span style="color:#A31515;">&quot;Eric&quot;</span>, LastName = <span style="color:#A31515;">&quot;Cartman&quot;</span> },
-};
-
-Console.WriteLine(Templates.PeopleList(people).Render());
-
-</pre></code>
-<p>In future episodes we will build more functions to make our template engine more powerful.</p>
+the overhead a complete template engine brings with it, I've come up with the following solution.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html</link>
 		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html</guid>
@@ -231,29 +89,23 @@ This got me to thinking about my youth and some of the code I wrote back then. I
 	<item>
 		<title><![CDATA[Adding assembly references in Roslyn]]></title>
 		<description><![CDATA[<p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
-<pre><code class="language-csharp">
-<span style="color:#0000FF;">var</span> compilation = Compilation.Create(assemblyName, <span style="color:#0000FF;">new</span> CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-	.AddReferences(MetadataReference.CreateAssemblyReference(<span style="color:#A31515;">&quot;mscorlib&quot;</span>))
-	.AddReferences(MetadataReference.CreateAssemblyReference(<span style="color:#A31515;">&quot;System&quot;</span>))
-	.AddReferences(MetadataReference.CreateAssemblyReference(<span style="color:#A31515;">&quot;System.Core&quot;</span>))
-	.AddReferences(<span style="color:#0000FF;">new</span> MetadataFileReference(<span style="color:#0000FF;">this</span>.GetType().Assembly.Location))
-	.AddSyntaxTrees(syntaxTree);
-
-</pre></code>
+<pre><code class="language-csharp"><span class="keyword">var</span> compilation = Compilation.Create(assemblyName, <span class="keyword">new</span> CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+	.AddReferences(MetadataReference.CreateAssemblyReference(<span class="string">&quot;mscorlib&quot;</span>))
+	.AddReferences(MetadataReference.CreateAssemblyReference(<span class="string">&quot;System&quot;</span>))
+	.AddReferences(MetadataReference.CreateAssemblyReference(<span class="string">&quot;System.Core&quot;</span>))
+	.AddReferences(<span class="keyword">new</span> MetadataFileReference(<span class="keyword">this</span>.GetType().Assembly.Location))
+	.AddSyntaxTrees(syntaxTree);</pre></code>
 <p>The static factory method &quot;MetadataReference.CreateAssemblyReference&quot; added a reference to global assemblies such as &quot;mscorlib.dll&quot; or &quot;System.dll&quot;. In the Roslyn preview,
 the same be achieved like so:</p>
-<pre><code class="language-csharp">
-<span style="color:#0000FF;">var</span> assemblyPath = Path.GetDirectoryName(<span style="color:#0000FF;">typeof</span>(<span style="color:#0000FF;">object</span>).Assembly.Location);
+<pre><code class="language-csharp"><span class="keyword">var</span> assemblyPath = Path.GetDirectoryName(<span class="keyword">typeof</span>(<span class="keyword">object</span>).Assembly.Location);
 
-<span style="color:#0000FF;">var</span> compilation = CSharpCompilation.Create(assemblyName)
-	.WithOptions(<span style="color:#0000FF;">new</span> CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-	.AddReferences(<span style="color:#0000FF;">new</span> MetadataFileReference(Path.Combine(assemblyPath, <span style="color:#A31515;">&quot;mscorlib.dll&quot;</span>)))
-	.AddReferences(<span style="color:#0000FF;">new</span> MetadataFileReference(Path.Combine(assemblyPath, <span style="color:#A31515;">&quot;System.dll&quot;</span>)))
-	.AddReferences(<span style="color:#0000FF;">new</span> MetadataFileReference(Path.Combine(assemblyPath, <span style="color:#A31515;">&quot;System.Core.dll&quot;</span>)))
-	.AddReferences(<span style="color:#0000FF;">new</span> MetadataFileReference(Assembly.GetEntryAssembly().Location))
-	.AddSyntaxTrees(syntaxTree);
-
-</pre></code>
+<span class="keyword">var</span> compilation = CSharpCompilation.Create(assemblyName)
+	.WithOptions(<span class="keyword">new</span> CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+	.AddReferences(<span class="keyword">new</span> MetadataFileReference(Path.Combine(assemblyPath, <span class="string">&quot;mscorlib.dll&quot;</span>)))
+	.AddReferences(<span class="keyword">new</span> MetadataFileReference(Path.Combine(assemblyPath, <span class="string">&quot;System.dll&quot;</span>)))
+	.AddReferences(<span class="keyword">new</span> MetadataFileReference(Path.Combine(assemblyPath, <span class="string">&quot;System.Core.dll&quot;</span>)))
+	.AddReferences(<span class="keyword">new</span> MetadataFileReference(Assembly.GetEntryAssembly().Location))
+	.AddSyntaxTrees(syntaxTree);</pre></code>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</link>
 		<guid>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</guid>

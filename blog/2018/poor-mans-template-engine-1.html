@@ -1,38 +1,30 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Poor Man's Template Engine in C# Part 1</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2018/poor-mans-template-engine-1.html>Poor Man's Template Engine in C# Part 1</a></h2><h3>Groundwork</h3><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 06, 2018</span> <span class=category><span class="fas fa-folder"></span>c#</span> <span class=tags><span class="fas fa-tags"></span>c#, template, template-engine</span></div><div class=content><p>If you're looking for a poor man's solution to a templating engine for .net and don't really need the overhead a complete template engine brings with it, I've come up with the following solution:
-<pre><code class=language-c#>
-<span style=color:#00f>namespace</span> Pmte
-{
-    <span style=color:#00f>public</span> <span style=color:#00f>delegate</span> IEnumerable&lt;<span style=color:#00f>string</span>> Template&lt;TData>(TData data);
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Poor Man's Template Engine in C# Part 1</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2018/poor-mans-template-engine-1.html>Poor Man's Template Engine in C# Part 1</a></h2><h3>Groundwork</h3><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 06, 2018</span> <span class=category><span class="fas fa-folder"></span>c#</span> <span class=tags><span class="fas fa-tags"></span>c#, template, template-engine</span></div><div class=content><p>If you're looking for a poor man's solution to a templating engine for .net and don't really need the overhead a complete template engine brings with it, I've come up with the following solution.
 
-    <span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>class</span> TemplateExtensions
+<pre><code class=language-c#><span class=keyword>namespace</span> Pmte
+{
+    <span class=keyword>public</span> <span class=keyword>delegate</span> IEnumerable&lt;<span class=keyword>string</span>> Template&lt;TData>(TData data);
+
+    <span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>class</span> TemplateExtensions
     {   
-        <span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>string</span> Render(<span style=color:#00f>this</span> IEnumerable&lt;<span style=color:#00f>string</span>> templateResult) => <span style=color:#00f>string</span>.Join(Environment.NewLine, templateResult);
+        <span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>string</span> Render(<span class=keyword>this</span> IEnumerable&lt;<span class=keyword>string</span>> templateResult) => <span class=keyword>string</span>.Join(Environment.NewLine, templateResult);
     }
-}
+}</code></pre><p>We define a template as being any function that returns an <code>IEnumerable&lt;string></code>. We are going to build a functional style template engine. TemplateExtensions will contain methods for working with templates and template results.<p>Implement a template like so:
+<pre><code class=language-c#><span class=keyword>using</span> <span class=keyword>static</span> Pmte.TemplateExtensions;
 
-</code></pre><p>We define a template as being any function that returns an <code>IEnumerable&lt;string></code>. We are going to build a functional style template engine. TemplateExtensions will contain methods for working with templates and template results.<p>Implement a template like so:
-<pre><code class=language-c#>
-<span style=color:#00f>using</span> <span style=color:#00f>static</span> Pmte.TemplateExtensions;
-
-<span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>class</span> Templates
+<span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>class</span> Templates
 {
-    <span style=color:#00f>public</span> <span style=color:#00f>static</span> IEnumerable&lt;<span style=color:#00f>string</span>> PeopleList(IEnumerable&lt;Person> people)
+    <span class=keyword>public</span> <span class=keyword>static</span> IEnumerable&lt;<span class=keyword>string</span>> PeopleList(IEnumerable&lt;Person> people)
     {
-        <span style=color:#00f>foreach</span> (<span style=color:#00f>var</span> person <span style=color:#00f>in</span> people)
-            <span style=color:#00f>yield</span> <span style=color:#00f>return</span> $<span style=color:#a31515>"{person.FirstName} {person.LastName}"</span>;
+        <span class=keyword>foreach</span> (<span class=keyword>var</span> person <span class=keyword>in</span> people)
+            <span class=keyword>yield</span> <span class=keyword>return</span> $<span class=string>"{person.FirstName} {person.LastName}"</span>;
     }
-}
-
-</code></pre><p>This can then be consumed with:
-<pre><code class=language-c#>
-<span style=color:#00f>var</span> people = <span style=color:#00f>new</span> Person[]
+}</code></pre><p>This can then be consumed with:
+<pre><code class=language-c#><span class=keyword>var</span> people = <span class=keyword>new</span> Person[]
 {
-    <span style=color:#00f>new</span> Person() { FirstName = <span style=color:#a31515>"Stan"</span>, LastName = <span style=color:#a31515>"Marsh"</span> },
-    <span style=color:#00f>new</span> Person() { FirstName = <span style=color:#a31515>"Kyle"</span>, LastName = <span style=color:#a31515>"Broflovski"</span> },
-    <span style=color:#00f>new</span> Person() { FirstName = <span style=color:#a31515>"Kenny"</span>, LastName = <span style=color:#a31515>"McCormick"</span> },
-    <span style=color:#00f>new</span> Person() { FirstName = <span style=color:#a31515>"Eric"</span>, LastName = <span style=color:#a31515>"Cartman"</span> },
+    <span class=keyword>new</span> Person() { FirstName = <span class=string>"Stan"</span>, LastName = <span class=string>"Marsh"</span> },
+    <span class=keyword>new</span> Person() { FirstName = <span class=string>"Kyle"</span>, LastName = <span class=string>"Broflovski"</span> },
+    <span class=keyword>new</span> Person() { FirstName = <span class=string>"Kenny"</span>, LastName = <span class=string>"McCormick"</span> },
+    <span class=keyword>new</span> Person() { FirstName = <span class=string>"Eric"</span>, LastName = <span class=string>"Cartman"</span> },
 };
 
-Console.WriteLine(Templates.PeopleList(people).Render());
-
-</code></pre><p>In future episodes we will build more functions to make our template engine more powerful.</div></div></div><div class=clear></div></main></div>
+Console.WriteLine(Templates.PeopleList(people).Render());</code></pre><p>In future episodes we will build more functions to make our template engine more powerful.</div></div></div><div class=clear></div></main></div>

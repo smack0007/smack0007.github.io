@@ -1,71 +1,68 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Colors and Hex</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2008/colors-and-hex.html>Colors and Hex</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>December 21, 2008</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>Xna</span></div><div class=content><p>I recently needed to write out Color(s) as an xml attribute. I wrote 2 methods to read and write the Color(s) as Hex strings. Here ya go:
 
-<pre><code class=language-c#>
-<span style=color:#00f>namespace</span> Snow.Xna.Graphics
+<pre><code class=language-c#><span class=keyword>namespace</span> Snow.Xna.Graphics
 {
-	<span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>class</span> ColorHelper
+	<span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>class</span> ColorHelper
 	{
-		<span style=color:#00f>private</span> <span style=color:#00f>static</span> <span style=color:#00f>char</span>[] _hexDigits = {<span style=color:#a31515>'0'</span>, <span style=color:#a31515>'1'</span>, <span style=color:#a31515>'2'</span>, <span style=color:#a31515>'3'</span>, <span style=color:#a31515>'4'</span>, <span style=color:#a31515>'5'</span>, <span style=color:#a31515>'6'</span>, <span style=color:#a31515>'7'</span>, <span style=color:#a31515>'8'</span>, <span style=color:#a31515>'9'</span>, <span style=color:#a31515>'A'</span>, <span style=color:#a31515>'B'</span>, <span style=color:#a31515>'C'</span>, <span style=color:#a31515>'D'</span>, <span style=color:#a31515>'E'</span>, <span style=color:#a31515>'F'</span>};
+		<span class=keyword>private</span> <span class=keyword>static</span> <span class=keyword>char</span>[] _hexDigits = {<span class=string>'0'</span>, <span class=string>'1'</span>, <span class=string>'2'</span>, <span class=string>'3'</span>, <span class=string>'4'</span>, <span class=string>'5'</span>, <span class=string>'6'</span>, <span class=string>'7'</span>, <span class=string>'8'</span>, <span class=string>'9'</span>, <span class=string>'A'</span>, <span class=string>'B'</span>, <span class=string>'C'</span>, <span class=string>'D'</span>, <span class=string>'E'</span>, <span class=string>'F'</span>};
 
-		<span style=color:#00f>public</span> <span style=color:#00f>static</span> <span style=color:#00f>string</span> ToHexString(Color color)
+		<span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>string</span> ToHexString(Color color)
 		{
-			<span style=color:#00f>byte</span>[] bytes = <span style=color:#00f>new</span> <span style=color:#00f>byte</span>[<span>4</span>];
+			<span class=keyword>byte</span>[] bytes = <span class=keyword>new</span> <span class=keyword>byte</span>[<span class=number>4</span>];
 
-			bytes[<span>0</span>] = color.A;
-			bytes[<span>1</span>] = color.R;
-			bytes[<span>2</span>] = color.G;
-			bytes[<span>3</span>] = color.B;
+			bytes[<span class=number>0</span>] = color.A;
+			bytes[<span class=number>1</span>] = color.R;
+			bytes[<span class=number>2</span>] = color.G;
+			bytes[<span class=number>3</span>] = color.B;
 
-			<span style=color:#00f>char</span>[] chars = <span style=color:#00f>new</span> <span style=color:#00f>char</span>[<span>8</span>];
+			<span class=keyword>char</span>[] chars = <span class=keyword>new</span> <span class=keyword>char</span>[<span class=number>8</span>];
 
-			<span style=color:#00f>for</span>(<span style=color:#00f>int</span> i = <span>0</span>; i &lt; <span>4</span>; i++)
+			<span class=keyword>for</span>(<span class=keyword>int</span> i = <span class=number>0</span>; i &lt; <span class=number>4</span>; i++)
 			{
-				<span style=color:#00f>int</span> b = bytes[i];
-				chars[i * <span>2</span>] = _hexDigits[b >> <span>4</span>];
-				chars[i * <span>2</span> + <span>1</span>] = _hexDigits[b &amp; 0xF];
+				<span class=keyword>int</span> b = bytes[i];
+				chars[i * <span class=number>2</span>] = _hexDigits[b >> <span class=number>4</span>];
+				chars[i * <span class=number>2</span> + <span class=number>1</span>] = _hexDigits[b &amp; 0xF];
 			}
 
-			<span style=color:#00f>return</span> <span style=color:#00f>new</span> <span style=color:#00f>string</span>(chars);
+			<span class=keyword>return</span> <span class=keyword>new</span> <span class=keyword>string</span>(chars);
 		}
 
-		<span style=color:#00f>private</span> <span style=color:#00f>static</span> <span style=color:#00f>byte</span> HexDigitToByte(<span style=color:#00f>char</span> c)
+		<span class=keyword>private</span> <span class=keyword>static</span> <span class=keyword>byte</span> HexDigitToByte(<span class=keyword>char</span> c)
 		{
-			<span style=color:#00f>switch</span>(c)
+			<span class=keyword>switch</span>(c)
 			{
-				<span style=color:#00f>case</span> <span style=color:#a31515>'0'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>0</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'1'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>1</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'2'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>2</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'3'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>3</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'4'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>4</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'5'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>5</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'6'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>6</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'7'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>7</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'8'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>8</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'9'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>9</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'A'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>10</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'B'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>11</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'C'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>12</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'D'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>13</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'E'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>14</span>;
-				<span style=color:#00f>case</span> <span style=color:#a31515>'F'</span>: <span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>15</span>;
+				<span class=keyword>case</span> <span class=string>'0'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>0</span>;
+				<span class=keyword>case</span> <span class=string>'1'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>1</span>;
+				<span class=keyword>case</span> <span class=string>'2'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>2</span>;
+				<span class=keyword>case</span> <span class=string>'3'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>3</span>;
+				<span class=keyword>case</span> <span class=string>'4'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>4</span>;
+				<span class=keyword>case</span> <span class=string>'5'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>5</span>;
+				<span class=keyword>case</span> <span class=string>'6'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>6</span>;
+				<span class=keyword>case</span> <span class=string>'7'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>7</span>;
+				<span class=keyword>case</span> <span class=string>'8'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>8</span>;
+				<span class=keyword>case</span> <span class=string>'9'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>9</span>;
+				<span class=keyword>case</span> <span class=string>'A'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>10</span>;
+				<span class=keyword>case</span> <span class=string>'B'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>11</span>;
+				<span class=keyword>case</span> <span class=string>'C'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>12</span>;
+				<span class=keyword>case</span> <span class=string>'D'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>13</span>;
+				<span class=keyword>case</span> <span class=string>'E'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>14</span>;
+				<span class=keyword>case</span> <span class=string>'F'</span>: <span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>15</span>;
 			}
 
-			<span style=color:#00f>return</span> (<span style=color:#00f>byte</span>)<span>0</span>;
+			<span class=keyword>return</span> (<span class=keyword>byte</span>)<span class=number>0</span>;
 		}
 
-		<span style=color:#00f>public</span> <span style=color:#00f>static</span> Color FromHexString(<span style=color:#00f>string</span> hex)
+		<span class=keyword>public</span> <span class=keyword>static</span> Color FromHexString(<span class=keyword>string</span> hex)
 		{
-			<span style=color:#00f>if</span>( hex.Length != <span>8</span> )
-				<span style=color:#00f>return</span> Color.Black;
+			<span class=keyword>if</span>( hex.Length != <span class=number>8</span> )
+				<span class=keyword>return</span> Color.Black;
 
-			<span style=color:#00f>int</span> a = (HexDigitToByte(hex[<span>0</span>]) &lt;&lt; <span>4</span>) + HexDigitToByte(hex[<span>1</span>]);
-			<span style=color:#00f>int</span> r = (HexDigitToByte(hex[<span>2</span>]) &lt;&lt; <span>4</span>) + HexDigitToByte(hex[<span>3</span>]);
-			<span style=color:#00f>int</span> g = (HexDigitToByte(hex[<span>4</span>]) &lt;&lt; <span>4</span>) + HexDigitToByte(hex[<span>5</span>]);
-			<span style=color:#00f>int</span> b = (HexDigitToByte(hex[<span>6</span>]) &lt;&lt; <span>4</span>) + HexDigitToByte(hex[<span>7</span>]);
+			<span class=keyword>int</span> a = (HexDigitToByte(hex[<span class=number>0</span>]) &lt;&lt; <span class=number>4</span>) + HexDigitToByte(hex[<span class=number>1</span>]);
+			<span class=keyword>int</span> r = (HexDigitToByte(hex[<span class=number>2</span>]) &lt;&lt; <span class=number>4</span>) + HexDigitToByte(hex[<span class=number>3</span>]);
+			<span class=keyword>int</span> g = (HexDigitToByte(hex[<span class=number>4</span>]) &lt;&lt; <span class=number>4</span>) + HexDigitToByte(hex[<span class=number>5</span>]);
+			<span class=keyword>int</span> b = (HexDigitToByte(hex[<span class=number>6</span>]) &lt;&lt; <span class=number>4</span>) + HexDigitToByte(hex[<span class=number>7</span>]);
 
-			<span style=color:#00f>return</span> <span style=color:#00f>new</span> Color((<span style=color:#00f>byte</span>)r, (<span style=color:#00f>byte</span>)g, (<span style=color:#00f>byte</span>)b, (<span style=color:#00f>byte</span>)a);
+			<span class=keyword>return</span> <span class=keyword>new</span> Color((<span class=keyword>byte</span>)r, (<span class=keyword>byte</span>)g, (<span class=keyword>byte</span>)b, (<span class=keyword>byte</span>)a);
 		}
 	}
-}
-
-</code></pre></div></div></div><div class=clear></div></main></div>
+}</code></pre></div></div></div><div class=clear></div></main></div>

@@ -1,26 +1,14 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Progress Bar in Windows 7 Taskbars</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2010/progress-bars-in-windows-7-taskbars.html>Progress Bar in Windows 7 Taskbars</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>June 01, 2010</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>.NET, C#, Windows 7</span></div><div class=content><p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.<p>I started by downloading and compiling the <a href=http://code.msdn.microsoft.com/WindowsAPICodePack>Windows API Code Pack</a> in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:
-<pre><code class=language-c#>
-<span style=color:#00f>using</span> Microsoft.WindowsAPICodePack.Taskbar;
-
-</code></pre><p>to your using statements. When the clock starts running I create the progress bar in the taskbar with:
-<pre><code class=language-c#>
-<span style=color:#008000>// Initialize progress bar</span>
-<span style=color:#00f>if</span>(TaskbarManager.IsPlatformSupported)
+<pre><code class=language-c#><span class=keyword>using</span> Microsoft.WindowsAPICodePack.Taskbar;</code></pre><p>to your using statements. When the clock starts running I create the progress bar in the taskbar with:
+<pre><code class=language-c#><span class=comment>// Initialize progress bar</span>
+<span class=keyword>if</span>(TaskbarManager.IsPlatformSupported)
 {
 	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
-	TaskbarManager.Instance.SetProgressValue(<span>0</span>, (<span style=color:#00f>int</span>)<span style=color:#00f>this</span>.totalTime.TotalSeconds, <span style=color:#00f>this</span>.Handle);
-}
-
-</code></pre><p>to stop the progress bar:
-<pre><code class=language-c#>
-<span style=color:#008000>// Stop progress bar</span>
-<span style=color:#00f>if</span>(TaskbarManager.IsPlatformSupported)
-	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
-
-</code></pre><p>and finally to update the progress bar on each tick:
-<pre><code class=language-c#>
-<span style=color:#008000>// Update progress bar</span>
-<span style=color:#00f>if</span>(TaskbarManager.IsPlatformSupported)
-	TaskbarManager.Instance.SetProgressValue((<span style=color:#00f>int</span>)<span style=color:#00f>this</span>.totalTime.TotalSeconds - (<span style=color:#00f>int</span>)<span style=color:#00f>this</span>.time.TotalSeconds, (<span style=color:#00f>int</span>)<span style=color:#00f>this</span>.totalTime.TotalSeconds, <span style=color:#00f>this</span>.Handle);
-
-</code></pre></div></div></div><div class=clear></div></main></div>
+	TaskbarManager.Instance.SetProgressValue(<span class=number>0</span>, (<span class=keyword>int</span>)<span class=keyword>this</span>.totalTime.TotalSeconds, <span class=keyword>this</span>.Handle);
+}</code></pre><p>to stop the progress bar:
+<pre><code class=language-c#><span class=comment>// Stop progress bar</span>
+<span class=keyword>if</span>(TaskbarManager.IsPlatformSupported)
+	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);</code></pre><p>and finally to update the progress bar on each tick:
+<pre><code class=language-c#><span class=comment>// Update progress bar</span>
+<span class=keyword>if</span>(TaskbarManager.IsPlatformSupported)
+	TaskbarManager.Instance.SetProgressValue((<span class=keyword>int</span>)<span class=keyword>this</span>.totalTime.TotalSeconds - (<span class=keyword>int</span>)<span class=keyword>this</span>.time.TotalSeconds, (<span class=keyword>int</span>)<span class=keyword>this</span>.totalTime.TotalSeconds, <span class=keyword>this</span>.Handle);</code></pre></div></div></div><div class=clear></div></main></div>
