@@ -253,8 +253,20 @@ main {
     .post {
         margin-bottom: 4rem;
 
+        $postSubtitleFontSize: 0.8rem;
+
+        h3 {
+            font-size: $postSubtitleFontSize;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #808080;
+            font-size: 1rem;
+            float: right;
+            font-style: italic;
+        }
+
         .meta {
-            font-size: 0.8rem;
+            font-size: $postSubtitleFontSize;
             margin-bottom: 1rem;
         }
         
@@ -264,15 +276,6 @@ main {
         
         .meta span .fas {
             margin-right: 4px;
-        }
-
-        h3 {
-            margin-top: 0;
-            margin-bottom: 1rem;
-            color: #808080;
-            font-size: 1rem;
-            text-align: right;
-            font-style: italic;
         }
         
         .content {

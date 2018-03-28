@@ -20,15 +20,15 @@ namespace compiler
         {
             yield return $"<h2><a href=\"{data.Url}\">{HtmlEncode(data.Title)}</a></h2>";   
 
+            if (!string.IsNullOrEmpty(data.Subtitle))
+                yield return $"<h3>{HtmlEncode(data.Subtitle)}</h3>";
+
             yield return "<div class=\"meta\">";
                 yield return $"<span class=\"date\"><span class=\"fas fa-calendar-alt\"></span>{data.Date}</span>";
                 yield return $"<span class=\"category\"><span class=\"fas fa-folder\"></span>{HtmlEncode(data.Category)}</span>";
                 var tags = data.Tags.Select(x => HtmlEncode(x));
                 yield return $"<span class=\"tags\"><span class=\"fas fa-tags\"></span>{string.Join(", ", tags)}</span>";
             yield return "</div>";
-
-            if (!string.IsNullOrEmpty(data.Subtitle))
-                yield return $"<h3>{HtmlEncode(data.Subtitle)}</h3>";
         }
 
         public static IEnumerable<string> Page(PageData data)
