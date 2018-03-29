@@ -4,9 +4,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Thu, 29 Mar 2018 06:35:29 GMT</lastBuildDate>
-	<pubDate>Thu, 22 Mar 2018 00:00:00 GMT</pubDate>
+	<lastBuildDate>Thu, 29 Mar 2018 12:19:20 GMT</lastBuildDate>
+	<pubDate>Thu, 29 Mar 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Git Quick Push]]></title>
+		<description><![CDATA[<p>Here's a quick one liner to quickly stage all your changes in the current git repo, commit them and then push
+the commit to origin master branch.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2018/git-quick-push.html</link>
+		<guid>http://smack0007.github.io/blog/2018/git-quick-push.html</guid>
+		<pubDate>Thu, 29 Mar 2018 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Poor Man's Template Engine in C# Part 3]]></title>
 		<description><![CDATA[<p>In our <a href="blog/2018/poor-mans-template-engine-2.html">last episode</a> we implemeted the first
@@ -251,15 +260,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2012/snowball-now-based-on-shaders.html</link>
 		<guid>http://smack0007.github.io/blog/2012/snowball-now-based-on-shaders.html</guid>
 		<pubDate>Tue, 26 Jun 2012 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Snowball: \Shaders\ in progress]]></title>
-		<description><![CDATA[<p>It's been a long couple of months. I'm in the middle of switching jobs, been on vacation a bit, and have been playing around with OpenGL a bit to get a feel for how that API works compared to Direct3D. As of yesterday I started working on implementing shaders in Snowball.</p>
-<p>In order to implement shaders or Effect(s), there may have to be a few changes to the API / interface of the Renderer class. Nothing significant I don't think but mainly changes to the Begin() method overloads. Today I pushed the branch which contains my initial implementation.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2012/snowball-shaders-in-progress.html</link>
-		<guid>http://smack0007.github.io/blog/2012/snowball-shaders-in-progress.html</guid>
-		<pubDate>Fri, 22 Jun 2012 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
