@@ -261,6 +261,9 @@ namespace compiler
 
                 switch (languageName.ToLower())
                 {
+                    case "bat":
+                        return m.ToString();
+
                     case "cpp":
                     case "c++":
                         language = Languages.Cpp;

@@ -44,7 +44,7 @@ started via "ctrl+shift+P" and typing "run task". I like to map this shortcut to
 Here is how runTask.bat should look:
 
 ```
-@@ECHO OFF
+@ECHO OFF
 
 IF "%1" == "build" GOTO BUILD
 IF "%1" == "serve" GOTO SERVE
