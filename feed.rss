@@ -4,9 +4,31 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Thu, 29 Mar 2018 12:19:20 GMT</lastBuildDate>
-	<pubDate>Thu, 29 Mar 2018 00:00:00 GMT</pubDate>
+	<lastBuildDate>Wed, 04 Apr 2018 14:38:37 GMT</lastBuildDate>
+	<pubDate>Wed, 04 Apr 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Merging Build.Directory.props]]></title>
+		<description><![CDATA[<p>MSBuild version 15 introduced the concept of &quot;Directory.Build.props&quot; files. From the docs:</p>
+<ul>
+<li><code>Directory.Build.props</code> is a user-defined file that provides customizations to projects under a directory. This
+file is automatically imported from Microsoft.Common.props unless the property <code>ImportDirectoryBuildTargets</code> is
+set to false.</li>
+</ul>
+<p>What is not stated here is that only one <code>Directory.Build.props</code> will be imported automatically. Imagine your project
+exists in the directory <code>C:\repo\src\foo\foo.csproj</code> and there exists a file in both <code>C:\repo\src\Directory.Build.props</code> and
+<code>C:\repo\Directory.Build.props</code> then only <code>C:\repo\src\Directory.Build.props</code> will be automatically included when building
+<code>C:\repo\src\foo\foo.csproj</code>. If you would like <code>C:\repo\Directory.Build.props</code> to be included as well, then
+<code>C:\repo\src\Directory.Build.props</code> will have to include <code>C:\repo\Directory.Build.props</code> like so:</p>
+<pre><code class="language-xml"><span class="xmlDelimiter">&lt;</span><span class="xmlName">Project</span><span class="xmlDelimiter">&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">Import</span> <span class="xmlAttribute">Project</span><span class="xmlDelimiter">=</span><span class="xmlAttributeQuotes">&quot;</span><span class="xmlAttributeValue">$([MSBuild]::GetPathOfFileAbove(&#39;Directory.Build.props&#39;, &#39;$(MSBuildThisFileDirectory)../&#39;))</span><span class="xmlAttributeQuotes">&quot;</span> <span class="xmlDelimiter">/&gt;</span>
+<span class="xmlDelimiter">&lt;/</span><span class="xmlName">Project</span><span class="xmlDelimiter">&gt;</span></pre></code>
+<p>This is documented <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build#use-case-multi-level-merging">here</a>.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2018/merging-build-directory-props.html</link>
+		<guid>http://smack0007.github.io/blog/2018/merging-build-directory-props.html</guid>
+		<pubDate>Wed, 04 Apr 2018 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Git Quick Push]]></title>
 		<description><![CDATA[<p>Here's a quick one liner to quickly stage all your changes in the current git repo, commit them and then push
@@ -249,17 +271,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2012/id3dxeffectonlostdevice.html</link>
 		<guid>http://smack0007.github.io/blog/2012/id3dxeffectonlostdevice.html</guid>
 		<pubDate>Fri, 20 Jul 2012 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Snowball: Now based on shaders]]></title>
-		<description><![CDATA[<p>I've now merged the &quot;Shaders&quot; branch back into the &quot;master&quot; branch. All rendering is now based on shaders and no longer on the fixed function pipeline.</p>
-<p>The function of the Renderer class was essentially been reduced to pushing data to the GPU and therefore I decided to rename the class to GraphicsBatch. The Begin() overload which would allow you to specify RendererSettings has been removed and been replaced with an overload which allows you to specify an Effect file to use. Also, the DrawLine() method has been removed, although vertical and horizontal lines can still be drawn using the DrawFilledRectangle() method. Better line drawing should be possible through shaders and I hope to eventually make a sample which provides an example.</p>
-<p>I've added a sample (pictured above) which demonstrates using a custom shader. By default, GraphicsBatch uses a BasicEffect class which is basically the old way of rendering implemented in a shader.</p>
-<p>In order for shaders to work properly when using GraphicsBatch, the GraphicsBatch class must pass a few parameters to the shader. At the moment, this only includes a transform matrix but may include more parameters in the future. The GraphicsBatchEffectWrapper can be used to wrap custom effects which you write in order to work with GraphicsBatch correctly. GraphicsBatchEffectWrapper will pass the parameters to your shader by following a standard naming convention. For example, the transform matrix is passed to your shader through a parameter named &quot;TransformMatrix&quot;.  You can also write you own class which implements IGraphicsBatchEffect. See the sample for an example of using the wrapper class.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2012/snowball-now-based-on-shaders.html</link>
-		<guid>http://smack0007.github.io/blog/2012/snowball-now-based-on-shaders.html</guid>
-		<pubDate>Tue, 26 Jun 2012 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>

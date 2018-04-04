@@ -17,7 +17,7 @@
 		}
 	]
 }</code></pre><p>This sets the batch file "runTask.bat" in the root of your workspace as the task runner. There are two tasks which can be started: "build" and "serve". "build" can be started with "ctrl+shift+T" and "serve" can be started via "ctrl+shift+P" and typing "run task". I like to map this shortcut to "ctrl+shift+R".<p>Here is how runTask.bat should look:
-<pre><code>@ECHO OFF
+<pre><code class=language-bat>@ECHO OFF
 
 IF "%1" == "build" GOTO BUILD
 IF "%1" == "serve" GOTO SERVE

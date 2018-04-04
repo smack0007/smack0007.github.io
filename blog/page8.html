@@ -1,4 +1,54 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.</div></div><div class=post><h2><a href=blog/2011/keeping-splitcontainer-splitterdistance-consistent.html>Keeping SplitContainer SplitterDistance consistent</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>February 09, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>Split Container, WinForms</span></div><div class=content><p>If you're having trouble keeping the SplitterDistance property of a SplitContainer consistent across app sessions, you can set the FixedPanel property of the splitter to FixedPanel.Panel1.
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2011/getting-started-with-opentk.html>Getting started with OpenTK</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I started experimenting with <a href=http://www.opentk.com>OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.
+<pre><code class=language-c#><span class=keyword>using</span> System;
+<span class=keyword>using</span> System.Drawing;
+<span class=keyword>using</span> OpenTK;
+<span class=keyword>using</span> OpenTK.Graphics;
+<span class=keyword>using</span> OpenTK.Graphics.OpenGL;
+
+<span class=keyword>namespace</span> OpenTKApp1
+{
+	<span class=keyword>public</span> <span class=keyword>class</span> AppWindow : GameWindow
+	{
+		<span class=keyword>public</span> AppWindow()
+		{
+			<span class=keyword>this</span>.Title = <span class=string>"OpenTK App 1"</span>;
+			<span class=keyword>this</span>.WindowBorder = WindowBorder.Fixed;
+			<span class=keyword>this</span>.ClientSize = <span class=keyword>new</span> Size(<span class=number>800</span>, <span class=number>600</span>);			
+		}
+
+		<span class=keyword>protected</span> <span class=keyword>override</span> <span class=keyword>void</span> OnRenderFrame(FrameEventArgs e)
+		{
+			<span class=keyword>base</span>.OnRenderFrame(e);
+
+			GL.ClearColor(Color.CornflowerBlue);
+			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+			GL.MatrixMode(MatrixMode.Projection);
+			GL.LoadIdentity();
+			GL.Ortho(<span class=number>0</span>, <span class=number>800</span>, <span class=number>600</span>, <span class=number>0</span>, -<span class=number>1</span>, <span class=number>1</span>);
+			GL.Viewport(<span class=number>0</span>, <span class=number>0</span>, <span class=number>800</span>, <span class=number>600</span>);
+			
+			GL.Begin(BeginMode.Triangles);
+			GL.Color3(Color.Red);
+			GL.Vertex3(<span class=number>400</span>, <span class=number>150</span>, <span class=number>0</span>);
+			GL.Color3(Color.Green);
+			GL.Vertex3(<span class=number>600</span>, <span class=number>450</span>, <span class=number>0</span>);
+			GL.Color3(Color.Blue);
+			GL.Vertex3(<span class=number>200</span>, <span class=number>450</span>, <span class=number>0</span>);
+			GL.End();
+
+			GL.Flush();
+			<span class=keyword>this</span>.SwapBuffers();
+		}
+
+		[STAThread]
+		<span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>void</span> Main()
+		{
+			AppWindow window = <span class=keyword>new</span> AppWindow();
+			window.Run();
+		}
+	}
+}</code></pre></div></div><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.</div></div><div class=post><h2><a href=blog/2011/keeping-splitcontainer-splitterdistance-consistent.html>Keeping SplitContainer SplitterDistance consistent</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>February 09, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>Split Container, WinForms</span></div><div class=content><p>If you're having trouble keeping the SplitterDistance property of a SplitContainer consistent across app sessions, you can set the FixedPanel property of the splitter to FixedPanel.Panel1.
 <pre><code class=language-c#>splitter.FixedPanel = FixedPanel.Panel1;</code></pre><p>I guess this could also work with FixedPanel.Panel2 as well but I haven't given it a try. Credit <a href=http://stackoverflow.com/questions/129362/restoring-splitterdistance-inside-tabcontrol-is-inconsistent>this stackoverflow post</a>.</div></div><div class=post><h2><a href=blog/2011/favoring-composition-over-inheritance.html>Favoring Composition over Inheritance</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>January 18, 2011</span> <span class=category><span class="fas fa-folder"></span>Design Patterns</span> <span class=tags><span class="fas fa-tags"></span>Composition over Inheritance</span></div><div class=content><p>You may have heard the expression before "Favor Composition over Inheritance", but do you know what it means and how to apply it? Lets take this code for example:
 <pre><code class=language-c#><span class=keyword>abstract</span> <span class=keyword>class</span> Car
 {
@@ -47,7 +97,4 @@
 Car electricCar = <span class=keyword>new</span> Car(Color.Blue, <span class=keyword>new</span> ElectricEngine());
 Car sportsCar = <span class=keyword>new</span> Car(Color.Red, <span class=keyword>new</span> V8Engine());
 Car truck = <span class=keyword>new</span> Car(Color.White, <span class=keyword>new</span> DieselEngine());
-Car familyCar = <span class=keyword>new</span> Car(Color.Black, <span class=keyword>new</span> V4Engine());</code></pre><p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</div></div><div class=post><h2><a href=blog/2010/component-glue.html>Component Glue</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>November 02, 2010</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>C#, CodePlex, IoC, Open Source</span></div><div class=content><p>The other day I started an open source project for an <a href=http://www.martinfowler.com/articles/injection.html>IoC Container</a> I call <a href=http://componentglue.codeplex.com/ >Component Glue</a>. It's in a toy / learning tool status right now and I don't know how far I actually want to take the project. More to come though.<p><a href=http://componentglue.codeplex.com/ >Component Glue on Codeplex</a></div></div><div class=post><h2><a href=blog/2010/visual-studio-move-referenced-dll-to-different-directory-after-build.html>Visual Studio: Move referenced DLL to different directory after Build</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>July 20, 2010</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>MSBuild</span></div><div class=content><p>If you need to move a referenced DLL to a different directory after build, add these commands to the "<strong>Post Build event command line</strong>" box in the "<strong>Build Events</strong>" tab of the project properties:
-<pre><code>mkdir $(TargetDir)dir
-move $(TargetDir)myDLL.dll $(TargetDir)dir\myDLL.dll
-</code></pre></div></div></div><div class=clear></div><div class=pagination><a href=blog/page9.html class="pagination-item older">Older</a> <a href=blog/page7.html class="pagination-item newer">Newer</a></div></main></div>
+Car familyCar = <span class=keyword>new</span> Car(Color.Black, <span class=keyword>new</span> V4Engine());</code></pre><p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</div></div><div class=post><h2><a href=blog/2010/component-glue.html>Component Glue</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>November 02, 2010</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>C#, CodePlex, IoC, Open Source</span></div><div class=content><p>The other day I started an open source project for an <a href=http://www.martinfowler.com/articles/injection.html>IoC Container</a> I call <a href=http://componentglue.codeplex.com/ >Component Glue</a>. It's in a toy / learning tool status right now and I don't know how far I actually want to take the project. More to come though.<p><a href=http://componentglue.codeplex.com/ >Component Glue on Codeplex</a></div></div></div><div class=clear></div><div class=pagination><a href=blog/page9.html class="pagination-item older">Older</a> <a href=blog/page7.html class="pagination-item newer">Newer</a></div></main></div>
