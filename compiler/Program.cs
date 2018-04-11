@@ -275,6 +275,7 @@ namespace compiler
                         break;
 
                     case "js":
+                    case "json":
                     case "javascript":
                         language = Languages.JavaScript;
                         break;
