@@ -1,4 +1,74 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2011/getting-started-with-opentk.html>Getting started with OpenTK</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I started experimenting with <a href=http://www.opentk.com>OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2011/getting-started-with-slimdx.html>Getting started with SlimDX</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 31, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>DirectX</span></div><div class=content><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href=http://sharpdx.org/ >SharpDX</a>.<p>Since I tried OpenTK, I decided to give <a href=http://slimdx.org/ >SlimDX</a> a try as well. So, here's a simple getting started app:
+<pre><code class=language-c#><span class=keyword>using</span> System;
+<span class=keyword>using</span> System.Drawing;
+<span class=keyword>using</span> System.Windows.Forms;
+<span class=keyword>using</span> SlimDX;
+<span class=keyword>using</span> SlimDX.Direct3D9;
+<span class=keyword>using</span> SlimDX.Windows;
+
+<span class=keyword>namespace</span> SlimDXApp1
+{
+	<span class=keyword>public</span> <span class=keyword>partial</span> <span class=keyword>class</span> SlimDXApp1Form : RenderForm
+	{
+		<span class=keyword>struct</span> Vertex
+		{
+			<span class=keyword>public</span> Vector4 Position;
+			<span class=keyword>public</span> <span class=keyword>int</span> Color;
+		}
+
+		Device device;
+		VertexDeclaration vertexDeclaration;
+		
+		<span class=keyword>public</span> SlimDXApp1Form()
+			: <span class=keyword>base</span>(<span class=string>"SlimDXApp1"</span>)
+		{
+			<span class=keyword>this</span>.ClientSize = <span class=keyword>new</span> Size(<span class=number>800</span>, <span class=number>600</span>);
+
+			<span class=keyword>this</span>.device = <span class=keyword>new</span> Device(<span class=keyword>new</span> Direct3D(), <span class=number>0</span>, DeviceType.Hardware, <span class=keyword>this</span>.Handle, CreateFlags.HardwareVertexProcessing, <span class=keyword>new</span> PresentParameters()
+            {
+                BackBufferWidth = <span class=keyword>this</span>.ClientSize.Width,
+                BackBufferHeight = <span class=keyword>this</span>.ClientSize.Height
+            });
+
+			<span class=keyword>this</span>.vertexDeclaration = <span class=keyword>new</span> VertexDeclaration(<span class=keyword>this</span>.device, <span class=keyword>new</span>[] {
+        		<span class=keyword>new</span> VertexElement(<span class=number>0</span>, <span class=number>0</span>, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, <span class=number>0</span>),
+        		<span class=keyword>new</span> VertexElement(<span class=number>0</span>, <span class=number>16</span>, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, <span class=number>0</span>),
+				VertexElement.VertexDeclarationEnd
+        	});
+		}
+
+		<span class=keyword>public</span> <span class=keyword>void</span> Run()
+		{
+			MessagePump.Run(<span class=keyword>this</span>, () =>
+			{
+				<span class=keyword>this</span>.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, <span class=number>1</span>.0f, <span class=number>0</span>);
+				<span class=keyword>this</span>.device.BeginScene();
+
+				<span class=keyword>this</span>.device.VertexDeclaration = <span class=keyword>this</span>.vertexDeclaration;
+
+				<span class=keyword>this</span>.device.DrawUserPrimitives&lt;Vertex>(PrimitiveType.TriangleList, <span class=number>1</span>, <span class=keyword>new</span>[] {
+					<span class=keyword>new</span> Vertex() { Color = Color.Red.ToArgb(), Position = <span class=keyword>new</span> Vector4(<span class=number>400</span>.0f, <span class=number>100</span>.0f, <span class=number>0</span>.5f, <span class=number>1</span>.0f) },
+					<span class=keyword>new</span> Vertex() { Color = Color.Blue.ToArgb(), Position = <span class=keyword>new</span> Vector4(<span class=number>650</span>.0f, <span class=number>500</span>.0f, <span class=number>0</span>.5f, <span class=number>1</span>.0f) },
+					<span class=keyword>new</span> Vertex() { Color = Color.Green.ToArgb(), Position = <span class=keyword>new</span> Vector4(<span class=number>150</span>.0f, <span class=number>500</span>.0f, <span class=number>0</span>.5f, <span class=number>1</span>.0f) }
+				});
+				
+				<span class=keyword>this</span>.device.EndScene();
+				<span class=keyword>this</span>.device.Present();
+			});
+		}
+
+		[STAThread]
+		<span class=keyword>static</span> <span class=keyword>void</span> Main()
+		{
+			SlimDXApp1Form form = <span class=keyword>new</span> SlimDXApp1Form();
+			form.Run();
+
+			<span class=comment>// Cleans up COM handles</span>
+			<span class=keyword>foreach</span>(<span class=keyword>var</span> item <span class=keyword>in</span> ObjectTable.Objects)
+				item.Dispose();
+		}
+	}
+}</code></pre></div></div><div class=post><h2><a href=blog/2011/getting-started-with-opentk.html>Getting started with OpenTK</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I started experimenting with <a href=http://www.opentk.com>OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.
 <pre><code class=language-c#><span class=keyword>using</span> System;
 <span class=keyword>using</span> System.Drawing;
 <span class=keyword>using</span> OpenTK;
@@ -97,4 +167,4 @@
 Car electricCar = <span class=keyword>new</span> Car(Color.Blue, <span class=keyword>new</span> ElectricEngine());
 Car sportsCar = <span class=keyword>new</span> Car(Color.Red, <span class=keyword>new</span> V8Engine());
 Car truck = <span class=keyword>new</span> Car(Color.White, <span class=keyword>new</span> DieselEngine());
-Car familyCar = <span class=keyword>new</span> Car(Color.Black, <span class=keyword>new</span> V4Engine());</code></pre><p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</div></div><div class=post><h2><a href=blog/2010/component-glue.html>Component Glue</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>November 02, 2010</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>C#, CodePlex, IoC, Open Source</span></div><div class=content><p>The other day I started an open source project for an <a href=http://www.martinfowler.com/articles/injection.html>IoC Container</a> I call <a href=http://componentglue.codeplex.com/ >Component Glue</a>. It's in a toy / learning tool status right now and I don't know how far I actually want to take the project. More to come though.<p><a href=http://componentglue.codeplex.com/ >Component Glue on Codeplex</a></div></div></div><div class=clear></div><div class=pagination><a href=blog/page9.html class="pagination-item older">Older</a> <a href=blog/page7.html class="pagination-item newer">Newer</a></div></main></div>
+Car familyCar = <span class=keyword>new</span> Car(Color.Black, <span class=keyword>new</span> V4Engine());</code></pre><p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</div></div></div><div class=clear></div><div class=pagination><a href=blog/page9.html class="pagination-item older">Older</a> <a href=blog/page7.html class="pagination-item newer">Newer</a></div></main></div>

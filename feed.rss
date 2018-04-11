@@ -4,9 +4,20 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 04 Apr 2018 14:38:37 GMT</lastBuildDate>
-	<pubDate>Wed, 04 Apr 2018 00:00:00 GMT</pubDate>
+	<lastBuildDate>Wed, 11 Apr 2018 11:04:53 GMT</lastBuildDate>
+	<pubDate>Wed, 11 Apr 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Run a program directly after building in VS Code]]></title>
+		<description><![CDATA[<p>Whenever I have a program that is just a generator of some kind I like to have that
+program execute directly after having built the program successfully. I'm going to show
+how to run the program via the dotnet cli but this trick can easily be applied to regular
+.NET programs or any program which is built using MSBuild.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2018/run-program-directly-after-building-vscode.html</link>
+		<guid>http://smack0007.github.io/blog/2018/run-program-directly-after-building-vscode.html</guid>
+		<pubDate>Wed, 11 Apr 2018 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Merging Build.Directory.props]]></title>
 		<description><![CDATA[<p>MSBuild version 15 introduced the concept of &quot;Directory.Build.props&quot; files. From the docs:</p>
@@ -262,15 +273,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2012/using-themes-in-visual-studio-express-for-windows-desktop.html</link>
 		<guid>http://smack0007.github.io/blog/2012/using-themes-in-visual-studio-express-for-windows-desktop.html</guid>
 		<pubDate>Sat, 15 Sep 2012 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[ID3DXEffect::OnLostDevice()]]></title>
-		<description><![CDATA[<p>I fixed a bug yesterday in Snowball related to a lost graphics device. I noticed that when I would use CTRL + ALT + DELETE, my apps were crashing. Turned out it was due to not recovering properly from a lost device.</p>
-<p>The root of the problem was that I needed to call the ID3DXEffect::OnLostDevice() method when the device was being lost. This allows the effect to recover from the lost device. I've made the Effect class in Snowball now do this automatically.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2012/id3dxeffectonlostdevice.html</link>
-		<guid>http://smack0007.github.io/blog/2012/id3dxeffectonlostdevice.html</guid>
-		<pubDate>Fri, 20 Jul 2012 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
