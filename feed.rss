@@ -4,9 +4,32 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Mon, 16 Apr 2018 07:26:29 GMT</lastBuildDate>
-	<pubDate>Wed, 11 Apr 2018 00:00:00 GMT</pubDate>
+	<lastBuildDate>Thu, 19 Apr 2018 05:50:07 GMT</lastBuildDate>
+	<pubDate>Thu, 19 Apr 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[string.Join Extension Method]]></title>
+		<description><![CDATA[<p>Normally if want to do a <code>string.Join</code> on the result of a Linq query you end up with somthing looking like
+this:</p>
+<pre><code class="language-csharp">Console.WriteLine(<span class="keyword">string</span>.Join(<span class="string">&quot;, &quot;</span>, numbers.Where(x =&gt; x % <span class="number">2</span> == <span class="number">0</span>)));</pre></code>
+<p>The call to <code>string.Join</code> has to come first and then the Linq query. I've always felt this breaks the flow
+of the code and would be easier to read if the <code>string.Join</code> was at the end of the Linq query:</p>
+<pre><code class="language-csharp">Console.WriteLine(numbers.Where(x =&gt; x % <span class="number">2</span> == <span class="number">0</span>).JoinString(<span class="string">&quot;, &quot;</span>));</pre></code>
+<p>This can be implemented with the following extension methods:</p>
+<pre><code class="language-csharp"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> JoinStringExtensions
+{
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> JoinString&lt;T&gt;(<span class="keyword">this</span> IEnumerable&lt;T&gt; source, <span class="keyword">string</span> seperator) =&gt;
+        <span class="keyword">string</span>.Join(seperator, source.Select(x =&gt; x.ToString()));
+
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> JoinString(<span class="keyword">this</span> IEnumerable&lt;<span class="keyword">string</span>&gt; source, <span class="keyword">string</span> seperator) =&gt;
+        <span class="keyword">string</span>.Join(seperator, source);
+}</pre></code>
+<p>The specialization for <code>IEnumerable&lt;string&gt;</code> is just mirroring the implementation from <code>string.Join</code>.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2018/string-join-extension-method.html</link>
+		<guid>http://smack0007.github.io/blog/2018/string-join-extension-method.html</guid>
+		<pubDate>Thu, 19 Apr 2018 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Run a program directly after building in VS Code]]></title>
 		<description><![CDATA[<p>Whenever I have a program that is just a generator of some kind I like to have that
@@ -250,29 +273,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2012/snowball-is-now-modular.html</link>
 		<guid>http://smack0007.github.io/blog/2012/snowball-is-now-modular.html</guid>
 		<pubDate>Tue, 06 Nov 2012 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Using Themes in Visual Studio Express for Windows Desktop]]></title>
-		<description><![CDATA[<p>I just want to post some information that took me while to find. Check out the original article <a href="http://alinconstantin.blogspot.de/2012/09/using-color-themes-with-visual-studio.html">here</a> with pictures and more information.</p>
-<blockquote>
-1) First, download the zip file http://www.alinconstantin.net/download/VS2012Themes.zip – it contains the 7 pkgdef files defining the colors of the default themes from Matt’s extension.
-<ol start="2">
-<li>
-<p>Now, create a folder under &quot;%ProgramFiles%\Microsoft Visual Studio 11.0\Common7\IDE\WDExpressExtensions”, and lets name it “Themes”. Unpack the zip file in that folder.</p>
-</li>
-<li>
-<p>Open a ‘Developer Command Prompt for VS2012” window. In the command line, type “wdexpress.exe /updateconfiguration”. This will make Visual Studio to read the pkgdef files on next restart, and import the color themes into registry.</p>
-</li>
-<li>
-<p>Launch Visual Studio Express, and now you should be able to see the new themes and switch them in Tools/Options dialog, Environment/General tab</p>
-</li>
-</ol>
-</blockquote>
-<p><a href="http://alinconstantin.blogspot.de/2012/09/using-color-themes-with-visual-studio.html">Source</a></p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2012/using-themes-in-visual-studio-express-for-windows-desktop.html</link>
-		<guid>http://smack0007.github.io/blog/2012/using-themes-in-visual-studio-express-for-windows-desktop.html</guid>
-		<pubDate>Sat, 15 Sep 2012 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>

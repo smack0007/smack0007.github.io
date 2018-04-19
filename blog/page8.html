@@ -1,4 +1,17 @@
-<!doctype html><html lang=en><script async src="https://www.googletagmanager.com/gtag/js?id=UA-12771589-3"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[];gtag("js",new Date);gtag("config","UA-12771589-3")</script><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2011/getting-started-with-slimdx.html>Getting started with SlimDX</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 31, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>DirectX</span></div><div class=content><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href=http://sharpdx.org/ >SharpDX</a>.<p>Since I tried OpenTK, I decided to give <a href=http://slimdx.org/ >SlimDX</a> a try as well. So, here's a simple getting started app:
+<!doctype html><html lang=en><script async src="https://www.googletagmanager.com/gtag/js?id=UA-12771589-3"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[];gtag("js",new Date);gtag("config","UA-12771589-3")</script><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><header id=header><div class=container><div class=social><a href=http://twitter.com/smack0007 class=twitter title=Twitter><span class="fab fa-twitter"></span></a> <a href=http://github.com/smack0007 class=github title=Github><span class="fab fa-github"></span></a> <a href=feed.rss class=rss title=RSS><span class="fas fa-rss"></span></a></div><h1><a href=index.html title=Home>The Blog of Zachary Snow</a></h1></div></header><aside id=sidebar><nav><a href=index.html class=sidebar-nav-item>Home</a> <a href=about.html class=sidebar-nav-item>About</a></nav></aside><div id=hamburger onclick=toggleHamburger(this)><div class=bar1></div><div class=bar2></div><div class=bar3></div></div><script>function toggleHamburger(n){n.classList.toggle("active");document.getElementById("sidebar").classList.toggle("active")}</script><main class=container><div class=posts><div class=post><h2><a href=blog/2011/using-git-gui-with-cygwin-on-windows-7.html>Using git-gui with Cygwin on Windows 7</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>April 07, 2011</span> <span class=category><span class="fas fa-folder"></span>Random</span> <span class=tags><span class="fas fa-tags"></span>Cygwin, git, git-gui, Windows 7</span></div><div class=content><p>I've started using git via <a href=http://www.cygwin.com/ >cygwin</a> and was running into trouble trying to pin it to my taskbar in Windows 7.<p>First I created a .bat file in the c:\cygwin folder which launches the app standalone:
+<pre><code>@@echo off
+
+C:
+chdir C:\cygwin\bin
+
+start run.exe git gui
+</code></pre><p>You can change paths accordingly. Now run the batch file and pin the program to the taskbar. You'll notice after you close the app, the icon changes and it won't launch again.<p>Right click on the shortcut while holding shift and choose properties. Change the target to the batch file we wrote. You can change the icon to the git-gui icon by pointing the shortcut icon to "C:\cygwin\usr\share\git-gui\lib\git-gui.ico".<p>Now if you click on the icon, the git-gui app should start up. Kill your explorer.exe in task manager and restart. If the icon is still the genie lamp, you'll need to clear your icon cache to get the icon to look right. Credit for that from <a href=http://superuser.com/questions/72756/changing-windows-7-pinned-taskbar-icons>here</a>. Kill your explorer.exe again and while explorer is gone, start cmd.exe. From there enter the following commands:
+<pre><code>CD /d %userprofile%\AppData\Local
+
+DEL IconCache.db /a
+
+EXIT
+</code></pre><p>After that your icon should be there as you want.</div></div><div class=post><h2><a href=blog/2011/getting-started-with-slimdx.html>Getting started with SlimDX</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 31, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>DirectX</span></div><div class=content><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href=http://sharpdx.org/ >SharpDX</a>.<p>Since I tried OpenTK, I decided to give <a href=http://slimdx.org/ >SlimDX</a> a try as well. So, here's a simple getting started app:
 <pre><code class=language-c#><span class=keyword>using</span> System;
 <span class=keyword>using</span> System.Drawing;
 <span class=keyword>using</span> System.Windows.Forms;
@@ -119,52 +132,4 @@
 		}
 	}
 }</code></pre></div></div><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>March 29, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.</div></div><div class=post><h2><a href=blog/2011/keeping-splitcontainer-splitterdistance-consistent.html>Keeping SplitContainer SplitterDistance consistent</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>February 09, 2011</span> <span class=category><span class="fas fa-folder"></span>.NET</span> <span class=tags><span class="fas fa-tags"></span>Split Container, WinForms</span></div><div class=content><p>If you're having trouble keeping the SplitterDistance property of a SplitContainer consistent across app sessions, you can set the FixedPanel property of the splitter to FixedPanel.Panel1.
-<pre><code class=language-c#>splitter.FixedPanel = FixedPanel.Panel1;</code></pre><p>I guess this could also work with FixedPanel.Panel2 as well but I haven't given it a try. Credit <a href=http://stackoverflow.com/questions/129362/restoring-splitterdistance-inside-tabcontrol-is-inconsistent>this stackoverflow post</a>.</div></div><div class=post><h2><a href=blog/2011/favoring-composition-over-inheritance.html>Favoring Composition over Inheritance</a></h2><div class=meta><span class=date><span class="fas fa-calendar-alt"></span>January 18, 2011</span> <span class=category><span class="fas fa-folder"></span>Design Patterns</span> <span class=tags><span class="fas fa-tags"></span>Composition over Inheritance</span></div><div class=content><p>You may have heard the expression before "Favor Composition over Inheritance", but do you know what it means and how to apply it? Lets take this code for example:
-<pre><code class=language-c#><span class=keyword>abstract</span> <span class=keyword>class</span> Car
-{
-	<span class=keyword>public</span> Color Color { <span class=keyword>get</span>; <span class=keyword>protected</span> <span class=keyword>set</span>; }
-	<span class=keyword>public</span> Engine Engine { <span class=keyword>get</span>; <span class=keyword>protected</span> <span class=keyword>set</span>; }
-}
-
-<span class=keyword>class</span> ElectricCar : Car
-{
-	<span class=keyword>public</span> ElectricCar()
-	{
-		<span class=keyword>this</span>.Color = Color.Blue;
-		<span class=keyword>this</span>.Engine = <span class=keyword>new</span> ElectricEngine();
-	}
-}
-
-<span class=keyword>class</span> SportsCar : Car
-{
-	<span class=keyword>public</span> SportsCar()
-	{
-		<span class=keyword>this</span>.Color = Color.Red;
-		<span class=keyword>this</span>.Engine = <span class=keyword>new</span> V8Engine();
-	}
-}
-
-<span class=keyword>class</span> Truck : Car
-{
-	<span class=keyword>public</span> Truck()
-	{
-		<span class=keyword>this</span>.Color = Color.White;
-		<span class=keyword>this</span>.Engine = <span class=keyword>new</span> DieselEngine();
-	}
-}</code></pre><p>In this contrived example, we've defined three types of cars. Each instance of each of the cars will always have the same color and same engine. What happens when we need a 4th type? We have to define another class. By refactoring this code, we can compose a car type by giving it a color and an engine:
-<pre><code class=language-c#><span class=keyword>class</span> Car
-{
-	<span class=keyword>public</span> Color Color { <span class=keyword>get</span>; <span class=keyword>private</span> <span class=keyword>set</span>; }
-	<span class=keyword>public</span> Engine Engine { <span class=keyword>get</span>; <span class=keyword>private</span> <span class=keyword>set</span>; }
-	
-	<span class=keyword>public</span> Car(Color color, Engine engine)
-	{
-		<span class=keyword>this</span>.Color = color;
-		<span class=keyword>this</span>.Engine = engine;
-	}
-}
-
-Car electricCar = <span class=keyword>new</span> Car(Color.Blue, <span class=keyword>new</span> ElectricEngine());
-Car sportsCar = <span class=keyword>new</span> Car(Color.Red, <span class=keyword>new</span> V8Engine());
-Car truck = <span class=keyword>new</span> Car(Color.White, <span class=keyword>new</span> DieselEngine());
-Car familyCar = <span class=keyword>new</span> Car(Color.Black, <span class=keyword>new</span> V4Engine());</code></pre><p>Now we can compose many car types, with any combination of colors and engines and we've only defined one class.</div></div></div><div class=clear></div><div class=pagination><a href=blog/page9.html class="pagination-item older">Older</a> <a href=blog/page7.html class="pagination-item newer">Newer</a></div></main></div>
+<pre><code class=language-c#>splitter.FixedPanel = FixedPanel.Panel1;</code></pre><p>I guess this could also work with FixedPanel.Panel2 as well but I haven't given it a try. Credit <a href=http://stackoverflow.com/questions/129362/restoring-splitterdistance-inside-tabcontrol-is-inconsistent>this stackoverflow post</a>.</div></div></div><div class=clear></div><div class=pagination><a href=blog/page9.html class="pagination-item older">Older</a> <a href=blog/page7.html class="pagination-item newer">Newer</a></div></main></div>
