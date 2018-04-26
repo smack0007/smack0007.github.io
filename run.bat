@@ -11,8 +11,6 @@ IF NOT EXIST "%SCRIPT%" (
 REM Get all arguments except the first.
 FOR /f "tokens=1,* delims= " %%a IN ("%*") DO ( SET SCRIPTARGS=%%b )
 
-ECHO %SCRIPTARGS%
-
 dotnet script %SCRIPT% -- %SCRIPTARGS%
 
 :END
