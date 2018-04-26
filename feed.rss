@@ -4,9 +4,19 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Thu, 19 Apr 2018 05:50:07 GMT</lastBuildDate>
-	<pubDate>Thu, 19 Apr 2018 00:00:00 GMT</pubDate>
+	<lastBuildDate>Thu, 26 Apr 2018 12:10:47 GMT</lastBuildDate>
+	<pubDate>Thu, 26 Apr 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Lambda Collection Wrappers]]></title>
+		<description><![CDATA[<p>I've been reading a lot as of late about functional programming and I try to
+incorperate as much as possible into my everyday programming. One trick that
+I've definitely started using is wrapping collections in lambda functions.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2018/lambda-collection-wrappers.html</link>
+		<guid>http://smack0007.github.io/blog/2018/lambda-collection-wrappers.html</guid>
+		<pubDate>Thu, 26 Apr 2018 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[string.Join Extension Method]]></title>
 		<description><![CDATA[<p>Normally if want to do a <code>string.Join</code> on the result of a Linq query you end up with somthing looking like
@@ -264,15 +274,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2012/http-status-codes-as-telephone-calls.html</link>
 		<guid>http://smack0007.github.io/blog/2012/http-status-codes-as-telephone-calls.html</guid>
 		<pubDate>Tue, 18 Dec 2012 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Snowball is now modular]]></title>
-		<description><![CDATA[<p>The version of Snowball currently on GitHub under the &quot;develop&quot; branch has been split into multiple projects. There is now an assembly for each major piece of Snowball, such as Graphics, Input, Sound. Although this means having to reference more assemblies, the amount of code your project depends on is now smaller. This also makes code maintenance a bit easier as it's more clear now what parts of the library depend on other parts of the library.</p>
-<p>The parts of the library which really make up a Game Framework has also been split out into their own library. This allows for using Snowball as a just a simple set of libraries or a full blown game framework, depending on what your situation calls for.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2012/snowball-is-now-modular.html</link>
-		<guid>http://smack0007.github.io/blog/2012/snowball-is-now-modular.html</guid>
-		<pubDate>Tue, 06 Nov 2012 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
