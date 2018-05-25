@@ -127,7 +127,7 @@ $@"                         <a href=""{data.PaginationNewerLink}"" class=""page-
             yield return
 @"          </main>
         </div>
-        <script src=""/js/jQuery.slim.min.js""></script>
+        <script src=""/js/jquery.slim.min.js""></script>
         <script src=""/js/bootstrap.bundle.min.js""></script>
     </body>
 </html>";
