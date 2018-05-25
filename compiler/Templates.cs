@@ -52,32 +52,33 @@ $@"<!doctype html>
     </head>
     <body>
         <div class=""wrap"">
-            <header id=""header"">
-                <div class=""container"">
-                    <div class=""social"">
+            <nav class=""navbar navbar-expand-lg navbar-dark bg-dark"">
+                <a class=""navbar-brand"" href=""/"">The Blog of Zachary Snow</a>
+                <button class=""navbar-toggler"" type=""button"" data-toggle=""collapse"" data-target=""#navbarSupportedContent"" aria-controls=""navbarSupportedContent"" aria-expanded=""false"" aria-label=""Toggle navigation"">
+                    <span class=""navbar-toggler-icon""></span>
+                </button>
+
+                <div class=""collapse navbar-collapse"" id=""navbarSupportedContent"">
+                    <ul class=""navbar-nav mr-auto"">                        
+                        <li class=""nav-item{If(data.FileName.EndsWith("index.html"), " active")}"">
+                            <a class=""nav-link"" href=""index.html"">Home{If(data.FileName.EndsWith("index.html"), " <span class=\"sr-only\">(current)</span>")}</a>
+                        </li>
+                        <li class=""nav-item{If(data.FileName.EndsWith("about.html"), " active")}"">
+                            <a class=""nav-link"" href=""about.html"">About{If(data.FileName.EndsWith("about.html"), " <span class=\"sr-only\">(current)</span>")}</a>
+                        </li>
+                    </ul>
+                    <div class=""social my-2 my-lg-0"">
                         <a href=""http://twitter.com/smack0007"" class=""twitter"" title=""Twitter""><span class=""fab fa-twitter""></span></a>
                         <a href=""http://github.com/smack0007"" class=""github"" title=""Github""><span class=""fab fa-github""></span></a>
                         <a href=""feed.rss"" class=""rss"" title=""RSS""><span class=""fas fa-rss""></span></a>
-                    </div>
-                    <h1>
-                        <a href=""index.html"" title=""Home"">The Blog of Zachary Snow</a>
-                    </h1>
+                    </ul>
+                </div>
+            </nav>
+            <header id=""header"">
+                <div class=""container"">
+                    
                 </div>
             </header>
-            <aside id=""sidebar"">
-                <nav>
-                    <a href=""index.html"" class=""sidebar-nav-item{If(data.FileName.EndsWith("index.html"), " active")}"">Home</a>
-                    <a href=""about.html"" class=""sidebar-nav-item{If(data.FileName.EndsWith("about.md"), " active")}"">About</a>
-                </nav>
-            </aside>
-            <div id=""hamburger"" onclick=""toggleHamburger(this)"">
-                <div class=""bar1""></div>
-                <div class=""bar2""></div>
-                <div class=""bar3""></div>
-            </div>
-            <script type=""text/javascript"">
-                function toggleHamburger(x) {{ x.classList.toggle(""active""); document.getElementById('sidebar').classList.toggle('active'); }}
-            </script>
             <main class=""container"">
                 <div class=""posts"">
                     {data.Body}
@@ -87,37 +88,47 @@ $@"<!doctype html>
             if (data.ShowPagination)
             {
                 yield return
-@"              <div class=""pagination"">";
+$@"              <nav aria-label=""Page navigation"">
+                    <ul class=""pagination justify-content-center"">
+                        <li class=""page-item{If(data.PaginationOlderLink == null, " disabled")}"">";
 
                 if (data.PaginationOlderLink != null)
                 {
                     yield return
-$@"                  <a href=""{data.PaginationOlderLink}"" class=""pagination-item older"">Older</a>";                    
+$@"                         <a href=""{data.PaginationOlderLink}"" class=""page-link older"">Older</a>";                    
                 }
                 else
                 {                    
                     yield return
-@"                  <span class=""pagination-item older"">Older</span>";
+@"                          <a class=""page-link older"" href=""#"" tabindex=""-1"">Older</a>";
                 }
+
+                yield return
+$@"                      </li>
+                        <li class=""page-item{If(data.PaginationNewerLink == null, " disabled")}"">";
                     
                 if (data.PaginationNewerLink != null)
                 {
                     yield return
-$@"                  <a href=""{data.PaginationNewerLink}"" class=""pagination-item newer"">Newer</a>";                    
+$@"                         <a href=""{data.PaginationNewerLink}"" class=""page-link newer"">Newer</a>";                    
                 }
                 else
                 {
                     yield return     
-@"                  <span class=""pagination-item newer"">Newer</span>";
+@"                          <a class=""page-link newer"" href=""#"" tabindex=""-1"">Newer</a>";
                 }
 
                 yield return 
-@"              </div>";
+@"                      </li>              
+                    </ul>
+                </div>";
             }
             
             yield return
 @"          </main>
         </div>
+        <script src=""/js/jQuery.slim.min.js""></script>
+        <script src=""/js/bootstrap.bundle.min.js""></script>
     </body>
 </html>";
         }
