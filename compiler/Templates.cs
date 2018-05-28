@@ -54,7 +54,7 @@ $@"<!doctype html>
         <div class=""wrap"">
             <nav class=""navbar navbar-expand-lg navbar-dark bg-dark"">
                 <a class=""navbar-brand"" href=""/"">The Blog of Zachary Snow</a>
-                <button class=""navbar-toggler"" type=""button"" data-toggle=""collapse"" data-target=""#navbarSupportedContent"" aria-controls=""navbarSupportedContent"" aria-expanded=""false"" aria-label=""Toggle navigation"">
+                <button id=""navbar-toggler"" class=""navbar-toggler"" type=""button"" aria-controls=""navbarSupportedContent"" aria-expanded=""false"" aria-label=""Toggle navigation"">
                     <span class=""navbar-toggler-icon""></span>
                 </button>
 
@@ -127,8 +127,11 @@ $@"                         <a href=""{data.PaginationNewerLink}"" class=""page-
             yield return
 @"          </main>
         </div>
-        <script src=""/js/jquery.slim.min.js""></script>
-        <script src=""/js/bootstrap.bundle.min.js""></script>
+        <script type=""text/javascript"">
+            document.getElementById('navbar-toggler').onclick = function() {
+                document.getElementById('navbarSupportedContent').classList.toggle('collapse');
+            };
+        </script>
     </body>
 </html>";
         }
