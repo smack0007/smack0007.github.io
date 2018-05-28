@@ -4,17 +4,17 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 25 May 2018 14:32:33 GMT</lastBuildDate>
+	<lastBuildDate>Mon, 28 May 2018 07:12:20 GMT</lastBuildDate>
 	<pubDate>Fri, 25 May 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
 		<title><![CDATA[A neat way to curry in C#]]></title>
-		<description><![CDATA[<p>I was reading an older blogpost from <a href="http://mikehadlow.blogspot.de/2015/09/partial-application-in-c.html">Mike hadlow</a> about
+		<description><![CDATA[<p>I was reading an older blogpost from <a href="http://mikehadlow.blogspot.de/2015/09/partial-application-in-c.html">Mike Hadlow</a> about
 <a href="http://mikehadlow.blogspot.de/2015/09/partial-application-in-c.html">Partial Application in C#</a> in which he discusses how
-<a href="https://en.wikipedia.org/wiki/Partial_application">Partial application</a> can be implemented in C# via
+<a href="https://en.wikipedia.org/wiki/Partial_application">Partial Application</a> can be implemented in C# via
 <a href="https://en.wikipedia.org/wiki/Currying">Currying</a>. Although I appreciate his example of implementing currying via extsion
 methods, the syntax is hideous. There is a suggestion in the comments though that I found to be a much better solution.</p>
-<pre><code class="language-c#"><span class="comment">// Define a local function Add</span>
+<pre><code class="language-c#"><span class="comment">// Define a local function Add.</span>
 <span class="keyword">int</span> Add(<span class="keyword">int</span> a, <span class="keyword">int</span> b) =&gt; a + b;
 
 <span class="comment">// Here we do the currying.</span>
@@ -23,8 +23,8 @@ Func&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; a
 <span class="comment">// This will print 5.</span>
 Console.WriteLine(add3(<span class="number">2</span>));
 
-<span class="comment">// Curry one more time so that have a function that</span>
-<span class="comment">// simply produces 5.</span>
+<span class="comment">// Curry one more time so that we have</span>
+<span class="comment">// a function that simply produces 5.</span>
 Func&lt;<span class="keyword">int</span>&gt; five = () =&gt; add3(<span class="number">2</span>);
 
 <span class="comment">// This will also print 5.</span>
