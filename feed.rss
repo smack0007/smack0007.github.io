@@ -4,9 +4,26 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Mon, 28 May 2018 08:22:53 GMT</lastBuildDate>
-	<pubDate>Fri, 25 May 2018 00:00:00 GMT</pubDate>
+	<lastBuildDate>Thu, 21 Jun 2018 05:54:59 GMT</lastBuildDate>
+	<pubDate>Thu, 21 Jun 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Enabling the latest version of C#]]></title>
+		<description><![CDATA[<p>As of this writing when creating a new console project via <code>dotnet new console</code> the version of C# used in the project
+is version 7.0. This means you're missing out cool features like <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-1#default-literal-expressions">Default Literal Expressions</a>. The language version
+can be changed via Visual Studio though I prefer to enable it via MSBuild. This can be done in the <code>csproj</code> file
+or globally via a <code>Build.Directory.props</code> file. Changing the C# language version is done via a property known as <code>LangVersion</code>.</p>
+<pre><code class="language-xml"><span class="xmlDelimiter">&lt;</span><span class="xmlName">PropertyGroup</span><span class="xmlDelimiter">&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">LangVersion</span><span class="xmlDelimiter">&gt;</span>latest<span class="xmlDelimiter">&lt;/</span><span class="xmlName">LangVersion</span><span class="xmlDelimiter">&gt;</span>
+<span class="xmlDelimiter">&lt;/</span><span class="xmlName">PropertyGroup</span><span class="xmlDelimiter">&gt;</span></pre></code>
+<p>This property can set to any of the values listed <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/langversion-compiler-option">here</a>. As of
+this writing VS Code doesn't seem to like it when you use 7.3 instead of latest. VS Code will show errors in your code
+although the code will compile without any problems.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-c#.html</link>
+		<guid>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-c#.html</guid>
+		<pubDate>Thu, 21 Jun 2018 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[A neat way to curry in C#]]></title>
 		<description><![CDATA[<p>I was reading an older blogpost from <a href="http://mikehadlow.blogspot.de/2015/09/partial-application-in-c.html">Mike Hadlow</a> about
@@ -265,16 +282,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2013/gldotnet-version-0-6-0.html</link>
 		<guid>http://smack0007.github.io/blog/2013/gldotnet-version-0-6-0.html</guid>
 		<pubDate>Tue, 19 Feb 2013 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Introducing GLDotNet]]></title>
-		<description><![CDATA[<p>Today I released a project I've been playing around with for a year or so on Codeplex. It's called <a href="https://gldotnet.codeplex.com/">GLDotNet</a>. From the project description:</p>
-<p><em>C# wrapper for OpenGL. Partially generated from the OpenGL spec and partially written by hand, the aim is to have a flexible and native feeling C# binding.</em></p>
-<p>I have generated functions from the OpenGL spec excluding 1 or 2 but unfortunately of the generated code is untested. There is a demo project included in the source code. The Github repository is located here: <a href="https://github.com/smack0007/GLDotNet">https://github.com/smack0007/GLDotNet</a></p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2013/introducing-gldotnet.html</link>
-		<guid>http://smack0007.github.io/blog/2013/introducing-gldotnet.html</guid>
-		<pubDate>Wed, 02 Jan 2013 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
