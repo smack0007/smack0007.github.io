@@ -1,3 +1,1 @@
-PUSHD %~dp0bin
-dotnet serve
-POPD
+dotnet serve -o -d "%~dp0bin"
