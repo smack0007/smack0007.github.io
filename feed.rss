@@ -4,7 +4,7 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Thu, 21 Jun 2018 05:57:49 GMT</lastBuildDate>
+	<lastBuildDate>Thu, 21 Jun 2018 08:14:58 GMT</lastBuildDate>
 	<pubDate>Thu, 21 Jun 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
@@ -20,8 +20,8 @@ or globally via a <code>Build.Directory.props</code> file. Changing the C# langu
 this writing VS Code doesn't seem to like it when you use 7.3 instead of latest. VS Code will show errors in your code
 although the code will compile without any problems.</p>
 ]]></description>
-		<link>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-c#.html</link>
-		<guid>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-c#.html</guid>
+		<link>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-csharp.html</link>
+		<guid>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-csharp.html</guid>
 		<pubDate>Thu, 21 Jun 2018 00:00:00 GMT</pubDate>
 	</item>
 	<item>
