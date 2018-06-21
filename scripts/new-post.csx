@@ -1,4 +1,4 @@
-#! "netcoreapp2.0"
+#! "netcoreapp2.1"
 
 var now = DateTime.Now;
 
