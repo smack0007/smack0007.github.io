@@ -20,6 +20,14 @@ if (!Directory.Exists(directory))
 
 string fileName = Args[0].ToLower().Replace(" ", "-") + ".md";
 
+var namesToReplace = new Dictionary<string, string>()
+{
+    ["c#"] = "csharp"
+};
+
+foreach (var nameToReplace in namesToReplace)
+    fileName = fileName.Replace(nameToReplace.Key, nameToReplace.Value);
+
 string destination = Path.Combine(directory, fileName);
 
 Console.WriteLine($"Writing \"{destination}\"...");
