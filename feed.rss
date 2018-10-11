@@ -4,7 +4,7 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Thu, 11 Oct 2018 14:41:57 GMT</lastBuildDate>
+	<lastBuildDate>Thu, 11 Oct 2018 14:43:49 GMT</lastBuildDate>
 	<pubDate>Thu, 11 Oct 2018 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
@@ -12,63 +12,6 @@
 		<description><![CDATA[<p>I've been inspired lately by Mark Seemann's series of posts about <a href="http://blog.ploeh.dk/2018/10/01/applicative-functors/">Applicative Functors</a>. One of the latest posts is an example about
 creating a <a href="http://blog.ploeh.dk/2018/10/08/full-deck/">full deck</a> of cards. Most of posts up to this
 point have contained a C# example but for some reason this one didn't. This inspired me to take a shot at it.</p>
-<!-- more -->
-<p>I also decided to implement shuffling and dealing of hands:</p>
-<pre><code class="language-c#"><span class="keyword">using</span> System;
-<span class="keyword">using</span> System.Linq;
-
-<span class="keyword">namespace</span> FullDeck
-{
-    <span class="keyword">class</span> Program
-    {
-        <span class="keyword">enum</span> Suit { Diamonds, Hearts, Clubs, Spades }
-
-        <span class="keyword">enum</span> Face { Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace }
-
-        <span class="keyword">struct</span> Card { <span class="keyword">public</span> Suit Suit; <span class="keyword">public</span> Face Face; }
-
-        <span class="keyword">static</span> <span class="keyword">void</span> Main(<span class="keyword">string</span>[] args)
-        {
-            <span class="keyword">var</span> allFaces = (Face[])Enum.GetValues(<span class="keyword">typeof</span>(Face));
-
-            <span class="keyword">var</span> allSuits = (Suit[])Enum.GetValues(<span class="keyword">typeof</span>(Suit));
-
-            <span class="keyword">var</span> fullDeck = allSuits.SelectMany(x =&gt; allFaces.Select(y =&gt; <span class="keyword">new</span> Card { Suit = x, Face = y }));
-
-            Console.WriteLine(<span class="string">&quot;=== FullDeck ===&quot;</span>);
-            <span class="keyword">foreach</span> (<span class="keyword">var</span> card <span class="keyword">in</span> fullDeck)
-                Console.WriteLine($<span class="string">&quot;{card.Suit} {card.Face}&quot;</span>);
-            Console.WriteLine();
-
-            <span class="keyword">var</span> shuffledDeck = fullDeck.OrderBy(x =&gt; Guid.NewGuid());
-            
-            Console.WriteLine(<span class="string">&quot;=== ShuffledDeck ===&quot;</span>);
-            <span class="keyword">foreach</span> (<span class="keyword">var</span> card <span class="keyword">in</span> shuffledDeck)
-                Console.WriteLine($<span class="string">&quot;{card.Suit} {card.Face}&quot;</span>);
-            Console.WriteLine();
-
-            <span class="comment">// Everytime shuffledDeck is iterated over the order changes.</span>
-
-            <span class="keyword">var</span> numberOfHands = <span class="number">4</span>;
-            <span class="keyword">var</span> numberOfCardsPerHand = <span class="number">5</span>;
-            <span class="keyword">var</span> hands = shuffledDeck.Take(numberOfHands * numberOfCardsPerHand)
-                .Select((x, i) =&gt; <span class="keyword">new</span> { x, i })
-                .GroupBy(x =&gt; x.i % numberOfHands)
-                .Select(g =&gt; g.Select(x =&gt; x.x));
-            
-            Console.WriteLine(<span class="string">&quot;=== Hands ===&quot;</span>);
-            <span class="keyword">foreach</span> (<span class="keyword">var</span> hand <span class="keyword">in</span> hands)
-            {
-                <span class="keyword">foreach</span> (<span class="keyword">var</span> card <span class="keyword">in</span> hand)
-                {
-                    Console.WriteLine($<span class="string">&quot;{card.Suit} {card.Face}&quot;</span>);
-                }
-                Console.WriteLine();                
-            }
-            Console.WriteLine();
-        }
-    }
-}</pre></code>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/functional-card-deck-in-csharp.html</link>
 		<guid>http://smack0007.github.io/blog/2018/functional-card-deck-in-csharp.html</guid>
