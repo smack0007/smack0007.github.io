@@ -10,7 +10,7 @@ I've been inspired lately by Mark Seemann's series of posts about [Applicative F
 creating a [full deck](http://blog.ploeh.dk/2018/10/08/full-deck/) of cards. Most of posts up to this
 point have contained a C# example but for some reason this one didn't. This inspired me to take a shot at it.
 
-<!-- more -->
+<!--more-->
 
 I also decided to implement shuffling and dealing of hands:
 
