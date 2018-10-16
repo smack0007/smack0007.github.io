@@ -1,5 +1,5 @@
 @import 'bootstrap.min.css';
-@import 'fontawesome-all.css';
+@import 'icomoon.css';
 
 a, a:hover, .page-link, .page-link:hover {
     color: #569cd6
@@ -57,7 +57,7 @@ main {
     .post {
         margin-bottom: 4rem;
 
-        $postSubtitleFontSize: 0.8rem;
+        $postSubtitleFontSize: 1rem;
 
         h3 {
             font-size: $postSubtitleFontSize;
@@ -76,6 +76,10 @@ main {
         
         .meta span {
             margin-right: 0.6rem;
+
+            [class^="icon-"] {
+                margin-right: 0.2rem;
+            }
         }
         
         .meta span .fas {

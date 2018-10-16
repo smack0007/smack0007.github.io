@@ -103,11 +103,23 @@ namespace compiler
             {
                 TryImport = (string file, string path, out string scss, out string map) =>
                 {
-                    scss = File.ReadAllText(Path.Combine(cssInputPath, file));
+                    scss = null;
                     map = null;
+
+                    var importPath = Path.Combine(cssInputPath, file);
+
+                    if (!File.Exists(importPath))
+                    {
+                        Console.Error.WriteLine($"ERROR: Failed to include '{file}'.");
+                        return false;
+                    }
+
+                    scss = File.ReadAllText(importPath);
                     return true;
                 }
             };
+
+            Directory.CreateDirectory(Path.Combine(outputPath, "css"));
 
             var cssResult = Scss.ConvertToCss(File.ReadAllText(Path.Combine(cssInputPath, "style.scss")), scssOptions);
             File.WriteAllText(Path.Combine(outputPath, "css", "style.css"), Uglify.Css(cssResult.Css, UglifyCssSettings).Code);
@@ -125,7 +137,7 @@ namespace compiler
                     output,
                     true);
             }
-            
+        
             int pageCount = (int)Math.Ceiling(posts.Count / (double)PostsPerPage);
             Console.WriteLine($"{posts.Count} Posts / {pageCount} Pages");
 

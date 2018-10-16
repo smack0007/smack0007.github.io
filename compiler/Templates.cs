@@ -24,10 +24,10 @@ namespace compiler
                 yield return $"<h3>{HtmlEncode(data.Subtitle)}</h3>";
 
             yield return "<div class=\"meta\">";
-                yield return $"<span class=\"date\"><span class=\"fas fa-calendar-alt\"></span>{data.Date}</span>";
-                yield return $"<span class=\"category\"><span class=\"fas fa-folder\"></span>{HtmlEncode(data.Category)}</span>";
+                yield return $"<span class=\"date\"><span class=\"icon-calendar\"></span>{data.Date}</span>";
+                yield return $"<span class=\"category\"><span class=\"icon-folder\"></span>{HtmlEncode(data.Category)}</span>";
                 var tags = data.Tags.Select(x => HtmlEncode(x));
-                yield return $"<span class=\"tags\"><span class=\"fas fa-tags\"></span>{string.Join(", ", tags)}</span>";
+                yield return $"<span class=\"tags\"><span class=\"icon-price-tags\"></span>{string.Join(", ", tags)}</span>";
             yield return "</div>";
         }
 
@@ -68,9 +68,9 @@ $@"<!doctype html>
                         </li>
                     </ul>
                     <div class=""social my-2 my-lg-0"">
-                        <a href=""http://twitter.com/smack0007"" class=""twitter"" title=""Twitter""><span class=""fab fa-twitter""></span></a>
-                        <a href=""http://github.com/smack0007"" class=""github"" title=""Github""><span class=""fab fa-github""></span></a>
-                        <a href=""feed.rss"" class=""rss"" title=""RSS""><span class=""fas fa-rss""></span></a>
+                        <a href=""http://twitter.com/smack0007"" class=""twitter"" title=""Twitter""><span class=""icon-twitter""></span></a>
+                        <a href=""http://github.com/smack0007"" class=""github"" title=""Github""><span class=""icon-github""></span></a>
+                        <a href=""feed.rss"" class=""rss"" title=""RSS""><span class=""icon-rss""></span></a>
                     </ul>
                 </div>
             </nav>
