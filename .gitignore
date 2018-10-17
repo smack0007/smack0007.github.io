@@ -2,3 +2,4 @@
 [O|o]bj
 *.suo
 commit.msg
+node_modules/

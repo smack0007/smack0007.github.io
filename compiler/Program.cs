@@ -51,10 +51,17 @@ namespace compiler
             
             Console.WriteLine($"Compiling path: {inputPath}");
 
-            var files = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories).Select(x => x.Substring(inputPath.Length)).ToArray();
+            var files = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories)
+                .Select(x => x.Substring(inputPath.Length))
+                .Where(x => !x.StartsWith("ts" + Path.DirectorySeparatorChar))
+                .ToArray();
+
             var markdownFiles = files.Where(x => Path.GetExtension(x) == ".md");
             var cssFiles = files.Where(x => Path.GetExtension(x) == ".css" || Path.GetExtension(x) == ".scss");
-            var staticFiles = files.Except(markdownFiles).Except(cssFiles);
+            
+            var staticFiles = files
+                .Except(markdownFiles)
+                .Except(cssFiles);
 
             var posts = new List<PostData>();
 
