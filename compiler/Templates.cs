@@ -68,8 +68,9 @@ $@"<!doctype html>
                         </li>
                     </ul>
                     <div class=""social my-2 my-lg-0"">
-                        <a href=""http://twitter.com/smack0007"" class=""twitter"" title=""Twitter""><span class=""icon-twitter""></span></a>
-                        <a href=""http://github.com/smack0007"" class=""github"" title=""Github""><span class=""icon-github""></span></a>
+                        <a href=""https://twitter.com/smack0007"" class=""twitter"" title=""Twitter""><span class=""icon-twitter""></span></a>
+                        <a href=""https://github.com/smack0007"" class=""github"" title=""Github""><span class=""icon-github""></span></a>
+                        <a href=""https://paypal.me/smack0007"" class=""coffee"" title=""Buy Me a Coffee""><span class=""icon-mug""></span></a>
                         <a href=""feed.rss"" class=""rss"" title=""RSS""><span class=""icon-rss""></span></a>
                     </ul>
                 </div>

@@ -10,6 +10,10 @@ a, a:hover, .page-link, .page-link:hover {
         font-size: 24px;
         margin-right: 4px;
     }
+
+    a:hover {
+        text-decoration: none;
+    }
 }
 
 code,
