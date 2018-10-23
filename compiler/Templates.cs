@@ -75,11 +75,6 @@ $@"<!doctype html>
                     </ul>
                 </div>
             </nav>
-            <header id=""header"">
-                <div class=""container"">
-                    
-                </div>
-            </header>
             <main class=""container"">
                 <div class=""posts"">
                     {data.Body}

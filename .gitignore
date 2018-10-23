@@ -3,3 +3,4 @@
 *.suo
 commit.msg
 node_modules/
+.cache
