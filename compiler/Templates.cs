@@ -53,7 +53,7 @@ $@"<!doctype html>
     <body>
         <div class=""wrap"">
             <nav class=""navbar navbar-expand-lg navbar-dark bg-dark"">
-                <a class=""navbar-brand"" href=""/"">The Blog of Zachary Snow</a>
+                <h1><a class=""navbar-brand"" href=""/"">The Blog of Zachary Snow</a></h1>
                 <button id=""navbar-toggler"" class=""navbar-toggler"" type=""button"" aria-controls=""navbarSupportedContent"" aria-expanded=""false"" aria-label=""Toggle navigation"">
                     <span class=""navbar-toggler-icon""></span>
                 </button>

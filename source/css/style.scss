@@ -59,6 +59,14 @@ pre {
     }
 }
 
+nav {
+    h1 {
+        margin: 0;
+        padding: 0;
+        font-size: inherit;
+    }
+}
+
 main {
     .posts:first-child {
         margin-top: 1rem;
@@ -68,6 +76,10 @@ main {
         margin-bottom: 4rem;
 
         $postSubtitleFontSize: 1rem;
+
+        h2 {
+            font-weight: 700;
+        }
 
         h3 {
             font-size: $postSubtitleFontSize;
