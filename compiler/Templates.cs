@@ -140,6 +140,10 @@ $@"                         <a href=""{data.PaginationNewerLink}"" class=""page-
                     yield return Include(Templates.PostHeader, post);
                     yield return "<div class=\"content\">";
                         yield return post.Excerpt;
+
+                        if (post.HasExcerpt)
+                            yield return $"<a class=\"readMore\" href=\"{post.Url}\">Read More</a>";
+
                     yield return "</div>";
                 yield return "</div>";
             }

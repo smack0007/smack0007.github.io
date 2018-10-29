@@ -12,41 +12,45 @@ namespace compiler
         public string Content { get; }
 
         public string Excerpt { get; }
+
+        public bool HasExcerpt { get; }
             
         public string Path { get; }
 
-        public string Url => this.Path.Replace("\\", "/");
+        public string Url => Path.Replace("\\", "/");
 
-        public string Title => this.FrontMatter["Title"];
+        public string Title => FrontMatter["Title"];
 
-        public string Subtitle => this.FrontMatter["Subtitle"];
+        public string Subtitle => FrontMatter["Subtitle"];
 
-        public DateTime SortDate => DateTime.ParseExact(this.FrontMatter["Date"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        public DateTime SortDate => DateTime.ParseExact(FrontMatter["Date"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-        public string Date => this.SortDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-us"));
+        public string Date => SortDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-us"));
 
-        public string Category => this.FrontMatter["Category"];
+        public string Category => FrontMatter["Category"];
 
         public IEnumerable<string> Tags { get; }
 
         public PostData(FrontMatter frontMatter, string content, string path)
         {
-            this.FrontMatter = frontMatter;
-            this.Content = content;
-            this.Path = path;
+            FrontMatter = frontMatter;
+            Content = content;
+            Path = path;
 
-            var index = this.Content.IndexOf("<!--more-->");
+            var index = Content.IndexOf("<!--more-->");
 
             if (index >= 0)
             {
-                this.Excerpt = this.Content.Substring(0, index);
+                Excerpt = Content.Substring(0, index);
+                HasExcerpt = true;
             }
             else
             {
-                this.Excerpt = this.Content;
+                Excerpt = Content;
+                HasExcerpt = false;
             }
 
-            this.Tags = this.FrontMatter["Tags"].Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
+            Tags = FrontMatter["Tags"].Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
         }
     }
 }
