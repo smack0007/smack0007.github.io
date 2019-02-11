@@ -4,79 +4,14 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Mon, 11 Feb 2019 15:30:14 GMT</lastBuildDate>
+	<lastBuildDate>Mon, 11 Feb 2019 15:35:31 GMT</lastBuildDate>
 	<pubDate>Mon, 11 Feb 2019 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
 		<title><![CDATA[Generating string permutations for unit testing]]></title>
 		<description><![CDATA[<p>I needed to parse a string containing 6 characters. Each character should only
-be one of 3 possibilities: '?' for null, '0' for false or '1' for true. I'm wrapping
-the string in a struct and simply reading the values for any given field. That class
-looks sort of like this:</p>
-<pre><code class="language-c#"><span class="keyword">public</span> <span class="keyword">struct</span> MyData
-{
-    <span class="keyword">public</span> <span class="keyword">bool</span>? Field1 { <span class="keyword">get</span>; }
-
-    <span class="keyword">public</span> <span class="keyword">bool</span>? Field2 { <span class="keyword">get</span>; }
-
-    <span class="keyword">public</span> <span class="keyword">bool</span>? Field3 { <span class="keyword">get</span>; }
-
-    <span class="keyword">public</span> <span class="keyword">bool</span>? Field4 { <span class="keyword">get</span>; }
-
-    <span class="keyword">public</span> <span class="keyword">bool</span>? Field5 { <span class="keyword">get</span>; }
-
-    <span class="keyword">public</span> <span class="keyword">bool</span>? Field6 { <span class="keyword">get</span>; }
-}</pre></code>
-<p>I wanted to generate unit tests for every possibly permuation of the string. We're using
-NUnit so this can be acheived using TestCaseSource:</p>
-<pre><code class="language-c#"><span class="keyword">public</span> IEnumerable&lt;<span class="keyword">object</span>[]&gt; TestValues()
-{
-    <span class="keyword">return</span>
-        <span class="keyword">from</span> f1 <span class="keyword">in</span> FieldValues()
-        <span class="keyword">from</span> f2 <span class="keyword">in</span> FieldValues()
-        <span class="keyword">from</span> f3 <span class="keyword">in</span> FieldValues()
-        <span class="keyword">from</span> f4 <span class="keyword">in</span> FieldValues()
-        <span class="keyword">from</span> f5 <span class="keyword">in</span> FieldValues()
-        <span class="keyword">from</span> f6 <span class="keyword">in</span> FieldValues()
-        <span class="keyword">select</span> <span class="keyword">new</span> <span class="keyword">object</span>[]
-        {
-            <span class="keyword">new</span> <span class="keyword">string</span>(<span class="keyword">new</span> <span class="keyword">char</span>[] { f1.Key, f2.Key, f3.Key, f4.Key, f5.Key, f6.Key }),
-            f1.Value,
-            f2.Value,
-            f3.Value,
-            f4.Value,
-            f5.Value,
-            f6.Value
-        };
-}
-
-<span class="keyword">public</span> IEnumerable&lt;KeyValuePair&lt;<span class="keyword">char</span>, <span class="keyword">bool</span>?&gt;&gt; FieldValues()
-{
-    <span class="keyword">yield</span> <span class="keyword">return</span> <span class="keyword">new</span> KeyValuePair&lt;<span class="keyword">char</span>, <span class="keyword">bool</span>?&gt;(<span class="string">&#39;?&#39;</span>, <span class="keyword">null</span>);
-    <span class="keyword">yield</span> <span class="keyword">return</span> <span class="keyword">new</span> KeyValuePair&lt;<span class="keyword">char</span>, <span class="keyword">bool</span>?&gt;(<span class="string">&#39;0&#39;</span>, <span class="keyword">false</span>);
-    <span class="keyword">yield</span> <span class="keyword">return</span> <span class="keyword">new</span> KeyValuePair&lt;<span class="keyword">char</span>, <span class="keyword">bool</span>?&gt;(<span class="string">&#39;1&#39;</span>, <span class="keyword">true</span>);
-}
-
-[TestCaseSource(nameof(TestValues))]
-<span class="keyword">public</span> <span class="keyword">void</span> ValuesAreCorrect(
-    <span class="keyword">string</span> value,
-    <span class="keyword">bool</span>? f1,
-    <span class="keyword">bool</span>? f2,
-    <span class="keyword">bool</span>? f3,
-    <span class="keyword">bool</span>? f4,
-    <span class="keyword">bool</span>? f5,
-    <span class="keyword">bool</span>? f6)
-{
-    <span class="keyword">var</span> data = <span class="keyword">new</span> MyData(value);
-    Assert.AreEqual(data.Field1, f1);
-    Assert.AreEqual(data.Field2, f2);
-    Assert.AreEqual(data.Field3, f3);
-    Assert.AreEqual(data.Field4, f4);
-    Assert.AreEqual(data.Field5, f5);
-    Assert.AreEqual(data.Field6, f6);
-}</pre></code>
-<p>This geneartes 721 unit tests which is the correct number of tests according to
-the formula <a href="https://www.mathsisfun.com/combinatorics/combinations-permutations.html"><strong><em>n<sup>k</sup></em></strong></a>.</p>
+be one of 3 possibilities: '?' for null, '0' for false or '1' for true. The problem
+sounded easy enough to generate a whole bunch of unit tests for.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2019/generating-string-permutations-for-unit-testing.html</link>
 		<guid>http://smack0007.github.io/blog/2019/generating-string-permutations-for-unit-testing.html</guid>
