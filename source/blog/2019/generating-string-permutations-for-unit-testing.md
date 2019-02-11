@@ -7,9 +7,13 @@ Tags: c#, nunit, math
 ---
 
 I needed to parse a string containing 6 characters. Each character should only
-be one of 3 possibilities: '?' for null, '0' for false or '1' for true. I'm wrapping
-the string in a struct and simply reading the values for any given field. That class
-looks sort of like this:
+be one of 3 possibilities: '?' for null, '0' for false or '1' for true. The problem
+sounded easy enough to generate a whole bunch of unit tests for.
+
+<!--more-->
+
+I'm wrapping the string in a struct and simply reading the values for any given field.
+That class looks sort of like this:
 
 ```c#
 public struct MyData
