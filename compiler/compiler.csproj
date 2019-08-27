@@ -14,25 +14,8 @@
     <PackageReference Include="NUglify" Version="1.5.9" />
     <PackageReference Include="SharpScss" Version="1.3.8" />
   </ItemGroup>
+  
   <Target Name="BuildSite" AfterTargets="AfterBuild" Condition=" $(BuildSite) == true ">
     <Exec WorkingDirectory="$(MSBuildThisFileDirectory)" Command="dotnet run -- &quot;$(SiteSourceDirectory)\&quot; &quot;$(SiteOutputDirectory)\&quot;" />
-  </Target>
-  <Target Name="BuildTypeScript" AfterTargets="BuildSite" Condition=" $(BuildSite) == true ">
-    <Exec Command="node --version" ContinueOnError="true">
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
-    </Exec>
-    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
-
-    <PropertyGroup>
-      <TypeScriptRootDirectory>$(SiteSourceDirectory)ts</TypeScriptRootDirectory>
-
-      <NodeModulesExist>false</NodeModulesExist>
-      <NodeModulesExist Condition="Exists('$(TypeScriptRootDirectory)node_modules')">true</NodeModulesExist>
-    </PropertyGroup>
-
-    <Message Condition="$(NodeModulesExist) == false" Importance="High" Text="Restoring dependencies using 'npm' in '$(PackageRootDirectory)'. This may take several minutes..." />
-    <Exec Condition="$(NodeModulesExist) == false" Command="npm install" WorkingDirectory="$(TypeScriptRootDirectory)" />
-
-    <Exec Command="npm run build" WorkingDirectory="$(TypeScriptRootDirectory)" />
   </Target>
 </Project>
