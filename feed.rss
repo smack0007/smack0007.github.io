@@ -4,9 +4,23 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Tue, 27 Aug 2019 13:33:43 GMT</lastBuildDate>
-	<pubDate>Mon, 11 Feb 2019 00:00:00 GMT</pubDate>
+	<lastBuildDate>Tue, 27 Aug 2019 13:56:14 GMT</lastBuildDate>
+	<pubDate>Tue, 27 Aug 2019 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Abusing IDisposable]]></title>
+		<description><![CDATA[<p>In C# the interface <code>IDisposable</code> is usually used to indicate that an object
+needs to dispose of unmanaged resources. C# provides the <code>using</code> syntax to
+ensure that the <code>Dispose</code> method is called once the instance of the object is
+no longer needed.</p>
+<p><code>Dispose</code> is just like any other method though and the <code>using</code> syntax can
+be used quite nicely for other use cases as well. Let's create a class we
+can use to collect some actions to be &quot;deferred&quot; until a later time.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2019/abusing-idisposable.html</link>
+		<guid>http://smack0007.github.io/blog/2019/abusing-idisposable.html</guid>
+		<pubDate>Tue, 27 Aug 2019 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Generating string permutations for unit testing]]></title>
 		<description><![CDATA[<p>I needed to parse a string containing 6 characters. Each character should only
@@ -261,17 +275,6 @@ which then informs my website to pull from the Github repository. Hopefully that
 		<link>http://smack0007.github.io/blog/2014/all-the-cool-kids-are-static.html</link>
 		<guid>http://smack0007.github.io/blog/2014/all-the-cool-kids-are-static.html</guid>
 		<pubDate>Sun, 09 Mar 2014 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Using Component Glue to build your object graphs automatically]]></title>
-		<description><![CDATA[<p>Component Glue is an IoC container and you use it of course to wire up your object graphs for you. Component Glue can also build your object graphs for you automatically if there are no interfaces involved. Take this example:</p>
-<script src="https://gist.github.com/smack0007/6091538.js"></script>
-<p>In After.cs, you can see that Component Glue is able to build the entire object graph for us. This will include all future dependencies as well so long as interfaces don't come into play. Should an interface be needed, you can just bind that single component.</p>
-<p>This is a very powerful thing. If one component needs to take on a dependency, just ask for it in the constructor and Component Glue will handle it for you.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2013/using-component-glue-to-build-your-object-graphs-automatically.html</link>
-		<guid>http://smack0007.github.io/blog/2013/using-component-glue-to-build-your-object-graphs-automatically.html</guid>
-		<pubDate>Fri, 26 Jul 2013 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
