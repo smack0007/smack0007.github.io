@@ -18,7 +18,7 @@ can use to collect some actions to be "deferred" until a later time.
 <!--more-->
 
 ```c#
-class DeferedActions : IDisposable
+class DeferredActions : IDisposable
 {
     private List<Action> _actions = new List<Action>();
 
@@ -37,13 +37,13 @@ class Program
 {
     public static void Main(string[] args)
     {
-        using (var deferedActions = new DeferedActions())
+        using (var deferredActions = new DeferredActions())
         {
-            deferedActions.Push(() => Console.WriteLine("Defered Action 1"));
+            deferredActions.Push(() => Console.WriteLine("Deferred Action 1"));
             Console.WriteLine("Doing work...");
-            deferedActions.Push(() => Console.WriteLine("Defered Action 2"));
+            deferredActions.Push(() => Console.WriteLine("Deferred Action 2"));
             Console.WriteLine("Doing more work...");
-            deferedActions.Push(() => Console.WriteLine("Defered Action 3"));
+            deferredActions.Push(() => Console.WriteLine("Deferred Action 3"));
         }
     }
 }
@@ -54,9 +54,9 @@ The output is of course:
 ```
 Doing work...
 Doing more work...
-Defered Action 1
-Defered Action 2
-Defered Action 3
+Deferred Action 1
+Deferred Action 2
+Deferred Action 3
 ```
 
 Here we're using the `using` syntax to indicate when our deferred actions should
@@ -65,22 +65,22 @@ be executed. We can also use an `IDisposable` object in multiple `using` blocks:
 ```c#
 public static void Main(string[] args)
 {
-    var deferedActions = new DeferedActions();
+    var deferredActions = new DeferredActions();
 
-    using (deferedActions)
+    using (deferredActions)
     {
-        deferedActions.Push(() => Console.WriteLine("Defered Action 1"));
+        deferredActions.Push(() => Console.WriteLine("Deferred Action 1"));
         Console.WriteLine("Doing work...");
-        deferedActions.Push(() => Console.WriteLine("Defered Action 2"));
+        deferredActions.Push(() => Console.WriteLine("Deferred Action 2"));
         Console.WriteLine("Doing more work...");
-        deferedActions.Push(() => Console.WriteLine("Defered Action 3"));
+        deferredActions.Push(() => Console.WriteLine("Deferred Action 3"));
     }
 
-    using (deferedActions)
+    using (deferredActions)
     {
-        deferedActions.Push(() => Console.WriteLine("Defered Action 4"));
+        deferredActions.Push(() => Console.WriteLine("Deferred Action 4"));
         Console.WriteLine("Reticulating splines...");
-        deferedActions.Push(() => Console.WriteLine("Defered Action 5"));
+        deferredActions.Push(() => Console.WriteLine("Deferred Action 5"));
     }
 }
 ```
@@ -90,10 +90,10 @@ And the output:
 ```
 Doing work...
 Doing more work...
-Defered Action 1
-Defered Action 2
-Defered Action 3
+Deferred Action 1
+Deferred Action 2
+Deferred Action 3
 Reticulating splines...
-Defered Action 4
-Defered Action 5
+Deferred Action 4
+Deferred Action 5
 ```
