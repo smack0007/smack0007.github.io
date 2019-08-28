@@ -20,7 +20,14 @@ namespace compiler
 
         public string PaginationNewerLink { get; }
 
-        public PageData(string fileName, string baseUrl, string title, string body, bool showPagination, string paginationOlderLink, string paginationNewerLink)
+        public PageData(
+            string fileName,
+            string baseUrl,
+            string title,
+            string body,
+            bool showPagination,
+            string paginationOlderLink,
+            string paginationNewerLink)
         {
             this.FileName = fileName;
             this.BaseUrl = baseUrl;

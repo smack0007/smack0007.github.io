@@ -49,7 +49,7 @@ namespace compiler
             
             Directory.CreateDirectory(outputPath);
             
-            Console.WriteLine($"Compiling path: {inputPath}");
+            Console.WriteLine($"Input path: {inputPath}");
 
             var files = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories)
                 .Select(x => x.Substring(inputPath.Length))

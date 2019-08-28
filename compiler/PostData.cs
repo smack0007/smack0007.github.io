@@ -25,7 +25,7 @@ namespace compiler
 
         public DateTime SortDate => DateTime.ParseExact(FrontMatter["Date"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-        public string Date => SortDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-us"));
+        public string Date => SortDate.ToString("MMMM dd, yyyy", Utility.Culture);
 
         public string Category => FrontMatter["Category"];
 

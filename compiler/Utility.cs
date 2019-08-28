@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace compiler
 {
     public static class Utility
     {
+        public static CultureInfo Culture { get; } = CultureInfo.CreateSpecificCulture("en-us");
+
         public static string[] TrimEmptyLines(string[] lines)
         {
             if (lines == null)
