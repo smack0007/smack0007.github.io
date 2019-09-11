@@ -9,3 +9,52 @@ $syntaxBackgroundColor: #1E1E1E;
 .xmlAttributeValue { color: #CE743A; }
 .xmlDelimeter { color: #7C8080; }
 .xmlName { color: #569CD6; }
+
+.RoslynHtmlSyntaxHighlighter {
+    font-family: Consolas;
+    font-size: 16px;
+}
+
+.RoslynHtmlSyntaxHighlighter .keyword {
+    color: #569CD6;
+}
+
+.RoslynHtmlSyntaxHighlighter .keyword-statement {
+    color: #D8A0DF;
+}
+
+.RoslynHtmlSyntaxHighlighter .identifier {
+    color: #9CDCFE;
+}
+
+.RoslynHtmlSyntaxHighlighter .identifier-class {
+    color: #84D5A1;
+}
+
+.RoslynHtmlSyntaxHighlighter .identifier-generic {
+    color: #B8D7A3;
+}
+
+.RoslynHtmlSyntaxHighlighter .identifier-member-access {
+    color: #84D5A1;
+}
+
+.RoslynHtmlSyntaxHighlighter .identifier-invocation {
+    color: #DCDCAA;
+}
+
+.RoslynHtmlSyntaxHighlighter .identifier-method {
+    color: #DCDCAA;
+}
+
+.RoslynHtmlSyntaxHighlighter .identifier-variable {
+    color: #9CDCFE;
+}
+
+.RoslynHtmlSyntaxHighlighter .identifier-var {
+    color: #569CD6;
+}
+
+.RoslynHtmlSyntaxHighlighter .numeric-literal {
+    color: #B8D7A3;
+}
