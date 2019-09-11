@@ -12,123 +12,125 @@ DEL IconCache.db /a
 
 EXIT
 </code></pre><p>After that your icon should be there as you want.</div></div><div class=post><h2><a href=blog/2011/getting-started-with-slimdx.html>Getting started with SlimDX</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 31, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>DirectX</span></div><div class=content><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href=http://sharpdx.org/ >SharpDX</a>.<p>Since I tried OpenTK, I decided to give <a href=http://slimdx.org/ >SlimDX</a> a try as well. So, here's a simple getting started app:
-<pre><code class=language-c#><span class=keyword>using</span> System;
-<span class=keyword>using</span> System.Drawing;
-<span class=keyword>using</span> System.Windows.Forms;
-<span class=keyword>using</span> SlimDX;
-<span class=keyword>using</span> SlimDX.Direct3D9;
-<span class=keyword>using</span> SlimDX.Windows;
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-using">using</span> <span class=identifier>System</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>System</span><span class=token>.</span><span class=identifier>Drawing</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>System</span><span class=token>.</span><span class=identifier>Windows</span><span class=token>.</span><span class=identifier>Forms</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>SlimDX</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>SlimDX</span><span class=token>.</span><span class=identifier>Direct3D9</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>SlimDX</span><span class=token>.</span><span class=identifier>Windows</span><span class=token>;</span>
 
-<span class=keyword>namespace</span> SlimDXApp1
-{
-	<span class=keyword>public</span> <span class=keyword>partial</span> <span class=keyword>class</span> SlimDXApp1Form : RenderForm
-	{
-		<span class=keyword>struct</span> Vertex
-		{
-			<span class=keyword>public</span> Vector4 Position;
-			<span class=keyword>public</span> <span class=keyword>int</span> Color;
-		}
+<span class="keyword keyword-namespace">namespace</span> <span class=identifier>SlimDXApp1</span>
+<span class=token>{</span>
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-partial">partial</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">SlimDXApp1Form</span> <span class=token>:</span> <span class="identifier identifier-class">RenderForm</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-struct">struct</span> <span class="identifier identifier-class">Vertex</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-public">public</span> <span class="identifier identifier-variable">Vector4</span> <span class="identifier identifier-variable">Position</span><span class=token>;</span>
+			<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">Color</span><span class=token>;</span>
+		<span class=token>}</span>
 
-		Device device;
-		VertexDeclaration vertexDeclaration;
+		<span class="identifier identifier-variable">Device</span> <span class="identifier identifier-variable">device</span><span class=token>;</span>
+		<span class="identifier identifier-variable">VertexDeclaration</span> <span class="identifier identifier-variable">vertexDeclaration</span><span class=token>;</span>
 		
-		<span class=keyword>public</span> SlimDXApp1Form()
-			: <span class=keyword>base</span>(<span class=string>"SlimDXApp1"</span>)
-		{
-			<span class=keyword>this</span>.ClientSize = <span class=keyword>new</span> Size(<span class=number>800</span>, <span class=number>600</span>);
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">SlimDXApp1Form</span><span class=token>(</span><span class=token>)</span>
+			<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class=token>"SlimDXApp1"</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">ClientSize</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Size</span><span class=token>(</span><span class=numeric-literal>800</span><span class=token>,</span> <span class=numeric-literal>600</span><span class=token>)</span><span class=token>;</span>
 
-			<span class=keyword>this</span>.device = <span class=keyword>new</span> Device(<span class=keyword>new</span> Direct3D(), <span class=number>0</span>, DeviceType.Hardware, <span class=keyword>this</span>.Handle, CreateFlags.HardwareVertexProcessing, <span class=keyword>new</span> PresentParameters()
-            {
-                BackBufferWidth = <span class=keyword>this</span>.ClientSize.Width,
-                BackBufferHeight = <span class=keyword>this</span>.ClientSize.Height
-            });
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">device</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Device</span><span class=token>(</span><span class="keyword keyword-new">new</span> <span class=identifier>Direct3D</span><span class=token>(</span><span class=token>)</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>,</span> <span class="identifier identifier-member-access">DeviceType</span><span class=token>.</span><span class="identifier identifier-member-access">Hardware</span><span class=token>,</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">Handle</span><span class=token>,</span> <span class="identifier identifier-member-access">CreateFlags</span><span class=token>.</span><span class="identifier identifier-member-access">HardwareVertexProcessing</span><span class=token>,</span> <span class="keyword keyword-new">new</span> <span class=identifier>PresentParameters</span><span class=token>(</span><span class=token>)</span>
+            <span class=token>{</span>
+                <span class=identifier>BackBufferWidth</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">ClientSize</span><span class=token>.</span><span class="identifier identifier-member-access">Width</span><span class=token>,</span>
+                <span class=identifier>BackBufferHeight</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">ClientSize</span><span class=token>.</span><span class="identifier identifier-member-access">Height</span>
+            <span class=token>}</span><span class=token>)</span><span class=token>;</span>
 
-			<span class=keyword>this</span>.vertexDeclaration = <span class=keyword>new</span> VertexDeclaration(<span class=keyword>this</span>.device, <span class=keyword>new</span>[] {
-        		<span class=keyword>new</span> VertexElement(<span class=number>0</span>, <span class=number>0</span>, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, <span class=number>0</span>),
-        		<span class=keyword>new</span> VertexElement(<span class=number>0</span>, <span class=number>16</span>, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, <span class=number>0</span>),
-				VertexElement.VertexDeclarationEnd
-        	});
-		}
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">vertexDeclaration</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>VertexDeclaration</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">device</span><span class=token>,</span> <span class="keyword keyword-new">new</span><span class=token>[</span><span class=token>]</span> <span class=token>{</span>
+        		<span class="keyword keyword-new">new</span> <span class=identifier>VertexElement</span><span class=token>(</span><span class=numeric-literal>0</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>,</span> <span class="identifier identifier-member-access">DeclarationType</span><span class=token>.</span><span class="identifier identifier-member-access">Float4</span><span class=token>,</span> <span class="identifier identifier-member-access">DeclarationMethod</span><span class=token>.</span><span class="identifier identifier-member-access">Default</span><span class=token>,</span> <span class="identifier identifier-member-access">DeclarationUsage</span><span class=token>.</span><span class="identifier identifier-member-access">PositionTransformed</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>,</span>
+        		<span class="keyword keyword-new">new</span> <span class=identifier>VertexElement</span><span class=token>(</span><span class=numeric-literal>0</span><span class=token>,</span> <span class=numeric-literal>16</span><span class=token>,</span> <span class="identifier identifier-member-access">DeclarationType</span><span class=token>.</span><span class="identifier identifier-member-access">Color</span><span class=token>,</span> <span class="identifier identifier-member-access">DeclarationMethod</span><span class=token>.</span><span class="identifier identifier-member-access">Default</span><span class=token>,</span> <span class="identifier identifier-member-access">DeclarationUsage</span><span class=token>.</span><span class="identifier identifier-member-access">Color</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>,</span>
+				<span class="identifier identifier-member-access">VertexElement</span><span class=token>.</span><span class="identifier identifier-member-access">VertexDeclarationEnd</span>
+        	<span class=token>}</span><span class=token>)</span><span class=token>;</span>
+		<span class=token>}</span>
 
-		<span class=keyword>public</span> <span class=keyword>void</span> Run()
-		{
-			MessagePump.Run(<span class=keyword>this</span>, () =>
-			{
-				<span class=keyword>this</span>.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, <span class=number>1</span>.0f, <span class=number>0</span>);
-				<span class=keyword>this</span>.device.BeginScene();
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Run</span><span class=token>(</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="identifier identifier-member-access">MessagePump</span><span class=token>.</span><span class="identifier identifier-member-access">Run</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=token>,</span> <span class=token>(</span><span class=token>)</span> <span class=token>=></span>
+			<span class=token>{</span>
+				<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">device</span><span class=token>.</span><span class="identifier identifier-member-access">Clear</span><span class=token>(</span><span class="identifier identifier-member-access">ClearFlags</span><span class=token>.</span><span class="identifier identifier-member-access">Target</span> <span class=token>|</span> <span class="identifier identifier-member-access">ClearFlags</span><span class=token>.</span><span class="identifier identifier-member-access">ZBuffer</span><span class=token>,</span> <span class="identifier identifier-member-access">Color</span><span class=token>.</span><span class="identifier identifier-member-access">Black</span><span class=token>,</span> <span class=numeric-literal>1.0f</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>;</span>
+				<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">device</span><span class=token>.</span><span class="identifier identifier-member-access">BeginScene</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
 
-				<span class=keyword>this</span>.device.VertexDeclaration = <span class=keyword>this</span>.vertexDeclaration;
+				<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">device</span><span class=token>.</span><span class="identifier identifier-member-access">VertexDeclaration</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">vertexDeclaration</span><span class=token>;</span>
 
-				<span class=keyword>this</span>.device.DrawUserPrimitives&lt;Vertex>(PrimitiveType.TriangleList, <span class=number>1</span>, <span class=keyword>new</span>[] {
-					<span class=keyword>new</span> Vertex() { Color = Color.Red.ToArgb(), Position = <span class=keyword>new</span> Vector4(<span class=number>400</span>.0f, <span class=number>100</span>.0f, <span class=number>0</span>.5f, <span class=number>1</span>.0f) },
-					<span class=keyword>new</span> Vertex() { Color = Color.Blue.ToArgb(), Position = <span class=keyword>new</span> Vector4(<span class=number>650</span>.0f, <span class=number>500</span>.0f, <span class=number>0</span>.5f, <span class=number>1</span>.0f) },
-					<span class=keyword>new</span> Vertex() { Color = Color.Green.ToArgb(), Position = <span class=keyword>new</span> Vector4(<span class=number>150</span>.0f, <span class=number>500</span>.0f, <span class=number>0</span>.5f, <span class=number>1</span>.0f) }
-				});
+				<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">device</span><span class=token>.</span><span class="identifier identifier-generic">DrawUserPrimitives</span><span class=token><</span><span class="identifier identifier-generic">Vertex</span><span class=token>></span><span class=token>(</span><span class="identifier identifier-member-access">PrimitiveType</span><span class=token>.</span><span class="identifier identifier-member-access">TriangleList</span><span class=token>,</span> <span class=numeric-literal>1</span><span class=token>,</span> <span class="keyword keyword-new">new</span><span class=token>[</span><span class=token>]</span> <span class=token>{</span>
+					<span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">Vertex</span><span class=token>(</span><span class=token>)</span> <span class=token>{</span> <span class="identifier identifier-invocation">Color</span> <span class=token>=</span> <span class="identifier identifier-member-access">Color</span><span class=token>.</span><span class="identifier identifier-member-access">Red</span><span class=token>.</span><span class="identifier identifier-member-access">ToArgb</span><span class=token>(</span><span class=token>)</span><span class=token>,</span> <span class="identifier identifier-invocation">Position</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">Vector4</span><span class=token>(</span><span class=numeric-literal>400.0f</span><span class=token>,</span> <span class=numeric-literal>100.0f</span><span class=token>,</span> <span class=numeric-literal>0.5f</span><span class=token>,</span> <span class=numeric-literal>1.0f</span><span class=token>)</span> <span class=token>}</span><span class=token>,</span>
+					<span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">Vertex</span><span class=token>(</span><span class=token>)</span> <span class=token>{</span> <span class="identifier identifier-invocation">Color</span> <span class=token>=</span> <span class="identifier identifier-member-access">Color</span><span class=token>.</span><span class="identifier identifier-member-access">Blue</span><span class=token>.</span><span class="identifier identifier-member-access">ToArgb</span><span class=token>(</span><span class=token>)</span><span class=token>,</span> <span class="identifier identifier-invocation">Position</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">Vector4</span><span class=token>(</span><span class=numeric-literal>650.0f</span><span class=token>,</span> <span class=numeric-literal>500.0f</span><span class=token>,</span> <span class=numeric-literal>0.5f</span><span class=token>,</span> <span class=numeric-literal>1.0f</span><span class=token>)</span> <span class=token>}</span><span class=token>,</span>
+					<span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">Vertex</span><span class=token>(</span><span class=token>)</span> <span class=token>{</span> <span class="identifier identifier-invocation">Color</span> <span class=token>=</span> <span class="identifier identifier-member-access">Color</span><span class=token>.</span><span class="identifier identifier-member-access">Green</span><span class=token>.</span><span class="identifier identifier-member-access">ToArgb</span><span class=token>(</span><span class=token>)</span><span class=token>,</span> <span class="identifier identifier-invocation">Position</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">Vector4</span><span class=token>(</span><span class=numeric-literal>150.0f</span><span class=token>,</span> <span class=numeric-literal>500.0f</span><span class=token>,</span> <span class=numeric-literal>0.5f</span><span class=token>,</span> <span class=numeric-literal>1.0f</span><span class=token>)</span> <span class=token>}</span>
+				<span class=token>}</span><span class=token>)</span><span class=token>;</span>
 				
-				<span class=keyword>this</span>.device.EndScene();
-				<span class=keyword>this</span>.device.Present();
-			});
-		}
+				<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">device</span><span class=token>.</span><span class="identifier identifier-member-access">EndScene</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+				<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">device</span><span class=token>.</span><span class="identifier identifier-member-access">Present</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+			<span class=token>}</span><span class=token>)</span><span class=token>;</span>
+		<span class=token>}</span>
 
-		[STAThread]
-		<span class=keyword>static</span> <span class=keyword>void</span> Main()
-		{
-			SlimDXApp1Form form = <span class=keyword>new</span> SlimDXApp1Form();
-			form.Run();
+		<span class=token>[</span><span class="identifier identifier-method">STAThread</span><span class=token>]</span>
+		<span class="keyword keyword-static">static</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Main</span><span class=token>(</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="identifier identifier-variable">SlimDXApp1Form</span> <span class="identifier identifier-variable">form</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-variable">SlimDXApp1Form</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">form</span><span class=token>.</span><span class="identifier identifier-member-access">Run</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
 
-			<span class=comment>// Cleans up COM handles</span>
-			<span class=keyword>foreach</span>(<span class=keyword>var</span> item <span class=keyword>in</span> ObjectTable.Objects)
-				item.Dispose();
-		}
-	}
-}</code></pre></div></div><div class=post><h2><a href=blog/2011/getting-started-with-opentk.html>Getting started with OpenTK</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>OpenGL</span></div><div class=content><p>I started experimenting with <a href=http://www.opentk.com>OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.
-<pre><code class=language-c#><span class=keyword>using</span> System;
-<span class=keyword>using</span> System.Drawing;
-<span class=keyword>using</span> OpenTK;
-<span class=keyword>using</span> OpenTK.Graphics;
-<span class=keyword>using</span> OpenTK.Graphics.OpenGL;
+			// Cleans up COM handles
+			<span class="keyword keyword-statement keyword-foreach">foreach</span><span class=token>(</span><span class="identifier identifier-var">var</span> <span class=identifier>item</span> <span class="keyword keyword-statement keyword-in">in</span> <span class="identifier identifier-member-access">ObjectTable</span><span class=token>.</span><span class="identifier identifier-member-access">Objects</span><span class=token>)</span>
+				<span class="identifier identifier-member-access">item</span><span class=token>.</span><span class="identifier identifier-member-access">Dispose</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+		<span class=token>}</span>
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre></div></div><div class=post><h2><a href=blog/2011/getting-started-with-opentk.html>Getting started with OpenTK</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>OpenGL</span></div><div class=content><p>I started experimenting with <a href=http://www.opentk.com>OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-using">using</span> <span class=identifier>System</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>System</span><span class=token>.</span><span class=identifier>Drawing</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>OpenTK</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>OpenTK</span><span class=token>.</span><span class=identifier>Graphics</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>OpenTK</span><span class=token>.</span><span class=identifier>Graphics</span><span class=token>.</span><span class=identifier>OpenGL</span><span class=token>;</span>
 
-<span class=keyword>namespace</span> OpenTKApp1
-{
-	<span class=keyword>public</span> <span class=keyword>class</span> AppWindow : GameWindow
-	{
-		<span class=keyword>public</span> AppWindow()
-		{
-			<span class=keyword>this</span>.Title = <span class=string>"OpenTK App 1"</span>;
-			<span class=keyword>this</span>.WindowBorder = WindowBorder.Fixed;
-			<span class=keyword>this</span>.ClientSize = <span class=keyword>new</span> Size(<span class=number>800</span>, <span class=number>600</span>);			
-		}
+<span class="keyword keyword-namespace">namespace</span> <span class=identifier>OpenTKApp1</span>
+<span class=token>{</span>
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">AppWindow</span> <span class=token>:</span> <span class="identifier identifier-class">GameWindow</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">AppWindow</span><span class=token>(</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">Title</span> <span class=token>=</span> <span class=token>"OpenTK App 1"</span><span class=token>;</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">WindowBorder</span> <span class=token>=</span> <span class="identifier identifier-member-access">WindowBorder</span><span class=token>.</span><span class="identifier identifier-member-access">Fixed</span><span class=token>;</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">ClientSize</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Size</span><span class=token>(</span><span class=numeric-literal>800</span><span class=token>,</span> <span class=numeric-literal>600</span><span class=token>)</span><span class=token>;</span>			
+		<span class=token>}</span>
 
-		<span class=keyword>protected</span> <span class=keyword>override</span> <span class=keyword>void</span> OnRenderFrame(FrameEventArgs e)
-		{
-			<span class=keyword>base</span>.OnRenderFrame(e);
+		<span class="keyword keyword-protected">protected</span> <span class="keyword keyword-override">override</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">OnRenderFrame</span><span class=token>(</span><span class="identifier identifier-method">FrameEventArgs</span> <span class="identifier identifier-method">e</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-base">base</span><span class=token>.</span><span class="identifier identifier-member-access">OnRenderFrame</span><span class=token>(</span><span class="identifier identifier-invocation">e</span><span class=token>)</span><span class=token>;</span>
 
-			GL.ClearColor(Color.CornflowerBlue);
-			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">ClearColor</span><span class=token>(</span><span class="identifier identifier-member-access">Color</span><span class=token>.</span><span class="identifier identifier-member-access">CornflowerBlue</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Clear</span><span class=token>(</span><span class="identifier identifier-member-access">ClearBufferMask</span><span class=token>.</span><span class="identifier identifier-member-access">ColorBufferBit</span> <span class=token>|</span> <span class="identifier identifier-member-access">ClearBufferMask</span><span class=token>.</span><span class="identifier identifier-member-access">DepthBufferBit</span><span class=token>)</span><span class=token>;</span>
 
-			GL.MatrixMode(MatrixMode.Projection);
-			GL.LoadIdentity();
-			GL.Ortho(<span class=number>0</span>, <span class=number>800</span>, <span class=number>600</span>, <span class=number>0</span>, -<span class=number>1</span>, <span class=number>1</span>);
-			GL.Viewport(<span class=number>0</span>, <span class=number>0</span>, <span class=number>800</span>, <span class=number>600</span>);
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">MatrixMode</span><span class=token>(</span><span class="identifier identifier-member-access">MatrixMode</span><span class=token>.</span><span class="identifier identifier-member-access">Projection</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">LoadIdentity</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Ortho</span><span class=token>(</span><span class=numeric-literal>0</span><span class=token>,</span> <span class=numeric-literal>800</span><span class=token>,</span> <span class=numeric-literal>600</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>,</span> <span class=token>-</span><span class=numeric-literal>1</span><span class=token>,</span> <span class=numeric-literal>1</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Viewport</span><span class=token>(</span><span class=numeric-literal>0</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>,</span> <span class=numeric-literal>800</span><span class=token>,</span> <span class=numeric-literal>600</span><span class=token>)</span><span class=token>;</span>
 			
-			GL.Begin(BeginMode.Triangles);
-			GL.Color3(Color.Red);
-			GL.Vertex3(<span class=number>400</span>, <span class=number>150</span>, <span class=number>0</span>);
-			GL.Color3(Color.Green);
-			GL.Vertex3(<span class=number>600</span>, <span class=number>450</span>, <span class=number>0</span>);
-			GL.Color3(Color.Blue);
-			GL.Vertex3(<span class=number>200</span>, <span class=number>450</span>, <span class=number>0</span>);
-			GL.End();
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Begin</span><span class=token>(</span><span class="identifier identifier-member-access">BeginMode</span><span class=token>.</span><span class="identifier identifier-member-access">Triangles</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Color3</span><span class=token>(</span><span class="identifier identifier-member-access">Color</span><span class=token>.</span><span class="identifier identifier-member-access">Red</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Vertex3</span><span class=token>(</span><span class=numeric-literal>400</span><span class=token>,</span> <span class=numeric-literal>150</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Color3</span><span class=token>(</span><span class="identifier identifier-member-access">Color</span><span class=token>.</span><span class="identifier identifier-member-access">Green</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Vertex3</span><span class=token>(</span><span class=numeric-literal>600</span><span class=token>,</span> <span class=numeric-literal>450</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Color3</span><span class=token>(</span><span class="identifier identifier-member-access">Color</span><span class=token>.</span><span class="identifier identifier-member-access">Blue</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Vertex3</span><span class=token>(</span><span class=numeric-literal>200</span><span class=token>,</span> <span class=numeric-literal>450</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">End</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
 
-			GL.Flush();
-			<span class=keyword>this</span>.SwapBuffers();
-		}
+			<span class="identifier identifier-member-access">GL</span><span class=token>.</span><span class="identifier identifier-member-access">Flush</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">SwapBuffers</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+		<span class=token>}</span>
 
-		[STAThread]
-		<span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>void</span> Main()
-		{
-			AppWindow window = <span class=keyword>new</span> AppWindow();
-			window.Run();
-		}
-	}
-}</code></pre></div></div><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.</p><a class=readMore href=blog/2011/opentk-simple-movable-sprite.html>Read More</a></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/page10.html class="page-link older">Older</a><li class=page-item><a href=blog/page8.html class="page-link newer">Newer</a></ul></nav></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+		<span class=token>[</span><span class="identifier identifier-method">STAThread</span><span class=token>]</span>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-static">static</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Main</span><span class=token>(</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="identifier identifier-variable">AppWindow</span> <span class="identifier identifier-variable">window</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-variable">AppWindow</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+			<span class="identifier identifier-member-access">window</span><span class=token>.</span><span class="identifier identifier-member-access">Run</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+		<span class=token>}</span>
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre></div></div><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.</p><a class=readMore href=blog/2011/opentk-simple-movable-sprite.html>Read More</a></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/page10.html class="page-link older">Older</a><li class=page-item><a href=blog/page8.html class="page-link newer">Newer</a></ul></nav></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

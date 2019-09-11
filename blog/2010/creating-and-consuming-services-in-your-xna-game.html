@@ -1,216 +1,223 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Creating and consuming services in your XNA Game</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy Me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2010/creating-and-consuming-services-in-your-xna-game.html>Creating and consuming services in your XNA Game</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 18, 2010</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span></span></div><div class=content><p>The <a href=http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx>GameServiceContainer</a> implements the <a href=http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx>IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:<blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote><p>This article will "<em>attempt</em>" to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.<p>The most obvious place to use the GameServiceContainer is in your GameComponent(s). But first, lets talk about "<a href=http://en.wikipedia.org/wiki/Coupling_(computer_science)>Coupling</a>". Let's assume you have the following components:
-<pre><code class=language-c#><span class=keyword>class</span> FooComponent : GameComponent
-{
-	<span class=keyword>public</span> FooComponent(Game game)
-		: <span class=keyword>base</span>(game)
-	{
-	}
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-class">class</span> <span class="identifier identifier-class">FooComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span>
+<span class=token>{</span>
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">FooComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>int</span> DoFoo()
-	{
-		<span class=comment>// Do something and return an int.</span>
-	}
-}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-method">DoFoo</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		// Do something and return an int.
+	<span class=token>}</span>
+<span class=token>}</span>
 
-<span class=keyword>class</span> BarComponent : GameComponent
-{
-	FooComponent foo;
+<span class="keyword keyword-class">class</span> <span class="identifier identifier-class">BarComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span>
+<span class=token>{</span>
+	<span class="identifier identifier-variable">FooComponent</span> <span class="identifier identifier-variable">foo</span><span class=token>;</span>
 
-	<span class=keyword>public</span> BarComponent(Game game)
-		: <span class=keyword>base</span>(game)
-	{
-		<span class=keyword>this</span>.foo = <span class=keyword>new</span> FooComponent(game);
-	}
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">BarComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>FooComponent</span><span class=token>(</span><span class=identifier>game</span><span class=token>)</span><span class=token>;</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>void</span> DoBar()
-	{
-		<span class=keyword>int</span> result = <span class=keyword>this</span>.foo.DoFoo();
-		<span class=comment>// Do something based on result.</span>
-	}
-}</code></pre><p>There's nothing wrong with the code, but BarComponent has a dependency on FooComponent. BarComponent directly interacts with FooComponent and therefore any change made to FooComponent indirectly affects BarComponent. For instance, let's assume the constructor for FooComponent needs to be modified. That means we now have to update not only the FooComponent class but as well the BarComponent class. Throw in a few more components with dependencies on FooComponent and you could start to get headache really fast. This design is highly coupled.<p>Let's try a slight redesign:
-<pre><code class=language-c#><span class=keyword>class</span> FooComponent : GameComponent
-{
-	<span class=keyword>public</span> FooComponent(Game game)
-		: <span class=keyword>base</span>(game)
-	{
-	}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">DoBar</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">result</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span><span class=token>.</span><span class="identifier identifier-member-access">DoFoo</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+		// Do something based on result.
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre><p>There's nothing wrong with the code, but BarComponent has a dependency on FooComponent. BarComponent directly interacts with FooComponent and therefore any change made to FooComponent indirectly affects BarComponent. For instance, let's assume the constructor for FooComponent needs to be modified. That means we now have to update not only the FooComponent class but as well the BarComponent class. Throw in a few more components with dependencies on FooComponent and you could start to get headache really fast. This design is highly coupled.<p>Let's try a slight redesign:
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-class">class</span> <span class="identifier identifier-class">FooComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span>
+<span class=token>{</span>
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">FooComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>int</span> DoFoo()
-	{
-		<span class=comment>// Do something and return an int.</span>
-	}
-}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-method">DoFoo</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		// Do something and return an int.
+	<span class=token>}</span>
+<span class=token>}</span>
 
-<span class=keyword>class</span> BarComponent : GameComponent
-{
-	FooComponent foo;
+<span class="keyword keyword-class">class</span> <span class="identifier identifier-class">BarComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span>
+<span class=token>{</span>
+	<span class="identifier identifier-variable">FooComponent</span> <span class="identifier identifier-variable">foo</span><span class=token>;</span>
 
-	<span class=keyword>public</span> BarComponent(Game game, FooComponent foo)
-		: <span class=keyword>base</span>(game)
-	{
-		<span class=keyword>this</span>.foo = foo;
-	}
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">BarComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>,</span> <span class="identifier identifier-class">FooComponent</span> <span class="identifier identifier-class">foo</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span> <span class=token>=</span> <span class=identifier>foo</span><span class=token>;</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>void</span> DoBar()
-	{
-		<span class=keyword>int</span> result = <span class=keyword>this</span>.foo.DoFoo();
-		<span class=comment>// Do something based on result.</span>
-	}
-}</code></pre><p>We've now eliminated the construction of the FooComponent from within the BarComponent. The design is better but still not that great. BarComponent is still directly relying on and communicating with FooComponent. We want to change BarComponent so that it has no direct dependency on a concrete implementation of FooComponent. We'll create an interface:
-<pre><code class=language-c#><span class=keyword>interface</span> IFooService
-{
-	<span class=keyword>int</span> DoFoo();
-}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">DoBar</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">result</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span><span class=token>.</span><span class="identifier identifier-member-access">DoFoo</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+		// Do something based on result.
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre><p>We've now eliminated the construction of the FooComponent from within the BarComponent. The design is better but still not that great. BarComponent is still directly relying on and communicating with FooComponent. We want to change BarComponent so that it has no direct dependency on a concrete implementation of FooComponent. We'll create an interface:
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-interface">interface</span> <span class=identifier>IFooService</span>
+<span class=token>{</span>
+	<span class="keyword keyword-int">int</span> <span class="identifier identifier-method">DoFoo</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+<span class=token>}</span>
 
-<span class=keyword>class</span> FooComponent : GameComponent, IFooService
-{
-	<span class=keyword>public</span> FooComponent(Game game)
-		: <span class=keyword>base</span>(game)
-	{
-	}
+<span class="keyword keyword-class">class</span> <span class="identifier identifier-class">FooComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span><span class=token>,</span> <span class="identifier identifier-class">IFooService</span>
+<span class=token>{</span>
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">FooComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>int</span> DoFoo()
-	{
-		<span class=comment>// Do something and return an int.</span>
-	}
-}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-method">DoFoo</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		// Do something and return an int.
+	<span class=token>}</span>
+<span class=token>}</span>
 
-<span class=keyword>class</span> BarComponent : GameComponent
-{
-	IFooService foo;
+<span class="keyword keyword-class">class</span> <span class="identifier identifier-class">BarComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span>
+<span class=token>{</span>
+	<span class="identifier identifier-variable">IFooService</span> <span class="identifier identifier-variable">foo</span><span class=token>;</span>
 
-	<span class=keyword>public</span> BarComponent(Game game, IFooService foo)
-		: <span class=keyword>base</span>(game)
-	{
-		<span class=keyword>this</span>.foo = foo;
-	}
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">BarComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>,</span> <span class="identifier identifier-class">IFooService</span> <span class="identifier identifier-class">foo</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span> <span class=token>=</span> <span class=identifier>foo</span><span class=token>;</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>void</span> DoBar()
-	{
-		<span class=keyword>int</span> result = <span class=keyword>this</span>.foo.DoFoo();
-		<span class=comment>// Do something based on result.</span>
-	}
-}</code></pre><p>We can now change FooComponent as much as we want and BarComponent will be unaffected. BarComponent now communicates with FooComponent through the IFooService interface. This also allows us to have multiple implementations of DoFoo():
-<pre><code class=language-c#><span class=keyword>class</span> SimpleFooComponent : GameComponent, IFooService
-{
-	<span class=keyword>public</span> SimpleFooComponent(Game game)
-		: <span class=keyword>base</span>(game)
-	{
-	}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">DoBar</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">result</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span><span class=token>.</span><span class="identifier identifier-member-access">DoFoo</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+		// Do something based on result.
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre><p>We can now change FooComponent as much as we want and BarComponent will be unaffected. BarComponent now communicates with FooComponent through the IFooService interface. This also allows us to have multiple implementations of DoFoo():
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-class">class</span> <span class="identifier identifier-class">SimpleFooComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span><span class=token>,</span> <span class="identifier identifier-class">IFooService</span>
+<span class=token>{</span>
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">SimpleFooComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>int</span> DoFoo()
-	{
-		<span class=keyword>return</span> <span class=number>5</span>; <span class=comment>// The class says "Simple"</span>
-	}
-}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-method">DoFoo</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-statement keyword-return">return</span> <span class=numeric-literal>5</span><span class=token>;</span> // The class says "Simple"
+	<span class=token>}</span>
+<span class=token>}</span>
 
-<span class=keyword>class</span> ComplexFooComponent : GameComponent, IFooService
-{
-	<span class=keyword>public</span> ComplexFooComponent(Game game)
-		: <span class=keyword>base</span>(game)
-	{
-	}
+<span class="keyword keyword-class">class</span> <span class="identifier identifier-class">ComplexFooComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span><span class=token>,</span> <span class="identifier identifier-class">IFooService</span>
+<span class=token>{</span>
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">ComplexFooComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>int</span> DoFoo()
-	{
-		<span class=keyword>int</span> result = <span class=number>0</span>;
-		<span class=comment>// Do some very complex calculation</span>
-		<span class=keyword>return</span> result;
-	}
-}</code></pre><p>We can pass BarComponent an instance of SimpleFooComponent or ComplexFooComponent. Whatever the situation may call for.<p>Where does GameServiceContainer fit into all of this? You can use the GameServiceContainer to hold all your "Services". Add whatever class will implement the IFooService and then from within your BarComponent you can query for it:
-<pre><code class=language-c#><span class=keyword>class</span> BarComponent : GameComponent
-{
-	IFooService foo;
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-method">DoFoo</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">result</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>;</span>
+		// Do some very complex calculation
+		<span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>result</span><span class=token>;</span>
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre><p>We can pass BarComponent an instance of SimpleFooComponent or ComplexFooComponent. Whatever the situation may call for.<p>Where does GameServiceContainer fit into all of this? You can use the GameServiceContainer to hold all your "Services". Add whatever class will implement the IFooService and then from within your BarComponent you can query for it:
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-class">class</span> <span class="identifier identifier-class">BarComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span>
+<span class=token>{</span>
+	<span class="identifier identifier-variable">IFooService</span> <span class="identifier identifier-variable">foo</span><span class=token>;</span>
 
-	<span class=keyword>public</span> BarComponent(Game game)
-		: <span class=keyword>base</span>(game)
-	{
-	}
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">BarComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>override</span> <span class=keyword>void</span> Initialize()
-	{
-		<span class=keyword>this</span>.foo = <span class=keyword>this</span>.Game.Services.GetService(<span class=keyword>typeof</span>(IFooService)) <span class=keyword>as</span> IFooService;
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-override">override</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Initialize</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">Game</span><span class=token>.</span><span class="identifier identifier-member-access">Services</span><span class=token>.</span><span class="identifier identifier-member-access">GetService</span><span class=token>(</span><span class="keyword keyword-typeof">typeof</span><span class=token>(</span><span class="identifier identifier-invocation">IFooService</span><span class=token>)</span><span class=token>)</span> <span class="keyword keyword-as">as</span> <span class=identifier>IFooService</span><span class=token>;</span>
 		
-		<span class=keyword>if</span>(<span class=keyword>this</span>.foo == <span class=keyword>null</span>)
-			<span class=keyword>throw</span> <span class=keyword>new</span> InvalidOperationException(<span class=string>"IFooService not found."</span>);
-	}
+		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span> <span class=token>==</span> <span class="keyword keyword-null">null</span><span class=token>)</span>
+			<span class="keyword keyword-throw">throw</span> <span class="keyword keyword-new">new</span> <span class=identifier>InvalidOperationException</span><span class=token>(</span><span class=token>"IFooService not found."</span><span class=token>)</span><span class=token>;</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>void</span> DoBar()
-	{
-		<span class=keyword>int</span> result = <span class=keyword>this</span>.foo.DoFoo();
-		<span class=comment>// Do something based on result.</span>
-	}
-}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">DoBar</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">result</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span><span class=token>.</span><span class="identifier identifier-member-access">DoFoo</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+		// Do something based on result.
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=identifier></span>
+// In your Game's constructor.
+<span class="keyword keyword-this">this</span><span class=token></span>.<span class=identifier>Services</span><span class=token>.</span><span class=identifier>AddService</span><span class=identifier></span><span class=token></span><span class=token>(</span><span class=identifier></span><span class=token></span><span class=identifier></span><span class=token></span><span class=identifier></span>typeof<span class=token></span><span class=token>(</span><span class=identifier>IFooService</span><span class=token></span><span class=identifier></span><span class=token>)</span><span class=identifier></span><span class=token>,</span> <span class=identifier></span><span class=identifier></span><span class=token></span><span class=token></span><span class=token></span><span class="keyword keyword-new">new</span> <span class=identifier>SimpleFooComponent</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=identifier></span><span class=identifier></span><span class=token>)</span><span class=token></span>);
+<span class=token></span></span></code></pre><p>Not only does BarComponent no longer require an instance of IFooService in its constructor, it also no longer matters if the instance of IFooService is constructed before or after the BarComponent. So long as all the services BarComponent requires are in the GameServiceContainer before Initialize() is called, it doesn't matter what order your components are constructed in. Now, suppose that BarComponent didn't necessarily depend on IFooService and instead the behavior of DoBar() is changed based on whether or not IFooService is available:
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-class">class</span> <span class="identifier identifier-class">BarComponent</span> <span class=token>:</span> <span class="identifier identifier-class">GameComponent</span>
+<span class=token>{</span>
+	<span class="identifier identifier-variable">IFooService</span> <span class="identifier identifier-variable">foo</span><span class=token>;</span>
 
-<span class=comment>// In your Game's constructor.</span>
-<span class=keyword>this</span>.Services.AddService(<span class=keyword>typeof</span>(IFooService), <span class=keyword>new</span> SimpleFooComponent(<span class=keyword>this</span>));</code></pre><p>Not only does BarComponent no longer require an instance of IFooService in its constructor, it also no longer matters if the instance of IFooService is constructed before or after the BarComponent. So long as all the services BarComponent requires are in the GameServiceContainer before Initialize() is called, it doesn't matter what order your components are constructed in. Now, suppose that BarComponent didn't necessarily depend on IFooService and instead the behavior of DoBar() is changed based on whether or not IFooService is available:
-<pre><code class=language-c#><span class=keyword>class</span> BarComponent : GameComponent
-{
-	IFooService foo;
-
-	<span class=keyword>public</span> BarComponent(Game game)
-		: <span class=keyword>base</span>(game)
-	{
-	}
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">BarComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>override</span> <span class=keyword>void</span> Initialize()
-	{
-		<span class=keyword>this</span>.foo = <span class=keyword>this</span>.Game.Services.GetService(<span class=keyword>typeof</span>(IFooService)) <span class=keyword>as</span> IFooService;
-	}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-override">override</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Initialize</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">Game</span><span class=token>.</span><span class="identifier identifier-member-access">Services</span><span class=token>.</span><span class="identifier identifier-member-access">GetService</span><span class=token>(</span><span class="keyword keyword-typeof">typeof</span><span class=token>(</span><span class="identifier identifier-invocation">IFooService</span><span class=token>)</span><span class=token>)</span> <span class="keyword keyword-as">as</span> <span class=identifier>IFooService</span><span class=token>;</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> intDoBar()
-	{
-		<span class=comment>// If the IFooService is available, delegate to the DoFoo() method.</span>
-		<span class=keyword>if</span>(<span class=keyword>this</span>.foo != <span class=keyword>null</span>)
-			<span class=keyword>return</span> <span class=keyword>this</span>.foo.DoFoo();
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">intDoBar</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		// If the IFooService is available, delegate to the DoFoo() method.
+		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span> <span class=token>!=</span> <span class="keyword keyword-null">null</span><span class=token>)</span>
+			<span class="keyword keyword-statement keyword-return">return</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span><span class=token>.</span><span class="identifier identifier-member-access">DoFoo</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
 		
-		<span class=keyword>int</span> result = <span class=number>0</span>;
-		<span class=comment>// Otherwise do some other calculation.</span>
-		<span class=keyword>return</span> result;
-	}
-}</code></pre><p>Service providers don't always have to be GameComponent(s). Our BarComponent needs a Camera class now:
-<pre><code class=language-c#><span class=keyword>interface</span> ICamera
-{
-	Matrix Transform { <span class=keyword>get</span>; }
-}
+		<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">result</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>;</span>
+		// Otherwise do some other calculation.
+		<span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>result</span><span class=token>;</span>
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre><p>Service providers don't always have to be GameComponent(s). Our BarComponent needs a Camera class now:
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-interface">interface</span> <span class=identifier>ICamera</span>
+<span class=token>{</span>
+	<span class=identifier>Matrix</span> <span class=identifier>Transform</span> <span class=token>{</span> <span class="keyword keyword-get">get</span><span class=token>;</span> <span class=token>}</span>
+<span class=token>}</span>
 
-<span class=keyword>class</span> IdentityCamera : ICamera
-{
-	<span class=keyword>public</span> Matrix Transform
-	{
-		<span class=keyword>get</span> { <span class=keyword>return</span> Matrix.Identity; }
-	}
-}
+<span class="keyword keyword-class">class</span> <span class="identifier identifier-class">IdentityCamera</span> <span class=token>:</span> <span class="identifier identifier-class">ICamera</span>
+<span class=token>{</span>
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">Matrix</span> <span class="identifier identifier-class">Transform</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class="identifier identifier-member-access">Matrix</span><span class=token>.</span><span class="identifier identifier-member-access">Identity</span><span class=token>;</span> <span class=token>}</span>
+	<span class=token>}</span>
+<span class=token>}</span>
 
-<span class=keyword>class</span> MovingCamera : ICamera
-{
-	<span class=keyword>public</span> Matrix Transform
-	{
-		<span class=keyword>get</span>;
-		<span class=keyword>set</span>;
-	}
-}
+<span class="keyword keyword-class">class</span> <span class="identifier identifier-class">MovingCamera</span> <span class=token>:</span> <span class="identifier identifier-class">ICamera</span>
+<span class=token>{</span>
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">Matrix</span> <span class="identifier identifier-class">Transform</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-get">get</span><span class=token>;</span>
+		<span class="keyword keyword-set">set</span><span class=token>;</span>
+	<span class=token>}</span>
+<span class=token>}</span>
 
-<span class=keyword>class</span> BarComponent : DrawableGameComponent
-{
-	ICamera camera;
+<span class="keyword keyword-class">class</span> <span class="identifier identifier-class">BarComponent</span> <span class=token>:</span> <span class="identifier identifier-class">DrawableGameComponent</span>
+<span class=token>{</span>
+	<span class="identifier identifier-variable">ICamera</span> <span class="identifier identifier-variable">camera</span><span class=token>;</span>
 
-	<span class=keyword>public</span> BarComponent(Game game)
-		: <span class=keyword>base</span>(game)
-	{
-	}
+	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">BarComponent</span><span class=token>(</span><span class="identifier identifier-class">Game</span> <span class="identifier identifier-class">game</span><span class=token>)</span>
+		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class="identifier identifier-class">game</span><span class=token>)</span>
+	<span class=token>{</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>override</span> <span class=keyword>void</span> Initialize()
-	{
-		<span class=keyword>this</span>.camera = <span class=keyword>this</span>.Game.Services.GetService(<span class=keyword>typeof</span>(ICamera)) <span class=keyword>as</span> ICamera;
-	}
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-override">override</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Initialize</span><span class=token>(</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">camera</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">Game</span><span class=token>.</span><span class="identifier identifier-member-access">Services</span><span class=token>.</span><span class="identifier identifier-member-access">GetService</span><span class=token>(</span><span class="keyword keyword-typeof">typeof</span><span class=token>(</span><span class="identifier identifier-invocation">ICamera</span><span class=token>)</span><span class=token>)</span> <span class="keyword keyword-as">as</span> <span class=identifier>ICamera</span><span class=token>;</span>
+	<span class=token>}</span>
 	
-	<span class=keyword>public</span> <span class=keyword>override</span> <span class=keyword>void</span> Draw(GameTime gameTime)
-	{
-		Matrix transform = <span class=keyword>this</span>.camera.Transform;
-		<span class=comment>// Draw based on the transform matrix</span>
-	}
-}
-
-<span class=comment>// In your Game's constructor.</span>
-<span class=keyword>this</span>.Services.AddService(<span class=keyword>typeof</span>(ICamera), <span class=keyword>new</span> MovingCamera());</code></pre><p>BarComponent uses the camera's Transform matrix and doesn't care how it is calculated. It's completely decoupled from the camera's implementation.<p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.<p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</div></div></div><div class=clear></div></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-override">override</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Draw</span><span class=token>(</span><span class="identifier identifier-method">GameTime</span> <span class="identifier identifier-method">gameTime</span><span class=token>)</span>
+	<span class=token>{</span>
+		<span class="identifier identifier-variable">Matrix</span> <span class="identifier identifier-variable">transform</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">camera</span><span class=token>.</span><span class="identifier identifier-member-access">Transform</span><span class=token>;</span>
+		// Draw based on the transform matrix
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=identifier></span>
+// In your Game's constructor.
+<span class="keyword keyword-this">this</span><span class=token></span>.<span class=identifier>Services</span><span class=token>.</span><span class=identifier>AddService</span><span class=identifier></span><span class=token></span><span class=token>(</span><span class=identifier></span><span class=token></span><span class=identifier></span><span class=token></span><span class=identifier></span>typeof<span class=token></span><span class=token>(</span><span class=identifier>ICamera</span><span class=token></span><span class=identifier></span><span class=token>)</span><span class=identifier></span><span class=token>,</span> <span class=identifier></span><span class=identifier></span><span class=token></span><span class=token></span><span class=token></span><span class="keyword keyword-new">new</span> <span class=identifier>MovingCamera</span><span class=token>(</span><span class=token>)</span><span class=token></span>);
+<span class=token></span></span></code></pre><p>BarComponent uses the camera's Transform matrix and doesn't care how it is calculated. It's completely decoupled from the camera's implementation.<p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.<p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</div></div></div><div class=clear></div></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

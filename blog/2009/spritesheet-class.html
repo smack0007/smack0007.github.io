@@ -1,163 +1,159 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>SpriteSheet Class</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy Me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2009/spritesheet-class.html>SpriteSheet Class</a></h2><div class=meta><span class=date><span class=icon-calendar></span>January 09, 2009</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>SpriteSheet, Xna</span></div><div class=content><p>I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.<p>It's very simple. Only reads sprites from left to right and assumes all Sprites are the same width and height.
-<pre><code class=language-csharp><span class=preprocessorKeyword>#region</span> Using
-<span class=keyword>using</span> System;
-<span class=keyword>using</span> Microsoft.Xna.Framework;
-<span class=keyword>using</span> Microsoft.Xna.Framework.Graphics;
-<span class=preprocessorKeyword>#endregion</span>
+<pre><code class=language-csharp><span class=RoslynHtmlSyntaxHighlighter>#region Using<span class="keyword keyword-using">using</span> <span class=identifier>System</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>Microsoft</span><span class=token>.</span><span class=identifier>Xna</span><span class=token>.</span><span class=identifier>Framework</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>Microsoft</span><span class=token>.</span><span class=identifier>Xna</span><span class=token>.</span><span class=identifier>Framework</span><span class=token>.</span><span class=identifier>Graphics</span><span class=token>;</span>
+#endregion
+<span class="keyword keyword-namespace">namespace</span> <span class=identifier>Snow</span><span class=token>.</span><span class=identifier>Xna</span><span class=token>.</span><span class=identifier>Graphics</span>
+<span class=token>{</span>
+	 <summary>
+	/// Spritesheet class.
+	/// </summary>
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">SpriteSheet</span>
+	<span class=token>{</span>
+		#region Fields
+		<span class="keyword keyword-string">string</span> <span class="identifier identifier-variable">name</span><span class=token>;</span>
 
-<span class=keyword>namespace</span> Snow.Xna.Graphics
-{
-	<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-	<span class=xmlDocTag>///</span><span class=xmlDocComment> Spritesheet class.</span>
-	<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-	<span class=keyword>public</span> <span class=keyword>class</span> SpriteSheet
-	{
-		<span class=preprocessorKeyword>#region</span> Fields
+		<span class="identifier identifier-variable">Texture2D</span> <span class="identifier identifier-variable">texture</span><span class=token>;</span>
 
-		<span class=keyword>string</span> name;
+		<span class="identifier identifier-variable">Rectangle</span><span class=token>[</span><span class=token></span><span class=token>]</span> <span class="identifier identifier-variable">rectangles</span><span class=token>;</span>
 
-		Texture2D texture;
+		<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">spriteWidth</span><span class=token>,</span> <span class="identifier identifier-variable">spriteHeight</span><span class=token>;</span>
 
-		Rectangle[] rectangles;
+		#endregion
+		#region Properties
+		 <summary>
+		/// The name of this SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-string">string</span> <span class="identifier identifier-class">Name</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>name</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=keyword>int</span> spriteWidth, spriteHeight;
+		 <summary>
+		/// The texture for this SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">Texture2D</span> <span class="identifier identifier-class">Texture</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>texture</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=preprocessorKeyword>#endregion</span>
+		 <summary>
+		/// Returns a rectangle for a sprite in the SpriteSheet.
+		/// </summary>
+		/// <param name=i>index<param>
+		/// <returns></returns>
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">Rectangle</span> <span class="keyword keyword-this">this</span><span class=token>[</span><span class="keyword keyword-int">int</span> <span class="identifier identifier-class">i</span><span class=token>]</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>rectangles</span><span class=token>[</span><span class=identifier>i</span><span class=token>]</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=preprocessorKeyword>#region</span> Properties
+		 <summary>
+		/// The number of sprites in this SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">Count</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class="identifier identifier-member-access">rectangles</span><span class=token>.</span><span class="identifier identifier-member-access">Length</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The name of this SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>string</span> Name
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> name; }
-		}
+		 <summary>
+		/// The width of the texture.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">Width</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Width</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The texture for this SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> Texture2D Texture
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> texture; }
-		}
+		 <summary>
+		/// The width of each sprite in the SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">SpriteWidth</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>spriteWidth</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> Returns a rectangle for a sprite in the SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="i"></span><span class=xmlDocComment>index&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;returns></span><span class=xmlDocTag>&lt;/returns></span>
-		<span class=keyword>public</span> Rectangle <span class=keyword>this</span>[<span class=keyword>int</span> i]
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> rectangles[i]; }
-		}
+		 <summary>
+		/// The height of the texture.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">Height</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Height</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The number of sprites in this SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> Count
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> rectangles.Length; }
-		}
+		 <summary>
+		/// The height of each sprite in the SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">SpriteHeight</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>spriteHeight</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The width of the texture.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> Width
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> texture.Width; }
-		}
+		#endregion
+		 <summary>
+		/// Create a new SpriteSheet and determine the number of sprites in the sheet.
+		/// </summary>
+		/// <param name=texture><param>
+		/// <param name=spriteWidth>Width of each sprite.<param>
+		/// <param name=spriteHeight>Height of each sprite.<param>
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">SpriteSheet</span><span class=token>(</span><span class="keyword keyword-string">string</span> <span class="identifier identifier-class">name</span><span class=token>,</span> <span class="identifier identifier-class">Texture2D</span> <span class="identifier identifier-class">texture</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">spriteWidth</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">spriteHeight</span><span class=token>)</span>
+			<span class=token>:</span> <span class="keyword keyword-this">this</span><span class=token>(</span><span class="identifier identifier-class">name</span><span class=token>,</span> <span class="identifier identifier-class">texture</span><span class=token>,</span> <span class="identifier identifier-class">spriteWidth</span><span class=token>,</span> <span class="identifier identifier-class">spriteHeight</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span>
+		<span class=token>{</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The width of each sprite in the SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> SpriteWidth
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> spriteWidth; }
-		}
+		 <summary>
+		/// Create a new SpriteSheet.
+		/// </summary>
+		/// <param name=texture><param>
+		/// <param name=spriteWidth>Width of each sprite.<param>
+		/// <param name=spriteHeight>Height of each sprite.<param>
+		/// <param name=count>The number of sprites in the sheet.<param>
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">SpriteSheet</span><span class=token>(</span><span class="keyword keyword-string">string</span> <span class="identifier identifier-class">name</span><span class=token>,</span> <span class="identifier identifier-class">Texture2D</span> <span class="identifier identifier-class">texture</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">spriteWidth</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">spriteHeight</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">count</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">name</span> <span class=token>=</span> <span class=identifier>name</span><span class=token>;</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">texture</span> <span class=token>=</span> <span class=identifier>texture</span><span class=token>;</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">spriteWidth</span> <span class=token>=</span> <span class=identifier>spriteWidth</span><span class=token>;</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">spriteHeight</span> <span class=token>=</span> <span class=identifier>spriteHeight</span><span class=token>;</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The height of the texture.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> Height
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> texture.Height; }
-		}
+			<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class=identifier>count</span> <span class=token>==</span> <span class=numeric-literal>0</span><span class=token>)</span>
+			<span class=token>{</span>
+				<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">numX</span> <span class=token>=</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Width</span> <span class=token>/</span> <span class="identifier identifier-variable">spriteWidth</span><span class=token>;</span>
+				<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">numY</span> <span class=token>=</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Height</span> <span class=token>/</span> <span class="identifier identifier-variable">spriteHeight</span><span class=token>;</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The height of each sprite in the SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> SpriteHeight
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> spriteHeight; }
-		}
+				<span class=identifier>rectangles</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Rectangle</span><span class=token>[</span><span class=identifier>numX</span> <span class=token>*</span> <span class=identifier>numY</span><span class=token>]</span><span class=token>;</span>
+			<span class=token>}</span>
+			<span class="keyword keyword-statement keyword-else">else</span>
+			<span class=token>{</span>
+				<span class=identifier>rectangles</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Rectangle</span><span class=token>[</span><span class=identifier>count</span><span class=token>]</span><span class=token>;</span>
+			<span class=token>}</span>
 
-		<span class=preprocessorKeyword>#endregion</span>
+			<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">x</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>,</span> <span class="identifier identifier-variable">y</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>;</span>
+			<span class="keyword keyword-for">for</span><span class=token>(</span><span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">i</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>;</span> <span class=identifier>i</span> <span class=token><</span> <span class="identifier identifier-member-access">rectangles</span><span class=token>.</span><span class="identifier identifier-member-access">Length</span><span class=token>;</span> <span class=identifier>i</span><span class=token>++</span><span class=token>)</span>
+			<span class=token>{</span>
+				<span class=identifier>rectangles</span><span class=token>[</span><span class=identifier>i</span><span class=token>]</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Rectangle</span><span class=token>(</span><span class=identifier>x</span><span class=token>,</span> <span class=identifier>y</span><span class=token>,</span> <span class=identifier>spriteWidth</span><span class=token>,</span> <span class=identifier>spriteHeight</span><span class=token>)</span><span class=token>;</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> Create a new SpriteSheet and determine the number of sprites in the sheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="texture"></span><span class=xmlDocTag>&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteWidth"></span><span class=xmlDocComment>Width of each sprite.&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteHeight"></span><span class=xmlDocComment>Height of each sprite.&lt;/param></span>
-		<span class=keyword>public</span> SpriteSheet(<span class=keyword>string</span> name, Texture2D texture, <span class=keyword>int</span> spriteWidth, <span class=keyword>int</span> spriteHeight)
-			: <span class=keyword>this</span>(name, texture, spriteWidth, spriteHeight, <span class=number>0</span>)
-		{
-		}
+				<span class=identifier>x</span> <span class=token>+=</span> <span class=identifier>spriteWidth</span><span class=token>;</span>
+				<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class=identifier>x</span> <span class=token>>=</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Width</span><span class=token>)</span>
+				<span class=token>{</span>
+					<span class=identifier>x</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>;</span>
+					<span class=identifier>y</span> <span class=token>+=</span> <span class=identifier>spriteHeight</span><span class=token>;</span>
+				<span class=token>}</span>
+			<span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> Create a new SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="texture"></span><span class=xmlDocTag>&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteWidth"></span><span class=xmlDocComment>Width of each sprite.&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteHeight"></span><span class=xmlDocComment>Height of each sprite.&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="count"></span><span class=xmlDocComment>The number of sprites in the sheet.&lt;/param></span>
-		<span class=keyword>public</span> SpriteSheet(<span class=keyword>string</span> name, Texture2D texture, <span class=keyword>int</span> spriteWidth, <span class=keyword>int</span> spriteHeight, <span class=keyword>int</span> count)
-		{
-			<span class=keyword>this</span>.name = name;
-			<span class=keyword>this</span>.texture = texture;
-			<span class=keyword>this</span>.spriteWidth = spriteWidth;
-			<span class=keyword>this</span>.spriteHeight = spriteHeight;
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-static">static</span> <span class="keyword keyword-implicit">implicit</span> <span class="keyword keyword-operator">operator</span> <span class="identifier identifier-class">Texture2D</span><span class=token>(</span><span class="identifier identifier-class">SpriteSheet</span> <span class="identifier identifier-class">spriteSheet</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-statement keyword-return">return</span> <span class="identifier identifier-member-access">spriteSheet</span><span class=token>.</span><span class="identifier identifier-member-access">Texture</span><span class=token>;</span>
+		<span class=token>}</span>
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre><p>You can create a new SpriteSheet and use it like this:<p>`
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="identifier identifier-variable">SpriteSheet</span> <span class="identifier identifier-variable">spriteSheet</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-variable">SpriteSheet</span><span class=token>(</span><span class=token>"tiles"</span><span class=token>,</span> <span class="identifier identifier-member-access">Content</span><span class=token>.</span><span class="identifier identifier-generic">Load</span><span class=token><</span><span class="identifier identifier-generic">texture2D</span><span class=token>></span><span class=token>(</span><span class=token>"tiles"</span><span class=token>)</span><span class=token>,</span> <span class=numeric-literal>64</span><span class=token>,</span> <span class=numeric-literal>64</span><span class=token>)</span><span class=token>;</span>
 
-			<span class=keyword>if</span>(count == <span class=number>0</span>)
-			{
-				<span class=keyword>int</span> numX = texture.Width / spriteWidth;
-				<span class=keyword>int</span> numY = texture.Height / spriteHeight;
+<span class=identifier>spriteBatch</span><span class=token>.</span><span class=identifier>Begin</span><span class=token>(</span><span class=identifier></span><span class=token></span><span class=identifier></span><span class=token>)</span>;
 
-				rectangles = <span class=keyword>new</span> Rectangle[numX * numY];
-			}
-			<span class=keyword>else</span>
-			{
-				rectangles = <span class=keyword>new</span> Rectangle[count];
-			}
+<span class=identifier>spriteBatch</span><span class=token>.</span><span class=identifier>Draw</span><span class=token>(</span><span class=identifier>spriteSheet</span><span class=token>,</span>
+<span class=identifier></span><span class=token></span>		        <span class="keyword keyword-new">new</span> <span class=identifier>Rectangle</span><span class=token>(</span>0<span class=identifier></span><span class=identifier></span><span class=token>,</span> <span class=identifier></span><span class=identifier></span>0<span class=token>,</span> <span class=identifier>spriteSheet</span><span class=token>.</span><span class=identifier>SpriteWidth</span><span class=identifier></span><span class=token>,</span> <span class=identifier>spriteSheet</span><span class=token>.</span><span class=identifier>SpriteHeight</span><span class=identifier></span><span class=token>)</span><span class=token></span>,
+			<span class=identifier>spriteSheet</span><span class=token>[</span><span class=numeric-literal>0</span><span class=token>]</span>,
+			<span class=identifier>Color</span><span class=token>.</span><span class=identifier>White</span>);
 
-			<span class=keyword>int</span> x = <span class=number>0</span>, y = <span class=number>0</span>;
-			<span class=keyword>for</span>(<span class=keyword>int</span> i = <span class=number>0</span>; i &lt; rectangles.Length; i++)
-			{
-				rectangles[i] = <span class=keyword>new</span> Rectangle(x, y, spriteWidth, spriteHeight);
-
-				x += spriteWidth;
-				<span class=keyword>if</span>(x >= texture.Width)
-				{
-					x = <span class=number>0</span>;
-					y += spriteHeight;
-				}
-			}
-		}
-
-		<span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>implicit</span> <span class=keyword>operator</span> Texture2D(SpriteSheet spriteSheet)
-		{
-			<span class=keyword>return</span> spriteSheet.Texture;
-		}
-	}
-}</code></pre><p>You can create a new SpriteSheet and use it like this:<p>`
-<pre><code class=language-c#>SpriteSheet spriteSheet = <span class=keyword>new</span> SpriteSheet(<span class=string>"tiles"</span>, Content.Load&lt;texture2D>(<span class=string>"tiles"</span>), <span class=number>64</span>, <span class=number>64</span>);
-
-spriteBatch.Begin();
-
-spriteBatch.Draw(spriteSheet,
-		        <span class=keyword>new</span> Rectangle(<span class=number>0</span>, <span class=number>0</span>, spriteSheet.SpriteWidth, spriteSheet.SpriteHeight),
-			spriteSheet[<span class=number>0</span>],
-			Color.White);
-
-spriteBatch.End();</code></pre><p>`<p>Which loads a spritesheet with sprites of size 64x64. It then draws the first Sprite in the SpriteSheet. You of course wouldn't want to load the spritesheet every frame as well.<p>Feel free to use this code without restriction.<p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</div></div></div><div class=clear></div></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+<span class=identifier>spriteBatch</span><span class=token>.</span><span class=identifier>End</span><span class=token>(</span><span class=identifier></span><span class=token></span><span class=identifier></span><span class=token>)</span>;
+<span class=token></span></span></code></pre><p>`<p>Which loads a spritesheet with sprites of size 64x64. It then draws the first Sprite in the SpriteSheet. You of course wouldn't want to load the spritesheet every frame as well.<p>Feel free to use this code without restriction.<p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</div></div></div><div class=clear></div></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

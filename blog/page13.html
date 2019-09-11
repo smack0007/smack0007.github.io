@@ -1,194 +1,191 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy Me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2009/drawing-2d-lines-as-rotated-quads.html>Drawing 2D Lines as Rotated Quads</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 07, 2009</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span></span></div><div class=content><p>I haven't had much time lately with work but one question I've seen asked many many times is how to draw lines of different widths. So, to cut to the chase I'll share the code I've used to do it.
-<pre><code class=language-c#><span class=keyword>public</span> <span class=keyword>void</span> DrawLine(Vector3 p1, Color c1, Vector3 p2, Color c2, <span class=keyword>int</span> width)
-{
-	<span class=keyword>float</span> distance = Vector3.Distance(p1, p2);
-	<span class=keyword>float</span> halfDistance = distance / <span class=number>2</span>.0f;
-	<span class=keyword>float</span> halfWidth = width / <span class=number>2</span>.0f;
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">DrawLine</span><span class=token>(</span><span class="identifier identifier-method">Vector3</span> <span class="identifier identifier-method">p1</span><span class=token>,</span> <span class="identifier identifier-method">Color</span> <span class="identifier identifier-method">c1</span><span class=token>,</span> <span class="identifier identifier-method">Vector3</span> <span class="identifier identifier-method">p2</span><span class=token>,</span> <span class="identifier identifier-method">Color</span> <span class="identifier identifier-method">c2</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-method">width</span><span class=token>)</span>
+<span class=token>{</span>
+	<span class="keyword keyword-float">float</span> <span class="identifier identifier-variable">distance</span> <span class=token>=</span> <span class="identifier identifier-member-access">Vector3</span><span class=token>.</span><span class="identifier identifier-member-access">Distance</span><span class=token>(</span><span class="identifier identifier-invocation">p1</span><span class=token>,</span> <span class="identifier identifier-invocation">p2</span><span class=token>)</span><span class=token>;</span>
+	<span class="keyword keyword-float">float</span> <span class="identifier identifier-variable">halfDistance</span> <span class=token>=</span> <span class="identifier identifier-variable">distance</span> <span class=token>/</span> <span class=numeric-literal>2.0f</span><span class=token>;</span>
+	<span class="keyword keyword-float">float</span> <span class="identifier identifier-variable">halfWidth</span> <span class=token>=</span> <span class="identifier identifier-variable">width</span> <span class=token>/</span> <span class=numeric-literal>2.0f</span><span class=token>;</span>
 
-	Vector3 difference = p2 - p1;
-	Vector3 destination = <span class=keyword>new</span> Vector3(p1.X + difference.X / <span class=number>2</span>.0f, p1.Y + difference.Y / <span class=number>2</span>.0f, p1.Z + difference.Z);
+	<span class="identifier identifier-variable">Vector3</span> <span class="identifier identifier-variable">difference</span> <span class=token>=</span> <span class="identifier identifier-variable">p2</span> <span class=token>-</span> <span class="identifier identifier-variable">p1</span><span class=token>;</span>
+	<span class="identifier identifier-variable">Vector3</span> <span class="identifier identifier-variable">destination</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-variable">Vector3</span><span class=token>(</span><span class="identifier identifier-member-access">p1</span><span class=token>.</span><span class="identifier identifier-member-access">X</span> <span class=token>+</span> <span class="identifier identifier-member-access">difference</span><span class=token>.</span><span class="identifier identifier-member-access">X</span> <span class=token>/</span> <span class=numeric-literal>2.0f</span><span class=token>,</span> <span class="identifier identifier-member-access">p1</span><span class=token>.</span><span class="identifier identifier-member-access">Y</span> <span class=token>+</span> <span class="identifier identifier-member-access">difference</span><span class=token>.</span><span class="identifier identifier-member-access">Y</span> <span class=token>/</span> <span class=numeric-literal>2.0f</span><span class=token>,</span> <span class="identifier identifier-member-access">p1</span><span class=token>.</span><span class="identifier identifier-member-access">Z</span> <span class=token>+</span> <span class="identifier identifier-member-access">difference</span><span class=token>.</span><span class="identifier identifier-member-access">Z</span><span class=token>)</span><span class=token>;</span>
 
-	<span class=comment>// Calculate angle between two points</span>
-	<span class=keyword>float</span> angle = (<span class=keyword>float</span>)Math.Atan2(difference.Y, difference.X);
+	// Calculate angle between two points
+	<span class="keyword keyword-float">float</span> <span class="identifier identifier-variable">angle</span> <span class=token>=</span> <span class=token>(</span><span class="keyword keyword-float">float</span><span class=token>)</span><span class="identifier identifier-member-access">Math</span><span class=token>.</span><span class="identifier identifier-member-access">Atan2</span><span class=token>(</span><span class="identifier identifier-member-access">difference</span><span class=token>.</span><span class="identifier identifier-member-access">Y</span><span class=token>,</span> <span class="identifier identifier-member-access">difference</span><span class=token>.</span><span class="identifier identifier-member-access">X</span><span class=token>)</span><span class=token>;</span>
 
-	Vector3 v1, v2, v3, v4;
+	<span class="identifier identifier-variable">Vector3</span> <span class="identifier identifier-variable">v1</span><span class=token>,</span> <span class="identifier identifier-variable">v2</span><span class=token>,</span> <span class="identifier identifier-variable">v3</span><span class=token>,</span> <span class="identifier identifier-variable">v4</span><span class=token>;</span>
 
-	v1 = <span class=keyword>new</span> Vector3(-halfDistance, -halfWidth, <span class=number>0</span>); <span class=comment>// Top Left</span>
-	v2 = <span class=keyword>new</span> Vector3(halfDistance, -halfWidth, <span class=number>0</span>); <span class=comment>// Top Right</span>
-	v3 = <span class=keyword>new</span> Vector3(halfDistance, halfWidth, <span class=number>0</span>); <span class=comment>// Bottom Right</span>
-	v4 = <span class=keyword>new</span> Vector3(-halfDistance, halfWidth, <span class=number>0</span>); <span class=comment>// Bottom Left</span>
+	<span class=identifier>v1</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Vector3</span><span class=token>(</span><span class=token>-</span><span class=identifier>halfDistance</span><span class=token>,</span> <span class=token>-</span><span class=identifier>halfWidth</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>;</span> // Top Left
+	<span class=identifier>v2</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Vector3</span><span class=token>(</span><span class=identifier>halfDistance</span><span class=token>,</span> <span class=token>-</span><span class=identifier>halfWidth</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>;</span> // Top Right
+	<span class=identifier>v3</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Vector3</span><span class=token>(</span><span class=identifier>halfDistance</span><span class=token>,</span> <span class=identifier>halfWidth</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>;</span> // Bottom Right
+	<span class=identifier>v4</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Vector3</span><span class=token>(</span><span class=token>-</span><span class=identifier>halfDistance</span><span class=token>,</span> <span class=identifier>halfWidth</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span><span class=token>;</span> // Bottom Left
 
-	Matrix m =
-		Matrix.Identity *
-		Matrix.CreateRotationZ(angle) *
-		Matrix.CreateTranslation(destination);
+	<span class="identifier identifier-variable">Matrix</span> <span class="identifier identifier-variable">m</span> <span class=token>=</span>
+		<span class="identifier identifier-member-access">Matrix</span><span class=token>.</span><span class="identifier identifier-member-access">Identity</span> <span class=token>*</span>
+		<span class="identifier identifier-member-access">Matrix</span><span class=token>.</span><span class="identifier identifier-member-access">CreateRotationZ</span><span class=token>(</span><span class="identifier identifier-invocation">angle</span><span class=token>)</span> <span class=token>*</span>
+		<span class="identifier identifier-member-access">Matrix</span><span class=token>.</span><span class="identifier identifier-member-access">CreateTranslation</span><span class=token>(</span><span class="identifier identifier-invocation">destination</span><span class=token>)</span><span class=token>;</span>
 
-	v1 = Vector3.Transform(v1, m);
-	v2 = Vector3.Transform(v2, m);
-	v3 = Vector3.Transform(v3, m);
-	v4 = Vector3.Transform(v4, m);
+	<span class=identifier>v1</span> <span class=token>=</span> <span class="identifier identifier-member-access">Vector3</span><span class=token>.</span><span class="identifier identifier-member-access">Transform</span><span class=token>(</span><span class="identifier identifier-invocation">v1</span><span class=token>,</span> <span class="identifier identifier-invocation">m</span><span class=token>)</span><span class=token>;</span>
+	<span class=identifier>v2</span> <span class=token>=</span> <span class="identifier identifier-member-access">Vector3</span><span class=token>.</span><span class="identifier identifier-member-access">Transform</span><span class=token>(</span><span class="identifier identifier-invocation">v2</span><span class=token>,</span> <span class="identifier identifier-invocation">m</span><span class=token>)</span><span class=token>;</span>
+	<span class=identifier>v3</span> <span class=token>=</span> <span class="identifier identifier-member-access">Vector3</span><span class=token>.</span><span class="identifier identifier-member-access">Transform</span><span class=token>(</span><span class="identifier identifier-invocation">v3</span><span class=token>,</span> <span class="identifier identifier-invocation">m</span><span class=token>)</span><span class=token>;</span>
+	<span class=identifier>v4</span> <span class=token>=</span> <span class="identifier identifier-member-access">Vector3</span><span class=token>.</span><span class="identifier identifier-member-access">Transform</span><span class=token>(</span><span class="identifier identifier-invocation">v4</span><span class=token>,</span> <span class="identifier identifier-invocation">m</span><span class=token>)</span><span class=token>;</span>
 
-	DrawQuad(v1, c1, v2, c2, v3, c2, v4, c1);
-}</code></pre><p>I've left a lot of fluff code out. I usually check if the line is a width of 1 and draw a normal line. I also left out the code on how to draw a quad as that can be found many other places already.</div></div><div class=post><h2><a href=blog/2009/spritesheet-class.html>SpriteSheet Class</a></h2><div class=meta><span class=date><span class=icon-calendar></span>January 09, 2009</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>SpriteSheet, Xna</span></div><div class=content><p>I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.<p>It's very simple. Only reads sprites from left to right and assumes all Sprites are the same width and height.
-<pre><code class=language-csharp><span class=preprocessorKeyword>#region</span> Using
-<span class=keyword>using</span> System;
-<span class=keyword>using</span> Microsoft.Xna.Framework;
-<span class=keyword>using</span> Microsoft.Xna.Framework.Graphics;
-<span class=preprocessorKeyword>#endregion</span>
+	<span class="identifier identifier-invocation">DrawQuad</span><span class=token>(</span><span class="identifier identifier-invocation">v1</span><span class=token>,</span> <span class="identifier identifier-invocation">c1</span><span class=token>,</span> <span class="identifier identifier-invocation">v2</span><span class=token>,</span> <span class="identifier identifier-invocation">c2</span><span class=token>,</span> <span class="identifier identifier-invocation">v3</span><span class=token>,</span> <span class="identifier identifier-invocation">c2</span><span class=token>,</span> <span class="identifier identifier-invocation">v4</span><span class=token>,</span> <span class="identifier identifier-invocation">c1</span><span class=token>)</span><span class=token>;</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre><p>I've left a lot of fluff code out. I usually check if the line is a width of 1 and draw a normal line. I also left out the code on how to draw a quad as that can be found many other places already.</div></div><div class=post><h2><a href=blog/2009/spritesheet-class.html>SpriteSheet Class</a></h2><div class=meta><span class=date><span class=icon-calendar></span>January 09, 2009</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>SpriteSheet, Xna</span></div><div class=content><p>I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.<p>It's very simple. Only reads sprites from left to right and assumes all Sprites are the same width and height.
+<pre><code class=language-csharp><span class=RoslynHtmlSyntaxHighlighter>#region Using<span class="keyword keyword-using">using</span> <span class=identifier>System</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>Microsoft</span><span class=token>.</span><span class=identifier>Xna</span><span class=token>.</span><span class=identifier>Framework</span><span class=token>;</span>
+<span class="keyword keyword-using">using</span> <span class=identifier>Microsoft</span><span class=token>.</span><span class=identifier>Xna</span><span class=token>.</span><span class=identifier>Framework</span><span class=token>.</span><span class=identifier>Graphics</span><span class=token>;</span>
+#endregion
+<span class="keyword keyword-namespace">namespace</span> <span class=identifier>Snow</span><span class=token>.</span><span class=identifier>Xna</span><span class=token>.</span><span class=identifier>Graphics</span>
+<span class=token>{</span>
+	 <summary>
+	/// Spritesheet class.
+	/// </summary>
+	<span class="keyword keyword-public">public</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">SpriteSheet</span>
+	<span class=token>{</span>
+		#region Fields
+		<span class="keyword keyword-string">string</span> <span class="identifier identifier-variable">name</span><span class=token>;</span>
 
-<span class=keyword>namespace</span> Snow.Xna.Graphics
-{
-	<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-	<span class=xmlDocTag>///</span><span class=xmlDocComment> Spritesheet class.</span>
-	<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-	<span class=keyword>public</span> <span class=keyword>class</span> SpriteSheet
-	{
-		<span class=preprocessorKeyword>#region</span> Fields
+		<span class="identifier identifier-variable">Texture2D</span> <span class="identifier identifier-variable">texture</span><span class=token>;</span>
 
-		<span class=keyword>string</span> name;
+		<span class="identifier identifier-variable">Rectangle</span><span class=token>[</span><span class=token></span><span class=token>]</span> <span class="identifier identifier-variable">rectangles</span><span class=token>;</span>
 
-		Texture2D texture;
+		<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">spriteWidth</span><span class=token>,</span> <span class="identifier identifier-variable">spriteHeight</span><span class=token>;</span>
 
-		Rectangle[] rectangles;
+		#endregion
+		#region Properties
+		 <summary>
+		/// The name of this SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-string">string</span> <span class="identifier identifier-class">Name</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>name</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=keyword>int</span> spriteWidth, spriteHeight;
+		 <summary>
+		/// The texture for this SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">Texture2D</span> <span class="identifier identifier-class">Texture</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>texture</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=preprocessorKeyword>#endregion</span>
+		 <summary>
+		/// Returns a rectangle for a sprite in the SpriteSheet.
+		/// </summary>
+		/// <param name=i>index<param>
+		/// <returns></returns>
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">Rectangle</span> <span class="keyword keyword-this">this</span><span class=token>[</span><span class="keyword keyword-int">int</span> <span class="identifier identifier-class">i</span><span class=token>]</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>rectangles</span><span class=token>[</span><span class=identifier>i</span><span class=token>]</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=preprocessorKeyword>#region</span> Properties
+		 <summary>
+		/// The number of sprites in this SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">Count</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class="identifier identifier-member-access">rectangles</span><span class=token>.</span><span class="identifier identifier-member-access">Length</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The name of this SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>string</span> Name
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> name; }
-		}
+		 <summary>
+		/// The width of the texture.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">Width</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Width</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The texture for this SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> Texture2D Texture
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> texture; }
-		}
+		 <summary>
+		/// The width of each sprite in the SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">SpriteWidth</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>spriteWidth</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> Returns a rectangle for a sprite in the SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="i"></span><span class=xmlDocComment>index&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;returns></span><span class=xmlDocTag>&lt;/returns></span>
-		<span class=keyword>public</span> Rectangle <span class=keyword>this</span>[<span class=keyword>int</span> i]
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> rectangles[i]; }
-		}
+		 <summary>
+		/// The height of the texture.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">Height</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Height</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The number of sprites in this SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> Count
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> rectangles.Length; }
-		}
+		 <summary>
+		/// The height of each sprite in the SpriteSheet.
+		/// </summary>
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">SpriteHeight</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-get">get</span> <span class=token>{</span> <span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>spriteHeight</span><span class=token>;</span> <span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The width of the texture.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> Width
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> texture.Width; }
-		}
+		#endregion
+		 <summary>
+		/// Create a new SpriteSheet and determine the number of sprites in the sheet.
+		/// </summary>
+		/// <param name=texture><param>
+		/// <param name=spriteWidth>Width of each sprite.<param>
+		/// <param name=spriteHeight>Height of each sprite.<param>
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">SpriteSheet</span><span class=token>(</span><span class="keyword keyword-string">string</span> <span class="identifier identifier-class">name</span><span class=token>,</span> <span class="identifier identifier-class">Texture2D</span> <span class="identifier identifier-class">texture</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">spriteWidth</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">spriteHeight</span><span class=token>)</span>
+			<span class=token>:</span> <span class="keyword keyword-this">this</span><span class=token>(</span><span class="identifier identifier-class">name</span><span class=token>,</span> <span class="identifier identifier-class">texture</span><span class=token>,</span> <span class="identifier identifier-class">spriteWidth</span><span class=token>,</span> <span class="identifier identifier-class">spriteHeight</span><span class=token>,</span> <span class=numeric-literal>0</span><span class=token>)</span>
+		<span class=token>{</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The width of each sprite in the SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> SpriteWidth
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> spriteWidth; }
-		}
+		 <summary>
+		/// Create a new SpriteSheet.
+		/// </summary>
+		/// <param name=texture><param>
+		/// <param name=spriteWidth>Width of each sprite.<param>
+		/// <param name=spriteHeight>Height of each sprite.<param>
+		/// <param name=count>The number of sprites in the sheet.<param>
+		<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">SpriteSheet</span><span class=token>(</span><span class="keyword keyword-string">string</span> <span class="identifier identifier-class">name</span><span class=token>,</span> <span class="identifier identifier-class">Texture2D</span> <span class="identifier identifier-class">texture</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">spriteWidth</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">spriteHeight</span><span class=token>,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">count</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">name</span> <span class=token>=</span> <span class=identifier>name</span><span class=token>;</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">texture</span> <span class=token>=</span> <span class=identifier>texture</span><span class=token>;</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">spriteWidth</span> <span class=token>=</span> <span class=identifier>spriteWidth</span><span class=token>;</span>
+			<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">spriteHeight</span> <span class=token>=</span> <span class=identifier>spriteHeight</span><span class=token>;</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The height of the texture.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> Height
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> texture.Height; }
-		}
+			<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class=identifier>count</span> <span class=token>==</span> <span class=numeric-literal>0</span><span class=token>)</span>
+			<span class=token>{</span>
+				<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">numX</span> <span class=token>=</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Width</span> <span class=token>/</span> <span class="identifier identifier-variable">spriteWidth</span><span class=token>;</span>
+				<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">numY</span> <span class=token>=</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Height</span> <span class=token>/</span> <span class="identifier identifier-variable">spriteHeight</span><span class=token>;</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> The height of each sprite in the SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=keyword>public</span> <span class=keyword>int</span> SpriteHeight
-		{
-			<span class=keyword>get</span> { <span class=keyword>return</span> spriteHeight; }
-		}
+				<span class=identifier>rectangles</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Rectangle</span><span class=token>[</span><span class=identifier>numX</span> <span class=token>*</span> <span class=identifier>numY</span><span class=token>]</span><span class=token>;</span>
+			<span class=token>}</span>
+			<span class="keyword keyword-statement keyword-else">else</span>
+			<span class=token>{</span>
+				<span class=identifier>rectangles</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Rectangle</span><span class=token>[</span><span class=identifier>count</span><span class=token>]</span><span class=token>;</span>
+			<span class=token>}</span>
 
-		<span class=preprocessorKeyword>#endregion</span>
+			<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">x</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>,</span> <span class="identifier identifier-variable">y</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>;</span>
+			<span class="keyword keyword-for">for</span><span class=token>(</span><span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">i</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>;</span> <span class=identifier>i</span> <span class=token><</span> <span class="identifier identifier-member-access">rectangles</span><span class=token>.</span><span class="identifier identifier-member-access">Length</span><span class=token>;</span> <span class=identifier>i</span><span class=token>++</span><span class=token>)</span>
+			<span class=token>{</span>
+				<span class=identifier>rectangles</span><span class=token>[</span><span class=identifier>i</span><span class=token>]</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Rectangle</span><span class=token>(</span><span class=identifier>x</span><span class=token>,</span> <span class=identifier>y</span><span class=token>,</span> <span class=identifier>spriteWidth</span><span class=token>,</span> <span class=identifier>spriteHeight</span><span class=token>)</span><span class=token>;</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> Create a new SpriteSheet and determine the number of sprites in the sheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="texture"></span><span class=xmlDocTag>&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteWidth"></span><span class=xmlDocComment>Width of each sprite.&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteHeight"></span><span class=xmlDocComment>Height of each sprite.&lt;/param></span>
-		<span class=keyword>public</span> SpriteSheet(<span class=keyword>string</span> name, Texture2D texture, <span class=keyword>int</span> spriteWidth, <span class=keyword>int</span> spriteHeight)
-			: <span class=keyword>this</span>(name, texture, spriteWidth, spriteHeight, <span class=number>0</span>)
-		{
-		}
+				<span class=identifier>x</span> <span class=token>+=</span> <span class=identifier>spriteWidth</span><span class=token>;</span>
+				<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class=identifier>x</span> <span class=token>>=</span> <span class="identifier identifier-member-access">texture</span><span class=token>.</span><span class="identifier identifier-member-access">Width</span><span class=token>)</span>
+				<span class=token>{</span>
+					<span class=identifier>x</span> <span class=token>=</span> <span class=numeric-literal>0</span><span class=token>;</span>
+					<span class=identifier>y</span> <span class=token>+=</span> <span class=identifier>spriteHeight</span><span class=token>;</span>
+				<span class=token>}</span>
+			<span class=token>}</span>
+		<span class=token>}</span>
 
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;summary></span>
-		<span class=xmlDocTag>///</span><span class=xmlDocComment> Create a new SpriteSheet.</span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;/summary></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="texture"></span><span class=xmlDocTag>&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteWidth"></span><span class=xmlDocComment>Width of each sprite.&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="spriteHeight"></span><span class=xmlDocComment>Height of each sprite.&lt;/param></span>
-		<span class=xmlDocTag>///</span> <span class=xmlDocTag>&lt;param name="count"></span><span class=xmlDocComment>The number of sprites in the sheet.&lt;/param></span>
-		<span class=keyword>public</span> SpriteSheet(<span class=keyword>string</span> name, Texture2D texture, <span class=keyword>int</span> spriteWidth, <span class=keyword>int</span> spriteHeight, <span class=keyword>int</span> count)
-		{
-			<span class=keyword>this</span>.name = name;
-			<span class=keyword>this</span>.texture = texture;
-			<span class=keyword>this</span>.spriteWidth = spriteWidth;
-			<span class=keyword>this</span>.spriteHeight = spriteHeight;
+		<span class="keyword keyword-public">public</span> <span class="keyword keyword-static">static</span> <span class="keyword keyword-implicit">implicit</span> <span class="keyword keyword-operator">operator</span> <span class="identifier identifier-class">Texture2D</span><span class=token>(</span><span class="identifier identifier-class">SpriteSheet</span> <span class="identifier identifier-class">spriteSheet</span><span class=token>)</span>
+		<span class=token>{</span>
+			<span class="keyword keyword-statement keyword-return">return</span> <span class="identifier identifier-member-access">spriteSheet</span><span class=token>.</span><span class="identifier identifier-member-access">Texture</span><span class=token>;</span>
+		<span class=token>}</span>
+	<span class=token>}</span>
+<span class=token>}</span>
+<span class=token></span></span></code></pre><p>You can create a new SpriteSheet and use it like this:<p>`
+<pre><code class=language-c#><span class=RoslynHtmlSyntaxHighlighter><span class="identifier identifier-variable">SpriteSheet</span> <span class="identifier identifier-variable">spriteSheet</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-variable">SpriteSheet</span><span class=token>(</span><span class=token>"tiles"</span><span class=token>,</span> <span class="identifier identifier-member-access">Content</span><span class=token>.</span><span class="identifier identifier-generic">Load</span><span class=token><</span><span class="identifier identifier-generic">texture2D</span><span class=token>></span><span class=token>(</span><span class=token>"tiles"</span><span class=token>)</span><span class=token>,</span> <span class=numeric-literal>64</span><span class=token>,</span> <span class=numeric-literal>64</span><span class=token>)</span><span class=token>;</span>
 
-			<span class=keyword>if</span>(count == <span class=number>0</span>)
-			{
-				<span class=keyword>int</span> numX = texture.Width / spriteWidth;
-				<span class=keyword>int</span> numY = texture.Height / spriteHeight;
+<span class=identifier>spriteBatch</span><span class=token>.</span><span class=identifier>Begin</span><span class=token>(</span><span class=identifier></span><span class=token></span><span class=identifier></span><span class=token>)</span>;
 
-				rectangles = <span class=keyword>new</span> Rectangle[numX * numY];
-			}
-			<span class=keyword>else</span>
-			{
-				rectangles = <span class=keyword>new</span> Rectangle[count];
-			}
+<span class=identifier>spriteBatch</span><span class=token>.</span><span class=identifier>Draw</span><span class=token>(</span><span class=identifier>spriteSheet</span><span class=token>,</span>
+<span class=identifier></span><span class=token></span>		        <span class="keyword keyword-new">new</span> <span class=identifier>Rectangle</span><span class=token>(</span>0<span class=identifier></span><span class=identifier></span><span class=token>,</span> <span class=identifier></span><span class=identifier></span>0<span class=token>,</span> <span class=identifier>spriteSheet</span><span class=token>.</span><span class=identifier>SpriteWidth</span><span class=identifier></span><span class=token>,</span> <span class=identifier>spriteSheet</span><span class=token>.</span><span class=identifier>SpriteHeight</span><span class=identifier></span><span class=token>)</span><span class=token></span>,
+			<span class=identifier>spriteSheet</span><span class=token>[</span><span class=numeric-literal>0</span><span class=token>]</span>,
+			<span class=identifier>Color</span><span class=token>.</span><span class=identifier>White</span>);
 
-			<span class=keyword>int</span> x = <span class=number>0</span>, y = <span class=number>0</span>;
-			<span class=keyword>for</span>(<span class=keyword>int</span> i = <span class=number>0</span>; i &lt; rectangles.Length; i++)
-			{
-				rectangles[i] = <span class=keyword>new</span> Rectangle(x, y, spriteWidth, spriteHeight);
-
-				x += spriteWidth;
-				<span class=keyword>if</span>(x >= texture.Width)
-				{
-					x = <span class=number>0</span>;
-					y += spriteHeight;
-				}
-			}
-		}
-
-		<span class=keyword>public</span> <span class=keyword>static</span> <span class=keyword>implicit</span> <span class=keyword>operator</span> Texture2D(SpriteSheet spriteSheet)
-		{
-			<span class=keyword>return</span> spriteSheet.Texture;
-		}
-	}
-}</code></pre><p>You can create a new SpriteSheet and use it like this:<p>`
-<pre><code class=language-c#>SpriteSheet spriteSheet = <span class=keyword>new</span> SpriteSheet(<span class=string>"tiles"</span>, Content.Load&lt;texture2D>(<span class=string>"tiles"</span>), <span class=number>64</span>, <span class=number>64</span>);
-
-spriteBatch.Begin();
-
-spriteBatch.Draw(spriteSheet,
-		        <span class=keyword>new</span> Rectangle(<span class=number>0</span>, <span class=number>0</span>, spriteSheet.SpriteWidth, spriteSheet.SpriteHeight),
-			spriteSheet[<span class=number>0</span>],
-			Color.White);
-
-spriteBatch.End();</code></pre><p>`<p>Which loads a spritesheet with sprites of size 64x64. It then draws the first Sprite in the SpriteSheet. You of course wouldn't want to load the spritesheet every frame as well.<p>Feel free to use this code without restriction.<p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</div></div><div class=post><h2><a href=blog/2008/colors-and-hex.html>Colors and Hex</a></h2><div class=meta><span class=date><span class=icon-calendar></span>December 21, 2008</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>Xna</span></div><div class=content><p>I recently needed to write out Color(s) as an xml attribute. I wrote 2 methods to read and write the Color(s) as Hex strings. Here ya go:</p><a class=readMore href=blog/2008/colors-and-hex.html>Read More</a></div></div><div class=post><h2><a href=blog/2008/zend_db_table-as-a-model.html>Zend_Db_Table as a Model</a></h2><div class=meta><span class=date><span class=icon-calendar></span>June 20, 2008</span> <span class=category><span class=icon-folder></span>php</span> <span class=tags><span class=icon-price-tags></span></span></div><div class=content><p>In the Zend Framework, using Zend_Db_Table as your model class is not well advised. This practice can force you to put business logic in other places besides your model class. This may not be a big deal if your logic is simple but imagine the logic is fairly complicated. Now also imagine that the logic changes at some point. This can be a problem if you have this logic written in many different places.<p>There's a solution to this problem though. You could write a Model class that uses Zend_Db_Table as a storage medium. Or, you can extend Zend_Db_Table to add your logic to the class. There is a way to simplify this process and that's what this blog post is about.</p><a class=readMore href=blog/2008/zend_db_table-as-a-model.html>Read More</a></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class="page-item disabled"><a class="page-link older" href=# tabindex=-1>Older</a><li class=page-item><a href=blog/page12.html class="page-link newer">Newer</a></ul></nav></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+<span class=identifier>spriteBatch</span><span class=token>.</span><span class=identifier>End</span><span class=token>(</span><span class=identifier></span><span class=token></span><span class=identifier></span><span class=token>)</span>;
+<span class=token></span></span></code></pre><p>`<p>Which loads a spritesheet with sprites of size 64x64. It then draws the first Sprite in the SpriteSheet. You of course wouldn't want to load the spritesheet every frame as well.<p>Feel free to use this code without restriction.<p><strong>Edit:</strong> I copied and pasted the second piece of code from somewhere else so I fixed two typos.</div></div><div class=post><h2><a href=blog/2008/colors-and-hex.html>Colors and Hex</a></h2><div class=meta><span class=date><span class=icon-calendar></span>December 21, 2008</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>Xna</span></div><div class=content><p>I recently needed to write out Color(s) as an xml attribute. I wrote 2 methods to read and write the Color(s) as Hex strings. Here ya go:</p><a class=readMore href=blog/2008/colors-and-hex.html>Read More</a></div></div><div class=post><h2><a href=blog/2008/zend_db_table-as-a-model.html>Zend_Db_Table as a Model</a></h2><div class=meta><span class=date><span class=icon-calendar></span>June 20, 2008</span> <span class=category><span class=icon-folder></span>php</span> <span class=tags><span class=icon-price-tags></span></span></div><div class=content><p>In the Zend Framework, using Zend_Db_Table as your model class is not well advised. This practice can force you to put business logic in other places besides your model class. This may not be a big deal if your logic is simple but imagine the logic is fairly complicated. Now also imagine that the logic changes at some point. This can be a problem if you have this logic written in many different places.<p>There's a solution to this problem though. You could write a Model class that uses Zend_Db_Table as a storage medium. Or, you can extend Zend_Db_Table to add your logic to the class. There is a way to simplify this process and that's what this blog post is about.</p><a class=readMore href=blog/2008/zend_db_table-as-a-model.html>Read More</a></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class="page-item disabled"><a class="page-link older" href=# tabindex=-1>Older</a><li class=page-item><a href=blog/page12.html class="page-link newer">Newer</a></ul></nav></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

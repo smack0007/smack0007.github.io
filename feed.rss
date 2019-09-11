@@ -4,7 +4,7 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 28 Aug 2019 11:39:18 GMT</lastBuildDate>
+	<lastBuildDate>Wed, 11 Sep 2019 05:48:31 GMT</lastBuildDate>
 	<pubDate>Tue, 27 Aug 2019 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
@@ -65,21 +65,22 @@ although the code will compile without any problems.</p>
 <a href="https://en.wikipedia.org/wiki/Partial_application">Partial Application</a> can be implemented in C# via
 <a href="https://en.wikipedia.org/wiki/Currying">Currying</a>. Although I appreciate his example of implementing currying via extsion
 methods, the syntax is hideous. There is a suggestion in the comments though that I found to be a much better solution.</p>
-<pre><code class="language-c#"><span class="comment">// Define a local function Add.</span>
-<span class="keyword">int</span> Add(<span class="keyword">int</span> a, <span class="keyword">int</span> b) =&gt; a + b;
+<pre><code class="language-c#"><span class="RoslynHtmlSyntaxHighlighter">// Define a local function Add.
+<span class="keyword keyword-int">int</span> <span class="identifier identifier-method">Add</span><span class="token">(</span><span class="keyword keyword-int">int</span> <span class="identifier identifier-method">a</span><span class="token">,</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-method">b</span><span class="token">)</span> <span class="token">=></span> <span class="identifier identifier-method">a</span> <span class="token">+</span> <span class="identifier identifier-method">b</span><span class="token">;</span>
 
-<span class="comment">// Here we do the currying.</span>
-Func&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; add3 = (b) =&gt; Add(<span class="number">3</span>, b);
+// Here we do the currying.
+<span class="identifier identifier-generic">Func</span><span class="token"><</span><span class="keyword keyword-int">int</span><span class="token">,</span> <span class="keyword keyword-int">int</span><span class="token">></span> <span class="identifier identifier-variable">add3</span> <span class="token">=</span> <span class="token">(</span><span class="identifier identifier-variable">b</span><span class="token">)</span> <span class="token">=></span> <span class="identifier identifier-invocation">Add</span><span class="token">(</span><span class="numeric-literal">3</span><span class="token">,</span> <span class="identifier identifier-invocation">b</span><span class="token">)</span><span class="token">;</span>
 
-<span class="comment">// This will print 5.</span>
-Console.WriteLine(add3(<span class="number">2</span>));
+// This will print 5.
+<span class="identifier">Console</span><span class="token">.</span><span class="identifier">WriteLine</span><span class="token">(</span><span class="identifier">add3</span><span class="token"></span><span class="identifier"></span><span class="token"></span><span class="token">(</span><span class="identifier"></span><span class="token"></span><span class="identifier"></span><span class="token"></span>2));
 
-<span class="comment">// Curry one more time so that we have</span>
-<span class="comment">// a function that simply produces 5.</span>
-Func&lt;<span class="keyword">int</span>&gt; five = () =&gt; add3(<span class="number">2</span>);
+// Curry one more time so that we have
+// a function that simply produces 5.
+<span class="identifier identifier-generic">Func</span><span class="token"><</span><span class="keyword keyword-int">int</span><span class="token">></span> <span class="identifier identifier-variable">five</span> <span class="token">=</span> <span class="token">(</span><span class="token">)</span> <span class="token">=></span> <span class="identifier identifier-invocation">add3</span><span class="token">(</span><span class="numeric-literal">2</span><span class="token">)</span><span class="token">;</span>
 
-<span class="comment">// This will also print 5.</span>
-Console.WriteLine(five());</pre></code>
+// This will also print 5.
+<span class="identifier">Console</span><span class="token">.</span><span class="identifier">WriteLine</span><span class="token">(</span><span class="identifier">five</span><span class="token"></span><span class="identifier"></span><span class="token"></span><span class="token">(</span><span class="identifier"></span><span class="token"></span><span class="identifier"></span><span class="token">)</span>);
+<span class="token"></span></span></pre></code>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/a-neat-way-to-curry-in-csharp.html</link>
 		<guid>http://smack0007.github.io/blog/2018/a-neat-way-to-curry-in-csharp.html</guid>
@@ -99,19 +100,22 @@ I've definitely started using is wrapping collections in lambda functions.</p>
 		<title><![CDATA[string.Join Extension Method]]></title>
 		<description><![CDATA[<p>Normally if want to do a <code>string.Join</code> on the result of a Linq query you end up with somthing looking like
 this:</p>
-<pre><code class="language-csharp">Console.WriteLine(<span class="keyword">string</span>.Join(<span class="string">&quot;, &quot;</span>, numbers.Where(x =&gt; x % <span class="number">2</span> == <span class="number">0</span>)));</pre></code>
+<pre><code class="language-csharp"><span class="RoslynHtmlSyntaxHighlighter">Console.WriteLine(string.<span class="identifier">Join</span><span class="token">(</span>", "<span class="identifier"></span><span class="identifier"></span><span class="token">,</span> <span class="identifier">numbers</span><span class="token">.</span><span class="identifier">Where</span><span class="identifier"></span><span class="token"></span><span class="token">(</span><span class="identifier">x</span> <span class="token"></span><span class="identifier"></span><span class="token"></span><span class="identifier"></span>=> <span class="token"></span><span class="identifier">x</span> <span class="identifier"></span>% 2 == 0<span class="token">)</span><span class="token"></span>));
+<span class="token"></span></span></pre></code>
 <p>The call to <code>string.Join</code> has to come first and then the Linq query. I've always felt this breaks the flow
 of the code and would be easier to read if the <code>string.Join</code> was at the end of the Linq query:</p>
-<pre><code class="language-csharp">Console.WriteLine(numbers.Where(x =&gt; x % <span class="number">2</span> == <span class="number">0</span>).JoinString(<span class="string">&quot;, &quot;</span>));</pre></code>
+<pre><code class="language-csharp"><span class="RoslynHtmlSyntaxHighlighter">Console.WriteLine(numbers.Where(x => x % 2 == 0).<span class="identifier">JoinString</span><span class="token">(</span>", "<span class="token">)</span><span class="token"></span>);
+<span class="token"></span></span></pre></code>
 <p>This can be implemented with the following extension methods:</p>
-<pre><code class="language-csharp"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> JoinStringExtensions
-{
-    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> JoinString&lt;T&gt;(<span class="keyword">this</span> IEnumerable&lt;T&gt; source, <span class="keyword">string</span> seperator) =&gt;
-        <span class="keyword">string</span>.Join(seperator, source.Select(x =&gt; x.ToString()));
+<pre><code class="language-csharp"><span class="RoslynHtmlSyntaxHighlighter"><span class="keyword keyword-public">public</span> <span class="keyword keyword-static">static</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">JoinStringExtensions</span>
+<span class="token">{</span>
+    <span class="keyword keyword-public">public</span> <span class="keyword keyword-static">static</span> <span class="keyword keyword-string">string</span> <span class="identifier identifier-method">JoinString</span><span class="token"><</span><span class="identifier identifier-method">T</span><span class="token">></span><span class="token">(</span><span class="keyword keyword-this">this</span> <span class="identifier identifier-generic">IEnumerable</span><span class="token"><</span><span class="identifier identifier-generic">T</span><span class="token">></span> <span class="identifier identifier-method">source</span><span class="token">,</span> <span class="keyword keyword-string">string</span> <span class="identifier identifier-method">seperator</span><span class="token">)</span> <span class="token">=></span>
+        <span class="keyword keyword-string">string</span><span class="token">.</span><span class="identifier identifier-member-access">Join</span><span class="token">(</span><span class="identifier identifier-invocation">seperator</span><span class="token">,</span> <span class="identifier identifier-member-access">source</span><span class="token">.</span><span class="identifier identifier-member-access">Select</span><span class="token">(</span><span class="identifier identifier-invocation">x</span> <span class="token">=></span> <span class="identifier identifier-member-access">x</span><span class="token">.</span><span class="identifier identifier-member-access">ToString</span><span class="token">(</span><span class="token">)</span><span class="token">)</span><span class="token">)</span><span class="token">;</span>
 
-    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> JoinString(<span class="keyword">this</span> IEnumerable&lt;<span class="keyword">string</span>&gt; source, <span class="keyword">string</span> seperator) =&gt;
-        <span class="keyword">string</span>.Join(seperator, source);
-}</pre></code>
+    <span class="keyword keyword-public">public</span> <span class="keyword keyword-static">static</span> <span class="keyword keyword-string">string</span> <span class="identifier identifier-method">JoinString</span><span class="token">(</span><span class="keyword keyword-this">this</span> <span class="identifier identifier-generic">IEnumerable</span><span class="token"><</span><span class="keyword keyword-string">string</span><span class="token">></span> <span class="identifier identifier-method">source</span><span class="token">,</span> <span class="keyword keyword-string">string</span> <span class="identifier identifier-method">seperator</span><span class="token">)</span> <span class="token">=></span>
+        <span class="keyword keyword-string">string</span><span class="token">.</span><span class="identifier identifier-member-access">Join</span><span class="token">(</span><span class="identifier identifier-invocation">seperator</span><span class="token">,</span> <span class="identifier identifier-invocation">source</span><span class="token">)</span><span class="token">;</span>
+<span class="token">}</span>
+<span class="token"></span></span></pre></code>
 <p>The specialization for <code>IEnumerable&lt;string&gt;</code> is just mirroring the implementation from <code>string.Join</code>.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/string-join-extension-method.html</link>
@@ -242,23 +246,25 @@ This got me to thinking about my youth and some of the code I wrote back then. I
 	<item>
 		<title><![CDATA[Adding assembly references in Roslyn]]></title>
 		<description><![CDATA[<p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
-<pre><code class="language-csharp"><span class="keyword">var</span> compilation = Compilation.Create(assemblyName, <span class="keyword">new</span> CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-	.AddReferences(MetadataReference.CreateAssemblyReference(<span class="string">&quot;mscorlib&quot;</span>))
-	.AddReferences(MetadataReference.CreateAssemblyReference(<span class="string">&quot;System&quot;</span>))
-	.AddReferences(MetadataReference.CreateAssemblyReference(<span class="string">&quot;System.Core&quot;</span>))
-	.AddReferences(<span class="keyword">new</span> MetadataFileReference(<span class="keyword">this</span>.GetType().Assembly.Location))
-	.AddSyntaxTrees(syntaxTree);</pre></code>
+<pre><code class="language-csharp"><span class="RoslynHtmlSyntaxHighlighter"><span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">compilation</span> <span class="token">=</span> <span class="identifier identifier-member-access">Compilation</span><span class="token">.</span><span class="identifier identifier-member-access">Create</span><span class="token">(</span><span class="identifier identifier-invocation">assemblyName</span><span class="token">,</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">CompilationOptions</span><span class="token">(</span><span class="identifier identifier-member-access">OutputKind</span><span class="token">.</span><span class="identifier identifier-member-access">DynamicallyLinkedLibrary</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddReferences</span><span class="token">(</span><span class="identifier identifier-member-access">MetadataReference</span><span class="token">.</span><span class="identifier identifier-member-access">CreateAssemblyReference</span><span class="token">(</span><span class="token">"mscorlib"</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddReferences</span><span class="token">(</span><span class="identifier identifier-member-access">MetadataReference</span><span class="token">.</span><span class="identifier identifier-member-access">CreateAssemblyReference</span><span class="token">(</span><span class="token">"System"</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddReferences</span><span class="token">(</span><span class="identifier identifier-member-access">MetadataReference</span><span class="token">.</span><span class="identifier identifier-member-access">CreateAssemblyReference</span><span class="token">(</span><span class="token">"System.Core"</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddReferences</span><span class="token">(</span><span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">MetadataFileReference</span><span class="token">(</span><span class="keyword keyword-this">this</span><span class="token">.</span><span class="identifier identifier-member-access">GetType</span><span class="token">(</span><span class="token">)</span><span class="token">.</span><span class="identifier identifier-member-access">Assembly</span><span class="token">.</span><span class="identifier identifier-member-access">Location</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddSyntaxTrees</span><span class="token">(</span><span class="identifier identifier-invocation">syntaxTree</span><span class="token">)</span><span class="token">;</span>
+<span class="token"></span></span></pre></code>
 <p>The static factory method &quot;MetadataReference.CreateAssemblyReference&quot; added a reference to global assemblies such as &quot;mscorlib.dll&quot; or &quot;System.dll&quot;. In the Roslyn preview,
 the same be achieved like so:</p>
-<pre><code class="language-csharp"><span class="keyword">var</span> assemblyPath = Path.GetDirectoryName(<span class="keyword">typeof</span>(<span class="keyword">object</span>).Assembly.Location);
+<pre><code class="language-csharp"><span class="RoslynHtmlSyntaxHighlighter"><span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">assemblyPath</span> <span class="token">=</span> <span class="identifier identifier-member-access">Path</span><span class="token">.</span><span class="identifier identifier-member-access">GetDirectoryName</span><span class="token">(</span><span class="keyword keyword-typeof">typeof</span><span class="token">(</span><span class="keyword keyword-object">object</span><span class="token">)</span><span class="token">.</span><span class="identifier identifier-member-access">Assembly</span><span class="token">.</span><span class="identifier identifier-member-access">Location</span><span class="token">)</span><span class="token">;</span>
 
-<span class="keyword">var</span> compilation = CSharpCompilation.Create(assemblyName)
-	.WithOptions(<span class="keyword">new</span> CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-	.AddReferences(<span class="keyword">new</span> MetadataFileReference(Path.Combine(assemblyPath, <span class="string">&quot;mscorlib.dll&quot;</span>)))
-	.AddReferences(<span class="keyword">new</span> MetadataFileReference(Path.Combine(assemblyPath, <span class="string">&quot;System.dll&quot;</span>)))
-	.AddReferences(<span class="keyword">new</span> MetadataFileReference(Path.Combine(assemblyPath, <span class="string">&quot;System.Core.dll&quot;</span>)))
-	.AddReferences(<span class="keyword">new</span> MetadataFileReference(Assembly.GetEntryAssembly().Location))
-	.AddSyntaxTrees(syntaxTree);</pre></code>
+<span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">compilation</span> <span class="token">=</span> <span class="identifier identifier-member-access">CSharpCompilation</span><span class="token">.</span><span class="identifier identifier-member-access">Create</span><span class="token">(</span><span class="identifier identifier-invocation">assemblyName</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">WithOptions</span><span class="token">(</span><span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">CSharpCompilationOptions</span><span class="token">(</span><span class="identifier identifier-member-access">OutputKind</span><span class="token">.</span><span class="identifier identifier-member-access">DynamicallyLinkedLibrary</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddReferences</span><span class="token">(</span><span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">MetadataFileReference</span><span class="token">(</span><span class="identifier identifier-member-access">Path</span><span class="token">.</span><span class="identifier identifier-member-access">Combine</span><span class="token">(</span><span class="identifier identifier-invocation">assemblyPath</span><span class="token">,</span> <span class="token">"mscorlib.dll"</span><span class="token">)</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddReferences</span><span class="token">(</span><span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">MetadataFileReference</span><span class="token">(</span><span class="identifier identifier-member-access">Path</span><span class="token">.</span><span class="identifier identifier-member-access">Combine</span><span class="token">(</span><span class="identifier identifier-invocation">assemblyPath</span><span class="token">,</span> <span class="token">"System.dll"</span><span class="token">)</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddReferences</span><span class="token">(</span><span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">MetadataFileReference</span><span class="token">(</span><span class="identifier identifier-member-access">Path</span><span class="token">.</span><span class="identifier identifier-member-access">Combine</span><span class="token">(</span><span class="identifier identifier-invocation">assemblyPath</span><span class="token">,</span> <span class="token">"System.Core.dll"</span><span class="token">)</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddReferences</span><span class="token">(</span><span class="keyword keyword-new">new</span> <span class="identifier identifier-invocation">MetadataFileReference</span><span class="token">(</span><span class="identifier identifier-member-access">Assembly</span><span class="token">.</span><span class="identifier identifier-member-access">GetEntryAssembly</span><span class="token">(</span><span class="token">)</span><span class="token">.</span><span class="identifier identifier-member-access">Location</span><span class="token">)</span><span class="token">)</span>
+	<span class="token">.</span><span class="identifier identifier-member-access">AddSyntaxTrees</span><span class="token">(</span><span class="identifier identifier-invocation">syntaxTree</span><span class="token">)</span><span class="token">;</span>
+<span class="token"></span></span></pre></code>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</link>
 		<guid>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</guid>
