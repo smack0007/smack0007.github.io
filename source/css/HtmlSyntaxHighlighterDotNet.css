@@ -1,61 +1,44 @@
 /* This file is auto generated. */
 .HtmlSyntaxHighlighterDotNet {
-    font-family: Consolas;
-    font-size: 16px;
+	font-family: Consolas;
+	font-size: 16px;
 }
-
-.HtmlSyntaxHighlighterDotNet .comment {
-    color: #57A64A;
+.HtmlSyntaxHighlighterDotNet .co {
+	color: #57A64A;
 }
-
-.HtmlSyntaxHighlighterDotNet .keyword {
-    color: #569CD6;
+.HtmlSyntaxHighlighterDotNet .k {
+	color: #569CD6;
 }
-
-.HtmlSyntaxHighlighterDotNet .keyword-statement {
-    color: #D8A0DF;
+.HtmlSyntaxHighlighterDotNet .k.sta {
+	color: #D8A0DF;
 }
-
-.HtmlSyntaxHighlighterDotNet .identifier {
-    color: #9CDCFE;
+.HtmlSyntaxHighlighterDotNet .id {
+	color: #9CDCFE;
 }
-
-.HtmlSyntaxHighlighterDotNet .identifier-class {
-    color: #84D5A1;
+.HtmlSyntaxHighlighterDotNet .id.cl {
+	color: #84D5A1;
 }
-
-.HtmlSyntaxHighlighterDotNet .identifier-generic {
-    color: #B8D7A3;
+.HtmlSyntaxHighlighterDotNet .id.g {
+	color: #B8D7A3;
 }
-
-.HtmlSyntaxHighlighterDotNet .identifier-member-access {
-    color: #84D5A1;
+.HtmlSyntaxHighlighterDotNet .id.ma {
+	color: #84D5A1;
 }
-
-.HtmlSyntaxHighlighterDotNet .identifier-invocation {
-    color: #DCDCAA;
+.HtmlSyntaxHighlighterDotNet .id.inv {
+	color: #DCDCAA;
 }
-
-.HtmlSyntaxHighlighterDotNet .identifier-method {
-    color: #DCDCAA;
+.HtmlSyntaxHighlighterDotNet .id.m {
+	color: #DCDCAA;
 }
-
-.HtmlSyntaxHighlighterDotNet .identifier-using-directive {
-    color: #DCDCDC;
+.HtmlSyntaxHighlighterDotNet .id.u {
+	color: #DCDCDC;
 }
-
-.HtmlSyntaxHighlighterDotNet .identifier-variable {
-    color: #9CDCFE;
+.HtmlSyntaxHighlighterDotNet .id.v {
+	color: #569CD6;
 }
-
-.HtmlSyntaxHighlighterDotNet .identifier-var {
-    color: #569CD6;
+.HtmlSyntaxHighlighterDotNet .n {
+	color: #B8D7A3;
 }
-
-.HtmlSyntaxHighlighterDotNet .numeric {
-    color: #B8D7A3;
-}
-
-.HtmlSyntaxHighlighterDotNet .string {
-    color: #D69D85;
+.HtmlSyntaxHighlighterDotNet .str {
+	color: #D69D85;
 }

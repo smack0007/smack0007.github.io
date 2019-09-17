@@ -7,6 +7,7 @@
         {
             "taskName": "build",
             "args": [
+                "-nologo",
                 "${workspaceRoot}/compiler/compiler.csproj",
                 "-p:BuildSite=true"
             ],

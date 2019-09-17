@@ -128,7 +128,7 @@ namespace compiler
 
             Directory.CreateDirectory(Path.Combine(outputPath, "css"));
 
-            File.WriteAllText(Path.Combine(cssInputPath, "HtmlSyntaxHighlighterDotNet.css"), "/* This file is auto generated. */" + Environment.NewLine + HtmlSyntaxHighlighter.GetCssString());
+            File.WriteAllText(Path.Combine(cssInputPath, "HtmlSyntaxHighlighterDotNet.css"), "/* This file is auto generated. */" + Environment.NewLine + HtmlSyntaxHighlighter.GetCssStyles());
 
             var cssResult = Scss.ConvertToCss(File.ReadAllText(Path.Combine(cssInputPath, "style.scss")), scssOptions);
             File.WriteAllText(Path.Combine(outputPath, "css", "style.css"), Uglify.Css(cssResult.Css, UglifyCssSettings).Code);
