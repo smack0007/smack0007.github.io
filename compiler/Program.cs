@@ -11,7 +11,7 @@ using NUglify.Html;
 using ColorCode;
 using System.Net;
 using SharpScss;
-using RoslynHtmlSyntaxHighlighter;
+using HtmlSyntaxHighlighterDotNet;
 
 namespace compiler
 {
@@ -127,6 +127,8 @@ namespace compiler
             };
 
             Directory.CreateDirectory(Path.Combine(outputPath, "css"));
+
+            File.WriteAllText(Path.Combine(cssInputPath, "HtmlSyntaxHighlighterDotNet.css"), "/* This file is auto generated. */" + Environment.NewLine + HtmlSyntaxHighlighter.GetCssString());
 
             var cssResult = Scss.ConvertToCss(File.ReadAllText(Path.Combine(cssInputPath, "style.scss")), scssOptions);
             File.WriteAllText(Path.Combine(outputPath, "css", "style.css"), Uglify.Css(cssResult.Css, UglifyCssSettings).Code);

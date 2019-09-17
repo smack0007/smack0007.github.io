@@ -1,0 +1,61 @@
+/* This file is auto generated. */
+.HtmlSyntaxHighlighterDotNet {
+    font-family: Consolas;
+    font-size: 16px;
+}
+
+.HtmlSyntaxHighlighterDotNet .comment {
+    color: #57A64A;
+}
+
+.HtmlSyntaxHighlighterDotNet .keyword {
+    color: #569CD6;
+}
+
+.HtmlSyntaxHighlighterDotNet .keyword-statement {
+    color: #D8A0DF;
+}
+
+.HtmlSyntaxHighlighterDotNet .identifier {
+    color: #9CDCFE;
+}
+
+.HtmlSyntaxHighlighterDotNet .identifier-class {
+    color: #84D5A1;
+}
+
+.HtmlSyntaxHighlighterDotNet .identifier-generic {
+    color: #B8D7A3;
+}
+
+.HtmlSyntaxHighlighterDotNet .identifier-member-access {
+    color: #84D5A1;
+}
+
+.HtmlSyntaxHighlighterDotNet .identifier-invocation {
+    color: #DCDCAA;
+}
+
+.HtmlSyntaxHighlighterDotNet .identifier-method {
+    color: #DCDCAA;
+}
+
+.HtmlSyntaxHighlighterDotNet .identifier-using-directive {
+    color: #DCDCDC;
+}
+
+.HtmlSyntaxHighlighterDotNet .identifier-variable {
+    color: #9CDCFE;
+}
+
+.HtmlSyntaxHighlighterDotNet .identifier-var {
+    color: #569CD6;
+}
+
+.HtmlSyntaxHighlighterDotNet .numeric {
+    color: #B8D7A3;
+}
+
+.HtmlSyntaxHighlighterDotNet .string {
+    color: #D69D85;
+}
