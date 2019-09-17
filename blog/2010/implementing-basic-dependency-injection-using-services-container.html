@@ -1,222 +1,222 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Implementing basic Dependency Injection using a Service Container</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy Me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2010/implementing-basic-dependency-injection-using-services-container.html>Implementing basic Dependency Injection using a Service Container</a></h2><div class=meta><span class=date><span class=icon-calendar></span>June 21, 2010</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>.NET, C#, Dependency Injection, Design Patterns, Service Continer</span></div><div class=content><p>By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection.<p>We'll start by defining the <strong>Injectable</strong> attribute.
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=token>[</span><span class="identifier identifier-class">AttributeUsage</span><span class=token>(</span><span class="identifier identifier-member-access">AttributeTargets</span><span class=token>.</span><span class="identifier identifier-member-access">Constructor</span> <span class=token>|</span> <span class="identifier identifier-member-access">AttributeTargets</span><span class=token>.</span><span class="identifier identifier-member-access">Property</span><span class=token>,</span>
-	<span class="identifier identifier-class">AllowMultiple</span> <span class=token>=</span> <span class="keyword keyword-false">false</span><span class=token>,</span> <span class="identifier identifier-class">Inherited</span> <span class=token>=</span> <span class="keyword keyword-true">true</span><span class=token>)</span><span class=token>]</span>
-<span class="keyword keyword-public">public</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">InjectableAttribute</span> <span class=token>:</span> <span class="identifier identifier-class">Attribute</span>
-<span class=token>{</span>
-<span class=token>}</span>
-<span class=token></span></span></code></pre><p>We'll use this attribute to mark our constructors and properties for dependency injection. Next we'll define an interface for our dependency injector:
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class="keyword keyword-public">public</span> <span class="keyword keyword-interface">interface</span> <span class=identifier>IDependencyInjector</span>
-<span class=token>{</span>
-	<span class="identifier identifier-variable">T</span> <span class="identifier identifier-variable">Construct</span>&<span class=token></span><span class=identifier>lt</span>;<span class=identifier>T</span>&<span class=identifier>gt</span>;<span class=token>(</span><span class=identifier></span><span class=token></span><span class=identifier></span><span class=token>)</span>;
-	<span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Inject</span><span class=token>(</span><span class="keyword keyword-object">object</span> <span class="identifier identifier-method">instance</span><span class=token>)</span><span class=token>;</span>
-<span class=token>}</span>
-<span class=token></span></span></code></pre><p>We'll define our service container like so:
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class="keyword keyword-public">public</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">ServiceContainer</span> <span class=token>:</span> <span class="identifier identifier-class">IDependencyInjector</span><span class=token>,</span> <span class="identifier identifier-class">IServiceProvider</span>
-<span class=token>{</span>
-	<span class="identifier identifier-class">Dictionary</span>&<span class="identifier identifier-class">lt</span>;<span class="identifier identifier-class">Type</span>, <span class="identifier identifier-class">Object</span>&<span class="identifier identifier-class">gt</span>; <span class="identifier identifier-class">services</span>;
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=t>[</span><span class="id cl">AttributeUsage</span><span class=t>(</span><span class="id ma">AttributeTargets</span><span class=t>.</span><span class="id ma">Constructor</span> <span class=t>|</span> <span class="id ma">AttributeTargets</span><span class=t>.</span><span class="id ma">Property</span><span class=t>,</span>
+	<span class="id cl">AllowMultiple</span> <span class=t>=</span> <span class=k>false</span><span class=t>,</span> <span class="id cl">Inherited</span> <span class=t>=</span> <span class=k>true</span><span class=t>)</span><span class=t>]</span>
+<span class=k>public</span> <span class=k>class</span> <span class="id cl">InjectableAttribute</span> <span class=t>:</span> <span class="id cl">Attribute</span>
+<span class=t>{</span>
+<span class=t>}</span>
+<span class=t></span></span></code></pre><p>We'll use this attribute to mark our constructors and properties for dependency injection. Next we'll define an interface for our dependency injector:
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>interface</span> <span class=id>IDependencyInjector</span>
+<span class=t>{</span>
+	<span class=id>T</span> <span class=id>Construct</span>&<span class=t></span><span class=id>lt</span>;<span class=id>T</span>&<span class=id>gt</span>;<span class=t>(</span><span class=id></span><span class=t></span><span class=id></span><span class=t>)</span>;
+	<span class=k>void</span> <span class="id m">Inject</span><span class=t>(</span><span class=k>object</span> <span class="id m">instance</span><span class=t>)</span><span class=t>;</span>
+<span class=t>}</span>
+<span class=t></span></span></code></pre><p>We'll define our service container like so:
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>class</span> <span class="id cl">ServiceContainer</span> <span class=t>:</span> <span class="id cl">IDependencyInjector</span><span class=t>,</span> <span class="id cl">IServiceProvider</span>
+<span class=t>{</span>
+	<span class="id cl">Dictionary</span>&<span class="id cl">lt</span>;<span class="id cl">Type</span>, <span class="id cl">Object</span>&<span class="id cl">gt</span>; <span class="id cl">services</span>;
 
-	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">ServiceContainer</span><span class=token>(</span><span class=token>)</span>
-		<span class=token>:</span> <span class="keyword keyword-base">base</span><span class=token>(</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">services</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class=identifier>Dictionary</span><span class=token></span><span class=token></span><span class=token>&</span><span class=identifier>lt</span><span class=token>;</span><span class=identifier>Type</span><span class=token></span>, <span class="keyword keyword-object">object</span><span class="identifier identifier-variable"></span><span class=token></span><span class=token>&</span><span class=identifier>gt</span><span class=token>;</span><span class=token>(</span><span class=identifier></span><span class=token>)</span><span class=token>;</span>
-	<span class=token>}</span>
+	<span class=k>public</span> <span class="id cl">ServiceContainer</span><span class=t>(</span><span class=t>)</span>
+		<span class=t>:</span> <span class=k>base</span><span class=t>(</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class=k>this</span><span class=t>.</span><span class="id ma">services</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Dictionary</span><span class=t></span><span class=t></span><span class=t>&</span><span class=id>lt</span><span class=t>;</span><span class=id>Type</span><span class=t></span>, <span class=k>object</span><span class=id></span><span class=t></span><span class=t>&</span><span class=id>gt</span><span class=t>;</span><span class=t>(</span><span class=id></span><span class=t>)</span><span class=t>;</span>
+	<span class=t>}</span>
 
-	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">AddService</span><span class=token>(</span><span class="identifier identifier-method">Type</span> <span class="identifier identifier-method">type</span><span class=token>,</span> <span class="identifier identifier-method">Object</span> <span class="identifier identifier-method">provider</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class="keyword keyword-null">null</span> <span class=token>==</span> <span class=identifier>type</span><span class=token>)</span>
-			<span class="keyword keyword-throw">throw</span> <span class="keyword keyword-new">new</span> <span class=identifier>ArgumentNullException</span><span class=token>(</span><span class="string string-literal">"type"</span><span class=token>)</span><span class=token>;</span>
+	<span class=k>public</span> <span class=k>void</span> <span class="id m">AddService</span><span class=t>(</span><span class="id m">Type</span> <span class="id m">type</span><span class=t>,</span> <span class="id m">Object</span> <span class="id m">provider</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class="k sta">if</span><span class=t>(</span><span class=k>null</span> <span class=t>==</span> <span class=id>type</span><span class=t>)</span>
+			<span class=k>throw</span> <span class=k>new</span> <span class=id>ArgumentNullException</span><span class=t>(</span><span class=str>"type"</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class="keyword keyword-null">null</span> <span class=token>==</span> <span class=identifier>provider</span><span class=token>)</span>
-			<span class="keyword keyword-throw">throw</span> <span class="keyword keyword-new">new</span> <span class=identifier>ArgumentNullException</span><span class=token>(</span><span class="string string-literal">"provider"</span><span class=token>)</span><span class=token>;</span>
+		<span class="k sta">if</span><span class=t>(</span><span class=k>null</span> <span class=t>==</span> <span class=id>provider</span><span class=t>)</span>
+			<span class=k>throw</span> <span class=k>new</span> <span class=id>ArgumentNullException</span><span class=t>(</span><span class=str>"provider"</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">services</span><span class=token>.</span><span class="identifier identifier-invocation">ContainsKey</span><span class=token>(</span><span class="identifier identifier-invocation">type</span><span class=token>)</span><span class=token>)</span>
-			<span class="keyword keyword-throw">throw</span> <span class="keyword keyword-new">new</span> <span class=identifier>InvalidOperationException</span><span class=token>(</span><span class="string string-literal">"A provider is already registered the type "</span> <span class=token>+</span> <span class=identifier>type</span><span class=token>)</span><span class=token>;</span>
+		<span class="k sta">if</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class="id ma">services</span><span class=t>.</span><span class="id inv">ContainsKey</span><span class=t>(</span><span class="id inv">type</span><span class=t>)</span><span class=t>)</span>
+			<span class=k>throw</span> <span class=k>new</span> <span class=id>InvalidOperationException</span><span class=t>(</span><span class=str>"A provider is already registered the type "</span> <span class=t>+</span> <span class=id>type</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">providerType</span> <span class=token>=</span> <span class="identifier identifier-invocation">provider</span><span class=token>.</span><span class="identifier identifier-invocation">GetType</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+		<span class="id v">var</span> <span class=id>providerType</span> <span class=t>=</span> <span class="id inv">provider</span><span class=t>.</span><span class="id inv">GetType</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class=token>!</span><span class="identifier identifier-invocation">type</span><span class=token>.</span><span class="identifier identifier-invocation">IsAssignableFrom</span><span class=token>(</span><span class="identifier identifier-invocation">providerType</span><span class=token>)</span><span class=token>)</span>
-			<span class="keyword keyword-throw">throw</span> <span class="keyword keyword-new">new</span> <span class=identifier>InvalidOperationException</span><span class=token>(</span><span class=identifier>providerType</span> <span class=token>+</span> <span class="string string-literal">" is not an instance of "</span> <span class=token>+</span> <span class=identifier>type</span><span class=token>)</span><span class=token>;</span>
+		<span class="k sta">if</span><span class=t>(</span><span class=t>!</span><span class="id inv">type</span><span class=t>.</span><span class="id inv">IsAssignableFrom</span><span class=t>(</span><span class="id inv">providerType</span><span class=t>)</span><span class=t>)</span>
+			<span class=k>throw</span> <span class=k>new</span> <span class=id>InvalidOperationException</span><span class=t>(</span><span class=id>providerType</span> <span class=t>+</span> <span class=str>" is not an instance of "</span> <span class=t>+</span> <span class=id>type</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">services</span><span class=token>.</span><span class="identifier identifier-invocation">Add</span><span class=token>(</span><span class="identifier identifier-invocation">type</span><span class=token>,</span> <span class="identifier identifier-invocation">provider</span><span class=token>)</span><span class=token>;</span>
-	<span class=token>}</span>
+		<span class=k>this</span><span class=t>.</span><span class="id ma">services</span><span class=t>.</span><span class="id inv">Add</span><span class=t>(</span><span class="id inv">type</span><span class=t>,</span> <span class="id inv">provider</span><span class=t>)</span><span class=t>;</span>
+	<span class=t>}</span>
 
-	<span class="keyword keyword-public">public</span> <span class="keyword keyword-object">object</span> <span class="identifier identifier-method">GetService</span><span class=token>(</span><span class="identifier identifier-method">Type</span> <span class="identifier identifier-method">type</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class="keyword keyword-null">null</span> <span class=token>==</span> <span class=identifier>type</span><span class=token>)</span>
-			<span class="keyword keyword-throw">throw</span> <span class="keyword keyword-new">new</span> <span class=identifier>ArgumentNullException</span><span class=token>(</span><span class="string string-literal">"type"</span><span class=token>)</span><span class=token>;</span>
+	<span class=k>public</span> <span class=k>object</span> <span class="id m">GetService</span><span class=t>(</span><span class="id m">Type</span> <span class="id m">type</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class="k sta">if</span><span class=t>(</span><span class=k>null</span> <span class=t>==</span> <span class=id>type</span><span class=t>)</span>
+			<span class=k>throw</span> <span class=k>new</span> <span class=id>ArgumentNullException</span><span class=t>(</span><span class=str>"type"</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">services</span><span class=token>.</span><span class="identifier identifier-invocation">ContainsKey</span><span class=token>(</span><span class="identifier identifier-invocation">type</span><span class=token>)</span><span class=token>)</span>
-			<span class="keyword keyword-statement keyword-return">return</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">services</span><span class=token>[</span><span class=identifier>type</span><span class=token>]</span><span class=token>;</span>
+		<span class="k sta">if</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class="id ma">services</span><span class=t>.</span><span class="id inv">ContainsKey</span><span class=t>(</span><span class="id inv">type</span><span class=t>)</span><span class=t>)</span>
+			<span class="k sta">return</span> <span class=k>this</span><span class=t>.</span><span class="id ma">services</span><span class=t>[</span><span class=id>type</span><span class=t>]</span><span class=t>;</span>
 					
-		<span class="keyword keyword-statement keyword-return">return</span> <span class="keyword keyword-null">null</span><span class=token>;</span>
-	<span class=token>}</span>
+		<span class="k sta">return</span> <span class=k>null</span><span class=t>;</span>
+	<span class=t>}</span>
 
-	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">RemoveService</span><span class=token>(</span><span class="identifier identifier-method">Type</span> <span class="identifier identifier-method">type</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class="keyword keyword-null">null</span> <span class=token>==</span> <span class=identifier>type</span><span class=token>)</span>
-			<span class="keyword keyword-throw">throw</span> <span class="keyword keyword-new">new</span> <span class=identifier>ArgumentNullException</span><span class=token>(</span><span class="string string-literal">"type"</span><span class=token>)</span><span class=token>;</span>
+	<span class=k>public</span> <span class=k>void</span> <span class="id m">RemoveService</span><span class=t>(</span><span class="id m">Type</span> <span class="id m">type</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class="k sta">if</span><span class=t>(</span><span class=k>null</span> <span class=t>==</span> <span class=id>type</span><span class=t>)</span>
+			<span class=k>throw</span> <span class=k>new</span> <span class=id>ArgumentNullException</span><span class=t>(</span><span class=str>"type"</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">services</span><span class=token>.</span><span class="identifier identifier-invocation">Remove</span><span class=token>(</span><span class="identifier identifier-invocation">type</span><span class=token>)</span><span class=token>;</span>
-	<span class=token>}</span>
+		<span class=k>this</span><span class=t>.</span><span class="id ma">services</span><span class=t>.</span><span class="id inv">Remove</span><span class=t>(</span><span class="id inv">type</span><span class=t>)</span><span class=t>;</span>
+	<span class=t>}</span>
 
-	<span class="keyword keyword-protected">protected</span> <span class="keyword keyword-object">object</span> <span class="identifier identifier-method">GetInjectableService</span><span class=token>(</span><span class="identifier identifier-method">Type</span> <span class="identifier identifier-method">type</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class=identifier>type</span> <span class=token>==</span> <span class="keyword keyword-typeof">typeof</span><span class=token>(</span><span class=identifier>IDependencyInjector</span><span class=token>)</span> <span class=token>||</span>
-		   <span class=identifier>type</span> <span class=token>==</span> <span class="keyword keyword-typeof">typeof</span><span class=token>(</span><span class=identifier>IServiceProvider</span><span class=token>)</span><span class=token>)</span>
-		<span class=token>{</span>
-			<span class="keyword keyword-statement keyword-return">return</span> <span class="keyword keyword-this">this</span><span class=token>;</span>
-		<span class=token>}</span>
-		<span class="keyword keyword-statement keyword-else">else</span>
-		<span class=token>{</span>
-			<span class="keyword keyword-object">object</span> <span class="identifier identifier-variable">service</span> <span class=token>=</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-invocation">GetService</span><span class=token>(</span><span class="identifier identifier-invocation">type</span><span class=token>)</span><span class=token>;</span>
+	<span class=k>protected</span> <span class=k>object</span> <span class="id m">GetInjectableService</span><span class=t>(</span><span class="id m">Type</span> <span class="id m">type</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class="k sta">if</span><span class=t>(</span><span class=id>type</span> <span class=t>==</span> <span class=k>typeof</span><span class=t>(</span><span class=id>IDependencyInjector</span><span class=t>)</span> <span class=t>||</span>
+		   <span class=id>type</span> <span class=t>==</span> <span class=k>typeof</span><span class=t>(</span><span class=id>IServiceProvider</span><span class=t>)</span><span class=t>)</span>
+		<span class=t>{</span>
+			<span class="k sta">return</span> <span class=k>this</span><span class=t>;</span>
+		<span class=t>}</span>
+		<span class="k sta">else</span>
+		<span class=t>{</span>
+			<span class=k>object</span> <span class=id>service</span> <span class=t>=</span> <span class=k>this</span><span class=t>.</span><span class="id inv">GetService</span><span class=t>(</span><span class="id inv">type</span><span class=t>)</span><span class=t>;</span>
 
-			<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class=identifier>service</span> <span class=token>==</span> <span class="keyword keyword-null">null</span><span class=token>)</span>
-				<span class="keyword keyword-throw">throw</span> <span class="keyword keyword-new">new</span> <span class=identifier>InvalidOperationException</span><span class=token>(</span><span class="string string-literal">"Failed to find "</span> <span class=token>+</span> <span class=identifier>type</span> <span class=token>+</span> <span class="string string-literal">" depenedency."</span><span class=token>)</span><span class=token>;</span>
+			<span class="k sta">if</span><span class=t>(</span><span class=id>service</span> <span class=t>==</span> <span class=k>null</span><span class=t>)</span>
+				<span class=k>throw</span> <span class=k>new</span> <span class=id>InvalidOperationException</span><span class=t>(</span><span class=str>"Failed to find "</span> <span class=t>+</span> <span class=id>type</span> <span class=t>+</span> <span class=str>" depenedency."</span><span class=t>)</span><span class=t>;</span>
 
-			<span class="keyword keyword-statement keyword-return">return</span> <span class=identifier>service</span><span class=token>;</span>
-		<span class=token>}</span>
-	<span class=token>}</span>
+			<span class="k sta">return</span> <span class=id>service</span><span class=t>;</span>
+		<span class=t>}</span>
+	<span class=t>}</span>
 
-	<span class="keyword keyword-public">public</span> <span class="identifier identifier-variable">T</span> <span class="identifier identifier-variable">Construct</span>&<span class=token></span><span class="identifier identifier-class">lt</span>;<span class="identifier identifier-class">T</span>&<span class="identifier identifier-class">gt</span>;<span class=token>(</span><span class="identifier identifier-class"></span><span class=token></span><span class="identifier identifier-class"></span><span class=token>)</span>
+	<span class=k>public</span> <span class="id cl">T</span> <span class="id cl">Construct</span>&<span class=t></span><span class="id cl">lt</span>;<span class="id cl">T</span>&<span class="id cl">gt</span>;<span class=t>(</span><span class="id cl"></span><span class=t></span><span class="id cl"></span><span class=t>)</span>
 	{
-		<span class="identifier identifier-variable">ConstructorInfo</span> <span class="identifier identifier-variable">injectableConstructor</span> <span class=token>=</span> <span class="keyword keyword-null">null</span><span class=token>;</span>
-		foreach<span class=token>(</span><span class="identifier identifier-class">ConstructorInfo</span> <span class="identifier identifier-class">constructor</span> <span class=token></span><span class="identifier identifier-class"></span><span class=token></span>in typeof<span class=token>(</span><span class="identifier identifier-class">T</span><span class=token></span><span class="identifier identifier-class"></span><span class=token>)</span>.<span class="identifier identifier-class">GetConstructors</span><span class=token>(</span><span class=token>)</span><span class=token></span>)
+		<span class="id cl">ConstructorInfo</span> <span class="id cl">injectableConstructor</span> <span class=t>=</span> <span class=k>null</span><span class=t>;</span>
+		foreach<span class=t>(</span><span class="id cl">ConstructorInfo</span> <span class="id cl">constructor</span> <span class=t></span><span class="id cl"></span><span class=t></span>in typeof<span class=t>(</span><span class="id cl">T</span><span class=t></span><span class="id cl"></span><span class=t>)</span>.<span class="id cl">GetConstructors</span><span class=t>(</span><span class=t>)</span><span class=t></span>)
 		{
-			foreach<span class=token>(</span><span class="identifier identifier-class">Attribute</span> <span class="identifier identifier-class">attribute</span> <span class=token></span><span class="identifier identifier-class"></span><span class=token></span>in <span class="identifier identifier-class">constructor</span><span class=token>.</span><span class="identifier identifier-class">GetCustomAttributes</span><span class=token>(</span><span class="identifier identifier-class"></span><span class=token></span><span class="identifier identifier-class"></span><span class=token></span>true))
+			foreach<span class=t>(</span><span class="id cl">Attribute</span> <span class="id cl">attribute</span> <span class=t></span><span class="id cl"></span><span class=t></span>in <span class="id cl">constructor</span><span class=t>.</span><span class="id cl">GetCustomAttributes</span><span class=t>(</span><span class="id cl"></span><span class=t></span><span class="id cl"></span><span class=t></span>true))
 			{
-				if<span class=token>(</span><span class="identifier identifier-class">attribute</span> <span class=token></span><span class="identifier identifier-class"></span><span class=token></span>is <span class="identifier identifier-class">InjectableAttribute</span>)
+				if<span class=t>(</span><span class="id cl">attribute</span> <span class=t></span><span class="id cl"></span><span class=t></span>is <span class="id cl">InjectableAttribute</span>)
 				{
-					<span class="identifier identifier-class">injectableConstructor</span> = <span class="identifier identifier-class">constructor</span>;
+					<span class="id cl">injectableConstructor</span> = <span class="id cl">constructor</span>;
 					break;
-				<span class=token>}</span>
+				<span class=t>}</span>
 			}
 
-			if<span class=token>(</span><span class=identifier>injectableConstructor</span> <span class=token></span><span class=identifier></span><span class=token></span>!= null)
+			if<span class=t>(</span><span class=id>injectableConstructor</span> <span class=t></span><span class=id></span><span class=t></span>!= null)
 				break;
 		}
 
-		if<span class=token>(</span><span class=identifier>injectableConstructor</span> <span class=token></span><span class=identifier></span><span class=token></span>== null)
-			throw <span class="keyword keyword-new">new</span> <span class=identifier>InvalidOperationException</span><span class=token>(</span>"No injectable constructor found."<span class=token>)</span><span class=token>;</span>
+		if<span class=t>(</span><span class=id>injectableConstructor</span> <span class=t></span><span class=id></span><span class=t></span>== null)
+			throw <span class=k>new</span> <span class=id>InvalidOperationException</span><span class=t>(</span>"No injectable constructor found."<span class=t>)</span><span class=t>;</span>
 
-		<span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">parameters</span> <span class=token>=</span> <span class="identifier identifier-invocation">injectableConstructor</span><span class=token>.</span><span class="identifier identifier-invocation">GetParameters</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
-		<span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">services</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="keyword keyword-object">object</span><span class=token>[</span><span class="identifier identifier-member-access">parameters</span><span class=token>.</span><span class="identifier identifier-member-access">Length</span><span class=token>]</span><span class=token>;</span>
+		<span class="id v">var</span> <span class=id>parameters</span> <span class=t>=</span> <span class="id inv">injectableConstructor</span><span class=t>.</span><span class="id inv">GetParameters</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+		<span class="id v">var</span> <span class=id>services</span> <span class=t>=</span> <span class=k>new</span> <span class=k>object</span><span class=t>[</span><span class="id ma">parameters</span><span class=t>.</span><span class="id ma">Length</span><span class=t>]</span><span class=t>;</span>
 
-		<span class="keyword keyword-int">int</span> <span class="identifier identifier-variable">i</span> <span class=token>=</span> <span class="numeric numeric-literal">0</span><span class=token>;</span>
-		foreach<span class=token>(</span><span class=identifier>ParameterInfo</span> <span class=identifier>parameter</span> <span class=token></span><span class=identifier></span><span class=token></span>in <span class=identifier>parameters</span>)
-			<span class=identifier>services</span><span class=token>[</span><span class=identifier>i</span><span class=token>++</span><span class=token>]</span> = <span class=identifier>GetInjectableService</span><span class=token>(</span><span class=identifier>parameter</span><span class=token>.</span><span class=identifier>ParameterType</span><span class=identifier></span><span class=token>)</span><span class=token>;</span>
+		<span class=k>int</span> <span class=id>i</span> <span class=t>=</span> <span class=n>0</span><span class=t>;</span>
+		foreach<span class=t>(</span><span class=id>ParameterInfo</span> <span class=id>parameter</span> <span class=t></span><span class=id></span><span class=t></span>in <span class=id>parameters</span>)
+			<span class=id>services</span><span class=t>[</span><span class=id>i</span><span class=t>++</span><span class=t>]</span> = <span class=id>GetInjectableService</span><span class=t>(</span><span class=id>parameter</span><span class=t>.</span><span class=id>ParameterType</span><span class=id></span><span class=t>)</span><span class=t>;</span>
 
-		return <span class=token>(</span><span class="identifier identifier-method">T</span><span class=token></span><span class="identifier identifier-method"></span><span class=token>)</span><span class="identifier identifier-method">injectableConstructor</span><span class=token>.</span><span class="identifier identifier-method">Invoke</span><span class=token>(</span><span class="identifier identifier-method">services</span><span class="identifier identifier-method"></span><span class=token>)</span><span class=token>;</span>
+		return <span class=t>(</span><span class="id m">T</span><span class=t></span><span class="id m"></span><span class=t>)</span><span class="id m">injectableConstructor</span><span class=t>.</span><span class="id m">Invoke</span><span class=t>(</span><span class="id m">services</span><span class="id m"></span><span class=t>)</span><span class=t>;</span>
 	}
 
-	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Inject</span><span class=token>(</span><span class="keyword keyword-object">object</span> <span class="identifier identifier-method">instance</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-statement keyword-foreach">foreach</span><span class=token>(</span><span class=identifier>PropertyInfo</span> <span class=identifier>property</span> <span class="keyword keyword-statement keyword-in">in</span> <span class="identifier identifier-invocation">instance</span><span class=token>.</span><span class="identifier identifier-invocation">GetType</span><span class=token>(</span><span class=token>)</span><span class=token>.</span><span class="identifier identifier-invocation">GetProperties</span><span class=token>(</span><span class=token>)</span><span class=token>)</span>
-		<span class=token>{</span>
-			<span class="keyword keyword-statement keyword-foreach">foreach</span><span class=token>(</span><span class=identifier>Attribute</span> <span class=identifier>attribute</span> <span class="keyword keyword-statement keyword-in">in</span> <span class="identifier identifier-invocation">property</span><span class=token>.</span><span class="identifier identifier-invocation">GetCustomAttributes</span><span class=token>(</span><span class="keyword keyword-true">true</span><span class=token>)</span><span class=token>)</span>
-			<span class=token>{</span>
-				<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class=identifier>attribute</span> <span class="keyword keyword-is">is</span> <span class=identifier>InjectableAttribute</span><span class=token>)</span>
-				<span class=token>{</span>
-					<span class="keyword keyword-statement keyword-if">if</span><span class=token>(</span><span class=token>!</span><span class="identifier identifier-member-access">property</span><span class=token>.</span><span class="identifier identifier-member-access">CanWrite</span><span class=token>)</span>
-						<span class="keyword keyword-throw">throw</span> <span class="keyword keyword-new">new</span> <span class=identifier>InvalidOperationException</span><span class=token>(</span><span class="identifier identifier-member-access">property</span><span class=token>.</span><span class="identifier identifier-member-access">Name</span> <span class=token>+</span> <span class="string string-literal">" is marked as Injectable but not writable."</span><span class=token>)</span><span class=token>;</span>
+	<span class=k>public</span> <span class=k>void</span> <span class="id m">Inject</span><span class=t>(</span><span class=k>object</span> <span class="id m">instance</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class="k sta">foreach</span><span class=t>(</span><span class=id>PropertyInfo</span> <span class=id>property</span> <span class="k sta">in</span> <span class="id inv">instance</span><span class=t>.</span><span class="id inv">GetType</span><span class=t>(</span><span class=t>)</span><span class=t>.</span><span class="id inv">GetProperties</span><span class=t>(</span><span class=t>)</span><span class=t>)</span>
+		<span class=t>{</span>
+			<span class="k sta">foreach</span><span class=t>(</span><span class=id>Attribute</span> <span class=id>attribute</span> <span class="k sta">in</span> <span class="id inv">property</span><span class=t>.</span><span class="id inv">GetCustomAttributes</span><span class=t>(</span><span class=k>true</span><span class=t>)</span><span class=t>)</span>
+			<span class=t>{</span>
+				<span class="k sta">if</span><span class=t>(</span><span class=id>attribute</span> <span class=k>is</span> <span class=id>InjectableAttribute</span><span class=t>)</span>
+				<span class=t>{</span>
+					<span class="k sta">if</span><span class=t>(</span><span class=t>!</span><span class="id ma">property</span><span class=t>.</span><span class="id ma">CanWrite</span><span class=t>)</span>
+						<span class=k>throw</span> <span class=k>new</span> <span class=id>InvalidOperationException</span><span class=t>(</span><span class="id ma">property</span><span class=t>.</span><span class="id ma">Name</span> <span class=t>+</span> <span class=str>" is marked as Injectable but not writable."</span><span class=t>)</span><span class=t>;</span>
 
-					<span class="identifier identifier-invocation">property</span><span class=token>.</span><span class="identifier identifier-invocation">SetValue</span><span class=token>(</span><span class="identifier identifier-invocation">instance</span><span class=token>,</span> <span class="identifier identifier-invocation">GetInjectableService</span><span class=token>(</span><span class="identifier identifier-invocation">property</span><span class=token>.</span><span class="identifier identifier-invocation">PropertyType</span><span class=token>)</span><span class=token>,</span> <span class="keyword keyword-null">null</span><span class=token>)</span><span class=token>;</span>
-				<span class=token>}</span>
-			<span class=token>}</span>
-		<span class=token>}</span>
-	<span class=token>}</span>
+					<span class="id inv">property</span><span class=t>.</span><span class="id inv">SetValue</span><span class=t>(</span><span class="id inv">instance</span><span class=t>,</span> <span class="id inv">GetInjectableService</span><span class=t>(</span><span class="id inv">property</span><span class=t>.</span><span class="id inv">PropertyType</span><span class=t>)</span><span class=t>,</span> <span class=k>null</span><span class=t>)</span><span class=t>;</span>
+				<span class=t>}</span>
+			<span class=t>}</span>
+		<span class=t>}</span>
+	<span class=t>}</span>
 }
-<span class=token></span></span></code></pre><p>You can now construct new instances and inject dependencies on existing instances. Some usage examples:
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class="keyword keyword-public">public</span> <span class="keyword keyword-interface">interface</span> <span class=identifier>IFoo</span>
-<span class=token>{</span>
-	<span class="keyword keyword-int">int</span> <span class=identifier>Value</span> <span class=token>{</span> <span class="keyword keyword-get">get</span><span class=token>;</span> <span class=token>}</span>
-<span class=token>}</span>
+<span class=t></span></span></code></pre><p>You can now construct new instances and inject dependencies on existing instances. Some usage examples:
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>interface</span> <span class=id>IFoo</span>
+<span class=t>{</span>
+	<span class=k>int</span> <span class=id>Value</span> <span class=t>{</span> <span class=k>get</span><span class=t>;</span> <span class=t>}</span>
+<span class=t>}</span>
 
-<span class="keyword keyword-public">public</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">Foo</span> <span class=token>:</span> <span class="identifier identifier-class">IFoo</span>
-<span class=token>{</span>
-	<span class="keyword keyword-public">public</span> <span class="keyword keyword-int">int</span> <span class="identifier identifier-class">Value</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-get">get</span><span class=token>;</span>
-		<span class="keyword keyword-set">set</span><span class=token>;</span>
-	<span class=token>}</span>
+<span class=k>public</span> <span class=k>class</span> <span class="id cl">Foo</span> <span class=t>:</span> <span class="id cl">IFoo</span>
+<span class=t>{</span>
+	<span class=k>public</span> <span class=k>int</span> <span class="id cl">Value</span>
+	<span class=t>{</span>
+		<span class=k>get</span><span class=t>;</span>
+		<span class=k>set</span><span class=t>;</span>
+	<span class=t>}</span>
 
-	<span class=token>[</span><span class="identifier identifier-class">Injectable</span><span class=token>]</span>
-	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">Foo</span><span class=token>(</span><span class=token>)</span>
-	<span class=token>{</span>
-	<span class=token>}</span>
+	<span class=t>[</span><span class="id cl">Injectable</span><span class=t>]</span>
+	<span class=k>public</span> <span class="id cl">Foo</span><span class=t>(</span><span class=t>)</span>
+	<span class=t>{</span>
+	<span class=t>}</span>
 
-	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">DoIt</span><span class=token>(</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="identifier identifier-invocation">Console</span><span class=token>.</span><span class="identifier identifier-invocation">WriteLine</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-invocation">Value</span><span class=token>)</span><span class=token>;</span>
-	<span class=token>}</span>
-<span class=token>}</span>
+	<span class=k>public</span> <span class=k>void</span> <span class="id m">DoIt</span><span class=t>(</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class="id inv">Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class="id inv">Value</span><span class=t>)</span><span class=t>;</span>
+	<span class=t>}</span>
+<span class=t>}</span>
 
-<span class="keyword keyword-public">public</span> <span class="keyword keyword-interface">interface</span> <span class=identifier>IBar</span>
-<span class=token>{</span>
-	<span class="keyword keyword-string">string</span> <span class=identifier>Value</span> <span class=token>{</span> <span class="keyword keyword-get">get</span><span class=token>;</span> <span class=token>}</span>
-<span class=token>}</span>
+<span class=k>public</span> <span class=k>interface</span> <span class=id>IBar</span>
+<span class=t>{</span>
+	<span class=k>string</span> <span class=id>Value</span> <span class=t>{</span> <span class=k>get</span><span class=t>;</span> <span class=t>}</span>
+<span class=t>}</span>
 
-<span class="keyword keyword-public">public</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">Bar</span> <span class=token>:</span> <span class="identifier identifier-class">IBar</span>
-<span class=token>{</span>
-	<span class="identifier identifier-variable">IFoo</span> <span class="identifier identifier-variable">foo</span><span class=token>;</span>
+<span class=k>public</span> <span class=k>class</span> <span class="id cl">Bar</span> <span class=t>:</span> <span class="id cl">IBar</span>
+<span class=t>{</span>
+	<span class="id cl">IFoo</span> <span class="id cl">foo</span><span class=t>;</span>
 
-	<span class="keyword keyword-public">public</span> <span class="keyword keyword-string">string</span> <span class="identifier identifier-class">Value</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-get">get</span><span class=token>;</span>
-		<span class="keyword keyword-set">set</span><span class=token>;</span>
-	<span class=token>}</span>
+	<span class=k>public</span> <span class=k>string</span> <span class="id cl">Value</span>
+	<span class=t>{</span>
+		<span class=k>get</span><span class=t>;</span>
+		<span class=k>set</span><span class=t>;</span>
+	<span class=t>}</span>
 
-	<span class=token>[</span><span class="identifier identifier-class">Injectable</span><span class=token>]</span>
-	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">Bar</span><span class=token>(</span><span class="identifier identifier-class">IFoo</span> <span class="identifier identifier-class">foo</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span> <span class=token>=</span> <span class=identifier>foo</span><span class=token>;</span>
-	<span class=token>}</span>
+	<span class=t>[</span><span class="id cl">Injectable</span><span class=t>]</span>
+	<span class=k>public</span> <span class="id cl">Bar</span><span class=t>(</span><span class="id cl">IFoo</span> <span class="id cl">foo</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class=k>this</span><span class=t>.</span><span class="id ma">foo</span> <span class=t>=</span> <span class=id>foo</span><span class=t>;</span>
+	<span class=t>}</span>
 
-	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">DoIt</span><span class=token>(</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="identifier identifier-invocation">Console</span><span class=token>.</span><span class="identifier identifier-invocation">WriteLine</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-invocation">Value</span> <span class=token>+</span> <span class="string string-literal">": "</span> <span class=token>+</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">foo</span><span class=token>.</span><span class="identifier identifier-invocation">Value</span><span class=token>)</span><span class=token>;</span>
-	<span class=token>}</span>
-<span class=token>}</span>
+	<span class=k>public</span> <span class=k>void</span> <span class="id m">DoIt</span><span class=t>(</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class="id inv">Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class="id inv">Value</span> <span class=t>+</span> <span class=str>": "</span> <span class=t>+</span> <span class=k>this</span><span class=t>.</span><span class="id ma">foo</span><span class=t>.</span><span class="id inv">Value</span><span class=t>)</span><span class=t>;</span>
+	<span class=t>}</span>
+<span class=t>}</span>
 
-<span class="keyword keyword-public">public</span> <span class="keyword keyword-class">class</span> <span class="identifier identifier-class">Baz</span>
-<span class=token>{</span>
-	<span class=token>[</span><span class="identifier identifier-class">Injectable</span><span class=token>]</span>
-	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">IFoo</span> <span class="identifier identifier-class">Foo</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-get">get</span><span class=token>;</span>
-		<span class="keyword keyword-set">set</span><span class=token>;</span>
-	<span class=token>}</span>
+<span class=k>public</span> <span class=k>class</span> <span class="id cl">Baz</span>
+<span class=t>{</span>
+	<span class=t>[</span><span class="id cl">Injectable</span><span class=t>]</span>
+	<span class=k>public</span> <span class="id cl">IFoo</span> <span class="id cl">Foo</span>
+	<span class=t>{</span>
+		<span class=k>get</span><span class=t>;</span>
+		<span class=k>set</span><span class=t>;</span>
+	<span class=t>}</span>
 
-	<span class=token>[</span><span class="identifier identifier-class">Injectable</span><span class=token>]</span>
-	<span class="keyword keyword-public">public</span> <span class="identifier identifier-class">IBar</span> <span class="identifier identifier-class">Bar</span>
-	<span class=token>{</span>
-		<span class="keyword keyword-get">get</span><span class=token>;</span>
-		<span class="keyword keyword-set">set</span><span class=token>;</span>
-	<span class=token>}</span>
+	<span class=t>[</span><span class="id cl">Injectable</span><span class=t>]</span>
+	<span class=k>public</span> <span class="id cl">IBar</span> <span class="id cl">Bar</span>
+	<span class=t>{</span>
+		<span class=k>get</span><span class=t>;</span>
+		<span class=k>set</span><span class=t>;</span>
+	<span class=t>}</span>
 							
-	<span class="keyword keyword-public">public</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">DoIt</span><span class=token>(</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="identifier identifier-invocation">Console</span><span class=token>.</span><span class="identifier identifier-invocation">WriteLine</span><span class=token>(</span><span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">Bar</span><span class=token>.</span><span class="identifier identifier-invocation">Value</span> <span class=token>+</span> <span class="string string-literal">" | "</span> <span class=token>+</span> <span class="keyword keyword-this">this</span><span class=token>.</span><span class="identifier identifier-member-access">Foo</span><span class=token>.</span><span class="identifier identifier-invocation">Value</span><span class=token>)</span><span class=token>;</span>
-	<span class=token>}</span>
-<span class=token>}</span>
+	<span class=k>public</span> <span class=k>void</span> <span class="id m">DoIt</span><span class=t>(</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class="id inv">Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class="id ma">Bar</span><span class=t>.</span><span class="id inv">Value</span> <span class=t>+</span> <span class=str>" | "</span> <span class=t>+</span> <span class=k>this</span><span class=t>.</span><span class="id ma">Foo</span><span class=t>.</span><span class="id inv">Value</span><span class=t>)</span><span class=t>;</span>
+	<span class=t>}</span>
+<span class=t>}</span>
 
-<span class="keyword keyword-class">class</span> <span class="identifier identifier-class">Program</span>
-<span class=token>{</span>
-	<span class="keyword keyword-static">static</span> <span class="keyword keyword-void">void</span> <span class="identifier identifier-method">Main</span><span class=token>(</span><span class="keyword keyword-string">string</span><span class=token>[</span><span class=token></span><span class=token>]</span> <span class="identifier identifier-method">args</span><span class=token>)</span>
-	<span class=token>{</span>
-		<span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">container</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-variable">ServiceContainer</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+<span class=k>class</span> <span class="id cl">Program</span>
+<span class=t>{</span>
+	<span class=k>static</span> <span class=k>void</span> <span class="id m">Main</span><span class=t>(</span><span class=k>string</span><span class=t>[</span><span class=t></span><span class=t>]</span> <span class="id m">args</span><span class=t>)</span>
+	<span class=t>{</span>
+		<span class="id v">var</span> <span class=id>container</span> <span class=t>=</span> <span class=k>new</span> <span class=id>ServiceContainer</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">foo</span> <span class=token>=</span> <span class="identifier identifier-member-access">container</span><span class=token>.</span><span class="identifier identifier-member-access">Construct</span><span class=token>&</span><span class="identifier identifier-variable">lt</span><span class=token>;</span><span class=identifier>Foo</span><span class=token>&</span><span class=identifier>gt</span><span class=token>;</span><span class=token>(</span><span class=identifier></span><span class=token>)</span><span class=token>;</span>
-		<span class="identifier identifier-member-access">foo</span><span class=token>.</span><span class="identifier identifier-member-access">Value</span> <span class=token>=</span> <span class="numeric numeric-literal">5</span><span class=token>;</span>
-		<span class="identifier identifier-invocation">container</span><span class=token>.</span><span class="identifier identifier-invocation">AddService</span><span class=token>(</span><span class="keyword keyword-typeof">typeof</span><span class=token>(</span><span class="identifier identifier-invocation">IFoo</span><span class=token>)</span><span class=token>,</span> <span class="identifier identifier-invocation">foo</span><span class=token>)</span><span class=token>;</span>
+		<span class="id v">var</span> <span class=id>foo</span> <span class=t>=</span> <span class="id ma">container</span><span class=t>.</span><span class="id ma">Construct</span><span class=t>&</span><span class=id>lt</span><span class=t>;</span><span class=id>Foo</span><span class=t>&</span><span class=id>gt</span><span class=t>;</span><span class=t>(</span><span class=id></span><span class=t>)</span><span class=t>;</span>
+		<span class="id ma">foo</span><span class=t>.</span><span class="id ma">Value</span> <span class=t>=</span> <span class=n>5</span><span class=t>;</span>
+		<span class="id inv">container</span><span class=t>.</span><span class="id inv">AddService</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class="id inv">IFoo</span><span class=t>)</span><span class=t>,</span> <span class="id inv">foo</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">bar</span> <span class=token>=</span> <span class="identifier identifier-member-access">container</span><span class=token>.</span><span class="identifier identifier-member-access">Construct</span><span class=token>&</span><span class="identifier identifier-variable">lt</span><span class=token>;</span><span class=identifier>Bar</span><span class=token>&</span><span class=identifier>gt</span><span class=token>;</span><span class=token>(</span><span class=identifier></span><span class=token>)</span><span class=token>;</span>
-		<span class="identifier identifier-invocation">container</span><span class=token>.</span><span class="identifier identifier-invocation">AddService</span><span class=token>(</span><span class="keyword keyword-typeof">typeof</span><span class=token>(</span><span class="identifier identifier-invocation">IBar</span><span class=token>)</span><span class=token>,</span> <span class="identifier identifier-invocation">bar</span><span class=token>)</span><span class=token>;</span>
-		<span class="identifier identifier-member-access">bar</span><span class=token>.</span><span class="identifier identifier-member-access">Value</span> <span class=token>=</span> <span class="string string-literal">"Hello World!"</span><span class=token>;</span>
-		<span class="identifier identifier-invocation">bar</span><span class=token>.</span><span class="identifier identifier-invocation">DoIt</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
+		<span class="id v">var</span> <span class=id>bar</span> <span class=t>=</span> <span class="id ma">container</span><span class=t>.</span><span class="id ma">Construct</span><span class=t>&</span><span class=id>lt</span><span class=t>;</span><span class=id>Bar</span><span class=t>&</span><span class=id>gt</span><span class=t>;</span><span class=t>(</span><span class=id></span><span class=t>)</span><span class=t>;</span>
+		<span class="id inv">container</span><span class=t>.</span><span class="id inv">AddService</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class="id inv">IBar</span><span class=t>)</span><span class=t>,</span> <span class="id inv">bar</span><span class=t>)</span><span class=t>;</span>
+		<span class="id ma">bar</span><span class=t>.</span><span class="id ma">Value</span> <span class=t>=</span> <span class=str>"Hello World!"</span><span class=t>;</span>
+		<span class="id inv">bar</span><span class=t>.</span><span class="id inv">DoIt</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 
-		<span class="identifier identifier-variable">var</span> <span class="identifier identifier-variable">baz</span> <span class=token>=</span> <span class="keyword keyword-new">new</span> <span class="identifier identifier-variable">Baz</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
-		<span class="identifier identifier-invocation">container</span><span class=token>.</span><span class="identifier identifier-invocation">Inject</span><span class=token>(</span><span class="identifier identifier-invocation">baz</span><span class=token>)</span><span class=token>;</span>
-		<span class="identifier identifier-invocation">baz</span><span class=token>.</span><span class="identifier identifier-invocation">DoIt</span><span class=token>(</span><span class=token>)</span><span class=token>;</span>
-	<span class=token>}</span>
-<span class=token>}</span>
-<span class=token></span></span></code></pre></div></div></div><div class=clear></div></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+		<span class="id v">var</span> <span class=id>baz</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Baz</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+		<span class="id inv">container</span><span class=t>.</span><span class="id inv">Inject</span><span class=t>(</span><span class="id inv">baz</span><span class=t>)</span><span class=t>;</span>
+		<span class="id inv">baz</span><span class=t>.</span><span class="id inv">DoIt</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+	<span class=t>}</span>
+<span class=t>}</span>
+<span class=t></span></span></code></pre></div></div></div><div class=clear></div></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
