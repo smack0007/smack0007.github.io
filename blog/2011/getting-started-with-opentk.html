@@ -1,51 +1,51 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Getting started with OpenTK</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy Me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2011/getting-started-with-opentk.html>Getting started with OpenTK</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>OpenGL</span></div><div class=content><p>I started experimenting with <a href=http://www.opentk.com>OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>using</span> <span class="id u">System</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Drawing</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">OpenTK</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>.</span><span class="id u">OpenGL</span><span class=t>;</span>
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class="k sta">using</span> <span class="id u">System</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Drawing</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>.</span><span class="id u">OpenGL</span><span class=t>;</span>
 
-<span class=k>namespace</span> <span class=id>OpenTKApp1</span>
+<span class=k>namespace</span> <span class="id ns">OpenTKApp1</span>
 <span class=t>{</span>
-	<span class=k>public</span> <span class=k>class</span> <span class="id cl">AppWindow</span> <span class=t>:</span> <span class="id cl">GameWindow</span>
+	<span class=k>public</span> <span class=k>class</span> <span class="id ns">AppWindow</span> <span class=t>:</span> <span class="id ty">GameWindow</span>
 	<span class=t>{</span>
-		<span class=k>public</span> <span class="id cl">AppWindow</span><span class=t>(</span><span class=t>)</span>
+		<span class=k>public</span> <span class="id ns">AppWindow</span><span class=t>(</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">Title</span> <span class=t>=</span> <span class=str>"OpenTK App 1"</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">WindowBorder</span> <span class=t>=</span> <span class="id ma">WindowBorder</span><span class=t>.</span><span class="id ma">Fixed</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">ClientSize</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Size</span><span class=t>(</span><span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>			
+			<span class=k>this</span><span class=t>.</span><span class=id>Title</span> <span class=t>=</span> <span class=str>"OpenTK App 1"</span><span class=t>;</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>WindowBorder</span> <span class=t>=</span> <span class=id>WindowBorder</span><span class=t>.</span><span class=id>Fixed</span><span class=t>;</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>ClientSize</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Size</span><span class=t>(</span><span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>			
 		<span class=t>}</span>
 
-		<span class=k>protected</span> <span class=k>override</span> <span class=k>void</span> <span class="id m">OnRenderFrame</span><span class=t>(</span><span class="id m">FrameEventArgs</span> <span class="id m">e</span><span class=t>)</span>
+		<span class=k>protected</span> <span class=k>override</span> <span class=k>void</span> <span class="id m">OnRenderFrame</span><span class=t>(</span><span class="id ty">FrameEventArgs</span> <span class=id>e</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class=k>base</span><span class=t>.</span><span class="id inv">OnRenderFrame</span><span class=t>(</span><span class="id inv">e</span><span class=t>)</span><span class=t>;</span>
+			<span class=k>base</span><span class=t>.</span><span class="id inv">OnRenderFrame</span><span class=t>(</span><span class=id>e</span><span class=t>)</span><span class=t>;</span>
 
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">ClearColor</span><span class=t>(</span><span class="id inv">Color</span><span class=t>.</span><span class="id inv">CornflowerBlue</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Clear</span><span class=t>(</span><span class="id inv">ClearBufferMask</span><span class=t>.</span><span class="id inv">ColorBufferBit</span> <span class=t>|</span> <span class="id inv">ClearBufferMask</span><span class=t>.</span><span class="id inv">DepthBufferBit</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">ClearColor</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>CornflowerBlue</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Clear</span><span class=t>(</span><span class=id>ClearBufferMask</span><span class=t>.</span><span class=id>ColorBufferBit</span> <span class=t>|</span> <span class=id>ClearBufferMask</span><span class=t>.</span><span class=id>DepthBufferBit</span><span class=t>)</span><span class=t>;</span>
 
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">MatrixMode</span><span class=t>(</span><span class="id inv">MatrixMode</span><span class=t>.</span><span class="id inv">Projection</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">LoadIdentity</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Ortho</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=t>-</span><span class=n>1</span><span class=t>,</span> <span class=n>1</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Viewport</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">MatrixMode</span><span class=t>(</span><span class=id>MatrixMode</span><span class=t>.</span><span class=id>Projection</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">LoadIdentity</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Ortho</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=t>-</span><span class=n>1</span><span class=t>,</span> <span class=n>1</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Viewport</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>
 			
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Begin</span><span class=t>(</span><span class="id inv">BeginMode</span><span class=t>.</span><span class="id inv">Triangles</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class="id inv">Color</span><span class=t>.</span><span class="id inv">Red</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>400</span><span class=t>,</span> <span class=n>150</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class="id inv">Color</span><span class=t>.</span><span class="id inv">Green</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>600</span><span class=t>,</span> <span class=n>450</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class="id inv">Color</span><span class=t>.</span><span class="id inv">Blue</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>200</span><span class=t>,</span> <span class=n>450</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">End</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Begin</span><span class=t>(</span><span class=id>BeginMode</span><span class=t>.</span><span class=id>Triangles</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>Red</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>400</span><span class=t>,</span> <span class=n>150</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>Green</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>600</span><span class=t>,</span> <span class=n>450</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>Blue</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>200</span><span class=t>,</span> <span class=n>450</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">End</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Flush</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Flush</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 			<span class=k>this</span><span class=t>.</span><span class="id inv">SwapBuffers</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 		<span class=t>}</span>
 
-		<span class=t>[</span><span class="id m">STAThread</span><span class=t>]</span>
+		<span class=t>[</span><span class=id>STAThread</span><span class=t>]</span>
 		<span class=k>public</span> <span class=k>static</span> <span class=k>void</span> <span class="id m">Main</span><span class=t>(</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class=id>AppWindow</span> <span class=id>window</span> <span class=t>=</span> <span class=k>new</span> <span class=id>AppWindow</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">window</span><span class=t>.</span><span class="id inv">Run</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>AppWindow</span> <span class=id>window</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">AppWindow</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>window</span><span class=t>.</span><span class="id inv">Run</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 		<span class=t>}</span>
 	<span class=t>}</span>
 <span class=t>}</span>

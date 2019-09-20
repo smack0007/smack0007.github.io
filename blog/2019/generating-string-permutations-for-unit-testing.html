@@ -14,7 +14,7 @@
     <span class=k>public</span> <span class=k>bool</span><span class=t>?</span> <span class=id>Field6</span> <span class=t>{</span> <span class=k>get</span><span class=t>;</span> <span class=t>}</span>
 <span class=t>}</span>
 <span class=t></span></span></code></pre><p>I wanted to generate unit tests for every possibly permuation of the string. We're using NUnit so this can be acheived using TestCaseSource:
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class="id g">IEnumerable</span><span class=t><</span><span class=k>object</span><span class=t>[</span><span class=t></span><span class=t>]</span><span class=t>></span> <span class="id m">TestValues</span><span class=t>(</span><span class=t>)</span>
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class="id ty">IEnumerable</span><span class=t><</span><span class=k>object</span><span class=t>[</span><span class=t></span><span class=t>]</span><span class=t>></span> <span class="id m">TestValues</span><span class=t>(</span><span class=t>)</span>
 <span class=t>{</span>
     <span class="k sta">return</span>
         <span class=k>from</span> <span class=id>f1</span> <span class="k sta">in</span> <span class="id inv">FieldValues</span><span class=t>(</span><span class=t>)</span>
@@ -25,39 +25,39 @@
         <span class=k>from</span> <span class=id>f6</span> <span class="k sta">in</span> <span class="id inv">FieldValues</span><span class=t>(</span><span class=t>)</span>
         <span class=k>select</span> <span class=k>new</span> <span class=k>object</span><span class=t>[</span><span class=t></span><span class=t>]</span>
         <span class=t>{</span>
-            <span class=k>new</span> <span class=k>string</span><span class=t>(</span><span class=k>new</span> <span class=k>char</span><span class=t>[</span><span class=t></span><span class=t>]</span> <span class=t>{</span> <span class="id ma">f1</span><span class=t>.</span><span class="id ma">Key</span><span class=t>,</span> <span class="id ma">f2</span><span class=t>.</span><span class="id ma">Key</span><span class=t>,</span> <span class="id ma">f3</span><span class=t>.</span><span class="id ma">Key</span><span class=t>,</span> <span class="id ma">f4</span><span class=t>.</span><span class="id ma">Key</span><span class=t>,</span> <span class="id ma">f5</span><span class=t>.</span><span class="id ma">Key</span><span class=t>,</span> <span class="id ma">f6</span><span class=t>.</span><span class="id ma">Key</span> <span class=t>}</span><span class=t>)</span><span class=t>,</span>
-            <span class="id ma">f1</span><span class=t>.</span><span class="id ma">Value</span><span class=t>,</span>
-            <span class="id ma">f2</span><span class=t>.</span><span class="id ma">Value</span><span class=t>,</span>
-            <span class="id ma">f3</span><span class=t>.</span><span class="id ma">Value</span><span class=t>,</span>
-            <span class="id ma">f4</span><span class=t>.</span><span class="id ma">Value</span><span class=t>,</span>
-            <span class="id ma">f5</span><span class=t>.</span><span class="id ma">Value</span><span class=t>,</span>
-            <span class="id ma">f6</span><span class=t>.</span><span class="id ma">Value</span>
+            <span class=k>new</span> <span class=k>string</span><span class=t>(</span><span class=k>new</span> <span class=k>char</span><span class=t>[</span><span class=t></span><span class=t>]</span> <span class=t>{</span> <span class=id>f1</span><span class=t>.</span><span class=id>Key</span><span class=t>,</span> <span class=id>f2</span><span class=t>.</span><span class=id>Key</span><span class=t>,</span> <span class=id>f3</span><span class=t>.</span><span class=id>Key</span><span class=t>,</span> <span class=id>f4</span><span class=t>.</span><span class=id>Key</span><span class=t>,</span> <span class=id>f5</span><span class=t>.</span><span class=id>Key</span><span class=t>,</span> <span class=id>f6</span><span class=t>.</span><span class=id>Key</span> <span class=t>}</span><span class=t>)</span><span class=t>,</span>
+            <span class=id>f1</span><span class=t>.</span><span class=id>Value</span><span class=t>,</span>
+            <span class=id>f2</span><span class=t>.</span><span class=id>Value</span><span class=t>,</span>
+            <span class=id>f3</span><span class=t>.</span><span class=id>Value</span><span class=t>,</span>
+            <span class=id>f4</span><span class=t>.</span><span class=id>Value</span><span class=t>,</span>
+            <span class=id>f5</span><span class=t>.</span><span class=id>Value</span><span class=t>,</span>
+            <span class=id>f6</span><span class=t>.</span><span class=id>Value</span>
         <span class=t>}</span><span class=t>;</span>
 <span class=t>}</span>
 
-<span class=k>public</span> <span class="id g">IEnumerable</span><span class=t><</span><span class="id g">KeyValuePair</span><span class=t><</span><span class=k>char</span><span class=t>,</span> <span class=k>bool</span><span class=t>?</span><span class=t>></span><span class=t>></span> <span class="id m">FieldValues</span><span class=t>(</span><span class=t>)</span>
+<span class=k>public</span> <span class="id ty">IEnumerable</span><span class=t><</span><span class="id ty">KeyValuePair</span><span class=t><</span><span class=k>char</span><span class=t>,</span> <span class=k>bool</span><span class=t>?</span><span class=t>></span><span class=t>></span> <span class="id m">FieldValues</span><span class=t>(</span><span class=t>)</span>
 <span class=t>{</span>
-    <span class="k sta">yield</span> <span class="k sta">return</span> <span class=k>new</span> <span class="id g">KeyValuePair</span><span class=t><</span><span class=k>char</span><span class=t>,</span> <span class=k>bool</span><span class=t>?</span><span class=t>></span><span class=t>(</span><span class=t>'?'</span><span class=t>,</span> <span class=k>null</span><span class=t>)</span><span class=t>;</span>
-    <span class="k sta">yield</span> <span class="k sta">return</span> <span class=k>new</span> <span class="id g">KeyValuePair</span><span class=t><</span><span class=k>char</span><span class=t>,</span> <span class=k>bool</span><span class=t>?</span><span class=t>></span><span class=t>(</span><span class=t>'0'</span><span class=t>,</span> <span class=k>false</span><span class=t>)</span><span class=t>;</span>
-    <span class="k sta">yield</span> <span class="k sta">return</span> <span class=k>new</span> <span class="id g">KeyValuePair</span><span class=t><</span><span class=k>char</span><span class=t>,</span> <span class=k>bool</span><span class=t>?</span><span class=t>></span><span class=t>(</span><span class=t>'1'</span><span class=t>,</span> <span class=k>true</span><span class=t>)</span><span class=t>;</span>
+    <span class="k sta">yield</span> <span class="k sta">return</span> <span class=k>new</span> <span class="id ty">KeyValuePair</span><span class=t><</span><span class=k>char</span><span class=t>,</span> <span class=k>bool</span><span class=t>?</span><span class=t>></span><span class=t>(</span><span class=t>'?'</span><span class=t>,</span> <span class=k>null</span><span class=t>)</span><span class=t>;</span>
+    <span class="k sta">yield</span> <span class="k sta">return</span> <span class=k>new</span> <span class="id ty">KeyValuePair</span><span class=t><</span><span class=k>char</span><span class=t>,</span> <span class=k>bool</span><span class=t>?</span><span class=t>></span><span class=t>(</span><span class=t>'0'</span><span class=t>,</span> <span class=k>false</span><span class=t>)</span><span class=t>;</span>
+    <span class="k sta">yield</span> <span class="k sta">return</span> <span class=k>new</span> <span class="id ty">KeyValuePair</span><span class=t><</span><span class=k>char</span><span class=t>,</span> <span class=k>bool</span><span class=t>?</span><span class=t>></span><span class=t>(</span><span class=t>'1'</span><span class=t>,</span> <span class=k>true</span><span class=t>)</span><span class=t>;</span>
 <span class=t>}</span>
 
-<span class=t>[</span><span class="id m">TestCaseSource</span><span class=t>(</span><span class="id inv">nameof</span><span class=t>(</span><span class="id inv">TestValues</span><span class=t>)</span><span class=t>)</span><span class=t>]</span>
+<span class=t>[</span><span class=id>TestCaseSource</span><span class=t>(</span><span class="id inv">nameof</span><span class=t>(</span><span class=id>TestValues</span><span class=t>)</span><span class=t>)</span><span class=t>]</span>
 <span class=k>public</span> <span class=k>void</span> <span class="id m">ValuesAreCorrect</span><span class=t>(</span>
-    <span class=k>string</span> <span class="id m">value</span><span class=t>,</span>
-    <span class=k>bool</span><span class=t>?</span> <span class="id m">f1</span><span class=t>,</span>
-    <span class=k>bool</span><span class=t>?</span> <span class="id m">f2</span><span class=t>,</span>
-    <span class=k>bool</span><span class=t>?</span> <span class="id m">f3</span><span class=t>,</span>
-    <span class=k>bool</span><span class=t>?</span> <span class="id m">f4</span><span class=t>,</span>
-    <span class=k>bool</span><span class=t>?</span> <span class="id m">f5</span><span class=t>,</span>
-    <span class=k>bool</span><span class=t>?</span> <span class="id m">f6</span><span class=t>)</span>
+    <span class=k>string</span> <span class=id>value</span><span class=t>,</span>
+    <span class=k>bool</span><span class=t>?</span> <span class=id>f1</span><span class=t>,</span>
+    <span class=k>bool</span><span class=t>?</span> <span class=id>f2</span><span class=t>,</span>
+    <span class=k>bool</span><span class=t>?</span> <span class=id>f3</span><span class=t>,</span>
+    <span class=k>bool</span><span class=t>?</span> <span class=id>f4</span><span class=t>,</span>
+    <span class=k>bool</span><span class=t>?</span> <span class=id>f5</span><span class=t>,</span>
+    <span class=k>bool</span><span class=t>?</span> <span class=id>f6</span><span class=t>)</span>
 <span class=t>{</span>
-    <span class="id v">var</span> <span class=id>data</span> <span class=t>=</span> <span class=k>new</span> <span class=id>MyData</span><span class=t>(</span><span class=id>value</span><span class=t>)</span><span class=t>;</span>
-    <span class="id inv">Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class="id inv">data</span><span class=t>.</span><span class="id inv">Field1</span><span class=t>,</span> <span class="id inv">f1</span><span class=t>)</span><span class=t>;</span>
-    <span class="id inv">Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class="id inv">data</span><span class=t>.</span><span class="id inv">Field2</span><span class=t>,</span> <span class="id inv">f2</span><span class=t>)</span><span class=t>;</span>
-    <span class="id inv">Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class="id inv">data</span><span class=t>.</span><span class="id inv">Field3</span><span class=t>,</span> <span class="id inv">f3</span><span class=t>)</span><span class=t>;</span>
-    <span class="id inv">Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class="id inv">data</span><span class=t>.</span><span class="id inv">Field4</span><span class=t>,</span> <span class="id inv">f4</span><span class=t>)</span><span class=t>;</span>
-    <span class="id inv">Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class="id inv">data</span><span class=t>.</span><span class="id inv">Field5</span><span class=t>,</span> <span class="id inv">f5</span><span class=t>)</span><span class=t>;</span>
-    <span class="id inv">Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class="id inv">data</span><span class=t>.</span><span class="id inv">Field6</span><span class=t>,</span> <span class="id inv">f6</span><span class=t>)</span><span class=t>;</span>
+    <span class="id v">var</span> <span class=id>data</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">MyData</span><span class=t>(</span><span class=id>value</span><span class=t>)</span><span class=t>;</span>
+    <span class=id>Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class=id>data</span><span class=t>.</span><span class=id>Field1</span><span class=t>,</span> <span class=id>f1</span><span class=t>)</span><span class=t>;</span>
+    <span class=id>Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class=id>data</span><span class=t>.</span><span class=id>Field2</span><span class=t>,</span> <span class=id>f2</span><span class=t>)</span><span class=t>;</span>
+    <span class=id>Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class=id>data</span><span class=t>.</span><span class=id>Field3</span><span class=t>,</span> <span class=id>f3</span><span class=t>)</span><span class=t>;</span>
+    <span class=id>Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class=id>data</span><span class=t>.</span><span class=id>Field4</span><span class=t>,</span> <span class=id>f4</span><span class=t>)</span><span class=t>;</span>
+    <span class=id>Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class=id>data</span><span class=t>.</span><span class=id>Field5</span><span class=t>,</span> <span class=id>f5</span><span class=t>)</span><span class=t>;</span>
+    <span class=id>Assert</span><span class=t>.</span><span class="id inv">AreEqual</span><span class=t>(</span><span class=id>data</span><span class=t>.</span><span class=id>Field6</span><span class=t>,</span> <span class=id>f6</span><span class=t>)</span><span class=t>;</span>
 <span class=t>}</span>
 <span class=t></span></span></code></pre><p>This geneartes 721 unit tests which is the correct number of tests according to the formula <a href=https://www.mathsisfun.com/combinatorics/combinations-permutations.html><strong><em>n<sup>k</sup></em></strong></a>.</div></div></div><div class=clear></div></main></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

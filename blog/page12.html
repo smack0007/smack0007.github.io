@@ -2,28 +2,28 @@
 <pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet>
 <span class=k>public</span> <span class=k>interface</span> <span class=id>IServiceContainer</span>
 <span class=t>{</span>
-    <span class=k>void</span> <span class="id m">AddService</span><span class=t>(</span><span class="id m">Type</span> <span class="id m">type</span><span class=t>,</span> <span class="id m">Object</span> <span class="id m">provider</span><span class=t>)</span><span class=t>;</span>
-    <span class=k>object</span> <span class="id m">GetService</span><span class=t>(</span><span class="id m">Type</span> <span class="id m">type</span><span class=t>)</span><span class=t>;</span>
+    <span class=k>void</span> <span class="id m">AddService</span><span class=t>(</span><span class="id ty">Type</span> <span class=id>type</span><span class=t>,</span> <span class="id ty">Object</span> <span class=id>provider</span><span class=t>)</span><span class=t>;</span>
+    <span class=k>object</span> <span class="id m">GetService</span><span class=t>(</span><span class="id ty">Type</span> <span class=id>type</span><span class=t>)</span><span class=t>;</span>
 <span class=t>}</span>
 
-<span class=k>public</span> <span class=k>static</span> <span class=k>class</span> <span class="id cl">IServiceContainerExtensions</span>
+<span class=k>public</span> <span class=k>static</span> <span class=k>class</span> <span class=id>IServiceContainerExtensions</span>
 <span class=t>{</span>
-    <span class=k>public</span> <span class=k>static</span> <span class=k>void</span> <span class="id cl">AddService</span>&<span class=t></span><span class="id cl">lt</span>;<span class="id cl">T</span>&<span class="id cl">gt</span>;<span class=t>(</span><span class="id cl"></span><span class=t></span><span class="id cl"></span><span class=t></span><span class=k>this</span> <span class=t></span><span class="id cl">IServiceContainer</span> <span class="id cl">services</span><span class=t>,</span> <span class=k>object</span> <span class="id cl">provider</span><span class=t></span><span class=t></span>)
-<span class="id cl"></span>    <span class=t>{</span>
-        <span class="id inv">services</span><span class=t>.</span><span class="id inv">AddService</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class="id inv">T</span><span class=t>)</span><span class=t>,</span> <span class="id inv">provider</span><span class=t>)</span><span class=t>;</span>
+    <span class=k>public</span> <span class=k>static</span> <span class=k>void</span> <span class=id>AddService</span>&<span class=t></span><span class="id ty">lt</span>;<span class="id ty">T</span>&<span class="id ty">gt</span>;<span class=t>(</span><span class="id ty"></span><span class=t></span><span class="id ty"></span><span class=t></span><span class=k>this</span> <span class=t></span><span class="id ty">IServiceContainer</span> <span class="id ty">services</span><span class=t>,</span> <span class=k>object</span> <span class="id ty">provider</span><span class=t></span><span class=t></span>)
+<span class=id></span>    <span class=t>{</span>
+        <span class=id>services</span><span class=t>.</span><span class="id inv">AddService</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class=id>T</span><span class=t>)</span><span class=t>,</span> <span class=id>provider</span><span class=t>)</span><span class=t>;</span>
     <span class=t>}</span>
 <span class=t></span>
-    <span class=k>public</span> <span class=k>static</span> <span class="id cl">T</span> <span class="id cl">GetService</span>&<span class=t></span><span class="id cl">lt</span>;<span class="id cl">T</span>&<span class="id cl">gt</span>;<span class=t>(</span><span class="id cl"></span><span class=t></span><span class="id cl"></span><span class=t></span><span class=k>this</span> <span class=t></span><span class="id cl">IServiceContainer</span> <span class="id cl">services</span><span class=t></span><span class=t></span>) <span class="id cl">where</span> <span class="id cl">T</span> : <span class=t></span><span class=k>class</span>
-<span class="id cl"></span>    <span class=t>{</span>
-<span class=t></span>        return <span class="id cl">services</span><span class=t>.</span><span class="id cl">GetService</span><span class=t>(</span><span class="id cl"></span><span class=t></span><span class="id cl"></span><span class=t></span>typeof<span class=t>(</span><span class="id cl">T</span><span class=t></span><span class="id cl"></span><span class=t>)</span>) as <span class="id cl">T</span>;
+    <span class=k>public</span> <span class=k>static</span> <span class=id>T</span> <span class=id>GetService</span>&<span class=t></span><span class="id ty">lt</span>;<span class="id ty">T</span>&<span class="id ty">gt</span>;<span class=t>(</span><span class="id ty"></span><span class=t></span><span class="id ty"></span><span class=t></span><span class=k>this</span> <span class=t></span><span class="id ty">IServiceContainer</span> <span class="id ty">services</span><span class=t></span><span class=t></span>) <span class=id>where</span> <span class=id>T</span> : <span class=t></span><span class=k>class</span>
+<span class="id ty"></span>    <span class=t>{</span>
+<span class=t></span>        return <span class="id ty">services</span><span class=t>.</span><span class="id ty">GetService</span><span class=t>(</span><span class="id ty"></span><span class=t></span><span class="id ty"></span><span class=t></span>typeof<span class=t>(</span><span class="id ty">T</span><span class=t></span><span class="id ty"></span><span class=t>)</span>) as <span class="id ty">T</span>;
     <span class=t>}</span>
 
-    <span class=k>public</span> <span class=k>static</span> <span class=id>T</span> <span class=id>GetRequiredService</span><span class=t></span>&<span class=id>lt</span>;<span class=id>T</span>&<span class=id>gt</span>;<span class=t>(</span><span class=id></span><span class=t></span><span class=id></span><span class=t></span><span class=k>this</span> <span class=t></span><span class=id>IServiceContainer</span> <span class=id>services</span><span class=t></span><span class=t></span>) <span class=id>where</span> <span class=id>T</span> : <span class=t></span><span class=k>class</span>
-<span class="id cl"></span>    <span class=t>{</span>
-<span class=t></span>        <span class=id>T</span> <span class=id>service</span> <span class=t>=</span> <span class="id inv">services</span><span class=t>.</span><span class="id inv">GetService</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class="id inv">T</span><span class=t>)</span><span class=t>)</span> <span class=k>as</span> <span class=id>T</span><span class=t>;</span>
+    <span class=k>public</span> <span class=k>static</span> <span class=id>T</span> <span class=id>GetRequiredService</span><span class=t></span>&<span class=id>lt</span>;<span class=id>T</span>&<span class=id>gt</span>;<span class=t>(</span><span class=id></span><span class=t></span><span class=id></span><span class=t></span><span class=k>this</span> <span class=t></span><span class="id ty">IServiceContainer</span> <span class=id>services</span><span class=t></span><span class=t></span>) <span class=id>where</span> <span class=id>T</span> : <span class=t></span><span class=k>class</span>
+<span class=id></span>    <span class=t>{</span>
+<span class=t></span>        <span class=id>T</span> <span class=id>service</span> <span class=t>=</span> <span class=id>services</span><span class=t>.</span><span class="id inv">GetService</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class=id>T</span><span class=t>)</span><span class=t>)</span> <span class=k>as</span> <span class=id>T</span><span class=t>;</span>
 
         if<span class=t>(</span><span class=id>service</span> <span class=t></span><span class=id></span><span class=t></span>== null)
-            throw <span class=k>new</span> <span class=id>ServiceNotFoundException</span><span class=t>(</span>typeof<span class=t>(</span><span class=id>T</span><span class=t></span><span class=id></span><span class=t>)</span><span class=id></span><span class=t>)</span><span class=t>;</span>
+            throw <span class=k>new</span> <span class=id>ServiceNotFoundException</span><span class=t>(</span>typeof<span class=t>(</span><span class="id ty">T</span><span class=t></span><span class="id ty"></span><span class=t>)</span><span class=id></span><span class=t>)</span><span class=t>;</span>
 
         return <span class=id>service</span>;
     }
@@ -44,19 +44,19 @@
 		....
 		<span class=xmlDelimiter>&lt;</span><span class=xmlName>PlatformTarget</span><span class=xmlDelimiter>></span>x86<span class=xmlDelimiter>&lt;/</span><span class=xmlName>PlatformTarget</span><span class=xmlDelimiter>></span>
 	<span class=xmlDelimiter>&lt;/</span><span class=xmlName>PropertyGroup</span><span class=xmlDelimiter>></span></code></pre><p>Save the file and open your project back up. Your project's output should now target only x86.</div></div><div class=post><h2><a href=blog/2009/calculating-an-angle-from-a-vector2.html>Calculating an angle from a Vector2</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 28, 2009</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>Vectors, Xna</span></div><div class=content><p>When you need to calculate an angle from a Vector2 structure, you can use this piece of code:
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>static</span> <span class=k>class</span> <span class="id cl">Vector2Helper</span>
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>static</span> <span class=k>class</span> <span class=id>Vector2Helper</span>
 <span class=t>{</span>
-	<span class=k>public</span> <span class=k>static</span> <span class=k>float</span> <span class="id m">CalculateAngle</span><span class=t>(</span><span class="id m">Vector2</span> <span class="id m">v</span><span class=t>)</span>
+	<span class=k>public</span> <span class=k>static</span> <span class=k>float</span> <span class="id m">CalculateAngle</span><span class=t>(</span><span class="id ty">Vector2</span> <span class=id>v</span><span class=t>)</span>
 	<span class=t>{</span>
 		<span class=k>float</span> <span class=id>angle</span> <span class=t>=</span> <span class=n>0.0f</span><span class=t>;</span>
 
-		<span class="k sta">if</span><span class=t>(</span><span class=id>v</span> <span class=t>!=</span> <span class="id ma">Vector2</span><span class=t>.</span><span class="id ma">Zero</span><span class=t>)</span>
+		<span class="k sta">if</span><span class=t>(</span><span class=id>v</span> <span class=t>!=</span> <span class=id>Vector2</span><span class=t>.</span><span class=id>Zero</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class="id inv">v</span><span class=t>.</span><span class="id inv">Normalize</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>v</span><span class=t>.</span><span class="id inv">Normalize</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 
-			<span class=id>angle</span> <span class=t>=</span> <span class=t>(</span><span class=k>float</span><span class=t>)</span><span class="id inv">Math</span><span class=t>.</span><span class="id inv">Acos</span><span class=t>(</span><span class="id inv">v</span><span class=t>.</span><span class="id inv">Y</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>angle</span> <span class=t>=</span> <span class=t>(</span><span class=k>float</span><span class=t>)</span><span class=id>Math</span><span class=t>.</span><span class="id inv">Acos</span><span class=t>(</span><span class=id>v</span><span class=t>.</span><span class=id>Y</span><span class=t>)</span><span class=t>;</span>
 
-			<span class="k sta">if</span><span class=t>(</span><span class="id ma">v</span><span class=t>.</span><span class="id ma">X</span> <span class=t>&</span><span class=id>lt</span><span class=t></span><span class=t>;</span> <span class=n>0.0f</span><span class=t></span>)
+			<span class="k sta">if</span><span class=t>(</span><span class=id>v</span><span class=t>.</span><span class=id>X</span> <span class=t>&</span><span class=id>lt</span><span class=t></span><span class=t>;</span> <span class=n>0.0f</span><span class=t></span>)
 			<span class=id>angle</span> <span class=t>=</span> <span class=t>-</span><span class=id>angle</span><span class=t>;</span>
 		<span class=t>}</span>
 

@@ -1,62 +1,62 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>The Blog of Zachary Snow</title><base href=../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy Me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2009/drawing-2d-lines-as-rotated-quads.html>Drawing 2D Lines as Rotated Quads</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 07, 2009</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span></span></div><div class=content><p>I haven't had much time lately with work but one question I've seen asked many many times is how to draw lines of different widths. So, to cut to the chase I'll share the code I've used to do it.
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>void</span> <span class="id m">DrawLine</span><span class=t>(</span><span class="id m">Vector3</span> <span class="id m">p1</span><span class=t>,</span> <span class="id m">Color</span> <span class="id m">c1</span><span class=t>,</span> <span class="id m">Vector3</span> <span class="id m">p2</span><span class=t>,</span> <span class="id m">Color</span> <span class="id m">c2</span><span class=t>,</span> <span class=k>int</span> <span class="id m">width</span><span class=t>)</span>
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>void</span> <span class="id m">DrawLine</span><span class=t>(</span><span class="id ty">Vector3</span> <span class=id>p1</span><span class=t>,</span> <span class="id ty">Color</span> <span class=id>c1</span><span class=t>,</span> <span class="id ty">Vector3</span> <span class=id>p2</span><span class=t>,</span> <span class="id ty">Color</span> <span class=id>c2</span><span class=t>,</span> <span class=k>int</span> <span class=id>width</span><span class=t>)</span>
 <span class=t>{</span>
-	<span class=k>float</span> <span class=id>distance</span> <span class=t>=</span> <span class="id inv">Vector3</span><span class=t>.</span><span class="id inv">Distance</span><span class=t>(</span><span class="id inv">p1</span><span class=t>,</span> <span class="id inv">p2</span><span class=t>)</span><span class=t>;</span>
+	<span class=k>float</span> <span class=id>distance</span> <span class=t>=</span> <span class=id>Vector3</span><span class=t>.</span><span class="id inv">Distance</span><span class=t>(</span><span class=id>p1</span><span class=t>,</span> <span class=id>p2</span><span class=t>)</span><span class=t>;</span>
 	<span class=k>float</span> <span class=id>halfDistance</span> <span class=t>=</span> <span class=id>distance</span> <span class=t>/</span> <span class=n>2.0f</span><span class=t>;</span>
 	<span class=k>float</span> <span class=id>halfWidth</span> <span class=t>=</span> <span class=id>width</span> <span class=t>/</span> <span class=n>2.0f</span><span class=t>;</span>
 
 	<span class=id>Vector3</span> <span class=id>difference</span> <span class=t>=</span> <span class=id>p2</span> <span class=t>-</span> <span class=id>p1</span><span class=t>;</span>
-	<span class=id>Vector3</span> <span class=id>destination</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Vector3</span><span class=t>(</span><span class="id ma">p1</span><span class=t>.</span><span class="id ma">X</span> <span class=t>+</span> <span class="id ma">difference</span><span class=t>.</span><span class="id ma">X</span> <span class=t>/</span> <span class=n>2.0f</span><span class=t>,</span> <span class="id ma">p1</span><span class=t>.</span><span class="id ma">Y</span> <span class=t>+</span> <span class="id ma">difference</span><span class=t>.</span><span class="id ma">Y</span> <span class=t>/</span> <span class=n>2.0f</span><span class=t>,</span> <span class="id ma">p1</span><span class=t>.</span><span class="id ma">Z</span> <span class=t>+</span> <span class="id ma">difference</span><span class=t>.</span><span class="id ma">Z</span><span class=t>)</span><span class=t>;</span>
+	<span class=id>Vector3</span> <span class=id>destination</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Vector3</span><span class=t>(</span><span class=id>p1</span><span class=t>.</span><span class=id>X</span> <span class=t>+</span> <span class=id>difference</span><span class=t>.</span><span class=id>X</span> <span class=t>/</span> <span class=n>2.0f</span><span class=t>,</span> <span class=id>p1</span><span class=t>.</span><span class=id>Y</span> <span class=t>+</span> <span class=id>difference</span><span class=t>.</span><span class=id>Y</span> <span class=t>/</span> <span class=n>2.0f</span><span class=t>,</span> <span class=id>p1</span><span class=t>.</span><span class=id>Z</span> <span class=t>+</span> <span class=id>difference</span><span class=t>.</span><span class=id>Z</span><span class=t>)</span><span class=t>;</span>
 
 	<span class=co>// Calculate angle between two points</span>
-	<span class=k>float</span> <span class=id>angle</span> <span class=t>=</span> <span class=t>(</span><span class=k>float</span><span class=t>)</span><span class="id inv">Math</span><span class=t>.</span><span class="id inv">Atan2</span><span class=t>(</span><span class="id inv">difference</span><span class=t>.</span><span class="id inv">Y</span><span class=t>,</span> <span class="id inv">difference</span><span class=t>.</span><span class="id inv">X</span><span class=t>)</span><span class=t>;</span>
+	<span class=k>float</span> <span class=id>angle</span> <span class=t>=</span> <span class=t>(</span><span class=k>float</span><span class=t>)</span><span class=id>Math</span><span class=t>.</span><span class="id inv">Atan2</span><span class=t>(</span><span class=id>difference</span><span class=t>.</span><span class=id>Y</span><span class=t>,</span> <span class=id>difference</span><span class=t>.</span><span class=id>X</span><span class=t>)</span><span class=t>;</span>
 
 	<span class=id>Vector3</span> <span class=id>v1</span><span class=t>,</span> <span class=id>v2</span><span class=t>,</span> <span class=id>v3</span><span class=t>,</span> <span class=id>v4</span><span class=t>;</span>
 
-	<span class=id>v1</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Vector3</span><span class=t>(</span><span class=t>-</span><span class=id>halfDistance</span><span class=t>,</span> <span class=t>-</span><span class=id>halfWidth</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span> <span class=co>// Top Left</span>
-	<span class=id>v2</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Vector3</span><span class=t>(</span><span class=id>halfDistance</span><span class=t>,</span> <span class=t>-</span><span class=id>halfWidth</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span> <span class=co>// Top Right</span>
-	<span class=id>v3</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Vector3</span><span class=t>(</span><span class=id>halfDistance</span><span class=t>,</span> <span class=id>halfWidth</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span> <span class=co>// Bottom Right</span>
-	<span class=id>v4</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Vector3</span><span class=t>(</span><span class=t>-</span><span class=id>halfDistance</span><span class=t>,</span> <span class=id>halfWidth</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span> <span class=co>// Bottom Left</span>
+	<span class=id>v1</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Vector3</span><span class=t>(</span><span class=t>-</span><span class=id>halfDistance</span><span class=t>,</span> <span class=t>-</span><span class=id>halfWidth</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span> <span class=co>// Top Left</span>
+	<span class=id>v2</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Vector3</span><span class=t>(</span><span class=id>halfDistance</span><span class=t>,</span> <span class=t>-</span><span class=id>halfWidth</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span> <span class=co>// Top Right</span>
+	<span class=id>v3</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Vector3</span><span class=t>(</span><span class=id>halfDistance</span><span class=t>,</span> <span class=id>halfWidth</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span> <span class=co>// Bottom Right</span>
+	<span class=id>v4</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Vector3</span><span class=t>(</span><span class=t>-</span><span class=id>halfDistance</span><span class=t>,</span> <span class=id>halfWidth</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span> <span class=co>// Bottom Left</span>
 
 	<span class=id>Matrix</span> <span class=id>m</span> <span class=t>=</span>
-		<span class="id ma">Matrix</span><span class=t>.</span><span class="id ma">Identity</span> <span class=t>*</span>
-		<span class="id inv">Matrix</span><span class=t>.</span><span class="id inv">CreateRotationZ</span><span class=t>(</span><span class="id inv">angle</span><span class=t>)</span> <span class=t>*</span>
-		<span class="id inv">Matrix</span><span class=t>.</span><span class="id inv">CreateTranslation</span><span class=t>(</span><span class="id inv">destination</span><span class=t>)</span><span class=t>;</span>
+		<span class=id>Matrix</span><span class=t>.</span><span class=id>Identity</span> <span class=t>*</span>
+		<span class=id>Matrix</span><span class=t>.</span><span class="id inv">CreateRotationZ</span><span class=t>(</span><span class=id>angle</span><span class=t>)</span> <span class=t>*</span>
+		<span class=id>Matrix</span><span class=t>.</span><span class="id inv">CreateTranslation</span><span class=t>(</span><span class=id>destination</span><span class=t>)</span><span class=t>;</span>
 
-	<span class=id>v1</span> <span class=t>=</span> <span class="id inv">Vector3</span><span class=t>.</span><span class="id inv">Transform</span><span class=t>(</span><span class="id inv">v1</span><span class=t>,</span> <span class="id inv">m</span><span class=t>)</span><span class=t>;</span>
-	<span class=id>v2</span> <span class=t>=</span> <span class="id inv">Vector3</span><span class=t>.</span><span class="id inv">Transform</span><span class=t>(</span><span class="id inv">v2</span><span class=t>,</span> <span class="id inv">m</span><span class=t>)</span><span class=t>;</span>
-	<span class=id>v3</span> <span class=t>=</span> <span class="id inv">Vector3</span><span class=t>.</span><span class="id inv">Transform</span><span class=t>(</span><span class="id inv">v3</span><span class=t>,</span> <span class="id inv">m</span><span class=t>)</span><span class=t>;</span>
-	<span class=id>v4</span> <span class=t>=</span> <span class="id inv">Vector3</span><span class=t>.</span><span class="id inv">Transform</span><span class=t>(</span><span class="id inv">v4</span><span class=t>,</span> <span class="id inv">m</span><span class=t>)</span><span class=t>;</span>
+	<span class=id>v1</span> <span class=t>=</span> <span class=id>Vector3</span><span class=t>.</span><span class="id inv">Transform</span><span class=t>(</span><span class=id>v1</span><span class=t>,</span> <span class=id>m</span><span class=t>)</span><span class=t>;</span>
+	<span class=id>v2</span> <span class=t>=</span> <span class=id>Vector3</span><span class=t>.</span><span class="id inv">Transform</span><span class=t>(</span><span class=id>v2</span><span class=t>,</span> <span class=id>m</span><span class=t>)</span><span class=t>;</span>
+	<span class=id>v3</span> <span class=t>=</span> <span class=id>Vector3</span><span class=t>.</span><span class="id inv">Transform</span><span class=t>(</span><span class=id>v3</span><span class=t>,</span> <span class=id>m</span><span class=t>)</span><span class=t>;</span>
+	<span class=id>v4</span> <span class=t>=</span> <span class=id>Vector3</span><span class=t>.</span><span class="id inv">Transform</span><span class=t>(</span><span class=id>v4</span><span class=t>,</span> <span class=id>m</span><span class=t>)</span><span class=t>;</span>
 
-	<span class="id inv">DrawQuad</span><span class=t>(</span><span class="id inv">v1</span><span class=t>,</span> <span class="id inv">c1</span><span class=t>,</span> <span class="id inv">v2</span><span class=t>,</span> <span class="id inv">c2</span><span class=t>,</span> <span class="id inv">v3</span><span class=t>,</span> <span class="id inv">c2</span><span class=t>,</span> <span class="id inv">v4</span><span class=t>,</span> <span class="id inv">c1</span><span class=t>)</span><span class=t>;</span>
+	<span class="id inv">DrawQuad</span><span class=t>(</span><span class=id>v1</span><span class=t>,</span> <span class=id>c1</span><span class=t>,</span> <span class=id>v2</span><span class=t>,</span> <span class=id>c2</span><span class=t>,</span> <span class=id>v3</span><span class=t>,</span> <span class=id>c2</span><span class=t>,</span> <span class=id>v4</span><span class=t>,</span> <span class=id>c1</span><span class=t>)</span><span class=t>;</span>
 <span class=t>}</span>
 <span class=t></span></span></code></pre><p>I've left a lot of fluff code out. I usually check if the line is a width of 1 and draw a normal line. I also left out the code on how to draw a quad as that can be found many other places already.</div></div><div class=post><h2><a href=blog/2009/spritesheet-class.html>SpriteSheet Class</a></h2><div class=meta><span class=date><span class=icon-calendar></span>January 09, 2009</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>SpriteSheet, Xna</span></div><div class=content><p>I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.<p>It's very simple. Only reads sprites from left to right and assumes all Sprites are the same width and height.
-<pre><code class=language-csharp><span class=HtmlSyntaxHighlighterDotNet>#region Using<span class=k>using</span> <span class="id u">System</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">Microsoft</span><span class=t>.</span><span class="id u">Xna</span><span class=t>.</span><span class="id u">Framework</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">Microsoft</span><span class=t>.</span><span class="id u">Xna</span><span class=t>.</span><span class="id u">Framework</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>;</span>
+<pre><code class=language-csharp><span class=HtmlSyntaxHighlighterDotNet>#region Using<span class="k sta">using</span> <span class="id u">System</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">Microsoft</span><span class=t>.</span><span class="id u">Xna</span><span class=t>.</span><span class="id u">Framework</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">Microsoft</span><span class=t>.</span><span class="id u">Xna</span><span class=t>.</span><span class="id u">Framework</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>;</span>
 #endregion
-<span class=k>namespace</span> <span class=id>Snow</span><span class=t>.</span><span class=id>Xna</span><span class=t>.</span><span class=id>Graphics</span>
+<span class=k>namespace</span> <span class="id ns">Snow</span><span class=t>.</span><span class="id ns">Xna</span><span class=t>.</span><span class="id ns">Graphics</span>
 <span class=t>{</span>
 	 <summary>
 	/// Spritesheet class.
 	/// </summary>
-	<span class=k>public</span> <span class=k>class</span> <span class="id cl">SpriteSheet</span>
+	<span class=k>public</span> <span class=k>class</span> <span class="id ns">SpriteSheet</span>
 	<span class=t>{</span>
 		#region Fields
-		<span class=k>string</span> <span class="id cl">name</span><span class=t>;</span>
+		<span class=k>string</span> <span class=id>name</span><span class=t>;</span>
 
-		<span class="id cl">Texture2D</span> <span class="id cl">texture</span><span class=t>;</span>
+		<span class=id>Texture2D</span> <span class=id>texture</span><span class=t>;</span>
 
-		<span class="id cl">Rectangle</span><span class=t>[</span><span class=t></span><span class=t>]</span> <span class="id cl">rectangles</span><span class=t>;</span>
+		<span class=id>Rectangle</span><span class=t>[</span><span class=t></span><span class=t>]</span> <span class=id>rectangles</span><span class=t>;</span>
 
-		<span class=k>int</span> <span class="id cl">spriteWidth</span><span class=t>,</span> <span class="id cl">spriteHeight</span><span class=t>;</span>
+		<span class=k>int</span> <span class=id>spriteWidth</span><span class=t>,</span> <span class=id>spriteHeight</span><span class=t>;</span>
 
 		#endregion
 		#region Properties
 		 <summary>
 		/// The name of this SpriteSheet.
 		/// </summary>
-		<span class=k>public</span> <span class=k>string</span> <span class="id cl">Name</span>
+		<span class=k>public</span> <span class=k>string</span> <span class="id ty">Name</span>
 		<span class=t>{</span>
 			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class=id>name</span><span class=t>;</span> <span class=t>}</span>
 		<span class=t>}</span>
@@ -64,7 +64,7 @@
 		 <summary>
 		/// The texture for this SpriteSheet.
 		/// </summary>
-		<span class=k>public</span> <span class="id cl">Texture2D</span> <span class="id cl">Texture</span>
+		<span class=k>public</span> <span class=id>Texture2D</span> <span class="id ty">Texture</span>
 		<span class=t>{</span>
 			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class=id>texture</span><span class=t>;</span> <span class=t>}</span>
 		<span class=t>}</span>
@@ -74,7 +74,7 @@
 		/// </summary>
 		/// <param name=i>index<param>
 		/// <returns></returns>
-		<span class=k>public</span> <span class="id cl">Rectangle</span> <span class=k>this</span><span class=t>[</span><span class=k>int</span> <span class="id cl">i</span><span class=t>]</span>
+		<span class=k>public</span> <span class="id ty">Rectangle</span> <span class=k>this</span><span class=t>[</span><span class=k>int</span> <span class="id ty">i</span><span class=t>]</span>
 		<span class=t>{</span>
 			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class=id>rectangles</span><span class=t>[</span><span class=id>i</span><span class=t>]</span><span class=t>;</span> <span class=t>}</span>
 		<span class=t>}</span>
@@ -82,23 +82,23 @@
 		 <summary>
 		/// The number of sprites in this SpriteSheet.
 		/// </summary>
-		<span class=k>public</span> <span class=k>int</span> <span class="id cl">Count</span>
+		<span class=k>public</span> <span class=k>int</span> <span class="id ty">Count</span>
 		<span class=t>{</span>
-			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class="id ma">rectangles</span><span class=t>.</span><span class="id ma">Length</span><span class=t>;</span> <span class=t>}</span>
+			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class=id>rectangles</span><span class=t>.</span><span class=id>Length</span><span class=t>;</span> <span class=t>}</span>
 		<span class=t>}</span>
 
 		 <summary>
 		/// The width of the texture.
 		/// </summary>
-		<span class=k>public</span> <span class=k>int</span> <span class="id cl">Width</span>
+		<span class=k>public</span> <span class=k>int</span> <span class="id ty">Width</span>
 		<span class=t>{</span>
-			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class="id ma">texture</span><span class=t>.</span><span class="id ma">Width</span><span class=t>;</span> <span class=t>}</span>
+			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class=id>texture</span><span class=t>.</span><span class=id>Width</span><span class=t>;</span> <span class=t>}</span>
 		<span class=t>}</span>
 
 		 <summary>
 		/// The width of each sprite in the SpriteSheet.
 		/// </summary>
-		<span class=k>public</span> <span class=k>int</span> <span class="id cl">SpriteWidth</span>
+		<span class=k>public</span> <span class=k>int</span> <span class="id ty">SpriteWidth</span>
 		<span class=t>{</span>
 			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class=id>spriteWidth</span><span class=t>;</span> <span class=t>}</span>
 		<span class=t>}</span>
@@ -106,15 +106,15 @@
 		 <summary>
 		/// The height of the texture.
 		/// </summary>
-		<span class=k>public</span> <span class=k>int</span> <span class="id cl">Height</span>
+		<span class=k>public</span> <span class=k>int</span> <span class="id ty">Height</span>
 		<span class=t>{</span>
-			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class="id ma">texture</span><span class=t>.</span><span class="id ma">Height</span><span class=t>;</span> <span class=t>}</span>
+			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class=id>texture</span><span class=t>.</span><span class=id>Height</span><span class=t>;</span> <span class=t>}</span>
 		<span class=t>}</span>
 
 		 <summary>
 		/// The height of each sprite in the SpriteSheet.
 		/// </summary>
-		<span class=k>public</span> <span class=k>int</span> <span class="id cl">SpriteHeight</span>
+		<span class=k>public</span> <span class=k>int</span> <span class="id ty">SpriteHeight</span>
 		<span class=t>{</span>
 			<span class=k>get</span> <span class=t>{</span> <span class="k sta">return</span> <span class=id>spriteHeight</span><span class=t>;</span> <span class=t>}</span>
 		<span class=t>}</span>
@@ -126,8 +126,8 @@
 		/// <param name=texture><param>
 		/// <param name=spriteWidth>Width of each sprite.<param>
 		/// <param name=spriteHeight>Height of each sprite.<param>
-		<span class=k>public</span> <span class="id cl">SpriteSheet</span><span class=t>(</span><span class=k>string</span> <span class="id cl">name</span><span class=t>,</span> <span class="id cl">Texture2D</span> <span class="id cl">texture</span><span class=t>,</span> <span class=k>int</span> <span class="id cl">spriteWidth</span><span class=t>,</span> <span class=k>int</span> <span class="id cl">spriteHeight</span><span class=t>)</span>
-			<span class=t>:</span> <span class=k>this</span><span class=t>(</span><span class="id cl">name</span><span class=t>,</span> <span class="id cl">texture</span><span class=t>,</span> <span class="id cl">spriteWidth</span><span class=t>,</span> <span class="id cl">spriteHeight</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span>
+		<span class=k>public</span> <span class="id ns">SpriteSheet</span><span class=t>(</span><span class=k>string</span> <span class="id ty">name</span><span class=t>,</span> <span class="id ty">Texture2D</span> <span class="id ty">texture</span><span class=t>,</span> <span class=k>int</span> <span class="id ty">spriteWidth</span><span class=t>,</span> <span class=k>int</span> <span class="id ty">spriteHeight</span><span class=t>)</span>
+			<span class=t>:</span> <span class=k>this</span><span class=t>(</span><span class=id>name</span><span class=t>,</span> <span class=id>texture</span><span class=t>,</span> <span class=id>spriteWidth</span><span class=t>,</span> <span class=id>spriteHeight</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span>
 		<span class=t>{</span>
 		<span class=t>}</span>
 
@@ -138,17 +138,17 @@
 		/// <param name=spriteWidth>Width of each sprite.<param>
 		/// <param name=spriteHeight>Height of each sprite.<param>
 		/// <param name=count>The number of sprites in the sheet.<param>
-		<span class=k>public</span> <span class="id cl">SpriteSheet</span><span class=t>(</span><span class=k>string</span> <span class="id cl">name</span><span class=t>,</span> <span class="id cl">Texture2D</span> <span class="id cl">texture</span><span class=t>,</span> <span class=k>int</span> <span class="id cl">spriteWidth</span><span class=t>,</span> <span class=k>int</span> <span class="id cl">spriteHeight</span><span class=t>,</span> <span class=k>int</span> <span class="id cl">count</span><span class=t>)</span>
+		<span class=k>public</span> <span class="id ns">SpriteSheet</span><span class=t>(</span><span class=k>string</span> <span class="id ty">name</span><span class=t>,</span> <span class="id ty">Texture2D</span> <span class="id ty">texture</span><span class=t>,</span> <span class=k>int</span> <span class="id ty">spriteWidth</span><span class=t>,</span> <span class=k>int</span> <span class="id ty">spriteHeight</span><span class=t>,</span> <span class=k>int</span> <span class="id ty">count</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">name</span> <span class=t>=</span> <span class=id>name</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">texture</span> <span class=t>=</span> <span class=id>texture</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">spriteWidth</span> <span class=t>=</span> <span class=id>spriteWidth</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">spriteHeight</span> <span class=t>=</span> <span class=id>spriteHeight</span><span class=t>;</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>name</span> <span class=t>=</span> <span class=id>name</span><span class=t>;</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>texture</span> <span class=t>=</span> <span class=id>texture</span><span class=t>;</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>spriteWidth</span> <span class=t>=</span> <span class=id>spriteWidth</span><span class=t>;</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>spriteHeight</span> <span class=t>=</span> <span class=id>spriteHeight</span><span class=t>;</span>
 
 			<span class="k sta">if</span><span class=t>(</span><span class=id>count</span> <span class=t>==</span> <span class=n>0</span><span class=t>)</span>
 			<span class=t>{</span>
-				<span class=k>int</span> <span class=id>numX</span> <span class=t>=</span> <span class="id ma">texture</span><span class=t>.</span><span class="id ma">Width</span> <span class=t>/</span> <span class=id>spriteWidth</span><span class=t>;</span>
-				<span class=k>int</span> <span class=id>numY</span> <span class=t>=</span> <span class="id ma">texture</span><span class=t>.</span><span class="id ma">Height</span> <span class=t>/</span> <span class=id>spriteHeight</span><span class=t>;</span>
+				<span class=k>int</span> <span class=id>numX</span> <span class=t>=</span> <span class=id>texture</span><span class=t>.</span><span class=id>Width</span> <span class=t>/</span> <span class=id>spriteWidth</span><span class=t>;</span>
+				<span class=k>int</span> <span class=id>numY</span> <span class=t>=</span> <span class=id>texture</span><span class=t>.</span><span class=id>Height</span> <span class=t>/</span> <span class=id>spriteHeight</span><span class=t>;</span>
 
 				<span class=id>rectangles</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Rectangle</span><span class=t>[</span><span class=id>numX</span> <span class=t>*</span> <span class=id>numY</span><span class=t>]</span><span class=t>;</span>
 			<span class=t>}</span>
@@ -158,12 +158,12 @@
 			<span class=t>}</span>
 
 			<span class=k>int</span> <span class=id>x</span> <span class=t>=</span> <span class=n>0</span><span class=t>,</span> <span class=id>y</span> <span class=t>=</span> <span class=n>0</span><span class=t>;</span>
-			<span class=k>for</span><span class=t>(</span><span class=k>int</span> <span class=id>i</span> <span class=t>=</span> <span class=n>0</span><span class=t>;</span> <span class=id>i</span> <span class=t><</span> <span class="id ma">rectangles</span><span class=t>.</span><span class="id ma">Length</span><span class=t>;</span> <span class=id>i</span><span class=t>++</span><span class=t>)</span>
+			<span class=k>for</span><span class=t>(</span><span class=k>int</span> <span class=id>i</span> <span class=t>=</span> <span class=n>0</span><span class=t>;</span> <span class=id>i</span> <span class=t><</span> <span class=id>rectangles</span><span class=t>.</span><span class=id>Length</span><span class=t>;</span> <span class=id>i</span><span class=t>++</span><span class=t>)</span>
 			<span class=t>{</span>
-				<span class=id>rectangles</span><span class=t>[</span><span class=id>i</span><span class=t>]</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Rectangle</span><span class=t>(</span><span class=id>x</span><span class=t>,</span> <span class=id>y</span><span class=t>,</span> <span class=id>spriteWidth</span><span class=t>,</span> <span class=id>spriteHeight</span><span class=t>)</span><span class=t>;</span>
+				<span class=id>rectangles</span><span class=t>[</span><span class=id>i</span><span class=t>]</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Rectangle</span><span class=t>(</span><span class=id>x</span><span class=t>,</span> <span class=id>y</span><span class=t>,</span> <span class=id>spriteWidth</span><span class=t>,</span> <span class=id>spriteHeight</span><span class=t>)</span><span class=t>;</span>
 
 				<span class=id>x</span> <span class=t>+=</span> <span class=id>spriteWidth</span><span class=t>;</span>
-				<span class="k sta">if</span><span class=t>(</span><span class=id>x</span> <span class=t>>=</span> <span class="id ma">texture</span><span class=t>.</span><span class="id ma">Width</span><span class=t>)</span>
+				<span class="k sta">if</span><span class=t>(</span><span class=id>x</span> <span class=t>>=</span> <span class=id>texture</span><span class=t>.</span><span class=id>Width</span><span class=t>)</span>
 				<span class=t>{</span>
 					<span class=id>x</span> <span class=t>=</span> <span class=n>0</span><span class=t>;</span>
 					<span class=id>y</span> <span class=t>+=</span> <span class=id>spriteHeight</span><span class=t>;</span>
@@ -171,19 +171,19 @@
 			<span class=t>}</span>
 		<span class=t>}</span>
 
-		<span class=k>public</span> <span class=k>static</span> <span class=k>implicit</span> <span class=k>operator</span> <span class="id cl">Texture2D</span><span class=t>(</span><span class="id cl">SpriteSheet</span> <span class="id cl">spriteSheet</span><span class=t>)</span>
+		<span class=k>public</span> <span class=k>static</span> <span class=k>implicit</span> <span class=k>operator</span> <span class="id ty">Texture2D</span><span class=t>(</span><span class="id ty">SpriteSheet</span> <span class="id ty">spriteSheet</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class="k sta">return</span> <span class="id ma">spriteSheet</span><span class=t>.</span><span class="id ma">Texture</span><span class=t>;</span>
+			<span class="k sta">return</span> <span class=id>spriteSheet</span><span class=t>.</span><span class=id>Texture</span><span class=t>;</span>
 		<span class=t>}</span>
 	<span class=t>}</span>
 <span class=t>}</span>
 <span class=t></span></span></code></pre><p>You can create a new SpriteSheet and use it like this:<p>`
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=id>SpriteSheet</span> <span class=id>spriteSheet</span> <span class=t>=</span> <span class=k>new</span> <span class=id>SpriteSheet</span><span class=t>(</span><span class=str>"tiles"</span><span class=t>,</span> <span class="id inv">Content</span><span class=t>.</span><span class="id g">Load</span><span class=t><</span><span class="id g">texture2D</span><span class=t>></span><span class=t>(</span><span class=str>"tiles"</span><span class=t>)</span><span class=t>,</span> <span class=n>64</span><span class=t>,</span> <span class=n>64</span><span class=t>)</span><span class=t>;</span>
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=id>SpriteSheet</span> <span class=id>spriteSheet</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">SpriteSheet</span><span class=t>(</span><span class=str>"tiles"</span><span class=t>,</span> <span class=id>Content</span><span class=t>.</span><span class="id ty">Load</span><span class=t><</span><span class="id ty">texture2D</span><span class=t>></span><span class=t>(</span><span class=str>"tiles"</span><span class=t>)</span><span class=t>,</span> <span class=n>64</span><span class=t>,</span> <span class=n>64</span><span class=t>)</span><span class=t>;</span>
 
 <span class=id>spriteBatch</span><span class=t>.</span><span class=id>Begin</span><span class=t>(</span><span class=id></span><span class=t></span><span class=id></span><span class=t>)</span>;
 
 <span class=id>spriteBatch</span><span class=t>.</span><span class=id>Draw</span><span class=t>(</span><span class=id>spriteSheet</span><span class=t>,</span>
-<span class=id></span><span class=t></span>		        <span class=k>new</span> <span class=id>Rectangle</span><span class=t>(</span>0<span class=id></span><span class=id></span><span class=t>,</span> <span class=id></span><span class=id></span>0<span class=t>,</span> <span class=id>spriteSheet</span><span class=t>.</span><span class=id>SpriteWidth</span><span class=id></span><span class=t>,</span> <span class=id>spriteSheet</span><span class=t>.</span><span class=id>SpriteHeight</span><span class=id></span><span class=t>)</span><span class=t></span>,
+<span class=id></span><span class=t></span>		        <span class=k>new</span> <span class=id>Rectangle</span><span class=t>(</span>0<span class="id ty"></span><span class=id></span><span class=t>,</span> <span class="id ty"></span><span class=id></span>0<span class=t>,</span> <span class="id ty">spriteSheet</span><span class=t>.</span><span class="id ty">SpriteWidth</span><span class=id></span><span class=t>,</span> <span class="id ty">spriteSheet</span><span class=t>.</span><span class="id ty">SpriteHeight</span><span class=id></span><span class=t>)</span><span class=t></span>,
 			<span class=id>spriteSheet</span><span class=t>[</span><span class=n>0</span><span class=t>]</span>,
 			<span class=id>Color</span><span class=t>.</span><span class=id>White</span>);
 

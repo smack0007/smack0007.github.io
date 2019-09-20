@@ -12,124 +12,124 @@ DEL IconCache.db /a
 
 EXIT
 </code></pre><p>After that your icon should be there as you want.</div></div><div class=post><h2><a href=blog/2011/getting-started-with-slimdx.html>Getting started with SlimDX</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 31, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>DirectX</span></div><div class=content><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href=http://sharpdx.org/ >SharpDX</a>.<p>Since I tried OpenTK, I decided to give <a href=http://slimdx.org/ >SlimDX</a> a try as well. So, here's a simple getting started app:
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>using</span> <span class="id u">System</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Drawing</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Windows</span><span class=t>.</span><span class="id u">Forms</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">SlimDX</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">SlimDX</span><span class=t>.</span><span class="id u">Direct3D9</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">SlimDX</span><span class=t>.</span><span class="id u">Windows</span><span class=t>;</span>
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class="k sta">using</span> <span class="id u">System</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Drawing</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Windows</span><span class=t>.</span><span class="id u">Forms</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">SlimDX</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">SlimDX</span><span class=t>.</span><span class="id u">Direct3D9</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">SlimDX</span><span class=t>.</span><span class="id u">Windows</span><span class=t>;</span>
 
-<span class=k>namespace</span> <span class=id>SlimDXApp1</span>
+<span class=k>namespace</span> <span class="id ns">SlimDXApp1</span>
 <span class=t>{</span>
-	<span class=k>public</span> <span class=k>partial</span> <span class=k>class</span> <span class="id cl">SlimDXApp1Form</span> <span class=t>:</span> <span class="id cl">RenderForm</span>
+	<span class=k>public</span> <span class=k>partial</span> <span class=k>class</span> <span class="id ns">SlimDXApp1Form</span> <span class=t>:</span> <span class="id ty">RenderForm</span>
 	<span class=t>{</span>
-		<span class=k>struct</span> <span class="id cl">Vertex</span>
+		<span class=k>struct</span> <span class="id ns">Vertex</span>
 		<span class=t>{</span>
-			<span class=k>public</span> <span class="id cl">Vector4</span> <span class="id cl">Position</span><span class=t>;</span>
-			<span class=k>public</span> <span class=k>int</span> <span class="id cl">Color</span><span class=t>;</span>
+			<span class=k>public</span> <span class=id>Vector4</span> <span class=id>Position</span><span class=t>;</span>
+			<span class=k>public</span> <span class=k>int</span> <span class=id>Color</span><span class=t>;</span>
 		<span class=t>}</span>
 
-		<span class="id cl">Device</span> <span class="id cl">device</span><span class=t>;</span>
-		<span class="id cl">VertexDeclaration</span> <span class="id cl">vertexDeclaration</span><span class=t>;</span>
+		<span class=id>Device</span> <span class=id>device</span><span class=t>;</span>
+		<span class=id>VertexDeclaration</span> <span class=id>vertexDeclaration</span><span class=t>;</span>
 		
-		<span class=k>public</span> <span class="id cl">SlimDXApp1Form</span><span class=t>(</span><span class=t>)</span>
+		<span class=k>public</span> <span class="id ns">SlimDXApp1Form</span><span class=t>(</span><span class=t>)</span>
 			<span class=t>:</span> <span class=k>base</span><span class=t>(</span><span class=str>"SlimDXApp1"</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">ClientSize</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Size</span><span class=t>(</span><span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>ClientSize</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Size</span><span class=t>(</span><span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>
 
-			<span class=k>this</span><span class=t>.</span><span class="id ma">device</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Device</span><span class=t>(</span><span class=k>new</span> <span class=id>Direct3D</span><span class=t>(</span><span class=t>)</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class="id ma">DeviceType</span><span class=t>.</span><span class="id ma">Hardware</span><span class=t>,</span> <span class=k>this</span><span class=t>.</span><span class="id ma">Handle</span><span class=t>,</span> <span class="id ma">CreateFlags</span><span class=t>.</span><span class="id ma">HardwareVertexProcessing</span><span class=t>,</span> <span class=k>new</span> <span class=id>PresentParameters</span><span class=t>(</span><span class=t>)</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>device</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Device</span><span class=t>(</span><span class=k>new</span> <span class="id ty">Direct3D</span><span class=t>(</span><span class=t>)</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=id>DeviceType</span><span class=t>.</span><span class=id>Hardware</span><span class=t>,</span> <span class=k>this</span><span class=t>.</span><span class=id>Handle</span><span class=t>,</span> <span class=id>CreateFlags</span><span class=t>.</span><span class=id>HardwareVertexProcessing</span><span class=t>,</span> <span class=k>new</span> <span class="id ty">PresentParameters</span><span class=t>(</span><span class=t>)</span>
             <span class=t>{</span>
-                <span class=id>BackBufferWidth</span> <span class=t>=</span> <span class=k>this</span><span class=t>.</span><span class="id ma">ClientSize</span><span class=t>.</span><span class="id ma">Width</span><span class=t>,</span>
-                <span class=id>BackBufferHeight</span> <span class=t>=</span> <span class=k>this</span><span class=t>.</span><span class="id ma">ClientSize</span><span class=t>.</span><span class="id ma">Height</span>
+                <span class="id ty">BackBufferWidth</span> <span class=t>=</span> <span class=k>this</span><span class=t>.</span><span class=id>ClientSize</span><span class=t>.</span><span class=id>Width</span><span class=t>,</span>
+                <span class="id ty">BackBufferHeight</span> <span class=t>=</span> <span class=k>this</span><span class=t>.</span><span class=id>ClientSize</span><span class=t>.</span><span class=id>Height</span>
             <span class=t>}</span><span class=t>)</span><span class=t>;</span>
 
-			<span class=k>this</span><span class=t>.</span><span class="id ma">vertexDeclaration</span> <span class=t>=</span> <span class=k>new</span> <span class=id>VertexDeclaration</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class="id ma">device</span><span class=t>,</span> <span class=k>new</span><span class=t>[</span><span class=t>]</span> <span class=t>{</span>
-        		<span class=k>new</span> <span class=id>VertexElement</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class="id ma">DeclarationType</span><span class=t>.</span><span class="id ma">Float4</span><span class=t>,</span> <span class="id ma">DeclarationMethod</span><span class=t>.</span><span class="id ma">Default</span><span class=t>,</span> <span class="id ma">DeclarationUsage</span><span class=t>.</span><span class="id ma">PositionTransformed</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>,</span>
-        		<span class=k>new</span> <span class=id>VertexElement</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>16</span><span class=t>,</span> <span class="id ma">DeclarationType</span><span class=t>.</span><span class="id ma">Color</span><span class=t>,</span> <span class="id ma">DeclarationMethod</span><span class=t>.</span><span class="id ma">Default</span><span class=t>,</span> <span class="id ma">DeclarationUsage</span><span class=t>.</span><span class="id ma">Color</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>,</span>
-				<span class="id ma">VertexElement</span><span class=t>.</span><span class="id ma">VertexDeclarationEnd</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>vertexDeclaration</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">VertexDeclaration</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>device</span><span class=t>,</span> <span class=k>new</span><span class=t>[</span><span class=t>]</span> <span class=t>{</span>
+        		<span class=k>new</span> <span class="id ty">VertexElement</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=id>DeclarationType</span><span class=t>.</span><span class=id>Float4</span><span class=t>,</span> <span class=id>DeclarationMethod</span><span class=t>.</span><span class=id>Default</span><span class=t>,</span> <span class=id>DeclarationUsage</span><span class=t>.</span><span class=id>PositionTransformed</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>,</span>
+        		<span class=k>new</span> <span class="id ty">VertexElement</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>16</span><span class=t>,</span> <span class=id>DeclarationType</span><span class=t>.</span><span class=id>Color</span><span class=t>,</span> <span class=id>DeclarationMethod</span><span class=t>.</span><span class=id>Default</span><span class=t>,</span> <span class=id>DeclarationUsage</span><span class=t>.</span><span class=id>Color</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>,</span>
+				<span class=id>VertexElement</span><span class=t>.</span><span class=id>VertexDeclarationEnd</span>
         	<span class=t>}</span><span class=t>)</span><span class=t>;</span>
 		<span class=t>}</span>
 
 		<span class=k>public</span> <span class=k>void</span> <span class="id m">Run</span><span class=t>(</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class="id inv">MessagePump</span><span class=t>.</span><span class="id inv">Run</span><span class=t>(</span><span class=k>this</span><span class=t>,</span> <span class=t>(</span><span class=t>)</span> <span class=t>=></span>
+			<span class=id>MessagePump</span><span class=t>.</span><span class="id inv">Run</span><span class=t>(</span><span class=k>this</span><span class=t>,</span> <span class=t>(</span><span class=t>)</span> <span class=t>=></span>
 			<span class=t>{</span>
-				<span class=k>this</span><span class=t>.</span><span class="id ma">device</span><span class=t>.</span><span class="id inv">Clear</span><span class=t>(</span><span class="id inv">ClearFlags</span><span class=t>.</span><span class="id inv">Target</span> <span class=t>|</span> <span class="id inv">ClearFlags</span><span class=t>.</span><span class="id inv">ZBuffer</span><span class=t>,</span> <span class="id inv">Color</span><span class=t>.</span><span class="id inv">Black</span><span class=t>,</span> <span class=n>1.0f</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
-				<span class=k>this</span><span class=t>.</span><span class="id ma">device</span><span class=t>.</span><span class="id inv">BeginScene</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+				<span class=k>this</span><span class=t>.</span><span class=id>device</span><span class=t>.</span><span class="id inv">Clear</span><span class=t>(</span><span class=id>ClearFlags</span><span class=t>.</span><span class=id>Target</span> <span class=t>|</span> <span class=id>ClearFlags</span><span class=t>.</span><span class=id>ZBuffer</span><span class=t>,</span> <span class=id>Color</span><span class=t>.</span><span class=id>Black</span><span class=t>,</span> <span class=n>1.0f</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
+				<span class=k>this</span><span class=t>.</span><span class=id>device</span><span class=t>.</span><span class="id inv">BeginScene</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 
-				<span class=k>this</span><span class=t>.</span><span class="id ma">device</span><span class=t>.</span><span class="id ma">VertexDeclaration</span> <span class=t>=</span> <span class=k>this</span><span class=t>.</span><span class="id ma">vertexDeclaration</span><span class=t>;</span>
+				<span class=k>this</span><span class=t>.</span><span class=id>device</span><span class=t>.</span><span class=id>VertexDeclaration</span> <span class=t>=</span> <span class=k>this</span><span class=t>.</span><span class=id>vertexDeclaration</span><span class=t>;</span>
 
-				<span class=k>this</span><span class=t>.</span><span class="id ma">device</span><span class=t>.</span><span class="id g">DrawUserPrimitives</span><span class=t><</span><span class="id g">Vertex</span><span class=t>></span><span class=t>(</span><span class="id inv">PrimitiveType</span><span class=t>.</span><span class="id inv">TriangleList</span><span class=t>,</span> <span class=n>1</span><span class=t>,</span> <span class=k>new</span><span class=t>[</span><span class=t>]</span> <span class=t>{</span>
-					<span class=k>new</span> <span class="id inv">Vertex</span><span class=t>(</span><span class=t>)</span> <span class=t>{</span> <span class="id inv">Color</span> <span class=t>=</span> <span class="id ma">Color</span><span class=t>.</span><span class="id ma">Red</span><span class=t>.</span><span class="id inv">ToArgb</span><span class=t>(</span><span class=t>)</span><span class=t>,</span> <span class="id inv">Position</span> <span class=t>=</span> <span class=k>new</span> <span class="id inv">Vector4</span><span class=t>(</span><span class=n>400.0f</span><span class=t>,</span> <span class=n>100.0f</span><span class=t>,</span> <span class=n>0.5f</span><span class=t>,</span> <span class=n>1.0f</span><span class=t>)</span> <span class=t>}</span><span class=t>,</span>
-					<span class=k>new</span> <span class="id inv">Vertex</span><span class=t>(</span><span class=t>)</span> <span class=t>{</span> <span class="id inv">Color</span> <span class=t>=</span> <span class="id ma">Color</span><span class=t>.</span><span class="id ma">Blue</span><span class=t>.</span><span class="id inv">ToArgb</span><span class=t>(</span><span class=t>)</span><span class=t>,</span> <span class="id inv">Position</span> <span class=t>=</span> <span class=k>new</span> <span class="id inv">Vector4</span><span class=t>(</span><span class=n>650.0f</span><span class=t>,</span> <span class=n>500.0f</span><span class=t>,</span> <span class=n>0.5f</span><span class=t>,</span> <span class=n>1.0f</span><span class=t>)</span> <span class=t>}</span><span class=t>,</span>
-					<span class=k>new</span> <span class="id inv">Vertex</span><span class=t>(</span><span class=t>)</span> <span class=t>{</span> <span class="id inv">Color</span> <span class=t>=</span> <span class="id ma">Color</span><span class=t>.</span><span class="id ma">Green</span><span class=t>.</span><span class="id inv">ToArgb</span><span class=t>(</span><span class=t>)</span><span class=t>,</span> <span class="id inv">Position</span> <span class=t>=</span> <span class=k>new</span> <span class="id inv">Vector4</span><span class=t>(</span><span class=n>150.0f</span><span class=t>,</span> <span class=n>500.0f</span><span class=t>,</span> <span class=n>0.5f</span><span class=t>,</span> <span class=n>1.0f</span><span class=t>)</span> <span class=t>}</span>
+				<span class=k>this</span><span class=t>.</span><span class=id>device</span><span class=t>.</span><span class="id ty">DrawUserPrimitives</span><span class=t><</span><span class="id ty">Vertex</span><span class=t>></span><span class=t>(</span><span class=id>PrimitiveType</span><span class=t>.</span><span class=id>TriangleList</span><span class=t>,</span> <span class=n>1</span><span class=t>,</span> <span class=k>new</span><span class=t>[</span><span class=t>]</span> <span class=t>{</span>
+					<span class=k>new</span> <span class="id ty">Vertex</span><span class=t>(</span><span class=t>)</span> <span class=t>{</span> <span class="id ty">Color</span> <span class=t>=</span> <span class=id>Color</span><span class=t>.</span><span class=id>Red</span><span class=t>.</span><span class="id inv">ToArgb</span><span class=t>(</span><span class=t>)</span><span class=t>,</span> <span class="id ty">Position</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Vector4</span><span class=t>(</span><span class=n>400.0f</span><span class=t>,</span> <span class=n>100.0f</span><span class=t>,</span> <span class=n>0.5f</span><span class=t>,</span> <span class=n>1.0f</span><span class=t>)</span> <span class=t>}</span><span class=t>,</span>
+					<span class=k>new</span> <span class="id ty">Vertex</span><span class=t>(</span><span class=t>)</span> <span class=t>{</span> <span class="id ty">Color</span> <span class=t>=</span> <span class=id>Color</span><span class=t>.</span><span class=id>Blue</span><span class=t>.</span><span class="id inv">ToArgb</span><span class=t>(</span><span class=t>)</span><span class=t>,</span> <span class="id ty">Position</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Vector4</span><span class=t>(</span><span class=n>650.0f</span><span class=t>,</span> <span class=n>500.0f</span><span class=t>,</span> <span class=n>0.5f</span><span class=t>,</span> <span class=n>1.0f</span><span class=t>)</span> <span class=t>}</span><span class=t>,</span>
+					<span class=k>new</span> <span class="id ty">Vertex</span><span class=t>(</span><span class=t>)</span> <span class=t>{</span> <span class="id ty">Color</span> <span class=t>=</span> <span class=id>Color</span><span class=t>.</span><span class=id>Green</span><span class=t>.</span><span class="id inv">ToArgb</span><span class=t>(</span><span class=t>)</span><span class=t>,</span> <span class="id ty">Position</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Vector4</span><span class=t>(</span><span class=n>150.0f</span><span class=t>,</span> <span class=n>500.0f</span><span class=t>,</span> <span class=n>0.5f</span><span class=t>,</span> <span class=n>1.0f</span><span class=t>)</span> <span class=t>}</span>
 				<span class=t>}</span><span class=t>)</span><span class=t>;</span>
 				
-				<span class=k>this</span><span class=t>.</span><span class="id ma">device</span><span class=t>.</span><span class="id inv">EndScene</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-				<span class=k>this</span><span class=t>.</span><span class="id ma">device</span><span class=t>.</span><span class="id inv">Present</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+				<span class=k>this</span><span class=t>.</span><span class=id>device</span><span class=t>.</span><span class="id inv">EndScene</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+				<span class=k>this</span><span class=t>.</span><span class=id>device</span><span class=t>.</span><span class="id inv">Present</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 			<span class=t>}</span><span class=t>)</span><span class=t>;</span>
 		<span class=t>}</span>
 
-		<span class=t>[</span><span class="id m">STAThread</span><span class=t>]</span>
+		<span class=t>[</span><span class=id>STAThread</span><span class=t>]</span>
 		<span class=k>static</span> <span class=k>void</span> <span class="id m">Main</span><span class=t>(</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class=id>SlimDXApp1Form</span> <span class=id>form</span> <span class=t>=</span> <span class=k>new</span> <span class=id>SlimDXApp1Form</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">form</span><span class=t>.</span><span class="id inv">Run</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>SlimDXApp1Form</span> <span class=id>form</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">SlimDXApp1Form</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>form</span><span class=t>.</span><span class="id inv">Run</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 
 			<span class=co>// Cleans up COM handles</span>
-			<span class="k sta">foreach</span><span class=t>(</span><span class="id v">var</span> <span class=id>item</span> <span class="k sta">in</span> <span class="id ma">ObjectTable</span><span class=t>.</span><span class="id ma">Objects</span><span class=t>)</span>
-				<span class="id inv">item</span><span class=t>.</span><span class="id inv">Dispose</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class="k sta">foreach</span><span class=t>(</span><span class="id v">var</span> <span class=id>item</span> <span class="k sta">in</span> <span class=id>ObjectTable</span><span class=t>.</span><span class=id>Objects</span><span class=t>)</span>
+				<span class=id>item</span><span class=t>.</span><span class="id inv">Dispose</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 		<span class=t>}</span>
 	<span class=t>}</span>
 <span class=t>}</span>
 <span class=t></span></span></code></pre></div></div><div class=post><h2><a href=blog/2011/getting-started-with-opentk.html>Getting started with OpenTK</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>OpenGL</span></div><div class=content><p>I started experimenting with <a href=http://www.opentk.com>OpenTK</a> and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.<p>I've set up a window similar to what I've been used to in Xna (CornflowerBlue 4 life). I've also set up a 2D projection matrix and drawn a triangle in a 2D fashion. You'll need to add a reference to the OpenTK assembly for your project in Visual Studio.
-<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class=k>using</span> <span class="id u">System</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Drawing</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">OpenTK</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>;</span>
-<span class=k>using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>.</span><span class="id u">OpenGL</span><span class=t>;</span>
+<pre><code class=language-c#><span class=HtmlSyntaxHighlighterDotNet><span class="k sta">using</span> <span class="id u">System</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Drawing</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>;</span>
+<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>.</span><span class="id u">OpenGL</span><span class=t>;</span>
 
-<span class=k>namespace</span> <span class=id>OpenTKApp1</span>
+<span class=k>namespace</span> <span class="id ns">OpenTKApp1</span>
 <span class=t>{</span>
-	<span class=k>public</span> <span class=k>class</span> <span class="id cl">AppWindow</span> <span class=t>:</span> <span class="id cl">GameWindow</span>
+	<span class=k>public</span> <span class=k>class</span> <span class="id ns">AppWindow</span> <span class=t>:</span> <span class="id ty">GameWindow</span>
 	<span class=t>{</span>
-		<span class=k>public</span> <span class="id cl">AppWindow</span><span class=t>(</span><span class=t>)</span>
+		<span class=k>public</span> <span class="id ns">AppWindow</span><span class=t>(</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">Title</span> <span class=t>=</span> <span class=str>"OpenTK App 1"</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">WindowBorder</span> <span class=t>=</span> <span class="id ma">WindowBorder</span><span class=t>.</span><span class="id ma">Fixed</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class="id ma">ClientSize</span> <span class=t>=</span> <span class=k>new</span> <span class=id>Size</span><span class=t>(</span><span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>			
+			<span class=k>this</span><span class=t>.</span><span class=id>Title</span> <span class=t>=</span> <span class=str>"OpenTK App 1"</span><span class=t>;</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>WindowBorder</span> <span class=t>=</span> <span class=id>WindowBorder</span><span class=t>.</span><span class=id>Fixed</span><span class=t>;</span>
+			<span class=k>this</span><span class=t>.</span><span class=id>ClientSize</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Size</span><span class=t>(</span><span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>			
 		<span class=t>}</span>
 
-		<span class=k>protected</span> <span class=k>override</span> <span class=k>void</span> <span class="id m">OnRenderFrame</span><span class=t>(</span><span class="id m">FrameEventArgs</span> <span class="id m">e</span><span class=t>)</span>
+		<span class=k>protected</span> <span class=k>override</span> <span class=k>void</span> <span class="id m">OnRenderFrame</span><span class=t>(</span><span class="id ty">FrameEventArgs</span> <span class=id>e</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class=k>base</span><span class=t>.</span><span class="id inv">OnRenderFrame</span><span class=t>(</span><span class="id inv">e</span><span class=t>)</span><span class=t>;</span>
+			<span class=k>base</span><span class=t>.</span><span class="id inv">OnRenderFrame</span><span class=t>(</span><span class=id>e</span><span class=t>)</span><span class=t>;</span>
 
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">ClearColor</span><span class=t>(</span><span class="id inv">Color</span><span class=t>.</span><span class="id inv">CornflowerBlue</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Clear</span><span class=t>(</span><span class="id inv">ClearBufferMask</span><span class=t>.</span><span class="id inv">ColorBufferBit</span> <span class=t>|</span> <span class="id inv">ClearBufferMask</span><span class=t>.</span><span class="id inv">DepthBufferBit</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">ClearColor</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>CornflowerBlue</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Clear</span><span class=t>(</span><span class=id>ClearBufferMask</span><span class=t>.</span><span class=id>ColorBufferBit</span> <span class=t>|</span> <span class=id>ClearBufferMask</span><span class=t>.</span><span class=id>DepthBufferBit</span><span class=t>)</span><span class=t>;</span>
 
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">MatrixMode</span><span class=t>(</span><span class="id inv">MatrixMode</span><span class=t>.</span><span class="id inv">Projection</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">LoadIdentity</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Ortho</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=t>-</span><span class=n>1</span><span class=t>,</span> <span class=n>1</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Viewport</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">MatrixMode</span><span class=t>(</span><span class=id>MatrixMode</span><span class=t>.</span><span class=id>Projection</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">LoadIdentity</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Ortho</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=t>-</span><span class=n>1</span><span class=t>,</span> <span class=n>1</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Viewport</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>
 			
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Begin</span><span class=t>(</span><span class="id inv">BeginMode</span><span class=t>.</span><span class="id inv">Triangles</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class="id inv">Color</span><span class=t>.</span><span class="id inv">Red</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>400</span><span class=t>,</span> <span class=n>150</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class="id inv">Color</span><span class=t>.</span><span class="id inv">Green</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>600</span><span class=t>,</span> <span class=n>450</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class="id inv">Color</span><span class=t>.</span><span class="id inv">Blue</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>200</span><span class=t>,</span> <span class=n>450</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">End</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Begin</span><span class=t>(</span><span class=id>BeginMode</span><span class=t>.</span><span class=id>Triangles</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>Red</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>400</span><span class=t>,</span> <span class=n>150</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>Green</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>600</span><span class=t>,</span> <span class=n>450</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Color3</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>Blue</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex3</span><span class=t>(</span><span class=n>200</span><span class=t>,</span> <span class=n>450</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">End</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 
-			<span class="id inv">GL</span><span class=t>.</span><span class="id inv">Flush</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>GL</span><span class=t>.</span><span class="id inv">Flush</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 			<span class=k>this</span><span class=t>.</span><span class="id inv">SwapBuffers</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 		<span class=t>}</span>
 
-		<span class=t>[</span><span class="id m">STAThread</span><span class=t>]</span>
+		<span class=t>[</span><span class=id>STAThread</span><span class=t>]</span>
 		<span class=k>public</span> <span class=k>static</span> <span class=k>void</span> <span class="id m">Main</span><span class=t>(</span><span class=t>)</span>
 		<span class=t>{</span>
-			<span class=id>AppWindow</span> <span class=id>window</span> <span class=t>=</span> <span class=k>new</span> <span class=id>AppWindow</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-			<span class="id inv">window</span><span class=t>.</span><span class="id inv">Run</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>AppWindow</span> <span class=id>window</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">AppWindow</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			<span class=id>window</span><span class=t>.</span><span class="id inv">Run</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 		<span class=t>}</span>
 	<span class=t>}</span>
 <span class=t>}</span>
