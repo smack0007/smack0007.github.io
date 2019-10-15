@@ -67,7 +67,8 @@ namespace compiler
 
             foreach (var fileName in markdownFiles)
             {
-                var outputDirectory = Path.Combine(outputPath, Path.GetDirectoryName(fileName));
+                var fileDirectory = Path.GetDirectoryName(fileName);
+                var outputDirectory = fileDirectory != null ? Path.Combine(outputPath, fileDirectory) : outputPath;
                 var outputFileName = Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(fileName) + ".html");
                 
                 var isPost = fileName.StartsWith("blog" + Path.DirectorySeparatorChar);
@@ -79,7 +80,10 @@ namespace compiler
 
                 if (isPost)
                 {
-                    string path = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + ".html");
+                    string path = Path.GetFileNameWithoutExtension(fileName) + ".html";
+                    
+                    if (fileDirectory != null)
+                        path = Path.Combine(fileDirectory, path);
 
                     var postData = new PostData(
                         frontMatter,
@@ -108,7 +112,7 @@ namespace compiler
 
             var scssOptions = new ScssOptions()
             {
-                TryImport = (string file, string path, out string scss, out string map) =>
+                TryImport = (string file, string path, out string? scss, out string? map) =>
                 {
                     scss = null;
                     map = null;
@@ -152,22 +156,20 @@ namespace compiler
 
             for (int i = 0; i < pageCount; i++)
             {
-                string GetPageName(int index)
+                string? GetPageName(int index)
                 {
                     if (index < 0 || index >= pageCount)
-                    {
                         return null;
-                    }
 
                     return index == 0 ? "index.html" : Path.Combine("blog", "page" + (index + 1) + ".html");
                 }
 
-                var pageName = GetPageName(i);
+                var pageName = GetPageName(i) ?? "";
                 Console.WriteLine($"Index: {pageName}");
 
                 RenderPage(
                     pageName,
-                    Path.Combine(outputPath, GetPageName(i)),
+                    Path.Combine(outputPath, pageName),
                     BlogTitle,
                     Templates.Index(new IndexData(posts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage))).Render(),
                     showPagination: true,
@@ -195,8 +197,8 @@ namespace compiler
 
         private static (string[] FrontMatter, string[] Content) ExtractMarkdownParts(string[] lines)
         {
-            string[] frontMatter = null;
-            string[] content = null;
+            string[] frontMatter = Array.Empty<string>();
+            string[] content = Array.Empty<string>();
 
             int markdownStart = 0;
 
@@ -351,8 +353,8 @@ namespace compiler
             string title,
             string body,
             bool showPagination = true,
-            string paginationOlderLink = null,
-            string paginationNewerLink = null)
+            string? paginationOlderLink = null,
+            string? paginationNewerLink = null)
         {
             var page = new PageData(
                 fileName,

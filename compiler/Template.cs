@@ -14,7 +14,7 @@ namespace compiler
 
         public static string HtmlDecode(string input) => WebUtility.HtmlDecode(input);
 
-        public static string If(bool condition, string trueString, string falseString = null) => condition ? trueString : falseString;
+        public static string? If(bool condition, string trueString, string? falseString = null) => condition ? trueString : falseString;
         
         public static string Include<TData>(Template<TData> template, TData data) =>
             template(data).Render();

@@ -16,9 +16,9 @@ namespace compiler
 
         public bool ShowPagination { get; }
 
-        public string PaginationOlderLink { get; }
+        public string? PaginationOlderLink { get; }
 
-        public string PaginationNewerLink { get; }
+        public string? PaginationNewerLink { get; }
 
         public PageData(
             string fileName,
@@ -26,8 +26,8 @@ namespace compiler
             string title,
             string body,
             bool showPagination,
-            string paginationOlderLink,
-            string paginationNewerLink)
+            string? paginationOlderLink,
+            string? paginationNewerLink)
         {
             this.FileName = fileName;
             this.BaseUrl = baseUrl;

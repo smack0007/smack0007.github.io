@@ -10,19 +10,13 @@
 	color: #569CD6;
 }
 .HtmlSyntaxHighlighterDotNet .k.sta {
-	color: #D8A0DF;
+	color: #C586C0;
 }
 .HtmlSyntaxHighlighterDotNet .id {
 	color: #9CDCFE;
 }
-.HtmlSyntaxHighlighterDotNet .id.cl {
-	color: #84D5A1;
-}
-.HtmlSyntaxHighlighterDotNet .id.g {
-	color: #B8D7A3;
-}
-.HtmlSyntaxHighlighterDotNet .id.ma {
-	color: #84D5A1;
+.HtmlSyntaxHighlighterDotNet .id.ty {
+	color: #4EC9B0;
 }
 .HtmlSyntaxHighlighterDotNet .id.inv {
 	color: #DCDCAA;
@@ -30,8 +24,11 @@
 .HtmlSyntaxHighlighterDotNet .id.m {
 	color: #DCDCAA;
 }
+.HtmlSyntaxHighlighterDotNet .id.ns {
+	color: #4EC9B0;
+}
 .HtmlSyntaxHighlighterDotNet .id.u {
-	color: #DCDCDC;
+	color: #4EC9B0;
 }
 .HtmlSyntaxHighlighterDotNet .id.v {
 	color: #569CD6;

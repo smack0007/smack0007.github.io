@@ -30,7 +30,7 @@ namespace compiler
         {
             var data = new Dictionary<string, string>();
 
-            string key = null;
+            string? key = null;
 
             foreach (var frontMatterLine in lines)
             {
