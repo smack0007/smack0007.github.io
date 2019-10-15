@@ -60,11 +60,11 @@ $@"<!doctype html>
 
                 <div class=""collapse navbar-collapse"" id=""navbarSupportedContent"">
                     <ul class=""navbar-nav mr-auto"">                        
-                        <li class=""nav-item{If(data.FileName.EndsWith("index.html"), " active")}"">
-                            <a class=""nav-link"" href=""index.html"">Home{If(data.FileName.EndsWith("index.html"), " <span class=\"sr-only\">(current)</span>")}</a>
+                        <li class=""nav-item{If(data.Url.EndsWith("index.html"), " active")}"">
+                            <a class=""nav-link"" href=""index.html"">Home{If(data.Url.EndsWith("index.html"), " <span class=\"sr-only\">(current)</span>")}</a>
                         </li>
-                        <li class=""nav-item{If(data.FileName.EndsWith("about.html"), " active")}"">
-                            <a class=""nav-link"" href=""about.html"">About{If(data.FileName.EndsWith("about.html"), " <span class=\"sr-only\">(current)</span>")}</a>
+                        <li class=""nav-item{If(data.Url.EndsWith("about.html"), " active")}"">
+                            <a class=""nav-link"" href=""about.html"">About{If(data.Url.EndsWith("about.html"), " <span class=\"sr-only\">(current)</span>")}</a>
                         </li>
                     </ul>
                     <div class=""social my-2 my-lg-0"">
