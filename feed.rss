@@ -4,9 +4,33 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Tue, 15 Oct 2019 16:01:20 GMT</lastBuildDate>
-	<pubDate>Tue, 27 Aug 2019 00:00:00 GMT</pubDate>
+	<lastBuildDate>Tue, 22 Oct 2019 13:25:43 GMT</lastBuildDate>
+	<pubDate>Tue, 22 Oct 2019 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Dynamically loaded DLL thows AccessViolationException on first function call]]></title>
+		<description><![CDATA[<p>In my library <a href="https://github.com/smack0007/GLESDotNet">GLESDotNet</a> I load
+the <code>libegl.dll</code> and <code>libglesv2.dll</code> DLLs dynamically via the Win32 functions
+<a href="https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryw">LoadLibrary</a>
+and <a href="https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
+I already had everything working via <code>DLLImport</code> but I wanted to be able to
+load the DLLs from different subdirectories depending on the architecture.</p>
+<p>For the  first test I only loaded the <code>libegl.dll</code> DLL before moving on to
+the <code>libglesv2.dll</code>. I made the classic programmer mistake of changing too much
+at one time. The first call to any function in <code>libegl.dll</code> resulted in an
+<code>AccessViolationException</code>. I couldn't figure out what was going wrong so I
+decided to revert my changes and try again.</p>
+<p>I noticed that when the DLLs were in the same directory the
+<code>AccessViolationException</code> went away. Changing the working directory
+to the directory of the DLLs also solved the problem once the DLLs
+were placed in subdirectories again. This led me to believe that
+loading <code>libegl.dll</code> must be implicitly loading <code>libglesv2.dll</code>. Loading
+<code>libglesv2.dll</code> via <code>LoadLibrary</code> along with <code>libegl2.dll</code> solved the problem.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</link>
+		<guid>http://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</guid>
+		<pubDate>Tue, 22 Oct 2019 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Abusing IDisposable]]></title>
 		<description><![CDATA[<p>In C# the interface <code>IDisposable</code> is usually used to indicate that an object
@@ -269,18 +293,6 @@ the same be achieved like so:</p>
 		<link>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</link>
 		<guid>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</guid>
 		<pubDate>Tue, 15 Apr 2014 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[All the cool kids are static]]></title>
-		<description><![CDATA[<p>Seems like all the cool kids these days have converted their websites to completely static ones. I'm looking at you <a href="http://haacked.com">Mr. Haacked</a>. I thought this was a pretty cool idea and a chance
-to really refresh my website so I decided to take a stab at it. It's currently a work in progress.</p>
-<p>I ended up writing my own tool I call <a href="http://github.com/smack0007/Gatsby">Gatsby</a> to do it. I also set up the whole deploy process myself involving pushing to <a href="http://github.com/smack0007/zacharysnow.net">Github</a>
-which then informs my website to pull from the Github repository. Hopefully that will be a blog post in the not too distance future.</p>
-<p>Sorry for any inconvenience.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2014/all-the-cool-kids-are-static.html</link>
-		<guid>http://smack0007.github.io/blog/2014/all-the-cool-kids-are-static.html</guid>
-		<pubDate>Sun, 09 Mar 2014 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
