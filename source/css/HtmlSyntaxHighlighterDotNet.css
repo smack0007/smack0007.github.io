@@ -1,7 +1,11 @@
 /* This file is auto generated. */
 .HtmlSyntaxHighlighterDotNet {
-	font-family: Consolas;
-	font-size: 16px;
+	background-color: rgb(48, 48, 48);
+	color: white;
+	font-family: consolas, monospace;
+	font-size: 18px;
+	font-weight: normal;
+	overflow: auto;
 }
 .HtmlSyntaxHighlighterDotNet .co {
 	color: #57A64A;
