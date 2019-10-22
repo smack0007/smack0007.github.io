@@ -4,7 +4,7 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Tue, 22 Oct 2019 13:25:43 GMT</lastBuildDate>
+	<lastBuildDate>Tue, 22 Oct 2019 17:10:05 GMT</lastBuildDate>
 	<pubDate>Tue, 22 Oct 2019 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
@@ -89,7 +89,7 @@ although the code will compile without any problems.</p>
 <a href="https://en.wikipedia.org/wiki/Partial_application">Partial Application</a> can be implemented in C# via
 <a href="https://en.wikipedia.org/wiki/Currying">Currying</a>. Although I appreciate his example of implementing currying via extsion
 methods, the syntax is hideous. There is a suggestion in the comments though that I found to be a much better solution.</p>
-<pre><code class="language-c#"><span class="HtmlSyntaxHighlighterDotNet"><span class="co">// Define a local function Add.</span>
+<pre><code class="language-c#"><div class="HtmlSyntaxHighlighterDotNet"><span class="co">// Define a local function Add.</span>
 <span class="k">int</span> <span class="id m">Add</span><span class="t">(</span><span class="k">int</span> <span class="id">a</span><span class="t">,</span> <span class="k">int</span> <span class="id">b</span><span class="t">)</span> <span class="t">=></span> <span class="id">a</span> <span class="t">+</span> <span class="id">b</span><span class="t">;</span>
 
 <span class="co">// Here we do the currying.</span>
@@ -104,7 +104,7 @@ methods, the syntax is hideous. There is a suggestion in the comments though tha
 
 <span class="co">// This will also print 5.</span>
 <span class="id">Console</span><span class="t">.</span><span class="id">WriteLine</span><span class="t">(</span><span class="id">five</span><span class="t"></span><span class="id"></span><span class="t"></span><span class="t">(</span><span class="id"></span><span class="t"></span><span class="id"></span><span class="t">)</span>);
-<span class="t"></span></span></pre></code>
+<span class="t"></span></div></pre></code>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/a-neat-way-to-curry-in-csharp.html</link>
 		<guid>http://smack0007.github.io/blog/2018/a-neat-way-to-curry-in-csharp.html</guid>
@@ -124,14 +124,14 @@ I've definitely started using is wrapping collections in lambda functions.</p>
 		<title><![CDATA[string.Join Extension Method]]></title>
 		<description><![CDATA[<p>Normally if want to do a <code>string.Join</code> on the result of a Linq query you end up with somthing looking like
 this:</p>
-<pre><code class="language-csharp"><span class="HtmlSyntaxHighlighterDotNet">Console.WriteLine(string.<span class="id">Join</span><span class="t">(</span>", "<span class="id ty"></span><span class="id"></span><span class="t">,</span> <span class="id ty">numbers</span><span class="t">.</span><span class="id ty">Where</span><span class="id"></span><span class="t"></span><span class="t">(</span><span class="id ty">x</span> <span class="t"></span><span class="id ty"></span><span class="t"></span><span class="id"></span>=> <span class="t"></span><span class="id ty">x</span> <span class="id"></span>% 2 == 0<span class="t">)</span><span class="t"></span>));
-<span class="t"></span></span></pre></code>
+<pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet">Console.WriteLine(string.<span class="id">Join</span><span class="t">(</span>", "<span class="id ty"></span><span class="id"></span><span class="t">,</span> <span class="id ty">numbers</span><span class="t">.</span><span class="id ty">Where</span><span class="id"></span><span class="t"></span><span class="t">(</span><span class="id ty">x</span> <span class="t"></span><span class="id ty"></span><span class="t"></span><span class="id"></span>=> <span class="t"></span><span class="id ty">x</span> <span class="id"></span>% 2 == 0<span class="t">)</span><span class="t"></span>));
+<span class="t"></span></div></pre></code>
 <p>The call to <code>string.Join</code> has to come first and then the Linq query. I've always felt this breaks the flow
 of the code and would be easier to read if the <code>string.Join</code> was at the end of the Linq query:</p>
-<pre><code class="language-csharp"><span class="HtmlSyntaxHighlighterDotNet">Console.WriteLine(numbers.Where(x => x % 2 == 0).<span class="id">JoinString</span><span class="t">(</span>", "<span class="t">)</span><span class="t"></span>);
-<span class="t"></span></span></pre></code>
+<pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet">Console.WriteLine(numbers.Where(x => x % 2 == 0).<span class="id">JoinString</span><span class="t">(</span>", "<span class="t">)</span><span class="t"></span>);
+<span class="t"></span></div></pre></code>
 <p>This can be implemented with the following extension methods:</p>
-<pre><code class="language-csharp"><span class="HtmlSyntaxHighlighterDotNet"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="id">JoinStringExtensions</span>
+<pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="id">JoinStringExtensions</span>
 <span class="t">{</span>
     <span class="k">public</span> <span class="k">static</span> <span class="k">string</span> <span class="id m">JoinString</span><span class="t"><</span><span class="id m">T</span><span class="t">></span><span class="t">(</span><span class="k">this</span> <span class="id ty">IEnumerable</span><span class="t"><</span><span class="id ty">T</span><span class="t">></span> <span class="id">source</span><span class="t">,</span> <span class="k">string</span> <span class="id">seperator</span><span class="t">)</span> <span class="t">=></span>
         <span class="k">string</span><span class="t">.</span><span class="id inv">Join</span><span class="t">(</span><span class="id">seperator</span><span class="t">,</span> <span class="id">source</span><span class="t">.</span><span class="id inv">Select</span><span class="t">(</span><span class="id">x</span> <span class="t">=></span> <span class="id">x</span><span class="t">.</span><span class="id inv">ToString</span><span class="t">(</span><span class="t">)</span><span class="t">)</span><span class="t">)</span><span class="t">;</span>
@@ -139,7 +139,7 @@ of the code and would be easier to read if the <code>string.Join</code> was at t
     <span class="k">public</span> <span class="k">static</span> <span class="k">string</span> <span class="id m">JoinString</span><span class="t">(</span><span class="k">this</span> <span class="id ty">IEnumerable</span><span class="t"><</span><span class="k">string</span><span class="t">></span> <span class="id">source</span><span class="t">,</span> <span class="k">string</span> <span class="id">seperator</span><span class="t">)</span> <span class="t">=></span>
         <span class="k">string</span><span class="t">.</span><span class="id inv">Join</span><span class="t">(</span><span class="id">seperator</span><span class="t">,</span> <span class="id">source</span><span class="t">)</span><span class="t">;</span>
 <span class="t">}</span>
-<span class="t"></span></span></pre></code>
+<span class="t"></span></div></pre></code>
 <p>The specialization for <code>IEnumerable&lt;string&gt;</code> is just mirroring the implementation from <code>string.Join</code>.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2018/string-join-extension-method.html</link>
@@ -270,16 +270,16 @@ This got me to thinking about my youth and some of the code I wrote back then. I
 	<item>
 		<title><![CDATA[Adding assembly references in Roslyn]]></title>
 		<description><![CDATA[<p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
-<pre><code class="language-csharp"><span class="HtmlSyntaxHighlighterDotNet"><span class="id v">var</span> <span class="id">compilation</span> <span class="t">=</span> <span class="id">Compilation</span><span class="t">.</span><span class="id inv">Create</span><span class="t">(</span><span class="id">assemblyName</span><span class="t">,</span> <span class="k">new</span> <span class="id ty">CompilationOptions</span><span class="t">(</span><span class="id">OutputKind</span><span class="t">.</span><span class="id">DynamicallyLinkedLibrary</span><span class="t">)</span><span class="t">)</span>
+<pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet"><span class="id v">var</span> <span class="id">compilation</span> <span class="t">=</span> <span class="id">Compilation</span><span class="t">.</span><span class="id inv">Create</span><span class="t">(</span><span class="id">assemblyName</span><span class="t">,</span> <span class="k">new</span> <span class="id ty">CompilationOptions</span><span class="t">(</span><span class="id">OutputKind</span><span class="t">.</span><span class="id">DynamicallyLinkedLibrary</span><span class="t">)</span><span class="t">)</span>
 	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="id">MetadataReference</span><span class="t">.</span><span class="id inv">CreateAssemblyReference</span><span class="t">(</span><span class="str">"mscorlib"</span><span class="t">)</span><span class="t">)</span>
 	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="id">MetadataReference</span><span class="t">.</span><span class="id inv">CreateAssemblyReference</span><span class="t">(</span><span class="str">"System"</span><span class="t">)</span><span class="t">)</span>
 	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="id">MetadataReference</span><span class="t">.</span><span class="id inv">CreateAssemblyReference</span><span class="t">(</span><span class="str">"System.Core"</span><span class="t">)</span><span class="t">)</span>
 	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="k">new</span> <span class="id ty">MetadataFileReference</span><span class="t">(</span><span class="k">this</span><span class="t">.</span><span class="id inv">GetType</span><span class="t">(</span><span class="t">)</span><span class="t">.</span><span class="id">Assembly</span><span class="t">.</span><span class="id">Location</span><span class="t">)</span><span class="t">)</span>
 	<span class="t">.</span><span class="id inv">AddSyntaxTrees</span><span class="t">(</span><span class="id">syntaxTree</span><span class="t">)</span><span class="t">;</span>
-<span class="t"></span></span></pre></code>
+<span class="t"></span></div></pre></code>
 <p>The static factory method &quot;MetadataReference.CreateAssemblyReference&quot; added a reference to global assemblies such as &quot;mscorlib.dll&quot; or &quot;System.dll&quot;. In the Roslyn preview,
 the same be achieved like so:</p>
-<pre><code class="language-csharp"><span class="HtmlSyntaxHighlighterDotNet"><span class="id v">var</span> <span class="id">assemblyPath</span> <span class="t">=</span> <span class="id">Path</span><span class="t">.</span><span class="id inv">GetDirectoryName</span><span class="t">(</span><span class="k">typeof</span><span class="t">(</span><span class="k">object</span><span class="t">)</span><span class="t">.</span><span class="id">Assembly</span><span class="t">.</span><span class="id">Location</span><span class="t">)</span><span class="t">;</span>
+<pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet"><span class="id v">var</span> <span class="id">assemblyPath</span> <span class="t">=</span> <span class="id">Path</span><span class="t">.</span><span class="id inv">GetDirectoryName</span><span class="t">(</span><span class="k">typeof</span><span class="t">(</span><span class="k">object</span><span class="t">)</span><span class="t">.</span><span class="id">Assembly</span><span class="t">.</span><span class="id">Location</span><span class="t">)</span><span class="t">;</span>
 
 <span class="id v">var</span> <span class="id">compilation</span> <span class="t">=</span> <span class="id">CSharpCompilation</span><span class="t">.</span><span class="id inv">Create</span><span class="t">(</span><span class="id">assemblyName</span><span class="t">)</span>
 	<span class="t">.</span><span class="id inv">WithOptions</span><span class="t">(</span><span class="k">new</span> <span class="id ty">CSharpCompilationOptions</span><span class="t">(</span><span class="id">OutputKind</span><span class="t">.</span><span class="id">DynamicallyLinkedLibrary</span><span class="t">)</span><span class="t">)</span>
@@ -288,7 +288,7 @@ the same be achieved like so:</p>
 	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="k">new</span> <span class="id ty">MetadataFileReference</span><span class="t">(</span><span class="id">Path</span><span class="t">.</span><span class="id inv">Combine</span><span class="t">(</span><span class="id">assemblyPath</span><span class="t">,</span> <span class="str">"System.Core.dll"</span><span class="t">)</span><span class="t">)</span><span class="t">)</span>
 	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="k">new</span> <span class="id ty">MetadataFileReference</span><span class="t">(</span><span class="id">Assembly</span><span class="t">.</span><span class="id inv">GetEntryAssembly</span><span class="t">(</span><span class="t">)</span><span class="t">.</span><span class="id">Location</span><span class="t">)</span><span class="t">)</span>
 	<span class="t">.</span><span class="id inv">AddSyntaxTrees</span><span class="t">(</span><span class="id">syntaxTree</span><span class="t">)</span><span class="t">;</span>
-<span class="t"></span></span></pre></code>
+<span class="t"></span></div></pre></code>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</link>
 		<guid>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</guid>
