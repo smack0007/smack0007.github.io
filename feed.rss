@@ -25,7 +25,7 @@ decided to revert my changes and try again.</p>
 to the directory of the DLLs also solved the problem once the DLLs
 were placed in subdirectories again. This led me to believe that
 loading <code>libegl.dll</code> must be implicitly loading <code>libglesv2.dll</code>. Loading
-<code>libglesv2.dll</code> via <code>LoadLibrary</code> along with <code>libegl2.dll</code> solved the problem.</p>
+<code>libglesv2.dll</code> via <code>LoadLibrary</code> along with <code>libegl.dll</code> solved the problem.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</link>
 		<guid>http://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</guid>
