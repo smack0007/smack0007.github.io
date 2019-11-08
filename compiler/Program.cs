@@ -12,6 +12,8 @@ using ColorCode;
 using System.Net;
 using SharpScss;
 using HtmlSyntaxHighlighterDotNet;
+using TextDecoratorDotNet;
+using System.Threading.Tasks;
 
 namespace compiler
 {
@@ -36,7 +38,9 @@ namespace compiler
             PrettyPrint = false,
         };
 
-        public static int Main(string[] args)
+        // private static Template<PostData>? PostsTemplate;
+
+        public async static Task<int> Main(string[] args)
         {
             if (args.Length < 2)
             {
@@ -53,13 +57,14 @@ namespace compiler
 
             var files = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories)
                 .Select(x => x.Substring(inputPath.Length))
-                .Where(x => !x.StartsWith("ts" + Path.DirectorySeparatorChar))
                 .ToArray();
 
+            var templateFiles = files.Where(x => Path.GetExtension(x) == ".cshtml");
             var markdownFiles = files.Where(x => Path.GetExtension(x) == ".md");
             var cssFiles = files.Where(x => Path.GetExtension(x) == ".css" || Path.GetExtension(x) == ".scss");
             
             var staticFiles = files
+                .Except(templateFiles)
                 .Except(markdownFiles)
                 .Except(cssFiles);
 
@@ -76,7 +81,7 @@ namespace compiler
 
                 Directory.CreateDirectory(outputDirectory);
 
-                (var frontMatter, var content) = ProcessMarkdown(File.ReadAllLines(Path.Combine(inputPath, fileName)));
+                (var frontMatter, var content) = ProcessMarkdown(await File.ReadAllLinesAsync(Path.Combine(inputPath, fileName)));
 
                 if (isPost)
                 {
@@ -343,7 +348,11 @@ namespace compiler
             string fileName,
             string outputFileName,
             PostData postData)
-        {            
+        {
+            // var template = await Template.CompileAsync<PostData>(
+            //     "Hello @Name you are @Age years old!"
+            // );
+
             RenderPage(fileName, outputFileName, postData.Title, Templates.Post(postData).Render(), showPagination: false);
         }
 

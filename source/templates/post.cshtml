@@ -1,0 +1,21 @@
+<div class="post">
+    <h2>
+        <a href="@Url">@(HtmlEncode(Title))</a>
+    </h2>
+
+    @if (!string.IsNullOrEmpty(Subtitle))
+    {
+        <h3>@(HtmlEncode(Subtitle))</h3>
+    }
+
+    <div class="meta">
+        <span class="date"><span class="icon-calendar"></span>@Date</span>
+        <span class="category"><span class="icon-folder"></span>@(HtmlEncode(Category))</span>
+        @{ var tags = Tags.Select(x => HtmlEncode(x)); }
+        <span class="tags"><span class="icon-price-tags"></span>@(string.Join(", ", tags))</span>
+    </div>
+
+    <div class="content">
+        @Content
+    </div>
+</div>
