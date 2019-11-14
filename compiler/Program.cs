@@ -12,8 +12,8 @@ using ColorCode;
 using System.Net;
 using SharpScss;
 using HtmlSyntaxHighlighterDotNet;
-using TextDecoratorDotNet;
 using System.Threading.Tasks;
+using TextDecoratorDotNet;
 
 namespace compiler
 {
@@ -38,7 +38,9 @@ namespace compiler
             PrettyPrint = false,
         };
 
-        // private static Template<PostData>? PostsTemplate;
+        private static TextDecoratorDotNet.Template<PostData>? PostHeaderTemplate;        
+        private static TextDecoratorDotNet.Template<PostData>? PostTemplate;
+        private static TextDecoratorDotNet.Template<PageData>? PageTemplate;
 
         public async static Task<int> Main(string[] args)
         {
@@ -68,6 +70,10 @@ namespace compiler
                 .Except(markdownFiles)
                 .Except(cssFiles);
 
+            var templatesDirectory = Path.Combine(inputPath, "templates");
+            PostHeaderTemplate = await TextDecoratorDotNet.Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "postHeader.cshtml")));
+            PostTemplate = await TextDecoratorDotNet.Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "post.cshtml")));
+
             var posts = new List<PostData>();
 
             foreach (var fileName in markdownFiles)
@@ -93,7 +99,8 @@ namespace compiler
                     var postData = new PostData(
                         frontMatter,
                         content,
-                        path);
+                        path,
+                        x => PostHeaderTemplate.Run(x));
 
                     posts.Add(postData);
 
@@ -349,11 +356,10 @@ namespace compiler
             string outputFileName,
             PostData postData)
         {
-            // var template = await Template.CompileAsync<PostData>(
-            //     "Hello @Name you are @Age years old!"
-            // );
+            if (PostTemplate == null)
+                throw new InvalidOperationException($"{nameof(PostHeaderTemplate)} is null.");
 
-            RenderPage(fileName, outputFileName, postData.Title, Templates.Post(postData).Render(), showPagination: false);
+            RenderPage(fileName, outputFileName, postData.Title, PostTemplate.Run(postData), showPagination: false);
         }
 
         private static void RenderPage(

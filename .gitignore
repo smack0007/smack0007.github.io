@@ -1,7 +1,9 @@
-[B|b]in
-[O|o]bj
+[B|b]in/
+[O|o]bj/
+.cache/
+.vs/
+node_modules/
+dist/
+
 *.suo
 commit.msg
-node_modules/
-.cache/
-dist/

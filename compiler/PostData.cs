@@ -5,8 +5,10 @@ using System.Linq;
 
 namespace compiler
 {
-    public class PostData
+    public class PostData : BaseData
     {
+        private Func<PostData, string> _renderPostHeader;
+
         public FrontMatter FrontMatter { get; }
 
         public string Content { get; }
@@ -31,11 +33,12 @@ namespace compiler
 
         public IEnumerable<string> Tags { get; }
 
-        public PostData(FrontMatter frontMatter, string content, string path)
+        public PostData(FrontMatter frontMatter, string content, string path, Func<PostData, string> renderPostHeader)
         {
             FrontMatter = frontMatter;
             Content = content;
             Path = path;
+            _renderPostHeader = renderPostHeader;
 
             var index = Content.IndexOf("<!--more-->");
 
@@ -51,6 +54,11 @@ namespace compiler
             }
 
             Tags = FrontMatter["Tags"].Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
+        }
+
+        public string PostHeader()
+        {
+            return _renderPostHeader(this);
         }
     }
 }
