@@ -7,7 +7,7 @@
         <meta name="author" content="Zachary Snow">
 
         <title>@(Title)</title>
-        <base href="{data.BaseUrl}">
+        <base href="@(BaseUrl)">
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -23,15 +23,17 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">                        
-                        <li class="nav-item@(Url.EndsWith("index.html") ? " active" : "")">
+                    <ul class="navbar-nav mr-auto">
+                        @{ var activeClass = Url.EndsWith("index.html") ? "active" : "";  }                        
+                        <li class="nav-item @(activeClass)">
                             <a class="nav-link" href="index.html">Home
                                 @if(Url.EndsWith("index.html")) {
                                     <span class="sr-only">(current)</span>
                                 }
                             </a>
                         </li>
-                        <li class="nav-item@(Url.EndsWith("about.html") ? " active" : "")">
+                        @{ activeClass = Url.EndsWith("about.html") ? "active" : "";  }
+                        <li class="nav-item @(activeClass)">
                             <a class="nav-link" href="about.html">About
                                 @if(Url.EndsWith("about.html")) {
                                     <span class="sr-only">(current)</span>
@@ -49,32 +51,32 @@
             </nav>
             <main class="container">
                 <div class="posts">
-                    @Body
+                    @(Body)
                 </div>
                 <div class="clear"></div>
                 
-                @if (data.ShowPagination)
+                @if(ShowPagination)
                 {
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item@(PaginationOlderLink == null ? " disabled" : "")">
-                                @if (PaginationOlderLink != null)
+                            <li class="page-item @(PaginationOlderLink == null ? "disabled" : "")">
+                                @if(PaginationOlderLink != null)
                                 {
                                     <a href="@(PaginationOlderLink)" class="page-link older">Older</a>
                                 }
-                                else
+                                @if(PaginationOlderLink == null)
                                 {                    
                                     <a class="page-link older" href="#" tabindex="-1">Older</a>
                                 }
                             </li>
-                            <li class="page-item@(PaginationNewerLink == null ? " disabled" : "")">
-                                if (PaginationNewerLink != null)
+                            <li class="page-item @(PaginationNewerLink == null ? "disabled" : "")">
+                                @if(PaginationNewerLink != null)
                                 {
-                                    <a href="{data.PaginationNewerLink}" class="page-link newer">Newer</a>";                    
+                                    <a href="@(PaginationNewerLink)" class="page-link newer">Newer</a>                    
                                 }
-                                else
+                                @if(PaginationNewerLink == null)
                                 {
-                                    <a class="page-link newer" href="#" tabindex="-1">Newer</a>";
+                                    <a class="page-link newer" href="#" tabindex="-1">Newer</a>
                                 }
                             </li>              
                         </ul>

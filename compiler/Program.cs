@@ -38,9 +38,9 @@ namespace compiler
             PrettyPrint = false,
         };
 
-        private static TextDecoratorDotNet.Template<PostData>? PostHeaderTemplate;        
-        private static TextDecoratorDotNet.Template<PostData>? PostTemplate;
-        private static TextDecoratorDotNet.Template<PageData>? PageTemplate;
+        private static Template<PostData>? PostHeaderTemplate;        
+        private static Template<PostData>? PostTemplate;
+        private static Template<PageData>? PageTemplate;
 
         public async static Task<int> Main(string[] args)
         {
@@ -71,8 +71,9 @@ namespace compiler
                 .Except(cssFiles);
 
             var templatesDirectory = Path.Combine(inputPath, "templates");
-            PostHeaderTemplate = await TextDecoratorDotNet.Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "postHeader.cshtml")));
-            PostTemplate = await TextDecoratorDotNet.Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "post.cshtml")));
+            PostHeaderTemplate = await Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "postHeader.cshtml")));
+            PostTemplate = await Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "post.cshtml")));
+            PageTemplate = await Template.CompileAsync<PageData>(File.ReadAllText(Path.Combine(templatesDirectory, "page.cshtml")));
 
             var posts = new List<PostData>();
 
@@ -384,7 +385,7 @@ namespace compiler
 
             File.WriteAllText(
                 outputFile,
-                Uglify.Html(Templates.Page(page).Render(), UglifyHtmlSettings).Code);
+                Uglify.Html(PageTemplate.Run(page), UglifyHtmlSettings).Code);
         }
 
         private static string CalculateBaseUrl(string fileName)
