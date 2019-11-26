@@ -38,9 +38,9 @@ namespace compiler
             PrettyPrint = false,
         };
 
-        private static Template<PostData>? PostHeaderTemplate;        
-        private static Template<PostData>? PostTemplate;
-        private static Template<PageData>? PageTemplate;
+        private static TextDecoratorDotNet.Template<PostData>? PostHeaderTemplate;        
+        private static TextDecoratorDotNet.Template<PostData>? PostTemplate;
+        private static TextDecoratorDotNet.Template<PageData>? PageTemplate;
 
         public async static Task<int> Main(string[] args)
         {
@@ -71,9 +71,9 @@ namespace compiler
                 .Except(cssFiles);
 
             var templatesDirectory = Path.Combine(inputPath, "templates");
-            PostHeaderTemplate = await Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "postHeader.cshtml")));
-            PostTemplate = await Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "post.cshtml")));
-            PageTemplate = await Template.CompileAsync<PageData>(File.ReadAllText(Path.Combine(templatesDirectory, "page.cshtml")));
+            PostHeaderTemplate = await TextDecoratorDotNet.Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "postHeader.cshtml")));
+            PostTemplate = await TextDecoratorDotNet.Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "post.cshtml")));
+            PageTemplate = await TextDecoratorDotNet.Template.CompileAsync<PageData>(File.ReadAllText(Path.Combine(templatesDirectory, "page.cshtml")));
 
             var posts = new List<PostData>();
 
