@@ -38,9 +38,10 @@ namespace compiler
             PrettyPrint = false,
         };
 
-        private static TextDecoratorDotNet.Template<PostData>? PostHeaderTemplate;        
-        private static TextDecoratorDotNet.Template<PostData>? PostTemplate;
-        private static TextDecoratorDotNet.Template<PageData>? PageTemplate;
+        private static Template<PostData>? PostHeaderTemplate;        
+        private static Template<PostData>? PostTemplate;
+        private static Template<PageData>? PageTemplate;
+        private static Template<IndexData>? IndexTemplate;
 
         public async static Task<int> Main(string[] args)
         {
@@ -71,9 +72,10 @@ namespace compiler
                 .Except(cssFiles);
 
             var templatesDirectory = Path.Combine(inputPath, "templates");
-            PostHeaderTemplate = await TextDecoratorDotNet.Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "postHeader.cshtml")));
-            PostTemplate = await TextDecoratorDotNet.Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "post.cshtml")));
-            PageTemplate = await TextDecoratorDotNet.Template.CompileAsync<PageData>(File.ReadAllText(Path.Combine(templatesDirectory, "page.cshtml")));
+            PostHeaderTemplate = await Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "postHeader.cshtml")));
+            PostTemplate = await Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "post.cshtml")));
+            PageTemplate = await Template.CompileAsync<PageData>(File.ReadAllText(Path.Combine(templatesDirectory, "page.cshtml")));
+            IndexTemplate = await Template.CompileAsync<IndexData>(File.ReadAllText(Path.Combine(templatesDirectory, "index.cshtml")));
 
             var posts = new List<PostData>();
 
@@ -167,6 +169,9 @@ namespace compiler
             int pageCount = (int)Math.Ceiling(posts.Count / (double)PostsPerPage);
             Console.WriteLine($"{posts.Count} Posts / {pageCount} Pages");
 
+            if (IndexTemplate == null)
+                throw new InvalidOperationException($"{nameof(IndexTemplate)} is null.");
+
             for (int i = 0; i < pageCount; i++)
             {
                 string? GetPageName(int index)
@@ -180,11 +185,13 @@ namespace compiler
                 var pageName = GetPageName(i) ?? "";
                 Console.WriteLine($"Index: {pageName}");
 
+                var indexPosts = posts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage);
+
                 RenderPage(
                     pageName,
                     Path.Combine(outputPath, pageName),
                     BlogTitle,
-                    Templates.Index(new IndexData(posts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage))).Render(),
+                    IndexTemplate.Run(new IndexData(indexPosts, x => PostHeaderTemplate.Run(x))),
                     showPagination: true,
                     paginationOlderLink: GetPageName(i + 1),
                     paginationNewerLink: GetPageName(i - 1));
@@ -358,7 +365,7 @@ namespace compiler
             PostData postData)
         {
             if (PostTemplate == null)
-                throw new InvalidOperationException($"{nameof(PostHeaderTemplate)} is null.");
+                throw new InvalidOperationException($"{nameof(PostTemplate)} is null.");
 
             RenderPage(fileName, outputFileName, postData.Title, PostTemplate.Run(postData), showPagination: false);
         }
@@ -372,6 +379,9 @@ namespace compiler
             string? paginationOlderLink = null,
             string? paginationNewerLink = null)
         {
+            if (PageTemplate == null)
+                throw new InvalidOperationException($"{nameof(PageTemplate)} is null.");
+
             var page = new PageData(
                 fileName,
                 CalculateBaseUrl(fileName),

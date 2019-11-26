@@ -27,7 +27,7 @@
                         @{ var activeClass = Url.EndsWith("index.html") ? "active" : "";  }                        
                         <li class="nav-item @(activeClass)">
                             <a class="nav-link" href="index.html">Home
-                                @if(Url.EndsWith("index.html")) {
+                                @if (Url.EndsWith("index.html")) {
                                     <span class="sr-only">(current)</span>
                                 }
                             </a>
@@ -35,7 +35,7 @@
                         @{ activeClass = Url.EndsWith("about.html") ? "active" : "";  }
                         <li class="nav-item @(activeClass)">
                             <a class="nav-link" href="about.html">About
-                                @if(Url.EndsWith("about.html")) {
+                                @if (Url.EndsWith("about.html")) {
                                     <span class="sr-only">(current)</span>
                                 }
                             </a>
@@ -55,26 +55,26 @@
                 </div>
                 <div class="clear"></div>
                 
-                @if(ShowPagination)
+                @if (ShowPagination)
                 {
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
                             <li class="page-item @(PaginationOlderLink == null ? "disabled" : "")">
-                                @if(PaginationOlderLink != null)
+                                @if (PaginationOlderLink != null)
                                 {
                                     <a href="@(PaginationOlderLink)" class="page-link older">Older</a>
                                 }
-                                @if(PaginationOlderLink == null)
+                                @if (PaginationOlderLink == null)
                                 {                    
                                     <a class="page-link older" href="#" tabindex="-1">Older</a>
                                 }
                             </li>
                             <li class="page-item @(PaginationNewerLink == null ? "disabled" : "")">
-                                @if(PaginationNewerLink != null)
+                                @if (PaginationNewerLink != null)
                                 {
                                     <a href="@(PaginationNewerLink)" class="page-link newer">Newer</a>                    
                                 }
-                                @if(PaginationNewerLink == null)
+                                @if (PaginationNewerLink == null)
                                 {
                                     <a class="page-link newer" href="#" tabindex="-1">Newer</a>
                                 }
