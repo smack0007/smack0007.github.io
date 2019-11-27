@@ -24,5 +24,5 @@ I noticed that when the DLLs were in the same directory the
 to the directory of the DLLs also solved the problem once the DLLs
 were placed in subdirectories again. This led me to believe that
 loading `libegl.dll` must be implicitly loading `libglesv2.dll`. Loading
-`libglesv2.dll` via `LoadLibrary` along with `libegl2.dll` solved the problem.
+`libglesv2.dll` via `LoadLibrary` along with `libegl.dll` solved the problem.
 
