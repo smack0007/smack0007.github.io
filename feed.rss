@@ -4,9 +4,27 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 27 Nov 2019 17:31:16 GMT</lastBuildDate>
-	<pubDate>Tue, 22 Oct 2019 00:00:00 GMT</pubDate>
+	<lastBuildDate>Tue, 17 Dec 2019 16:25:32 GMT</lastBuildDate>
+	<pubDate>Tue, 17 Dec 2019 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Use nameof() to set a string variable to its name]]></title>
+		<description><![CDATA[<p>This is one of those things that should have just been obvious to me
+but once I saw it I wondered why I had never thought to use it myself.
+<code>nameof()</code> can be used when declaring a variable to set the value of the
+variable to the name of the variable:</p>
+<pre><code class="language-c#"><div class="HtmlSyntaxHighlighterDotNet"><span class="k">public</span> <span class="k">const</span> <span class="k">string</span> <span class="id">MyVariable1</span> <span class="t">=</span> <span class="id inv">nameof</span><span class="t">(</span><span class="id">MyVariable1</span><span class="t">)</span><span class="t">;</span>
+
+<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="id m">Main</span><span class="t">(</span><span class="t">)</span>
+<span class="t">{</span>
+    <span class="id">Console</span><span class="t">.</span><span class="id inv">WriteLine</span><span class="t">(</span><span class="id">MyVariable1</span><span class="t">)</span><span class="t">;</span>
+<span class="t">}</span>
+<span class="t"></span></div></pre></code>
+]]></description>
+		<link>http://smack0007.github.io/blog/2019/use-nameof-to-set-string-variable-to-its-name.html</link>
+		<guid>http://smack0007.github.io/blog/2019/use-nameof-to-set-string-variable-to-its-name.html</guid>
+		<pubDate>Tue, 17 Dec 2019 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Dynamically loaded DLL thows AccessViolationException on first function call]]></title>
 		<description><![CDATA[<p>In my library <a href="https://github.com/smack0007/GLESDotNet">GLESDotNet</a> I load
@@ -266,33 +284,6 @@ This got me to thinking about my youth and some of the code I wrote back then. I
 		<link>http://smack0007.github.io/blog/2014/code-from-when-i-was-young-and-stupid.html</link>
 		<guid>http://smack0007.github.io/blog/2014/code-from-when-i-was-young-and-stupid.html</guid>
 		<pubDate>Wed, 18 Jun 2014 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Adding assembly references in Roslyn]]></title>
-		<description><![CDATA[<p>In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:</p>
-<pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet"><span class="id v">var</span> <span class="id">compilation</span> <span class="t">=</span> <span class="id">Compilation</span><span class="t">.</span><span class="id inv">Create</span><span class="t">(</span><span class="id">assemblyName</span><span class="t">,</span> <span class="k">new</span> <span class="id ty">CompilationOptions</span><span class="t">(</span><span class="id">OutputKind</span><span class="t">.</span><span class="id">DynamicallyLinkedLibrary</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="id">MetadataReference</span><span class="t">.</span><span class="id inv">CreateAssemblyReference</span><span class="t">(</span><span class="str">"mscorlib"</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="id">MetadataReference</span><span class="t">.</span><span class="id inv">CreateAssemblyReference</span><span class="t">(</span><span class="str">"System"</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="id">MetadataReference</span><span class="t">.</span><span class="id inv">CreateAssemblyReference</span><span class="t">(</span><span class="str">"System.Core"</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="k">new</span> <span class="id ty">MetadataFileReference</span><span class="t">(</span><span class="k">this</span><span class="t">.</span><span class="id inv">GetType</span><span class="t">(</span><span class="t">)</span><span class="t">.</span><span class="id">Assembly</span><span class="t">.</span><span class="id">Location</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddSyntaxTrees</span><span class="t">(</span><span class="id">syntaxTree</span><span class="t">)</span><span class="t">;</span>
-<span class="t"></span></div></pre></code>
-<p>The static factory method &quot;MetadataReference.CreateAssemblyReference&quot; added a reference to global assemblies such as &quot;mscorlib.dll&quot; or &quot;System.dll&quot;. In the Roslyn preview,
-the same be achieved like so:</p>
-<pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet"><span class="id v">var</span> <span class="id">assemblyPath</span> <span class="t">=</span> <span class="id">Path</span><span class="t">.</span><span class="id inv">GetDirectoryName</span><span class="t">(</span><span class="k">typeof</span><span class="t">(</span><span class="k">object</span><span class="t">)</span><span class="t">.</span><span class="id">Assembly</span><span class="t">.</span><span class="id">Location</span><span class="t">)</span><span class="t">;</span>
-
-<span class="id v">var</span> <span class="id">compilation</span> <span class="t">=</span> <span class="id">CSharpCompilation</span><span class="t">.</span><span class="id inv">Create</span><span class="t">(</span><span class="id">assemblyName</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">WithOptions</span><span class="t">(</span><span class="k">new</span> <span class="id ty">CSharpCompilationOptions</span><span class="t">(</span><span class="id">OutputKind</span><span class="t">.</span><span class="id">DynamicallyLinkedLibrary</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="k">new</span> <span class="id ty">MetadataFileReference</span><span class="t">(</span><span class="id">Path</span><span class="t">.</span><span class="id inv">Combine</span><span class="t">(</span><span class="id">assemblyPath</span><span class="t">,</span> <span class="str">"mscorlib.dll"</span><span class="t">)</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="k">new</span> <span class="id ty">MetadataFileReference</span><span class="t">(</span><span class="id">Path</span><span class="t">.</span><span class="id inv">Combine</span><span class="t">(</span><span class="id">assemblyPath</span><span class="t">,</span> <span class="str">"System.dll"</span><span class="t">)</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="k">new</span> <span class="id ty">MetadataFileReference</span><span class="t">(</span><span class="id">Path</span><span class="t">.</span><span class="id inv">Combine</span><span class="t">(</span><span class="id">assemblyPath</span><span class="t">,</span> <span class="str">"System.Core.dll"</span><span class="t">)</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddReferences</span><span class="t">(</span><span class="k">new</span> <span class="id ty">MetadataFileReference</span><span class="t">(</span><span class="id">Assembly</span><span class="t">.</span><span class="id inv">GetEntryAssembly</span><span class="t">(</span><span class="t">)</span><span class="t">.</span><span class="id">Location</span><span class="t">)</span><span class="t">)</span>
-	<span class="t">.</span><span class="id inv">AddSyntaxTrees</span><span class="t">(</span><span class="id">syntaxTree</span><span class="t">)</span><span class="t">;</span>
-<span class="t"></span></div></pre></code>
-]]></description>
-		<link>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</link>
-		<guid>http://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</guid>
-		<pubDate>Tue, 15 Apr 2014 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
