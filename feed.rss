@@ -4,7 +4,7 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Tue, 17 Dec 2019 16:25:32 GMT</lastBuildDate>
+	<lastBuildDate>Thu, 19 Dec 2019 16:55:43 GMT</lastBuildDate>
 	<pubDate>Tue, 17 Dec 2019 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
@@ -13,7 +13,7 @@
 but once I saw it I wondered why I had never thought to use it myself.
 <code>nameof()</code> can be used when declaring a variable to set the value of the
 variable to the name of the variable:</p>
-<pre><code class="language-c#"><div class="HtmlSyntaxHighlighterDotNet"><span class="k">public</span> <span class="k">const</span> <span class="k">string</span> <span class="id">MyVariable1</span> <span class="t">=</span> <span class="id inv">nameof</span><span class="t">(</span><span class="id">MyVariable1</span><span class="t">)</span><span class="t">;</span>
+<pre><code class="language-c#"><div class="HtmlSyntaxHighlighterDotNet"><span class="k">public</span> <span class="k">const</span> <span class="k">string</span> <span class="id">MyVariable1</span> <span class="t">=</span> <span class="k">nameof</span><span class="t">(</span><span class="id">MyVariable1</span><span class="t">)</span><span class="t">;</span>
 
 <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="id m">Main</span><span class="t">(</span><span class="t">)</span>
 <span class="t">{</span>
