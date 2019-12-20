@@ -6,12 +6,12 @@
     <span class=id>Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=id>MyVariable1</span><span class=t>)</span><span class=t>;</span>
 <span class=t>}</span>
 <span class=t></span></div></code></pre><p>This feels similar to the trick of using a class as a generic parameter in the declaration of the class:
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>class</span> <span class=id>Base</span><span class=t><</span><span class=id>T</span><span class=t>></span>
+<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>class</span> <span class="id ty">Base</span><span class=t><</span><span class="id ty">T</span><span class=t>></span>
 <span class=t>{</span>
-    <span class=k>public</span> <span class=k>void</span> <span class="id m">WriteClassName</span><span class=t>(</span><span class=t>)</span> <span class=t>=></span> <span class=id>Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class=id>T</span><span class=t>)</span><span class=t>.</span><span class=id>Name</span><span class=t>)</span><span class=t>;</span>
+    <span class=k>public</span> <span class=k>void</span> <span class="id m">WriteClassName</span><span class=t>(</span><span class=t>)</span> <span class=t>=></span> <span class=id>Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class="id ty">T</span><span class=t>)</span><span class=t>.</span><span class=id>Name</span><span class=t>)</span><span class=t>;</span>
 <span class=t>}</span>
 
-<span class=k>class</span> <span class=id>Foo</span> <span class=t>:</span> <span class="id ty">Base</span><span class=t><</span><span class="id ty">Foo</span><span class=t>></span>
+<span class=k>class</span> <span class="id ty">Foo</span> <span class=t>:</span> <span class="id ty">Base</span><span class=t><</span><span class="id ty">Foo</span><span class=t>></span>
 <span class=t>{</span>
 <span class=t>}</span>
 

@@ -4,7 +4,7 @@
 <span class=t>{</span>
     <span class=k>public</span> <span class=k>delegate</span> <span class="id ty">IEnumerable</span><span class=t><</span><span class=k>string</span><span class=t>></span> <span class=id>Template</span><span class=t><</span><span class=id>TData</span><span class=t>></span><span class=t>(</span><span class="id ty">TData</span> <span class="id ns">data</span><span class=t>)</span><span class=t>;</span>
 
-    <span class=k>public</span> <span class=k>static</span> <span class=k>class</span> <span class="id ns">TemplateExtensions</span>
+    <span class=k>public</span> <span class=k>static</span> <span class=k>class</span> <span class="id ty">TemplateExtensions</span>
     <span class=t>{</span>   
         <span class=k>public</span> <span class=k>static</span> <span class=k>string</span> <span class="id m">Render</span><span class=t>(</span><span class=k>this</span> <span class="id ty">IEnumerable</span><span class=t><</span><span class=k>string</span><span class=t>></span> <span class=id>templateResult</span><span class=t>)</span> <span class=t>=></span> <span class=k>string</span><span class=t>.</span><span class="id inv">Join</span><span class=t>(</span><span class=id>Environment</span><span class=t>.</span><span class=id>NewLine</span><span class=t>,</span> <span class=id>templateResult</span><span class=t>)</span><span class=t>;</span>
     <span class=t>}</span>
@@ -12,7 +12,7 @@
 <span class=t></span></div></code></pre><p>We define a template as being any function that returns an <code>IEnumerable&lt;string></code>. We are going to build a functional style template engine. TemplateExtensions will contain methods for working with templates and template results.<p>Implement a template like so:
 <pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class="k sta">using</span> <span class=k>static</span> <span class="id u">Pmte</span><span class=t>.</span><span class="id u">TemplateExtensions</span><span class=t>;</span>
 
-<span class=k>public</span> <span class=k>static</span> <span class=k>class</span> <span class=id>Templates</span>
+<span class=k>public</span> <span class=k>static</span> <span class=k>class</span> <span class="id ty">Templates</span>
 <span class=t>{</span>
     <span class=k>public</span> <span class=k>static</span> <span class="id ty">IEnumerable</span><span class=t><</span><span class=k>string</span><span class=t>></span> <span class="id m">PeopleList</span><span class=t>(</span><span class="id ty">IEnumerable</span><span class=t><</span><span class="id ty">Person</span><span class=t>></span> <span class=id>people</span><span class=t>)</span>
     <span class=t>{</span>

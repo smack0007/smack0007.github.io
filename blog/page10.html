@@ -7,9 +7,9 @@
 
 <span class=k>namespace</span> <span class="id ns">OpenTKApp1</span>
 <span class=t>{</span>
-	<span class=k>public</span> <span class=k>class</span> <span class="id ns">AppWindow</span> <span class=t>:</span> <span class="id ty">GameWindow</span>
+	<span class=k>public</span> <span class=k>class</span> <span class="id ty">AppWindow</span> <span class=t>:</span> <span class="id ty">GameWindow</span>
 	<span class=t>{</span>
-		<span class=k>public</span> <span class="id ns">AppWindow</span><span class=t>(</span><span class=t>)</span>
+		<span class=k>public</span> <span class="id ty">AppWindow</span><span class=t>(</span><span class=t>)</span>
 		<span class=t>{</span>
 			<span class=k>this</span><span class=t>.</span><span class=id>Title</span> <span class=t>=</span> <span class=str>"OpenTK App 1"</span><span class=t>;</span>
 			<span class=k>this</span><span class=t>.</span><span class=id>WindowBorder</span> <span class=t>=</span> <span class=id>WindowBorder</span><span class=t>.</span><span class=id>Fixed</span><span class=t>;</span>
@@ -52,45 +52,45 @@
 <span class=t></span></div></code></pre></div></div><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.</p><a class=readMore href=blog/2011/opentk-simple-movable-sprite.html>Read More</a></div></div><div class=post><h2><a href=blog/2011/keeping-splitcontainer-splitterdistance-consistent.html>Keeping SplitContainer SplitterDistance consistent</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 09, 2011</span> <span class=category><span class=icon-folder></span>.NET</span> <span class=tags><span class=icon-price-tags></span>Split Container, WinForms</span></div><div class=content><p>If you're having trouble keeping the SplitterDistance property of a SplitContainer consistent across app sessions, you can set the FixedPanel property of the splitter to FixedPanel.Panel1.
 <pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet>splitter.FixedPanel = FixedPanel.Panel1;
 <span class=t></span></div></code></pre><p>I guess this could also work with FixedPanel.Panel2 as well but I haven't given it a try. Credit <a href=http://stackoverflow.com/questions/129362/restoring-splitterdistance-inside-tabcontrol-is-inconsistent>this stackoverflow post</a>.</div></div><div class=post><h2><a href=blog/2011/favoring-composition-over-inheritance.html>Favoring Composition over Inheritance</a></h2><div class=meta><span class=date><span class=icon-calendar></span>January 18, 2011</span> <span class=category><span class=icon-folder></span>Design Patterns</span> <span class=tags><span class=icon-price-tags></span>Composition over Inheritance</span></div><div class=content><p>You may have heard the expression before "Favor Composition over Inheritance", but do you know what it means and how to apply it? Lets take this code for example:
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>abstract</span> <span class=k>class</span> <span class=id>Car</span>
+<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>abstract</span> <span class=k>class</span> <span class="id ty">Car</span>
 <span class=t>{</span>
 	<span class=k>public</span> <span class=id>Color</span> <span class="id ty">Color</span> <span class=t>{</span> <span class=k>get</span><span class=t>;</span> <span class=k>protected</span> <span class=k>set</span><span class=t>;</span> <span class=t>}</span>
 	<span class=k>public</span> <span class=id>Engine</span> <span class="id ty">Engine</span> <span class=t>{</span> <span class=k>get</span><span class=t>;</span> <span class=k>protected</span> <span class=k>set</span><span class=t>;</span> <span class=t>}</span>
 <span class=t>}</span>
 
-<span class=k>class</span> <span class=id>ElectricCar</span> <span class=t>:</span> <span class="id ty">Car</span>
+<span class=k>class</span> <span class="id ty">ElectricCar</span> <span class=t>:</span> <span class="id ty">Car</span>
 <span class=t>{</span>
-	<span class=k>public</span> <span class=id>ElectricCar</span><span class=t>(</span><span class=t>)</span>
+	<span class=k>public</span> <span class="id ty">ElectricCar</span><span class=t>(</span><span class=t>)</span>
 	<span class=t>{</span>
 		<span class=k>this</span><span class=t>.</span><span class=id>Color</span> <span class=t>=</span> <span class=id>Color</span><span class=t>.</span><span class=id>Blue</span><span class=t>;</span>
 		<span class=k>this</span><span class=t>.</span><span class=id>Engine</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">ElectricEngine</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 	<span class=t>}</span>
 <span class=t>}</span>
 
-<span class=k>class</span> <span class=id>SportsCar</span> <span class=t>:</span> <span class="id ty">Car</span>
+<span class=k>class</span> <span class="id ty">SportsCar</span> <span class=t>:</span> <span class="id ty">Car</span>
 <span class=t>{</span>
-	<span class=k>public</span> <span class=id>SportsCar</span><span class=t>(</span><span class=t>)</span>
+	<span class=k>public</span> <span class="id ty">SportsCar</span><span class=t>(</span><span class=t>)</span>
 	<span class=t>{</span>
 		<span class=k>this</span><span class=t>.</span><span class=id>Color</span> <span class=t>=</span> <span class=id>Color</span><span class=t>.</span><span class=id>Red</span><span class=t>;</span>
 		<span class=k>this</span><span class=t>.</span><span class=id>Engine</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">V8Engine</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 	<span class=t>}</span>
 <span class=t>}</span>
 
-<span class=k>class</span> <span class=id>Truck</span> <span class=t>:</span> <span class="id ty">Car</span>
+<span class=k>class</span> <span class="id ty">Truck</span> <span class=t>:</span> <span class="id ty">Car</span>
 <span class=t>{</span>
-	<span class=k>public</span> <span class=id>Truck</span><span class=t>(</span><span class=t>)</span>
+	<span class=k>public</span> <span class="id ty">Truck</span><span class=t>(</span><span class=t>)</span>
 	<span class=t>{</span>
 		<span class=k>this</span><span class=t>.</span><span class=id>Color</span> <span class=t>=</span> <span class=id>Color</span><span class=t>.</span><span class=id>White</span><span class=t>;</span>
 		<span class=k>this</span><span class=t>.</span><span class=id>Engine</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">DieselEngine</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
 	<span class=t>}</span>
 <span class=t>}</span>
 <span class=t></span></div></code></pre><p>In this contrived example, we've defined three types of cars. Each instance of each of the cars will always have the same color and same engine. What happens when we need a 4th type? We have to define another class. By refactoring this code, we can compose a car type by giving it a color and an engine:
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>class</span> <span class=id>Car</span>
+<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>class</span> <span class="id ty">Car</span>
 <span class=t>{</span>
 	<span class=k>public</span> <span class=id>Color</span> <span class="id ty">Color</span> <span class=t>{</span> <span class=k>get</span><span class=t>;</span> <span class=k>private</span> <span class=k>set</span><span class=t>;</span> <span class=t>}</span>
 	<span class=k>public</span> <span class=id>Engine</span> <span class="id ty">Engine</span> <span class=t>{</span> <span class=k>get</span><span class=t>;</span> <span class=k>private</span> <span class=k>set</span><span class=t>;</span> <span class=t>}</span>
 	
-	<span class=k>public</span> <span class=id>Car</span><span class=t>(</span><span class="id ty">Color</span> <span class="id ty">color</span><span class=t>,</span> <span class="id ty">Engine</span> <span class="id ty">engine</span><span class=t>)</span>
+	<span class=k>public</span> <span class="id ty">Car</span><span class=t>(</span><span class="id ty">Color</span> <span class="id ty">color</span><span class=t>,</span> <span class="id ty">Engine</span> <span class="id ty">engine</span><span class=t>)</span>
 	<span class=t>{</span>
 		<span class=k>this</span><span class=t>.</span><span class=id>Color</span> <span class=t>=</span> <span class=id>color</span><span class=t>;</span>
 		<span class=k>this</span><span class=t>.</span><span class=id>Engine</span> <span class=t>=</span> <span class=id>engine</span><span class=t>;</span>

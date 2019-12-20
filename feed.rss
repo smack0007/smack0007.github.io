@@ -4,7 +4,7 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Thu, 19 Dec 2019 16:55:43 GMT</lastBuildDate>
+	<lastBuildDate>Fri, 20 Dec 2019 12:00:58 GMT</lastBuildDate>
 	<pubDate>Tue, 17 Dec 2019 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
@@ -149,7 +149,7 @@ of the code and would be easier to read if the <code>string.Join</code> was at t
 <pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet">Console.WriteLine(numbers.Where(x => x % 2 == 0).<span class="id">JoinString</span><span class="t">(</span>", "<span class="t">)</span><span class="t"></span>);
 <span class="t"></span></div></pre></code>
 <p>This can be implemented with the following extension methods:</p>
-<pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="id">JoinStringExtensions</span>
+<pre><code class="language-csharp"><div class="HtmlSyntaxHighlighterDotNet"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="id ty">JoinStringExtensions</span>
 <span class="t">{</span>
     <span class="k">public</span> <span class="k">static</span> <span class="k">string</span> <span class="id m">JoinString</span><span class="t"><</span><span class="id m">T</span><span class="t">></span><span class="t">(</span><span class="k">this</span> <span class="id ty">IEnumerable</span><span class="t"><</span><span class="id ty">T</span><span class="t">></span> <span class="id">source</span><span class="t">,</span> <span class="k">string</span> <span class="id">seperator</span><span class="t">)</span> <span class="t">=></span>
         <span class="k">string</span><span class="t">.</span><span class="id inv">Join</span><span class="t">(</span><span class="id">seperator</span><span class="t">,</span> <span class="id">source</span><span class="t">.</span><span class="id inv">Select</span><span class="t">(</span><span class="id">x</span> <span class="t">=></span> <span class="id">x</span><span class="t">.</span><span class="id inv">ToString</span><span class="t">(</span><span class="t">)</span><span class="t">)</span><span class="t">)</span><span class="t">;</span>

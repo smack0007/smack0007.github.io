@@ -8,9 +8,9 @@
 
 <span class=k>namespace</span> <span class="id ns">SlimDXApp1</span>
 <span class=t>{</span>
-	<span class=k>public</span> <span class=k>partial</span> <span class=k>class</span> <span class="id ns">SlimDXApp1Form</span> <span class=t>:</span> <span class="id ty">RenderForm</span>
+	<span class=k>public</span> <span class=k>partial</span> <span class=k>class</span> <span class="id ty">SlimDXApp1Form</span> <span class=t>:</span> <span class="id ty">RenderForm</span>
 	<span class=t>{</span>
-		<span class=k>struct</span> <span class="id ns">Vertex</span>
+		<span class=k>struct</span> <span class="id ty">Vertex</span>
 		<span class=t>{</span>
 			<span class=k>public</span> <span class=id>Vector4</span> <span class=id>Position</span><span class=t>;</span>
 			<span class=k>public</span> <span class=k>int</span> <span class=id>Color</span><span class=t>;</span>
@@ -19,7 +19,7 @@
 		<span class=id>Device</span> <span class=id>device</span><span class=t>;</span>
 		<span class=id>VertexDeclaration</span> <span class=id>vertexDeclaration</span><span class=t>;</span>
 		
-		<span class=k>public</span> <span class="id ns">SlimDXApp1Form</span><span class=t>(</span><span class=t>)</span>
+		<span class=k>public</span> <span class="id ty">SlimDXApp1Form</span><span class=t>(</span><span class=t>)</span>
 			<span class=t>:</span> <span class=k>base</span><span class=t>(</span><span class=str>"SlimDXApp1"</span><span class=t>)</span>
 		<span class=t>{</span>
 			<span class=k>this</span><span class=t>.</span><span class=id>ClientSize</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Size</span><span class=t>(</span><span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>
