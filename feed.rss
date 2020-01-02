@@ -4,9 +4,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 20 Dec 2019 12:00:58 GMT</lastBuildDate>
-	<pubDate>Tue, 17 Dec 2019 00:00:00 GMT</pubDate>
+	<lastBuildDate>Thu, 02 Jan 2020 16:37:27 GMT</lastBuildDate>
+	<pubDate>Thu, 02 Jan 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Disable C# null checks for a field or property]]></title>
+		<description><![CDATA[<p>The new nullable reference types in C# are great but sometimes you might need to disable it for a
+single field or property. You can do that by assigning the value to <code>null</code> and using the <code>!</code> operator.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/disable-csharp-null-checks-for-a-field-or-property.html</link>
+		<guid>http://smack0007.github.io/blog/2020/disable-csharp-null-checks-for-a-field-or-property.html</guid>
+		<pubDate>Thu, 02 Jan 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Use nameof() to set a string variable to its name]]></title>
 		<description><![CDATA[<p>This is one of those things that should have just been obvious to me
@@ -275,15 +284,6 @@ Both APIs have a very different feel and which one you prefer can only be decide
 		<link>http://smack0007.github.io/blog/2014/my-experience-with-opengl-vs-direct3d.html</link>
 		<guid>http://smack0007.github.io/blog/2014/my-experience-with-opengl-vs-direct3d.html</guid>
 		<pubDate>Tue, 18 Nov 2014 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Code from when I was young and stupid and needed the money]]></title>
-		<description><![CDATA[<p>We have had 2 interns at work for the past few weeks and one of the tasks we gave them was to implement <a href="http://en.wikipedia.org/wiki/Quick_sort">Quicksort</a>.
-This got me to thinking about my youth and some of the code I wrote back then. I've decided to post it.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2014/code-from-when-i-was-young-and-stupid.html</link>
-		<guid>http://smack0007.github.io/blog/2014/code-from-when-i-was-young-and-stupid.html</guid>
-		<pubDate>Wed, 18 Jun 2014 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
