@@ -9,6 +9,10 @@ namespace compiler
     {
         private Func<PostData, string> _renderPostHeader;
 
+        public string FileName { get; }
+
+        public string OutputFileName { get; }
+
         public FrontMatter FrontMatter { get; }
 
         public string Content { get; }
@@ -33,8 +37,20 @@ namespace compiler
 
         public IEnumerable<string> Tags { get; }
 
-        public PostData(FrontMatter frontMatter, string content, string path, Func<PostData, string> renderPostHeader)
+        public PostData? OlderPost { get; set; }
+
+        public PostData? NewerPost { get; set; }
+
+        public PostData(
+            string fileName,
+            string outputFileName,
+            FrontMatter frontMatter,
+            string content,
+            string path,
+            Func<PostData, string> renderPostHeader)
         {
+            FileName = fileName;
+            OutputFileName = outputFileName;
             FrontMatter = frontMatter;
             Content = content;
             Path = path;

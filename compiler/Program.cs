@@ -86,7 +86,6 @@ namespace compiler
                 var outputFileName = Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(fileName) + ".html");
                 
                 var isPost = fileName.StartsWith("blog" + Path.DirectorySeparatorChar);
-                Console.WriteLine((isPost ? "Post" : "Page") + $": {fileName} => {outputFileName}");
 
                 Directory.CreateDirectory(outputDirectory);
 
@@ -100,20 +99,19 @@ namespace compiler
                         path = Path.Combine(fileDirectory, path);
 
                     var postData = new PostData(
+                        fileName,
+                        outputFileName,
                         frontMatter,
                         content,
                         path,
                         x => PostHeaderTemplate.Run(x));
 
                     posts.Add(postData);
-
-                    RenderPost(
-                        fileName,
-                        outputFileName,
-                        postData);
                 }
                 else
                 {
+                    Console.WriteLine($"Page: {fileName} => {outputFileName}");
+
                     RenderPage(
                         fileName,
                         outputFileName,
@@ -121,6 +119,34 @@ namespace compiler
                         content,
                         showPagination: false);
                 }
+            }
+
+            posts = posts.OrderByDescending(x => x.SortDate).ToList();
+
+            for (int i = 0; i < posts.Count; i++)
+            {
+                if (i > 0)
+                    posts[i].NewerPost = posts[i - 1];
+
+                if (i < posts.Count - 1)
+                    posts[i].OlderPost = posts[i + 1];
+            }
+
+            if (PostTemplate == null)
+                throw new InvalidOperationException($"{nameof(PostTemplate)} is null.");
+
+            foreach (var post in posts)
+            {
+                Console.WriteLine($"Post: {post.FileName} => {post.OutputFileName}");
+
+                RenderPage(
+                    post.FileName,
+                    post.OutputFileName,
+                    post.Title,
+                    PostTemplate.Run(post),
+                    showPagination: true,
+                    post.OlderPost?.Url,
+                    post.NewerPost?.Url);
             }
 
             var cssInputPath = Path.Combine(inputPath, "css");
@@ -357,17 +383,6 @@ namespace compiler
 
                 return header + languageName + separator + codeBlock.Trim() + footer;
             }, RegexOptions.Singleline);
-        }
-
-        private static void RenderPost(
-            string fileName,
-            string outputFileName,
-            PostData postData)
-        {
-            if (PostTemplate == null)
-                throw new InvalidOperationException($"{nameof(PostTemplate)} is null.");
-
-            RenderPage(fileName, outputFileName, postData.Title, PostTemplate.Run(postData), showPagination: false);
         }
 
         private static void RenderPage(
