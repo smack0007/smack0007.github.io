@@ -109,6 +109,24 @@ main {
     }
 }
 
+footer {
+    font-size: .875rem;
+
+    ul li {
+        display: inline-block;
+        margin-left: 1rem;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        a {
+            font-weight: 600;
+            color: #495057;
+        }
+    }
+}
+
 .clear {
     clear: both;
 }
