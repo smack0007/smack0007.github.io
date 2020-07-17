@@ -4,9 +4,17 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 03 Jan 2020 13:37:47 GMT</lastBuildDate>
-	<pubDate>Thu, 02 Jan 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 17 Jul 2020 15:49:13 GMT</lastBuildDate>
+	<pubDate>Fri, 17 Jul 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Enum Extension Methods]]></title>
+		<description><![CDATA[<p>Did you know you can create extension methods for enums?</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/enum-extension-methods.html</link>
+		<guid>http://smack0007.github.io/blog/2020/enum-extension-methods.html</guid>
+		<pubDate>Fri, 17 Jul 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Disable C# null checks for a field or property]]></title>
 		<description><![CDATA[<p>The new nullable reference types in C# are great but sometimes you might need to disable it for a
@@ -275,15 +283,6 @@ use a LINQ extension method which takes an instance of IEqualityComaparer<T>.</p
 		<link>http://smack0007.github.io/blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html</link>
 		<guid>http://smack0007.github.io/blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html</guid>
 		<pubDate>Mon, 24 Nov 2014 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[My Experience with OpenGL vs Direct3D]]></title>
-		<description><![CDATA[<p>I've struggled a lot with myself over whether I should use OpenGL or Direct3D. There is no blanket answer to this question that anyone can tell you.
-Both APIs have a very different feel and which one you prefer can only be decided on your own.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2014/my-experience-with-opengl-vs-direct3d.html</link>
-		<guid>http://smack0007.github.io/blog/2014/my-experience-with-opengl-vs-direct3d.html</guid>
-		<pubDate>Tue, 18 Nov 2014 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
