@@ -1,6 +1,15 @@
 @ECHO OFF
 PUSHD %~dp0
 
+SET __HAS_CHANGES=0
+
+FOR /f "tokens=*" %%i IN ('git status -s') DO ( SET __HAS_CHANGES=1 )
+
+IF "%__HAS_CHANGES%" NEQ "0" (
+    ECHO There are currently uncommitted changes.
+    GOTO EXIT
+)
+
 IF EXIST bin (
     RMDIR /s /q bin
 )
@@ -17,4 +26,5 @@ POPD
 
 DEL commit.msg
 
+:EXIT
 POPD
