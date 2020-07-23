@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using CommonMark;
+using Markdig;
 using NUglify;
 using NUglify.Css;
 using NUglify.Html;
@@ -26,6 +26,10 @@ namespace compiler
         public const int PostsPerPage = 5;
 
         private static List<PageData> Pages = new List<PageData>();
+
+        private static readonly MarkdownPipeline MarkdownPipeline = new MarkdownPipelineBuilder()
+            .UseAdvancedExtensions()
+            .Build();
 
         private static readonly CssSettings UglifyCssSettings = new CssSettings()
         {
@@ -237,7 +241,7 @@ namespace compiler
 
             return (
                 FrontMatter.Parse(frontMatterLines),
-                PostprocessContent(CommonMarkConverter.Convert(PreprocessContent(string.Join(Environment.NewLine, contentLines))))
+                PostprocessContent(Markdown.ToHtml(PreprocessContent(string.Join(Environment.NewLine, contentLines)), MarkdownPipeline))
             );
         }
 
