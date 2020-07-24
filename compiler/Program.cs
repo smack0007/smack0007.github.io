@@ -59,6 +59,8 @@ namespace compiler
             var outputPath = Path.GetFullPath(args[1]);
             
             Directory.CreateDirectory(outputPath);
+            Directory.CreateDirectory(Path.Combine(outputPath, "blog"));
+            Directory.CreateDirectory(Path.Combine(outputPath, "tags"));
             
             Console.WriteLine($"Input path: {inputPath}");
 
@@ -204,7 +206,7 @@ namespace compiler
 
             for (int i = 0; i < pageCount; i++)
             {
-                string? GetPageName(int index)
+                string? GetIndexPageName(int index)
                 {
                     if (index < 0 || index >= pageCount)
                         return null;
@@ -212,7 +214,7 @@ namespace compiler
                     return index == 0 ? "index.html" : Path.Combine("blog", "page" + (index + 1) + ".html");
                 }
 
-                var pageName = GetPageName(i) ?? "";
+                var pageName = GetIndexPageName(i) ?? "";
                 Console.WriteLine($"Index: {pageName}");
 
                 var indexPosts = posts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage);
@@ -223,8 +225,28 @@ namespace compiler
                     BlogTitle,
                     IndexTemplate.Run(new IndexData(indexPosts, x => PostHeaderTemplate.Run(x))),
                     showPagination: true,
-                    paginationOlderLink: GetPageName(i + 1),
-                    paginationNewerLink: GetPageName(i - 1));
+                    paginationOlderLink: GetIndexPageName(i + 1),
+                    paginationNewerLink: GetIndexPageName(i - 1));
+            }
+
+            foreach (var tag in posts.SelectMany(x => x.Tags).Distinct(StringComparer.InvariantCultureIgnoreCase).OrderBy(x => x))
+            {
+                var pageName = Path.Combine("tags", $"{Utility.InflectFileName(tag)}.html");
+
+                var tagPosts = posts
+                    .Where(x => x.Tags.Contains(tag, StringComparer.InvariantCultureIgnoreCase))
+                    .OrderByDescending(x => x.SortDate);
+
+                Console.WriteLine($"Tag: ({tagPosts.Count()}) {pageName}");
+
+                RenderPage(
+                    pageName,
+                    Path.Combine(outputPath, pageName),
+                    tag,
+                    IndexTemplate.Run(new IndexData(tagPosts, x => PostHeaderTemplate.Run(x))),
+                    showPagination: false,
+                    paginationOlderLink: null,
+                    paginationNewerLink: null);
             }
 
             File.WriteAllText(Path.Combine(outputPath, "feed.rss"), GenerateRssFeed(posts));

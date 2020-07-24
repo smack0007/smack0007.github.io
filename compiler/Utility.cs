@@ -7,6 +7,21 @@ namespace compiler
     {
         public static CultureInfo Culture { get; } = CultureInfo.CreateSpecificCulture("en-us");
 
+        public static string InflectFileName(string name)
+        {
+            name = name
+                .ToLower()
+                .Replace(".", "")
+                .Replace("(", "")
+                .Replace(")", "")
+                .Replace(" ", "-");
+
+            if (name == "c#")
+                return "csharp";
+
+            return name;
+        }
+
         public static string[] TrimEmptyLines(string[] lines)
         {
             if (lines == null)
