@@ -33,8 +33,6 @@ namespace compiler
 
         public string Date => SortDate.ToString("MMMM dd, yyyy", Utility.Culture);
 
-        public string Category => FrontMatter["Category"];
-
         public IEnumerable<string> Tags { get; }
 
         public PostData? OlderPost { get; set; }

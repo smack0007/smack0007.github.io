@@ -1,10 +1,8 @@
 ---
 Title: Calculating an angle from a Vector2
 Layout: Post
-Permalink: 2009/02/28/calculating-an-angle-from-a-vector2.html
 Date: 2009-02-28
-Category: .NET
-Tags: Vectors, Xna 
+Tags: .net, cectors, xna 
 Comments: true
 ---
 

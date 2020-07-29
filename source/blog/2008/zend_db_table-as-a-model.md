@@ -1,11 +1,8 @@
 ---
 Title: Zend_Db_Table as a Model
 Layout: Post
-Permalink: 2008/06/20/zend_db_table-as-a-model.html
 Date: 2008-06-20
-Category: php
-Tags:  
-Comments: true
+Tags: php
 ---
 
 In the Zend Framework, using Zend_Db_Table as your model class is not well advised. This practice can force you to put business logic in other places besides your model class. This may not be a big deal if your logic is simple but imagine the logic is fairly complicated. Now also imagine that the logic changes at some point. This can be a problem if you have this logic written in many different places.

@@ -9,7 +9,6 @@
 
 <div class="meta">
     <span class="date"><span class="icon-calendar"></span>@(Date)</span>
-    <span class="category"><span class="icon-folder"></span>@(HtmlEncode(Category))</span>
     @{ var tags = Tags.Select(x => HtmlEncode(x)); }
     <span class="tags"><span class="icon-price-tags"></span>@(string.Join(", ", tags))</span>
 </div>
