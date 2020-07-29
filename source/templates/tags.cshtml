@@ -1,0 +1,8 @@
+<ul>
+@foreach (var tag in Tags)
+{
+    <li class="tag">
+        <a href="@tag.Url">@tag.Name (@tag.Posts.Count)</a>
+    </li>
+}
+</ul>

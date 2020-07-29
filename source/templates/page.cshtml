@@ -40,6 +40,14 @@
                                 }
                             </a>
                         </li>
+                        @{ activeClass = Url.EndsWith("tags.html") ? "active" : "";  }
+                        <li class="nav-item @(activeClass)">
+                            <a class="nav-link" href="tags.html">Tags
+                                @if (Url.EndsWith("tags.html")) {
+                                    <span class="sr-only">(current)</span>
+                                }
+                            </a>
+                        </li>
                     </ul>
                     <div class="social my-2 my-lg-0">
                         <a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a>

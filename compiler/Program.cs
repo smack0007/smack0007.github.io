@@ -46,6 +46,7 @@ namespace compiler
         private static Template<PostData>? PostTemplate;
         private static Template<PageData>? PageTemplate;
         private static Template<IndexData>? IndexTemplate;
+        private static Template<TagsData>? TagsTemplate;
 
         public async static Task<int> Main(string[] args)
         {
@@ -82,6 +83,7 @@ namespace compiler
             PostTemplate = await Template.CompileAsync<PostData>(File.ReadAllText(Path.Combine(templatesDirectory, "post.cshtml")));
             PageTemplate = await Template.CompileAsync<PageData>(File.ReadAllText(Path.Combine(templatesDirectory, "page.cshtml")));
             IndexTemplate = await Template.CompileAsync<IndexData>(File.ReadAllText(Path.Combine(templatesDirectory, "index.cshtml")));
+            TagsTemplate = await Template.CompileAsync<TagsData>(File.ReadAllText(Path.Combine(templatesDirectory, "tags.cshtml")));
 
             var posts = new List<PostData>();
 
@@ -229,25 +231,36 @@ namespace compiler
                     paginationNewerLink: GetIndexPageName(i - 1));
             }
 
-            foreach (var tag in posts.SelectMany(x => x.Tags).Distinct(StringComparer.InvariantCultureIgnoreCase).OrderBy(x => x))
+            var tagNames = posts.SelectMany(x => x.Tags).Distinct(StringComparer.InvariantCultureIgnoreCase).OrderBy(x => x);
+            var tags = new List<TagData>();
+            
+            foreach (var tagName in tagNames)
             {
-                var pageName = Path.Combine("tags", $"{Utility.InflectFileName(tag)}.html");
+                var tagPath = Path.Combine("tags", $"{Utility.InflectFileName(tagName)}.html");
 
                 var tagPosts = posts
-                    .Where(x => x.Tags.Contains(tag, StringComparer.InvariantCultureIgnoreCase))
-                    .OrderByDescending(x => x.SortDate);
+                    .Where(x => x.Tags.Contains(tagName, StringComparer.InvariantCultureIgnoreCase))
+                    .OrderByDescending(x => x.SortDate)
+                    .ToArray();
 
-                Console.WriteLine($"Tag: ({tagPosts.Count()}) {pageName}");
+                Console.WriteLine($"Tag: ({tagPosts.Length}) {tagPath}");
 
                 RenderPage(
-                    pageName,
-                    Path.Combine(outputPath, pageName),
-                    tag,
+                    tagPath,
+                    Path.Combine(outputPath, tagPath),
+                    tagName,
                     IndexTemplate.Run(new IndexData(tagPosts, x => PostHeaderTemplate.Run(x))),
-                    showPagination: false,
-                    paginationOlderLink: null,
-                    paginationNewerLink: null);
+                    showPagination: false);
+
+                tags.Add(new TagData(tagName, tagPath, tagPosts));
             }
+
+            RenderPage(
+                "tags.html",
+                Path.Combine(outputPath, "tags.html"),
+                "Tags",
+                TagsTemplate.Run(new TagsData(tags)),
+                showPagination: false);
 
             File.WriteAllText(Path.Combine(outputPath, "feed.rss"), GenerateRssFeed(posts));
             File.WriteAllText(Path.Combine(outputPath, "sitemap.xml"), GenerateSiteMap(Pages));
