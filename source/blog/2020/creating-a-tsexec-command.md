@@ -13,7 +13,7 @@ myself. So this is the batch file I've come up with so far.
 
 <!--more-->
 
-```batch
+```bat
 @ECHO OFF
 SETLOCAL enableextensions 
 
@@ -45,7 +45,7 @@ ENDLOCAL
 
 I've got the batch file in my path so I can just execute scripts now like this:
 
-```batch
+```bat
 tsexec hello.ts Zac
 ```
 
