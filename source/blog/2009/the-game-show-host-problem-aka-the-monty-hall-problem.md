@@ -1,11 +1,7 @@
 ---
 Title: The Game Show Host Problem, aka The Monty Hall Problem
-Layout: Post
-Permalink: 2009/02/12/the-game-show-host-problem-aka-the-monty-hall-problem.html
 Date: 2009-02-12
 Category: Random
-Tags:  
-Comments: true
 ---
 
 *NOTE: This is a repost from my old blog.*

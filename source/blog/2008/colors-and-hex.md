@@ -1,7 +1,7 @@
 ---
 Title: Colors and Hex
 Date: 2008-12-21
-Tags: .net, xna
+Tags: .NET, XNA
 ---
 
 I recently needed to write out Color(s) as an xml attribute. I wrote 2 methods to read and write the Color(s) as Hex strings. Here ya go:

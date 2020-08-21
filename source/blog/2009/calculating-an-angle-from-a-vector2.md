@@ -1,9 +1,7 @@
 ---
 Title: Calculating an angle from a Vector2
-Layout: Post
 Date: 2009-02-28
-Tags: .net, cectors, xna 
-Comments: true
+Tags: .net, vectors, xna 
 ---
 
 When you need to calculate an angle from a Vector2 structure, you can use this piece of code:

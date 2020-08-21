@@ -1,11 +1,7 @@
 ---
 Title: SpriteSheet Class
-Layout: Post
-Permalink: 2009/01/09/spritesheet-class.html
 Date: 2009-01-09
-Category: .NET
-Tags: SpriteSheet, Xna 
-Comments: true
+Tags: .NET, SpriteSheet, XNA
 ---
 
 I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.

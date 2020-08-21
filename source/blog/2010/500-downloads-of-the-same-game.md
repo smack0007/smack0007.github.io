@@ -1,11 +1,7 @@
 ---
 Title: 500 Downloads of the Same Game
-Layout: Post
-Permalink: 2010/06/09/500-downloads-of-the-same-game.html
 Date: 2010-06-09
-Category: .NET
-Tags: CodePlex, Same Game Xna, WinForms, Xna 
-Comments: true
+Tags: .NET, CodePlex, Same Game Xna, WinForms, Xna 
 ---
 
 My little Xna game that I wrote nearly 2 years ago reached the 500 downloads mark (binaries and source) the other day. With that said, I'd like to say that I'm working on version 2.0.
