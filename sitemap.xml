@@ -7,6 +7,9 @@
 		<loc>http://smack0007.github.io/about.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/blog/2020/creating-a-tsexec-command.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/blog/2020/checking-for-uncommited-git-changes-in-a-batch-program.html</loc>
 	</url>
 	<url>
@@ -274,9 +277,6 @@
 		<loc>http://smack0007.github.io/tags/csharp.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/cectors.html</loc>
-	</url>
-	<url>
 		<loc>http://smack0007.github.io/tags/code-snippets.html</loc>
 	</url>
 	<url>
@@ -461,6 +461,12 @@
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/terminal.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/typscript.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/vectors.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/visual-studio.html</loc>

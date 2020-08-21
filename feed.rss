@@ -4,9 +4,21 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 29 Jul 2020 16:29:35 GMT</lastBuildDate>
-	<pubDate>Wed, 22 Jul 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 21 Aug 2020 11:24:36 GMT</lastBuildDate>
+	<pubDate>Fri, 21 Aug 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Creating a tsexec command]]></title>
+		<description><![CDATA[<p>I want to use TypeScript as a scripting language for my machine and
+so I want to be able just to execute TypeScript files directly. There
+are npm packages like <a href="https://www.npmjs.com/package/ts-node">ts-node</a>
+that do this already but I wanted to have a crack at implementing it
+myself. So this is the batch file I've come up with so far.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/creating-a-tsexec-command.html</link>
+		<guid>http://smack0007.github.io/blog/2020/creating-a-tsexec-command.html</guid>
+		<pubDate>Fri, 21 Aug 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Checking for uncommited git changes in a batch program]]></title>
 		<description><![CDATA[<p>Sometimes it's helpful to exit out of a batch script if there are pending
@@ -291,16 +303,6 @@ some changes.</p>
 		<link>http://smack0007.github.io/blog/2018/snowball-2.html</link>
 		<guid>http://smack0007.github.io/blog/2018/snowball-2.html</guid>
 		<pubDate>Fri, 23 Feb 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Using batch files as the task runner in Visual Studio Code]]></title>
-		<description><![CDATA[<p><a href="https://code.visualstudio.com/">Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples
-I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use
-batch files though.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</link>
-		<guid>http://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</guid>
-		<pubDate>Thu, 09 Jul 2015 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
