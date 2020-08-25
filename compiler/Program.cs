@@ -385,6 +385,8 @@ namespace compiler
                     case "js":
                     case "json":
                     case "javascript":
+                    case "ts":
+                    case "typescript":
                         language = Languages.JavaScript;
                         break;
 
