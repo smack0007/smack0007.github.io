@@ -4,9 +4,23 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 21 Aug 2020 11:25:47 GMT</lastBuildDate>
-	<pubDate>Fri, 21 Aug 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Tue, 25 Aug 2020 21:17:26 GMT</lastBuildDate>
+	<pubDate>Tue, 25 Aug 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Predictable Random Number Generation in TypeScript]]></title>
+		<description><![CDATA[<p>I got the idea for using this type of RNG from the javidx9 video
+<a href="https://www.youtube.com/watch?v=ZZY9YE7rZJw">Procedural Generation: Programming The Universe</a>.
+It's a really good video as are most of the videos he produces so
+I recommend you give it a watch. The algorithm he talks about in
+the video is the <a href="https://en.wikipedia.org/wiki/Lehmer_random_number_generator">Lehmer random number generator</a>.</p>
+<p>I'm implementing a simple match the blocks game in TypeScript and I wanted to implement the algorithm
+mentioned there in TypeScript.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</link>
+		<guid>http://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</guid>
+		<pubDate>Tue, 25 Aug 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Creating a tsexec command]]></title>
 		<description><![CDATA[<p>I want to use TypeScript as a scripting language for my machine and
@@ -289,20 +303,6 @@ the overhead a complete template engine brings with it, I've come up with the fo
 		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html</link>
 		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html</guid>
 		<pubDate>Tue, 06 Mar 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Snowball V2.0]]></title>
-		<description><![CDATA[<p>I haven't written anything new here in a very long time and a lot has happened since then. I started a new job at
-<a href="https://www.beumergroup.com">BeumerGroup</a> this year and now work mostly in TypeScript writing an html5 spa app.</p>
-<p>In my spare time I've decided to working on version 2.0 of my <a href="https://github.com/smack0007/Snowball">Snowball</a>,
-my 2D game framework. I've been playing around with the idea for a while now. This version will be developed directly
-for .net core and will be developed with cross platform capability in mind. The api will look similar but will have
-some changes.</p>
-<p>The old repo is still available on my <a href="https://github.com/smack0007/">github</a> at <a href="https://github.com/smack0007/Snowball_v1">https://github.com/smack0007/Snowball_v1</a>.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/snowball-2.html</link>
-		<guid>http://smack0007.github.io/blog/2018/snowball-2.html</guid>
-		<pubDate>Fri, 23 Feb 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
