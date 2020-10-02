@@ -12,7 +12,7 @@ frontend.
 
 Let's create the backend first:
 
-```cmd
+```bat
 dotnet new webapi -n WebShellBackend -o backend
 ```
 
