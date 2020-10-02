@@ -72,9 +72,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 </code></pre><p>In <code>Program.cs</code> add the following line to the beginning of the <code>ConfigureWebHostDefaults</code> method:
-<pre><code class=language-cs>#if RELEASE
-webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location), "wwwroot"));
-#endif
+<pre><code class=language-cs>webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location)));
 </code></pre><p>Which just ensures the content root is always in the same place regardless of where the assembly is exeucted from. In the <code>WebShellBackend.csproj</code> file add the following to the end of the <code>Project</code> node:
 <pre><code class=language-xml><span class=xmlDelimiter>&lt;</span><span class=xmlName>PropertyGroup</span> <span class=xmlAttribute>Condition</span><span class=xmlDelimiter>=</span><span class=xmlAttributeQuotes>"</span><span class=xmlAttributeValue>$(Configuration) == 'Release'</span><span class=xmlAttributeQuotes>"</span><span class=xmlDelimiter>></span>
   <span class=xmlDelimiter>&lt;</span><span class=xmlName>AppendTargetFrameworkToOutputPath</span><span class=xmlDelimiter>></span>false<span class=xmlDelimiter>&lt;/</span><span class=xmlName>AppendTargetFrameworkToOutputPath</span><span class=xmlDelimiter>></span>
