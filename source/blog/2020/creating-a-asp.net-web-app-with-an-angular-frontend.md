@@ -145,9 +145,7 @@ app.UseRouting();
 In `Program.cs` add the following line to the beginning of the `ConfigureWebHostDefaults` method:
 
 ```cs
-#if RELEASE
-webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location), "wwwroot"));
-#endif
+webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location)));
 ```
 
 Which just ensures the content root is always in the same place regardless of where the assembly is exeucted from. In
