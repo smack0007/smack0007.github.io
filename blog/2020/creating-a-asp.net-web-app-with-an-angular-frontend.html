@@ -21,14 +21,14 @@
     }
   }
 }</code></pre><p>We want all the urls for our endpoints on the backend to be prefixed with "/api" so the we need to the route for the example controller to <code>api/[controller]</code>:
-<pre><code class=language-cs>[ApiController]
-[Route("api/[controller]")]
-public class WeatherForecastController : ControllerBase
-{
-    // The content of the controller is not important for us here.
-}
-</code></pre><p>Once you've made that change you can start up the backend and visit "https://localhost:5001/api/weatherforecast" in your web browser and you should see the reponse as json. In chrome I had to explicitly type the entire url including the "https" othwerwise it would not work.<p>Now on to the frontend. From the root folder of your application again execute the following command:
-<pre><code class=language-cmd>ng new web-shell-frontend --directory frontend
+<pre><code class=language-csharp><div class=HtmlSyntaxHighlighterDotNet><span class=t>[</span><span class="id ty">ApiController</span><span class=t>]</span>
+<span class=t>[</span><span class="id ty">Route</span><span class=t>(</span><span class=str>"api/[controller]"</span><span class=t>)</span><span class=t>]</span>
+<span class=k>public</span> <span class=k>class</span> <span class="id ty">WeatherForecastController</span> <span class=t>:</span> <span class="id ty">ControllerBase</span>
+<span class=t>{</span>
+    <span class=co>// The content of the controller is not important for us here.</span>
+<span class=t>}</span>
+<span class=t></span></div></code></pre><p>Once you've made that change you can start up the backend and visit "https://localhost:5001/api/weatherforecast" in your web browser and you should see the reponse as json. In chrome I had to explicitly type the entire url including the "https" othwerwise it would not work.<p>Now on to the frontend. From the root folder of your application again execute the following command:
+<pre><code class=language-bat>ng new web-shell-frontend --directory frontend
 </code></pre><p>Now in the newly created frontend we need to add a file to the root folder of the Angular project called <code>proxy.conf.json</code> with the following contents:
 <pre><code class=language-json>{
     <span class=string>"/api/*"</span>: {
@@ -59,21 +59,21 @@ public class WeatherForecastController : ControllerBase
     });
   }
 }</code></pre><p>And then change <code>src/app.component.html</code> to:
-<pre><code class=language-html>&lt;h1>WebShell Frontend&lt;/h1>
+<pre><code>&lt;h1>WebShell Frontend&lt;/h1>
 
 {{ weather | json }}
 </code></pre><p>Now start up your frontend with <code>ng serve</code> and visit <code>http://localhost:4200</code>. You should see the json your backend delivers if everything works. You should see a message from the Angular dev server indicating that a redirect occured:
 <pre><code>[HPM] GET /api/weatherforecast -> https://localhost:5001
 </code></pre><p>Now to marry the two together. We need first enable the backend to serve the static files created by our frontend. On the backend in the <code>Configure</code> method of the <code>Startup.cs</code> file add calls to <code>app.UseDefaultFiles()</code> and <code>app.UseStaticFiles()</code> between the calls to <code>app.UseHttpsRedirection()</code> and <code>app.UseRouting()</code>. The order of the calls is important:
-<pre><code class=language-cs>app.UseHttpsRedirection();
+<pre><code class=language-csharp><div class=HtmlSyntaxHighlighterDotNet>app.UseHttpsRedirection();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
-</code></pre><p>In <code>Program.cs</code> add the following line to the beginning of the <code>ConfigureWebHostDefaults</code> method:
-<pre><code class=language-cs>webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location)));
-</code></pre><p>Which just ensures the content root is always in the same place regardless of where the assembly is exeucted from. In the <code>WebShellBackend.csproj</code> file add the following to the end of the <code>Project</code> node:
+<span class=t></span></div></code></pre><p>In <code>Program.cs</code> add the following line to the beginning of the <code>ConfigureWebHostDefaults</code> method:
+<pre><code class=language-csharp><div class=HtmlSyntaxHighlighterDotNet>webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location)));
+<span class=t></span></div></code></pre><p>Which just ensures the content root is always in the same place regardless of where the assembly is exeucted from. In the <code>WebShellBackend.csproj</code> file add the following to the end of the <code>Project</code> node:
 <pre><code class=language-xml><span class=xmlDelimiter>&lt;</span><span class=xmlName>PropertyGroup</span> <span class=xmlAttribute>Condition</span><span class=xmlDelimiter>=</span><span class=xmlAttributeQuotes>"</span><span class=xmlAttributeValue>$(Configuration) == 'Release'</span><span class=xmlAttributeQuotes>"</span><span class=xmlDelimiter>></span>
   <span class=xmlDelimiter>&lt;</span><span class=xmlName>AppendTargetFrameworkToOutputPath</span><span class=xmlDelimiter>></span>false<span class=xmlDelimiter>&lt;/</span><span class=xmlName>AppendTargetFrameworkToOutputPath</span><span class=xmlDelimiter>></span>
   <span class=xmlDelimiter>&lt;</span><span class=xmlName>OutputPath</span><span class=xmlDelimiter>></span>$(MSBuildThisFileDirectory)../bin<span class=xmlDelimiter>&lt;/</span><span class=xmlName>OutputPath</span><span class=xmlDelimiter>></span>
