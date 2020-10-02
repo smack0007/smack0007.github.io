@@ -6,7 +6,11 @@ Tags: asp.net, netcore, angular
 ---
 
 We're going to create a what I call a "WebShell" application with asp.net core on the backend and Angular on the
-frontend. Let's create the backend first:
+frontend.
+
+<!--more-->
+
+Let's create the backend first:
 
 ```cmd
 dotnet new webapi -n WebShellBackend -o backend
