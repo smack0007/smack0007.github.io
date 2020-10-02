@@ -46,7 +46,7 @@ the following:
 We want all the urls for our endpoints on the backend to be prefixed with "/api" so the we need to the route for the
 example controller to `api/[controller]`:
 
-```cs
+```csharp
 [ApiController]
 [Route("api/[controller]")]
 public class WeatherForecastController : ControllerBase
@@ -61,7 +61,7 @@ the "https" othwerwise it would not work.
 
 Now on to the frontend. From the root folder of your application again execute the following command:
 
-```cmd
+```bat
 ng new web-shell-frontend --directory frontend
 ```
 
@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
 
 And then change `src/app.component.html` to:
 
-```html
+```
 <h1>WebShell Frontend</h1>
 
 {{ weather | json }}
@@ -133,7 +133,7 @@ the backend in the `Configure` method of the `Startup.cs` file add calls to `app
 `app.UseStaticFiles()` between the calls to `app.UseHttpsRedirection()` and `app.UseRouting()`. The order of the calls
 is important:
 
-```cs
+```csharp
 app.UseHttpsRedirection();
 
 app.UseDefaultFiles();
@@ -144,7 +144,7 @@ app.UseRouting();
 
 In `Program.cs` add the following line to the beginning of the `ConfigureWebHostDefaults` method:
 
-```cs
+```csharp
 webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location)));
 ```
 
