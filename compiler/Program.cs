@@ -370,6 +370,7 @@ namespace compiler
                 switch (languageName.ToLower())
                 {
                     case "bat":
+                    case "cmd":
                         return m.ToString();
 
                     case "cpp":
@@ -380,6 +381,10 @@ namespace compiler
                     case "csharp":
                     case "c#":
                         language = Languages.CSharp;
+                        break;
+
+                    case "html":
+                        language = Languages.Html;
                         break;
 
                     case "js":

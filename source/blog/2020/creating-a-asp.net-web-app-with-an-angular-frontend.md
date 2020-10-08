@@ -2,7 +2,7 @@
 Title: Creating a asp.net web app with an Angular frontend
 Subtitle: WebShell
 Date: 2020-10-02
-Tags: asp.net, netcore, angular
+Tags: asp.net, netcore, Angular
 ---
 
 We're going to create a what I call a "WebShell" application with asp.net core on the backend and Angular on the
@@ -12,7 +12,7 @@ frontend.
 
 Let's create the backend first:
 
-```bat
+```cmd
 dotnet new webapi -n WebShellBackend -o backend
 ```
 
@@ -61,7 +61,7 @@ the "https" othwerwise it would not work.
 
 Now on to the frontend. From the root folder of your application again execute the following command:
 
-```bat
+```cmd
 ng new web-shell-frontend --directory frontend
 ```
 
@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
 
 And then change `src/app.component.html` to:
 
-```
+```html
 <h1>WebShell Frontend</h1>
 
 {{ weather | json }}
@@ -169,7 +169,7 @@ Now in the `angular.json` file of the frontend find the `outputPath` for the sec
 
 Now we'll create a `build.cmd` file which will build both the backend and the frontend:
 
-```bat
+```cmd
 @ECHO OFF
 PUSHD %~dp0
 
