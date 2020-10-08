@@ -23,8 +23,8 @@ Here is the csproj file I came up with:
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <IsPackable>false</IsPackable>
 
-    <!-- Don't show node_modules -->
-    <DefaultItemExcludes>$(DefaultItemExcludes);node_modules\**</DefaultItemExcludes>
+    <!-- Don't show node_modules and dist folder -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);node_modules\**;dist\**</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
