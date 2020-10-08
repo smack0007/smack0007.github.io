@@ -4,9 +4,20 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 02 Oct 2020 15:50:56 GMT</lastBuildDate>
-	<pubDate>Fri, 02 Oct 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Thu, 08 Oct 2020 07:53:01 GMT</lastBuildDate>
+	<pubDate>Thu, 08 Oct 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Angular in Visual Studio]]></title>
+		<description><![CDATA[<p>Now that the <a href="https://devblogs.microsoft.com/visualstudio/angular-language-service-for-visual-studio/">Angular Language Service</a>
+is available for Visual Studio working on Angular projects from inside Visual Studio is a viable option. The linked blog
+post mentions a couple of ways of adding the Angular project to Visual Studio but I felt the suggestions left something
+to be desired here is what I came up with.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/angular-in-visual-studio.html</link>
+		<guid>http://smack0007.github.io/blog/2020/angular-in-visual-studio.html</guid>
+		<pubDate>Thu, 08 Oct 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Creating a asp.net web app with an Angular frontend]]></title>
 		<description><![CDATA[<p>We're going to create a what I call a &quot;WebShell&quot; application with asp.net core on the backend and Angular on the
@@ -294,15 +305,6 @@ two helper funcitons <code>HtmlEncode</code> and <code>If</code>. Today we want 
 		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</link>
 		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</guid>
 		<pubDate>Thu, 22 Mar 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Poor Man's Template Engine in C# Part 2]]></title>
-		<description><![CDATA[<p>In our <a href="blog/2018/poor-mans-template-engine-1.html">last episode</a> we laid the groundwork for our
-simple template engine. In this episode we'll introduce our first 2 helper functions.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-2.html</link>
-		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-2.html</guid>
-		<pubDate>Wed, 14 Mar 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>

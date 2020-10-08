@@ -7,6 +7,9 @@
 		<loc>http://smack0007.github.io/about.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/blog/2020/angular-in-visual-studio.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html</loc>
 	</url>
 	<url>
@@ -500,6 +503,9 @@
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/visual-studio-code.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/visualstudio.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/vs2012-themes.html</loc>
