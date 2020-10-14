@@ -1,84 +1,78 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Creating a asp.net web app with an Angular frontend</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html>Creating a asp.net web app with an Angular frontend</a></h2><h3>WebShell</h3><div class=meta><span class=date><span class=icon-calendar></span>October 02, 2020</span> <span class=tags><span class=icon-price-tags></span>asp.net, netcore, Angular</span></div><div class=content><p>We're going to create a what I call a "WebShell" application with asp.net core on the backend and Angular on the frontend.<p>Let's create the backend first:
-<pre><code class=language-cmd>dotnet new webapi -n WebShellBackend -o backend
-</code></pre><p>Which just means to create a <code>webapi</code> project with the name "WebShellBackend" and place the output in a folder named "backend". Open up the project in Visual Studio or vscode and replace the launchSettings.json in Properties folder with the following:
-<pre><code class=language-json>{
-  <span class=string>"iisSettings"</span>: {
-    <span class=string>"windowsAuthentication"</span>: <span class=keyword>false</span>,
-    <span class=string>"anonymousAuthentication"</span>: <span class=keyword>true</span>,
-    <span class=string>"iisExpress"</span>: {
-      <span class=string>"applicationUrl"</span>: <span class=string>"http://localhost:54317"</span>,
-      <span class=string>"sslPort"</span>: 44326
+<pre><code class="hljs shell">dotnet new webapi -n WebShellBackend -o backend</code></pre><p>Which just means to create a <code>webapi</code> project with the name "WebShellBackend" and place the output in a folder named "backend". Open up the project in Visual Studio or vscode and replace the launchSettings.json in Properties folder with the following:
+<pre><code class="hljs json">{
+  <span class=hljs-attr>"iisSettings"</span>: {
+    <span class=hljs-attr>"windowsAuthentication"</span>: <span class=hljs-literal>false</span>,
+    <span class=hljs-attr>"anonymousAuthentication"</span>: <span class=hljs-literal>true</span>,
+    <span class=hljs-attr>"iisExpress"</span>: {
+      <span class=hljs-attr>"applicationUrl"</span>: <span class=hljs-string>"http://localhost:54317"</span>,
+      <span class=hljs-attr>"sslPort"</span>: <span class=hljs-number>44326</span>
     }
   },
-  <span class=string>"$schema"</span>: <span class=string>"http://json.schemastore.org/launchsettings.json"</span>,
-  <span class=string>"profiles"</span>: {
-    <span class=string>"WebShellBackend"</span>: {
-      <span class=string>"commandName"</span>: <span class=string>"Project"</span>,
-      <span class=string>"environmentVariables"</span>: {
-        <span class=string>"ASPNETCORE_ENVIRONMENT"</span>: <span class=string>"Development"</span>
+  <span class=hljs-attr>"$schema"</span>: <span class=hljs-string>"http://json.schemastore.org/launchsettings.json"</span>,
+  <span class=hljs-attr>"profiles"</span>: {
+    <span class=hljs-attr>"WebShellBackend"</span>: {
+      <span class=hljs-attr>"commandName"</span>: <span class=hljs-string>"Project"</span>,
+      <span class=hljs-attr>"environmentVariables"</span>: {
+        <span class=hljs-attr>"ASPNETCORE_ENVIRONMENT"</span>: <span class=hljs-string>"Development"</span>
       },
-      <span class=string>"applicationUrl"</span>: <span class=string>"https://localhost:5001;http://localhost:5000"</span>
+      <span class=hljs-attr>"applicationUrl"</span>: <span class=hljs-string>"https://localhost:5001;http://localhost:5000"</span>
     }
   }
 }</code></pre><p>We want all the urls for our endpoints on the backend to be prefixed with "/api" so the we need to the route for the example controller to <code>api/[controller]</code>:
-<pre><code class=language-csharp><div class=HtmlSyntaxHighlighterDotNet><span class=t>[</span><span class="id ty">ApiController</span><span class=t>]</span>
-<span class=t>[</span><span class="id ty">Route</span><span class=t>(</span><span class=str>"api/[controller]"</span><span class=t>)</span><span class=t>]</span>
-<span class=k>public</span> <span class=k>class</span> <span class="id ty">WeatherForecastController</span> <span class=t>:</span> <span class="id ty">ControllerBase</span>
-<span class=t>{</span>
-    <span class=co>// The content of the controller is not important for us here.</span>
-<span class=t>}</span>
-<span class=t></span></div></code></pre><p>Once you've made that change you can start up the backend and visit "https://localhost:5001/api/weatherforecast" in your web browser and you should see the reponse as json. In chrome I had to explicitly type the entire url including the "https" othwerwise it would not work.<p>Now on to the frontend. From the root folder of your application again execute the following command:
-<pre><code class=language-cmd>ng new web-shell-frontend --directory frontend
-</code></pre><p>Now in the newly created frontend we need to add a file to the root folder of the Angular project called <code>proxy.conf.json</code> with the following contents:
-<pre><code class=language-json>{
-    <span class=string>"/api/*"</span>: {
-        <span class=string>"target"</span>: <span class=string>"https://localhost:5001"</span>,
-        <span class=string>"secure"</span>: <span class=keyword>false</span>,
-        <span class=string>"logLevel"</span>: <span class=string>"debug"</span>
+<pre><code class="hljs csharp">[<span class=hljs-meta>ApiController</span>]
+[<span class=hljs-meta>Route(<span class=hljs-meta-string>"api/[controller]"</span>)</span>]
+<span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>WeatherForecastController</span> : <span class=hljs-title>ControllerBase</span>
+{
+    <span class=hljs-comment>// The content of the controller is not important for us here.</span>
+}</code></pre><p>Once you've made that change you can start up the backend and visit "https://localhost:5001/api/weatherforecast" in your web browser and you should see the reponse as json. In chrome I had to explicitly type the entire url including the "https" othwerwise it would not work.<p>Now on to the frontend. From the root folder of your application again execute the following command:
+<pre><code class="hljs shell">ng new web-shell-frontend --directory frontend</code></pre><p>Now in the newly created frontend we need to add a file to the root folder of the Angular project called <code>proxy.conf.json</code> with the following contents:
+<pre><code class="hljs json">{
+    <span class=hljs-attr>"/api/*"</span>: {
+        <span class=hljs-attr>"target"</span>: <span class=hljs-string>"https://localhost:5001"</span>,
+        <span class=hljs-attr>"secure"</span>: <span class=hljs-literal>false</span>,
+        <span class=hljs-attr>"logLevel"</span>: <span class=hljs-string>"debug"</span>
     }
 }</code></pre><p>This file will tell the Angular development server that start with "/api/" should be forwarded to our backend. We need to add a reference to this file in our <code>angular.json</code> file. Look for the section <code>options</code> under <code>serve</code> (line 68 on my machine) and add the following <code>proxyConfig</code> key:
-<pre><code class=language-json><span class=string>"options"</span>: {
-  <span class=string>"browserTarget"</span>: <span class=string>"web-shell-frontend:build"</span>,
-  <span class=string>"proxyConfig"</span>: <span class=string>"proxy.conf.json"</span>
+<pre><code class="hljs json">"options": {
+  "browserTarget": "web-shell-frontend:build",
+  "proxyConfig": "proxy.conf.json"
 },</code></pre><p>The last change to our frontend is we will make the app component call our backend and display the json that is returned. Change <code>src/app.component.ts</code> to:
-<pre><code class=language-ts><span class=keyword>import</span> { Component, OnInit } from <span class=string>'@angular/core'</span>;
+<pre><code class="hljs typescript"><span class=hljs-keyword>import</span> { Component, OnInit } <span class=hljs-keyword>from</span> <span class=hljs-string>'@angular/core'</span>;
 
-@Component({
-  selector: <span class=string>'app-root'</span>,
-  templateUrl: <span class=string>'./app.component.html'</span>,
-  styleUrls: [<span class=string>'./app.component.scss'</span>]
+<span class=hljs-meta>@Component</span>({
+  selector: <span class=hljs-string>'app-root'</span>,
+  templateUrl: <span class=hljs-string>'./app.component.html'</span>,
+  styleUrls: [<span class=hljs-string>'./app.component.scss'</span>]
 })
-<span class=keyword>export</span> <span class=keyword>class</span> AppComponent <span class=keyword>implements</span> OnInit {
-  weather = <span class=string>''</span>;
+<span class=hljs-keyword>export</span> <span class=hljs-keyword>class</span> AppComponent <span class=hljs-keyword>implements</span> OnInit {
+  weather = <span class=hljs-string>''</span>;
 
-  <span class=keyword>public</span> ngOnInit(): <span class=keyword>void</span> {
-    fetch(<span class=string>'/api/weatherforecast'</span>).then((response) => {
-      response.json().then(json => {
-          <span class=keyword>this</span>.weather = json;
+  <span class=hljs-keyword>public</span> ngOnInit(): <span class=hljs-built_in>void</span> {
+    fetch(<span class=hljs-string>'/api/weatherforecast'</span>).then(<span class=hljs-function>(<span class=hljs-params>response</span>) =></span> {
+      response.json().then(<span class=hljs-function><span class=hljs-params>json</span> =></span> {
+          <span class=hljs-built_in>this</span>.weather = json;
       });
     });
   }
 }</code></pre><p>And then change <code>src/app.component.html</code> to:
-<pre><code class=language-html><span class=htmlTagDelimiter>&lt;</span><span class=htmlElementName>h1</span><span class=htmlTagDelimiter>></span>WebShell Frontend<span class=htmlTagDelimiter>&lt;/</span><span class=htmlElementName>h1</span><span class=htmlTagDelimiter>></span>
+<pre><code class="hljs html"><span class=hljs-tag>&lt;<span class=hljs-name>h1</span>></span>WebShell Frontend<span class=hljs-tag>&lt;/<span class=hljs-name>h1</span>></span>
 
 {{ weather | json }}</code></pre><p>Now start up your frontend with <code>ng serve</code> and visit <code>http://localhost:4200</code>. You should see the json your backend delivers if everything works. You should see a message from the Angular dev server indicating that a redirect occured:
-<pre><code>[HPM] GET /api/weatherforecast -> https://localhost:5001
-</code></pre><p>Now to marry the two together. We need first enable the backend to serve the static files created by our frontend. On the backend in the <code>Configure</code> method of the <code>Startup.cs</code> file add calls to <code>app.UseDefaultFiles()</code> and <code>app.UseStaticFiles()</code> between the calls to <code>app.UseHttpsRedirection()</code> and <code>app.UseRouting()</code>. The order of the calls is important:
-<pre><code class=language-csharp><div class=HtmlSyntaxHighlighterDotNet>app.UseHttpsRedirection();
+<pre><code class="hljs shell">[HPM] GET /api/weatherforecast -> https://localhost:5001</code></pre><p>Now to marry the two together. We need first enable the backend to serve the static files created by our frontend. On the backend in the <code>Configure</code> method of the <code>Startup.cs</code> file add calls to <code>app.UseDefaultFiles()</code> and <code>app.UseStaticFiles()</code> between the calls to <code>app.UseHttpsRedirection()</code> and <code>app.UseRouting()</code>. The order of the calls is important:
+<pre><code class="hljs csharp">app.UseHttpsRedirection();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-app.UseRouting();
-<span class=t></span></div></code></pre><p>In <code>Program.cs</code> add the following line to the beginning of the <code>ConfigureWebHostDefaults</code> method:
-<pre><code class=language-csharp><div class=HtmlSyntaxHighlighterDotNet>webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location)));
-<span class=t></span></div></code></pre><p>Which just ensures the content root is always in the same place regardless of where the assembly is exeucted from. In the <code>WebShellBackend.csproj</code> file add the following to the end of the <code>Project</code> node:
-<pre><code class=language-xml><span class=xmlDelimiter>&lt;</span><span class=xmlName>PropertyGroup</span> <span class=xmlAttribute>Condition</span><span class=xmlDelimiter>=</span><span class=xmlAttributeQuotes>"</span><span class=xmlAttributeValue>$(Configuration) == 'Release'</span><span class=xmlAttributeQuotes>"</span><span class=xmlDelimiter>></span>
-  <span class=xmlDelimiter>&lt;</span><span class=xmlName>AppendTargetFrameworkToOutputPath</span><span class=xmlDelimiter>></span>false<span class=xmlDelimiter>&lt;/</span><span class=xmlName>AppendTargetFrameworkToOutputPath</span><span class=xmlDelimiter>></span>
-  <span class=xmlDelimiter>&lt;</span><span class=xmlName>OutputPath</span><span class=xmlDelimiter>></span>$(MSBuildThisFileDirectory)../bin<span class=xmlDelimiter>&lt;/</span><span class=xmlName>OutputPath</span><span class=xmlDelimiter>></span>
-<span class=xmlDelimiter>&lt;/</span><span class=xmlName>PropertyGroup</span><span class=xmlDelimiter>></span></code></pre><p>This will force the output of the backend to be placed in the <code>/bin</code> directory when building in <code>Release</code> mode.<p>Now in the <code>angular.json</code> file of the frontend find the <code>outputPath</code> for the section <code>options</code> under <code>build</code> (line 20 on my machine) and set the path to <code>../bin/wwwroot</code>
-<pre><code class=language-json><span class=string>"outputPath"</span>: <span class=string>"../bin/wwwroot"</span>,</code></pre><p>Now we'll create a <code>build.cmd</code> file which will build both the backend and the frontend:
-<pre><code class=language-cmd>@ECHO OFF
+app.UseRouting();</code></pre><p>In <code>Program.cs</code> add the following line to the beginning of the <code>ConfigureWebHostDefaults</code> method:
+<pre><code class="hljs csharp">webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(<span class=hljs-keyword>typeof</span>(Program).Assembly.Location)));</code></pre><p>Which just ensures the content root is always in the same place regardless of where the assembly is exeucted from. In the <code>WebShellBackend.csproj</code> file add the following to the end of the <code>Project</code> node:
+<pre><code class="hljs xml"><span class=hljs-tag>&lt;<span class=hljs-name>PropertyGroup</span> <span class=hljs-attr>Condition</span>=<span class=hljs-string>"$(Configuration) == 'Release'"</span>></span>
+  <span class=hljs-tag>&lt;<span class=hljs-name>AppendTargetFrameworkToOutputPath</span>></span>false<span class=hljs-tag>&lt;/<span class=hljs-name>AppendTargetFrameworkToOutputPath</span>></span>
+  <span class=hljs-tag>&lt;<span class=hljs-name>OutputPath</span>></span>$(MSBuildThisFileDirectory)../bin<span class=hljs-tag>&lt;/<span class=hljs-name>OutputPath</span>></span>
+<span class=hljs-tag>&lt;/<span class=hljs-name>PropertyGroup</span>></span></code></pre><p>This will force the output of the backend to be placed in the <code>/bin</code> directory when building in <code>Release</code> mode.<p>Now in the <code>angular.json</code> file of the frontend find the <code>outputPath</code> for the section <code>options</code> under <code>build</code> (line 20 on my machine) and set the path to <code>../bin/wwwroot</code>
+<pre><code class="hljs json">"outputPath": "../bin/wwwroot",</code></pre><p>Now we'll create a <code>build.cmd</code> file which will build both the backend and the frontend:
+<pre><code class="hljs shell">@ECHO OFF
 PUSHD %~dp0
 
 PUSHD backend
@@ -91,5 +85,4 @@ ECHO Building frontend...
 CALL ng build --prod
 POPD
 
-POPD
-</code></pre><p>After building the <code>/bin</code> directory should contain both the output for the backend and the frontend. The backend output being directly in <code>/bin</code> and the frontent being in <code>/bin/wwwroot</code>. Once you've started the app you should be able to visit <code>https://localhost:5001</code> and have the frontend served to the browser.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2020/predictable-random-number-generation-in-typescript.html class="page-link older">Older</a><li class=page-item><a href=blog/2020/angular-in-visual-studio.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+POPD</code></pre><p>After building the <code>/bin</code> directory should contain both the output for the backend and the frontend. The backend output being directly in <code>/bin</code> and the frontent being in <code>/bin/wwwroot</code>. Once you've started the app you should be able to visit <code>https://localhost:5001</code> and have the frontend served to the browser.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2020/predictable-random-number-generation-in-typescript.html class="page-link older">Older</a><li class=page-item><a href=blog/2020/angular-in-visual-studio.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

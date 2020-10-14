@@ -1,115 +1,114 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>OpenTK: Simple Movable Sprite</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK: Simple Movable Sprite</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2011</span> <span class=tags><span class=icon-price-tags></span>OpenGL</span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.
 
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class="k sta">using</span> <span class="id u">System</span><span class=t>;</span>
-<span class="k sta">using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Drawing</span><span class=t>;</span>
-<span class="k sta">using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">Drawing</span><span class=t>.</span><span class="id u">Imaging</span><span class=t>;</span>
-<span class="k sta">using</span> <span class="id u">System</span><span class=t>.</span><span class="id u">IO</span><span class=t>;</span>
-<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>;</span>
-<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>;</span>
-<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Graphics</span><span class=t>.</span><span class="id u">OpenGL</span><span class=t>;</span>
-<span class="k sta">using</span> <span class="id u">OpenTK</span><span class=t>.</span><span class="id u">Input</span><span class=t>;</span>
+<pre><code class="hljs csharp"><span class=hljs-keyword>using</span> System;
+<span class=hljs-keyword>using</span> System.Drawing;
+<span class=hljs-keyword>using</span> System.Drawing.Imaging;
+<span class=hljs-keyword>using</span> System.IO;
+<span class=hljs-keyword>using</span> OpenTK;
+<span class=hljs-keyword>using</span> OpenTK.Graphics;
+<span class=hljs-keyword>using</span> OpenTK.Graphics.OpenGL;
+<span class=hljs-keyword>using</span> OpenTK.Input;
 
-<span class=k>namespace</span> <span class="id ns">OpenTKApp2</span>
-<span class=t>{</span>
-	<span class=k>public</span> <span class=k>class</span> <span class="id ty">AppWindow</span> <span class=t>:</span> <span class="id ty">GameWindow</span>
-	<span class=t>{</span>
-		<span class=k>int</span> <span class=id>texture</span><span class=t>;</span>
-		<span class=k>float</span> <span class=id>x</span><span class=t>,</span> <span class=id>y</span><span class=t>;</span>
+<span class=hljs-keyword>namespace</span> <span class=hljs-title>OpenTKApp2</span>
+{
+	<span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>AppWindow</span> : <span class=hljs-title>GameWindow</span>
+	{
+		<span class=hljs-keyword>int</span> texture;
+		<span class=hljs-keyword>float</span> x, y;
 
-		<span class=k>public</span> <span class="id ty">AppWindow</span><span class=t>(</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class=k>this</span><span class=t>.</span><span class=id>Title</span> <span class=t>=</span> <span class=str>"OpenTK App 2"</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class=id>WindowBorder</span> <span class=t>=</span> <span class=id>WindowBorder</span><span class=t>.</span><span class=id>Fixed</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class=id>ClientSize</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Size</span><span class=t>(</span><span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>
-		<span class=t>}</span>
+		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>AppWindow</span>(<span class=hljs-params></span>)</span>
+		{
+			<span class=hljs-keyword>this</span>.Title = <span class=hljs-string>"OpenTK App 2"</span>;
+			<span class=hljs-keyword>this</span>.WindowBorder = WindowBorder.Fixed;
+			<span class=hljs-keyword>this</span>.ClientSize = <span class=hljs-keyword>new</span> Size(<span class=hljs-number>800</span>, <span class=hljs-number>600</span>);
+		}
 
-		<span class=k>protected</span> <span class=k>override</span> <span class=k>void</span> <span class="id m">OnLoad</span><span class=t>(</span><span class="id ty">EventArgs</span> <span class=id>e</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class=k>base</span><span class=t>.</span><span class="id inv">OnLoad</span><span class=t>(</span><span class=id>e</span><span class=t>)</span><span class=t>;</span>
+		<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>OnLoad</span>(<span class=hljs-params>EventArgs e</span>)</span>
+		{
+			<span class=hljs-keyword>base</span>.OnLoad(e);
 			
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">ClearColor</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>CornflowerBlue</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Ortho</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=t>-</span><span class=n>1</span><span class=t>,</span> <span class=n>1</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Viewport</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=n>800</span><span class=t>,</span> <span class=n>600</span><span class=t>)</span><span class=t>;</span>
+			GL.ClearColor(Color.CornflowerBlue);
+			GL.Ortho(<span class=hljs-number>0</span>, <span class=hljs-number>800</span>, <span class=hljs-number>600</span>, <span class=hljs-number>0</span>, <span class=hljs-number>-1</span>, <span class=hljs-number>1</span>);
+			GL.Viewport(<span class=hljs-number>0</span>, <span class=hljs-number>0</span>, <span class=hljs-number>800</span>, <span class=hljs-number>600</span>);
 
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Enable</span><span class=t>(</span><span class=id>EnableCap</span><span class=t>.</span><span class=id>Texture2D</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Enable</span><span class=t>(</span><span class=id>EnableCap</span><span class=t>.</span><span class=id>Blend</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">BlendFunc</span><span class=t>(</span><span class=id>BlendingFactorSrc</span><span class=t>.</span><span class=id>SrcAlpha</span><span class=t>,</span> <span class=id>BlendingFactorDest</span><span class=t>.</span><span class=id>OneMinusSrcAlpha</span><span class=t>)</span><span class=t>;</span>
+			GL.Enable(EnableCap.Texture2D);
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Hint</span><span class=t>(</span><span class=id>HintTarget</span><span class=t>.</span><span class=id>PerspectiveCorrectionHint</span><span class=t>,</span> <span class=id>HintMode</span><span class=t>.</span><span class=id>Nicest</span><span class=t>)</span><span class=t>;</span>
+			GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
 
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">GenTextures</span><span class=t>(</span><span class=n>1</span><span class=t>,</span> <span class=k>out</span> <span class=k>this</span><span class=t>.</span><span class=id>texture</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">BindTexture</span><span class=t>(</span><span class=id>TextureTarget</span><span class=t>.</span><span class=id>Texture2D</span><span class=t>,</span> <span class=k>this</span><span class=t>.</span><span class=id>texture</span><span class=t>)</span><span class=t>;</span>
+			GL.GenTextures(<span class=hljs-number>1</span>, <span class=hljs-keyword>out</span> <span class=hljs-keyword>this</span>.texture);
+			GL.BindTexture(TextureTarget.Texture2D, <span class=hljs-keyword>this</span>.texture);
 
-			<span class=id>Bitmap</span> <span class=id>bitmap</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Bitmap</span><span class=t>(</span><span class=str>"ship.png"</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>bitmap</span><span class=t>.</span><span class="id inv">MakeTransparent</span><span class=t>(</span><span class=id>Color</span><span class=t>.</span><span class=id>Magenta</span><span class=t>)</span><span class=t>;</span>
+			Bitmap bitmap = <span class=hljs-keyword>new</span> Bitmap(<span class=hljs-string>"ship.png"</span>);
+			bitmap.MakeTransparent(Color.Magenta);
 
-			<span class=id>BitmapData</span> <span class=id>data</span> <span class=t>=</span> <span class=id>bitmap</span><span class=t>.</span><span class="id inv">LockBits</span><span class=t>(</span><span class=k>new</span> <span class="id ty">Rectangle</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=id>bitmap</span><span class=t>.</span><span class=id>Width</span><span class=t>,</span> <span class=id>bitmap</span><span class=t>.</span><span class=id>Height</span><span class=t>)</span><span class=t>,</span>
-				<span class=id>ImageLockMode</span><span class=t>.</span><span class=id>ReadOnly</span><span class=t>,</span> <span class=id>System</span><span class=t>.</span><span class=id>Drawing</span><span class=t>.</span><span class=id>Imaging</span><span class=t>.</span><span class=id>PixelFormat</span><span class=t>.</span><span class=id>Format32bppArgb</span><span class=t>)</span><span class=t>;</span>
+			BitmapData data = bitmap.LockBits(<span class=hljs-keyword>new</span> Rectangle(<span class=hljs-number>0</span>, <span class=hljs-number>0</span>, bitmap.Width, bitmap.Height),
+				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">TexImage2D</span><span class=t>(</span><span class=id>TextureTarget</span><span class=t>.</span><span class=id>Texture2D</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span> <span class=id>PixelInternalFormat</span><span class=t>.</span><span class=id>Rgba</span><span class=t>,</span> <span class=id>data</span><span class=t>.</span><span class=id>Width</span><span class=t>,</span> <span class=id>data</span><span class=t>.</span><span class=id>Height</span><span class=t>,</span> <span class=n>0</span><span class=t>,</span>
-				<span class=id>OpenTK</span><span class=t>.</span><span class=id>Graphics</span><span class=t>.</span><span class=id>OpenGL</span><span class=t>.</span><span class=id>PixelFormat</span><span class=t>.</span><span class=id>Bgra</span><span class=t>,</span> <span class=id>PixelType</span><span class=t>.</span><span class=id>UnsignedByte</span><span class=t>,</span> <span class=id>data</span><span class=t>.</span><span class=id>Scan0</span><span class=t>)</span><span class=t>;</span>
+			GL.TexImage2D(TextureTarget.Texture2D, <span class=hljs-number>0</span>, PixelInternalFormat.Rgba, data.Width, data.Height, <span class=hljs-number>0</span>,
+				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 
-			<span class=id>bitmap</span><span class=t>.</span><span class="id inv">UnlockBits</span><span class=t>(</span><span class=id>data</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>bitmap</span><span class=t>.</span><span class="id inv">Dispose</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			bitmap.UnlockBits(data);
+			bitmap.Dispose();
 
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">TexParameter</span><span class=t>(</span><span class=id>TextureTarget</span><span class=t>.</span><span class=id>Texture2D</span><span class=t>,</span> <span class=id>TextureParameterName</span><span class=t>.</span><span class=id>TextureMinFilter</span><span class=t>,</span> <span class=t>(</span><span class=k>int</span><span class=t>)</span><span class=id>TextureMinFilter</span><span class=t>.</span><span class=id>Linear</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">TexParameter</span><span class=t>(</span><span class=id>TextureTarget</span><span class=t>.</span><span class=id>Texture2D</span><span class=t>,</span> <span class=id>TextureParameterName</span><span class=t>.</span><span class=id>TextureMagFilter</span><span class=t>,</span> <span class=t>(</span><span class=k>int</span><span class=t>)</span><span class=id>TextureMagFilter</span><span class=t>.</span><span class=id>Linear</span><span class=t>)</span><span class=t>;</span>
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (<span class=hljs-keyword>int</span>)TextureMinFilter.Linear);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (<span class=hljs-keyword>int</span>)TextureMagFilter.Linear);
 
-			<span class=k>this</span><span class=t>.</span><span class=id>x</span> <span class=t>=</span> <span class=n>40f</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class=id>y</span> <span class=t>=</span> <span class=n>41.5f</span><span class=t>;</span>
-		<span class=t>}</span>
+			<span class=hljs-keyword>this</span>.x = <span class=hljs-number>40f</span>;
+			<span class=hljs-keyword>this</span>.y = <span class=hljs-number>41.5f</span>;
+		}
 
-		<span class=k>protected</span> <span class=k>override</span> <span class=k>void</span> <span class="id m">OnUpdateFrame</span><span class=t>(</span><span class="id ty">FrameEventArgs</span> <span class=id>e</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class=k>base</span><span class=t>.</span><span class="id inv">OnUpdateFrame</span><span class=t>(</span><span class=id>e</span><span class=t>)</span><span class=t>;</span>
+		<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>OnUpdateFrame</span>(<span class=hljs-params>FrameEventArgs e</span>)</span>
+		{
+			<span class=hljs-keyword>base</span>.OnUpdateFrame(e);
 
-			<span class=k>float</span> <span class=id>dx</span> <span class=t>=</span> <span class=n>0.0f</span><span class=t>;</span>
-			<span class=k>float</span> <span class=id>dy</span> <span class=t>=</span> <span class=n>0.0f</span><span class=t>;</span>
+			<span class=hljs-keyword>float</span> dx = <span class=hljs-number>0.0f</span>;
+			<span class=hljs-keyword>float</span> dy = <span class=hljs-number>0.0f</span>;
 
-			<span class="k sta">if</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>Keyboard</span><span class=t>[</span><span class=id>Key</span><span class=t>.</span><span class=id>Left</span><span class=t>]</span><span class=t>)</span>
-				<span class=id>dx</span> <span class=t>=</span> <span class=t>-</span><span class=n>1.0f</span><span class=t>;</span>
-			<span class="k sta">else</span> <span class="k sta">if</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>Keyboard</span><span class=t>[</span><span class=id>Key</span><span class=t>.</span><span class=id>Right</span><span class=t>]</span><span class=t>)</span>
-				<span class=id>dx</span> <span class=t>=</span> <span class=n>1.0f</span><span class=t>;</span>
+			<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Left])
+				dx = <span class=hljs-number>-1.0f</span>;
+			<span class=hljs-keyword>else</span> <span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Right])
+				dx = <span class=hljs-number>1.0f</span>;
 
-			<span class="k sta">if</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>Keyboard</span><span class=t>[</span><span class=id>Key</span><span class=t>.</span><span class=id>Up</span><span class=t>]</span><span class=t>)</span>
-				<span class=id>dy</span> <span class=t>=</span> <span class=t>-</span><span class=n>1.0f</span><span class=t>;</span>
-			<span class="k sta">else</span> <span class="k sta">if</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>Keyboard</span><span class=t>[</span><span class=id>Key</span><span class=t>.</span><span class=id>Down</span><span class=t>]</span><span class=t>)</span>
-				<span class=id>dy</span> <span class=t>=</span> <span class=n>1.0f</span><span class=t>;</span>
+			<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Up])
+				dy = <span class=hljs-number>-1.0f</span>;
+			<span class=hljs-keyword>else</span> <span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Down])
+				dy = <span class=hljs-number>1.0f</span>;
 
-			<span class=k>this</span><span class=t>.</span><span class=id>x</span> <span class=t>+=</span> <span class=n>100.0f</span> <span class=t>*</span> <span class=id>dx</span> <span class=t>*</span> <span class=t>(</span><span class=k>float</span><span class=t>)</span><span class=id>e</span><span class=t>.</span><span class=id>Time</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class=id>y</span> <span class=t>+=</span> <span class=n>100.0f</span> <span class=t>*</span> <span class=id>dy</span> <span class=t>*</span> <span class=t>(</span><span class=k>float</span><span class=t>)</span><span class=id>e</span><span class=t>.</span><span class=id>Time</span><span class=t>;</span>
-		<span class=t>}</span>
+			<span class=hljs-keyword>this</span>.x += <span class=hljs-number>100.0f</span> * dx * (<span class=hljs-keyword>float</span>)e.Time;
+			<span class=hljs-keyword>this</span>.y += <span class=hljs-number>100.0f</span> * dy * (<span class=hljs-keyword>float</span>)e.Time;
+		}
 
-		<span class=k>protected</span> <span class=k>override</span> <span class=k>void</span> <span class="id m">OnRenderFrame</span><span class=t>(</span><span class="id ty">FrameEventArgs</span> <span class=id>e</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class=k>base</span><span class=t>.</span><span class="id inv">OnRenderFrame</span><span class=t>(</span><span class=id>e</span><span class=t>)</span><span class=t>;</span>
+		<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>OnRenderFrame</span>(<span class=hljs-params>FrameEventArgs e</span>)</span>
+		{
+			<span class=hljs-keyword>base</span>.OnRenderFrame(e);
 						
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Clear</span><span class=t>(</span><span class=id>ClearBufferMask</span><span class=t>.</span><span class=id>ColorBufferBit</span> <span class=t>|</span> <span class=id>ClearBufferMask</span><span class=t>.</span><span class=id>DepthBufferBit</span><span class=t>)</span><span class=t>;</span>
+			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">MatrixMode</span><span class=t>(</span><span class=id>MatrixMode</span><span class=t>.</span><span class=id>Projection</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">LoadIdentity</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			GL.MatrixMode(MatrixMode.Projection);
+			GL.LoadIdentity();
 
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Begin</span><span class=t>(</span><span class=id>BeginMode</span><span class=t>.</span><span class=id>Quads</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">TexCoord2</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex2</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>x</span> <span class=t>-</span> <span class=n>40.0f</span><span class=t>,</span> <span class=k>this</span><span class=t>.</span><span class=id>y</span> <span class=t>-</span> <span class=n>41.5f</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">TexCoord2</span><span class=t>(</span><span class=n>1</span><span class=t>,</span> <span class=n>0</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex2</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>x</span> <span class=t>+</span> <span class=n>40.0f</span><span class=t>,</span> <span class=k>this</span><span class=t>.</span><span class=id>y</span> <span class=t>-</span> <span class=n>41.5f</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">TexCoord2</span><span class=t>(</span><span class=n>1</span><span class=t>,</span> <span class=n>1</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex2</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>x</span> <span class=t>+</span> <span class=n>40.0f</span><span class=t>,</span> <span class=k>this</span><span class=t>.</span><span class=id>y</span> <span class=t>+</span> <span class=n>41.5f</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">TexCoord2</span><span class=t>(</span><span class=n>0</span><span class=t>,</span> <span class=n>1</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Vertex2</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>x</span> <span class=t>-</span> <span class=n>40.0f</span><span class=t>,</span> <span class=k>this</span><span class=t>.</span><span class=id>y</span> <span class=t>+</span> <span class=n>41.5f</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">End</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+			GL.Begin(BeginMode.Quads);
+			GL.TexCoord2(<span class=hljs-number>0</span>, <span class=hljs-number>0</span>);
+			GL.Vertex2(<span class=hljs-keyword>this</span>.x - <span class=hljs-number>40.0f</span>, <span class=hljs-keyword>this</span>.y - <span class=hljs-number>41.5f</span>);
+			GL.TexCoord2(<span class=hljs-number>1</span>, <span class=hljs-number>0</span>);
+			GL.Vertex2(<span class=hljs-keyword>this</span>.x + <span class=hljs-number>40.0f</span>, <span class=hljs-keyword>this</span>.y - <span class=hljs-number>41.5f</span>);
+			GL.TexCoord2(<span class=hljs-number>1</span>, <span class=hljs-number>1</span>);
+			GL.Vertex2(<span class=hljs-keyword>this</span>.x + <span class=hljs-number>40.0f</span>, <span class=hljs-keyword>this</span>.y + <span class=hljs-number>41.5f</span>);
+			GL.TexCoord2(<span class=hljs-number>0</span>, <span class=hljs-number>1</span>);
+			GL.Vertex2(<span class=hljs-keyword>this</span>.x - <span class=hljs-number>40.0f</span>, <span class=hljs-keyword>this</span>.y + <span class=hljs-number>41.5f</span>);
+			GL.End();
 
-			<span class=id>GL</span><span class=t>.</span><span class="id inv">Flush</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-			<span class=k>this</span><span class=t>.</span><span class="id inv">SwapBuffers</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-		<span class=t>}</span>
+			GL.Flush();
+			<span class=hljs-keyword>this</span>.SwapBuffers();
+		}
 
-		<span class=t>[</span><span class=id>STAThread</span><span class=t>]</span>
-		<span class=k>public</span> <span class=k>static</span> <span class=k>void</span> <span class="id m">Main</span><span class=t>(</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class=id>AppWindow</span> <span class=id>window</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">AppWindow</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-			<span class=id>window</span><span class=t>.</span><span class="id inv">Run</span><span class=t>(</span><span class=n>60</span><span class=t>)</span><span class=t>;</span>
-		<span class=t>}</span>
-	<span class=t>}</span>
-<span class=t>}</span>
-<span class=t></span></div></code></pre><p><a href=/files/OpenTKApp2.zip>Download Visual Studio Project</a></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2011/keeping-splitcontainer-splitterdistance-consistent.html class="page-link older">Older</a><li class=page-item><a href=blog/2011/getting-started-with-opentk.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+		[<span class=hljs-meta>STAThread</span>]
+		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params></span>)</span>
+		{
+			AppWindow window = <span class=hljs-keyword>new</span> AppWindow();
+			window.Run(<span class=hljs-number>60</span>);
+		}
+	}
+}</code></pre><p><a href=/files/OpenTKApp2.zip>Download Visual Studio Project</a></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2011/keeping-splitcontainer-splitterdistance-consistent.html class="page-link older">Older</a><li class=page-item><a href=blog/2011/getting-started-with-opentk.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

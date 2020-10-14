@@ -1,222 +1,218 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Implementing basic Dependency Injection using a Service Container</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2010/implementing-basic-dependency-injection-using-services-container.html>Implementing basic Dependency Injection using a Service Container</a></h2><div class=meta><span class=date><span class=icon-calendar></span>June 21, 2010</span> <span class=tags><span class=icon-price-tags></span>.NET, C#, Dependency Injection, Design Patterns, Service Continer</span></div><div class=content><p>By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection.<p>We'll start by defining the <strong>Injectable</strong> attribute.
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=t>[</span><span class="id ty">AttributeUsage</span><span class=t>(</span><span class=id>AttributeTargets</span><span class=t>.</span><span class=id>Constructor</span> <span class=t>|</span> <span class=id>AttributeTargets</span><span class=t>.</span><span class=id>Property</span><span class=t>,</span>
-	<span class="id ty">AllowMultiple</span> <span class=t>=</span> <span class=k>false</span><span class=t>,</span> <span class="id ty">Inherited</span> <span class=t>=</span> <span class=k>true</span><span class=t>)</span><span class=t>]</span>
-<span class=k>public</span> <span class=k>class</span> <span class="id ty">InjectableAttribute</span> <span class=t>:</span> <span class="id ty">Attribute</span>
-<span class=t>{</span>
-<span class=t>}</span>
-<span class=t></span></div></code></pre><p>We'll use this attribute to mark our constructors and properties for dependency injection. Next we'll define an interface for our dependency injector:
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>interface</span> <span class=id>IDependencyInjector</span>
-<span class=t>{</span>
-	<span class=id>T</span> <span class=id>Construct</span>&<span class=t></span><span class=id>lt</span>;<span class=id>T</span>&<span class=id>gt</span>;<span class=t>(</span><span class=id></span><span class=t></span><span class=id></span><span class=t>)</span>;
-	<span class=k>void</span> <span class="id m">Inject</span><span class=t>(</span><span class=k>object</span> <span class=id>instance</span><span class=t>)</span><span class=t>;</span>
-<span class=t>}</span>
-<span class=t></span></div></code></pre><p>We'll define our service container like so:
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>class</span> <span class="id ty">ServiceContainer</span> <span class=t>:</span> <span class="id ty">IDependencyInjector</span><span class=t>,</span> <span class="id ty">IServiceProvider</span>
-<span class=t>{</span>
-	<span class="id ty">Dictionary</span>&<span class="id ty">lt</span>;<span class="id ty">Type</span>, <span class="id ty">Object</span>&<span class="id ty">gt</span>; <span class="id ty">services</span>;
+<pre><code class="hljs csharp">[<span class=hljs-meta>AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Property,
+	AllowMultiple = false, Inherited = true)</span>]
+<span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>InjectableAttribute</span> : <span class=hljs-title>Attribute</span>
+{
+}</code></pre><p>We'll use this attribute to mark our constructors and properties for dependency injection. Next we'll define an interface for our dependency injector:
+<pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>interface</span> <span class=hljs-title>IDependencyInjector</span>
+{
+	T Construct&amp;lt;T&amp;gt;();
+	<span class=hljs-function><span class=hljs-keyword>void</span> <span class=hljs-title>Inject</span>(<span class=hljs-params><span class=hljs-keyword>object</span> instance</span>)</span>;
+}</code></pre><p>We'll define our service container like so:
+<pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>ServiceContainer</span> : <span class=hljs-title>IDependencyInjector</span>, <span class=hljs-title>IServiceProvider</span>
+{
+	Dictionary&amp;lt;Type, Object&amp;gt; services;
 
-	<span class=k>public</span> <span class="id ty">ServiceContainer</span><span class=t>(</span><span class=t>)</span>
-		<span class=t>:</span> <span class=k>base</span><span class=t>(</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class=k>this</span><span class=t>.</span><span class=id>services</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Dictionary</span><span class=t></span><span class=t></span><span class=t>&</span><span class=id>lt</span><span class=t>;</span><span class=id>Type</span><span class=t></span>, <span class=k>object</span><span class=id></span><span class=t></span><span class=t>&</span><span class=id>gt</span><span class=t>;</span><span class=t>(</span><span class=id></span><span class=t>)</span><span class=t>;</span>
-	<span class=t>}</span>
-
-	<span class=k>public</span> <span class=k>void</span> <span class="id m">AddService</span><span class=t>(</span><span class="id ty">Type</span> <span class=id>type</span><span class=t>,</span> <span class="id ty">Object</span> <span class=id>provider</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class="k sta">if</span><span class=t>(</span><span class=k>null</span> <span class=t>==</span> <span class=id>type</span><span class=t>)</span>
-			<span class=k>throw</span> <span class=k>new</span> <span class="id ty">ArgumentNullException</span><span class=t>(</span><span class=str>"type"</span><span class=t>)</span><span class=t>;</span>
-
-		<span class="k sta">if</span><span class=t>(</span><span class=k>null</span> <span class=t>==</span> <span class=id>provider</span><span class=t>)</span>
-			<span class=k>throw</span> <span class=k>new</span> <span class="id ty">ArgumentNullException</span><span class=t>(</span><span class=str>"provider"</span><span class=t>)</span><span class=t>;</span>
-
-		<span class="k sta">if</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>services</span><span class=t>.</span><span class="id inv">ContainsKey</span><span class=t>(</span><span class=id>type</span><span class=t>)</span><span class=t>)</span>
-			<span class=k>throw</span> <span class=k>new</span> <span class="id ty">InvalidOperationException</span><span class=t>(</span><span class=str>"A provider is already registered the type "</span> <span class=t>+</span> <span class=id>type</span><span class=t>)</span><span class=t>;</span>
-
-		<span class="id v">var</span> <span class=id>providerType</span> <span class=t>=</span> <span class=id>provider</span><span class=t>.</span><span class="id inv">GetType</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-
-		<span class="k sta">if</span><span class=t>(</span><span class=t>!</span><span class=id>type</span><span class=t>.</span><span class="id inv">IsAssignableFrom</span><span class=t>(</span><span class=id>providerType</span><span class=t>)</span><span class=t>)</span>
-			<span class=k>throw</span> <span class=k>new</span> <span class="id ty">InvalidOperationException</span><span class=t>(</span><span class=id>providerType</span> <span class=t>+</span> <span class=str>" is not an instance of "</span> <span class=t>+</span> <span class=id>type</span><span class=t>)</span><span class=t>;</span>
-
-		<span class=k>this</span><span class=t>.</span><span class=id>services</span><span class=t>.</span><span class="id inv">Add</span><span class=t>(</span><span class=id>type</span><span class=t>,</span> <span class=id>provider</span><span class=t>)</span><span class=t>;</span>
-	<span class=t>}</span>
-
-	<span class=k>public</span> <span class=k>object</span> <span class="id m">GetService</span><span class=t>(</span><span class="id ty">Type</span> <span class=id>type</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class="k sta">if</span><span class=t>(</span><span class=k>null</span> <span class=t>==</span> <span class=id>type</span><span class=t>)</span>
-			<span class=k>throw</span> <span class=k>new</span> <span class="id ty">ArgumentNullException</span><span class=t>(</span><span class=str>"type"</span><span class=t>)</span><span class=t>;</span>
-
-		<span class="k sta">if</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>services</span><span class=t>.</span><span class="id inv">ContainsKey</span><span class=t>(</span><span class=id>type</span><span class=t>)</span><span class=t>)</span>
-			<span class="k sta">return</span> <span class=k>this</span><span class=t>.</span><span class=id>services</span><span class=t>[</span><span class=id>type</span><span class=t>]</span><span class=t>;</span>
-					
-		<span class="k sta">return</span> <span class=k>null</span><span class=t>;</span>
-	<span class=t>}</span>
-
-	<span class=k>public</span> <span class=k>void</span> <span class="id m">RemoveService</span><span class=t>(</span><span class="id ty">Type</span> <span class=id>type</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class="k sta">if</span><span class=t>(</span><span class=k>null</span> <span class=t>==</span> <span class=id>type</span><span class=t>)</span>
-			<span class=k>throw</span> <span class=k>new</span> <span class="id ty">ArgumentNullException</span><span class=t>(</span><span class=str>"type"</span><span class=t>)</span><span class=t>;</span>
-
-		<span class=k>this</span><span class=t>.</span><span class=id>services</span><span class=t>.</span><span class="id inv">Remove</span><span class=t>(</span><span class=id>type</span><span class=t>)</span><span class=t>;</span>
-	<span class=t>}</span>
-
-	<span class=k>protected</span> <span class=k>object</span> <span class="id m">GetInjectableService</span><span class=t>(</span><span class="id ty">Type</span> <span class=id>type</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class="k sta">if</span><span class=t>(</span><span class=id>type</span> <span class=t>==</span> <span class=k>typeof</span><span class=t>(</span><span class="id ty">IDependencyInjector</span><span class=t>)</span> <span class=t>||</span>
-		   <span class=id>type</span> <span class=t>==</span> <span class=k>typeof</span><span class=t>(</span><span class="id ty">IServiceProvider</span><span class=t>)</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class="k sta">return</span> <span class=k>this</span><span class=t>;</span>
-		<span class=t>}</span>
-		<span class="k sta">else</span>
-		<span class=t>{</span>
-			<span class=k>object</span> <span class=id>service</span> <span class=t>=</span> <span class=k>this</span><span class=t>.</span><span class="id inv">GetService</span><span class=t>(</span><span class=id>type</span><span class=t>)</span><span class=t>;</span>
-
-			<span class="k sta">if</span><span class=t>(</span><span class=id>service</span> <span class=t>==</span> <span class=k>null</span><span class=t>)</span>
-				<span class=k>throw</span> <span class=k>new</span> <span class="id ty">InvalidOperationException</span><span class=t>(</span><span class=str>"Failed to find "</span> <span class=t>+</span> <span class=id>type</span> <span class=t>+</span> <span class=str>" depenedency."</span><span class=t>)</span><span class=t>;</span>
-
-			<span class="k sta">return</span> <span class=id>service</span><span class=t>;</span>
-		<span class=t>}</span>
-	<span class=t>}</span>
-
-	<span class=k>public</span> <span class=id>T</span> <span class=id>Construct</span>&<span class=t></span><span class="id ty">lt</span>;<span class="id ty">T</span>&<span class="id ty">gt</span>;<span class=t>(</span><span class="id ty"></span><span class=t></span><span class="id ty"></span><span class=t>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>ServiceContainer</span>(<span class=hljs-params></span>)
+		: <span class=hljs-title>base</span>(<span class=hljs-params></span>)</span>
 	{
-		<span class=id>ConstructorInfo</span> <span class=id>injectableConstructor</span> <span class=t>=</span> <span class=k>null</span><span class=t>;</span>
-		foreach<span class=t>(</span><span class="id ty">ConstructorInfo</span> <span class="id ty">constructor</span> <span class=t></span><span class="id ty"></span><span class=t></span>in typeof<span class=t>(</span><span class="id ty">T</span><span class=t></span><span class="id ty"></span><span class=t>)</span>.<span class="id ty">GetConstructors</span><span class=t>(</span><span class=t>)</span><span class=t></span>)
-		{
-			foreach<span class=t>(</span><span class="id ty">Attribute</span> <span class="id ty">attribute</span> <span class=t></span><span class="id ty"></span><span class=t></span>in <span class="id ty">constructor</span><span class=t>.</span><span class="id ty">GetCustomAttributes</span><span class=t>(</span><span class="id ty"></span><span class=t></span><span class="id ty"></span><span class=t></span>true))
-			{
-				if<span class=t>(</span><span class="id ty">attribute</span> <span class=t></span><span class="id ty"></span><span class=t></span>is <span class="id ty">InjectableAttribute</span>)
-				{
-					<span class="id ty">injectableConstructor</span> = <span class="id ty">constructor</span>;
-					break;
-				<span class=t>}</span>
-			}
-
-			if<span class=t>(</span><span class=id>injectableConstructor</span> <span class=t></span><span class=id></span><span class=t></span>!= null)
-				break;
-		}
-
-		if<span class=t>(</span><span class=id>injectableConstructor</span> <span class=t></span><span class=id></span><span class=t></span>== null)
-			throw <span class=k>new</span> <span class=id>InvalidOperationException</span><span class=t>(</span>"No injectable constructor found."<span class=t>)</span><span class=t>;</span>
-
-		<span class="id v">var</span> <span class=id>parameters</span> <span class=t>=</span> <span class=id>injectableConstructor</span><span class=t>.</span><span class="id inv">GetParameters</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-		<span class="id v">var</span> <span class=id>services</span> <span class=t>=</span> <span class=k>new</span> <span class=k>object</span><span class=t>[</span><span class=id>parameters</span><span class=t>.</span><span class=id>Length</span><span class=t>]</span><span class=t>;</span>
-
-		<span class=k>int</span> <span class=id>i</span> <span class=t>=</span> <span class=n>0</span><span class=t>;</span>
-		foreach<span class=t>(</span><span class=id>ParameterInfo</span> <span class=id>parameter</span> <span class=t></span><span class=id></span><span class=t></span>in <span class=id>parameters</span>)
-			<span class=id>services</span><span class=t>[</span><span class=id>i</span><span class=t>++</span><span class=t>]</span> = <span class=id>GetInjectableService</span><span class=t>(</span><span class="id ty">parameter</span><span class=t>.</span><span class="id ty">ParameterType</span><span class=id></span><span class=t>)</span><span class=t>;</span>
-
-		return <span class=t>(</span><span class=id>T</span><span class=t></span><span class=id></span><span class=t>)</span><span class="id ty">injectableConstructor</span><span class=t>.</span><span class="id m">Invoke</span><span class=t>(</span><span class="id ty">services</span><span class=id></span><span class=t>)</span><span class=t>;</span>
+		<span class=hljs-keyword>this</span>.services = <span class=hljs-keyword>new</span> Dictionary&amp;lt;Type, <span class=hljs-keyword>object</span>&amp;gt;();
 	}
 
-	<span class=k>public</span> <span class=k>void</span> <span class="id m">Inject</span><span class=t>(</span><span class=k>object</span> <span class=id>instance</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class="k sta">foreach</span><span class=t>(</span><span class=id>PropertyInfo</span> <span class=id>property</span> <span class="k sta">in</span> <span class=id>instance</span><span class=t>.</span><span class="id inv">GetType</span><span class=t>(</span><span class=t>)</span><span class=t>.</span><span class="id inv">GetProperties</span><span class=t>(</span><span class=t>)</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class="k sta">foreach</span><span class=t>(</span><span class=id>Attribute</span> <span class=id>attribute</span> <span class="k sta">in</span> <span class=id>property</span><span class=t>.</span><span class="id inv">GetCustomAttributes</span><span class=t>(</span><span class=k>true</span><span class=t>)</span><span class=t>)</span>
-			<span class=t>{</span>
-				<span class="k sta">if</span><span class=t>(</span><span class=id>attribute</span> <span class=k>is</span> <span class=id>InjectableAttribute</span><span class=t>)</span>
-				<span class=t>{</span>
-					<span class="k sta">if</span><span class=t>(</span><span class=t>!</span><span class=id>property</span><span class=t>.</span><span class=id>CanWrite</span><span class=t>)</span>
-						<span class=k>throw</span> <span class=k>new</span> <span class="id ty">InvalidOperationException</span><span class=t>(</span><span class=id>property</span><span class=t>.</span><span class=id>Name</span> <span class=t>+</span> <span class=str>" is marked as Injectable but not writable."</span><span class=t>)</span><span class=t>;</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>AddService</span>(<span class=hljs-params>Type type, Object provider</span>)</span>
+	{
+		<span class=hljs-keyword>if</span>(<span class=hljs-literal>null</span> == type)
+			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> ArgumentNullException(<span class=hljs-string>"type"</span>);
 
-					<span class=id>property</span><span class=t>.</span><span class="id inv">SetValue</span><span class=t>(</span><span class=id>instance</span><span class=t>,</span> <span class="id inv">GetInjectableService</span><span class=t>(</span><span class=id>property</span><span class=t>.</span><span class=id>PropertyType</span><span class=t>)</span><span class=t>,</span> <span class=k>null</span><span class=t>)</span><span class=t>;</span>
-				<span class=t>}</span>
-			<span class=t>}</span>
-		<span class=t>}</span>
-	<span class=t>}</span>
+		<span class=hljs-keyword>if</span>(<span class=hljs-literal>null</span> == provider)
+			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> ArgumentNullException(<span class=hljs-string>"provider"</span>);
+
+		<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.services.ContainsKey(type))
+			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(<span class=hljs-string>"A provider is already registered the type "</span> + type);
+
+		<span class=hljs-keyword>var</span> providerType = provider.GetType();
+
+		<span class=hljs-keyword>if</span>(!type.IsAssignableFrom(providerType))
+			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(providerType + <span class=hljs-string>" is not an instance of "</span> + type);
+
+		<span class=hljs-keyword>this</span>.services.Add(type, provider);
+	}
+
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>object</span> <span class=hljs-title>GetService</span>(<span class=hljs-params>Type type</span>)</span>
+	{
+		<span class=hljs-keyword>if</span>(<span class=hljs-literal>null</span> == type)
+			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> ArgumentNullException(<span class=hljs-string>"type"</span>);
+
+		<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.services.ContainsKey(type))
+			<span class=hljs-keyword>return</span> <span class=hljs-keyword>this</span>.services[type];
+					
+		<span class=hljs-keyword>return</span> <span class=hljs-literal>null</span>;
+	}
+
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>RemoveService</span>(<span class=hljs-params>Type type</span>)</span>
+	{
+		<span class=hljs-keyword>if</span>(<span class=hljs-literal>null</span> == type)
+			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> ArgumentNullException(<span class=hljs-string>"type"</span>);
+
+		<span class=hljs-keyword>this</span>.services.Remove(type);
+	}
+
+	<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-keyword>object</span> <span class=hljs-title>GetInjectableService</span>(<span class=hljs-params>Type type</span>)</span>
+	{
+		<span class=hljs-keyword>if</span>(type == <span class=hljs-keyword>typeof</span>(IDependencyInjector) ||
+		   type == <span class=hljs-keyword>typeof</span>(IServiceProvider))
+		{
+			<span class=hljs-keyword>return</span> <span class=hljs-keyword>this</span>;
+		}
+		<span class=hljs-keyword>else</span>
+		{
+			<span class=hljs-keyword>object</span> service = <span class=hljs-keyword>this</span>.GetService(type);
+
+			<span class=hljs-keyword>if</span>(service == <span class=hljs-literal>null</span>)
+				<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(<span class=hljs-string>"Failed to find "</span> + type + <span class=hljs-string>" depenedency."</span>);
+
+			<span class=hljs-keyword>return</span> service;
+		}
+	}
+
+	<span class=hljs-keyword>public</span> T Construct&amp;lt;T&amp;gt;()
+	{
+		ConstructorInfo injectableConstructor = <span class=hljs-literal>null</span>;
+		<span class=hljs-keyword>foreach</span>(<span class=hljs-function>ConstructorInfo constructor <span class=hljs-keyword>in</span> <span class=hljs-title>typeof</span>(<span class=hljs-params>T</span>).<span class=hljs-title>GetConstructors</span>(<span class=hljs-params></span>))</span>
+		{
+			<span class=hljs-keyword>foreach</span>(Attribute attribute <span class=hljs-keyword>in</span> constructor.GetCustomAttributes(<span class=hljs-literal>true</span>))
+			{
+				<span class=hljs-keyword>if</span>(attribute <span class=hljs-keyword>is</span> InjectableAttribute)
+				{
+					injectableConstructor = constructor;
+					<span class=hljs-keyword>break</span>;
+				}
+			}
+
+			<span class=hljs-keyword>if</span>(injectableConstructor != <span class=hljs-literal>null</span>)
+				<span class=hljs-keyword>break</span>;
+		}
+
+		<span class=hljs-keyword>if</span>(injectableConstructor == <span class=hljs-literal>null</span>)
+			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(<span class=hljs-string>"No injectable constructor found."</span>);
+
+		<span class=hljs-keyword>var</span> parameters = injectableConstructor.GetParameters();
+		<span class=hljs-keyword>var</span> services = <span class=hljs-keyword>new</span> <span class=hljs-keyword>object</span>[parameters.Length];
+
+		<span class=hljs-keyword>int</span> i = <span class=hljs-number>0</span>;
+		<span class=hljs-keyword>foreach</span>(ParameterInfo parameter <span class=hljs-keyword>in</span> parameters)
+			services[i++] = GetInjectableService(parameter.ParameterType);
+
+		<span class=hljs-keyword>return</span> (T)injectableConstructor.Invoke(services);
+	}
+
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Inject</span>(<span class=hljs-params><span class=hljs-keyword>object</span> instance</span>)</span>
+	{
+		<span class=hljs-keyword>foreach</span>(PropertyInfo property <span class=hljs-keyword>in</span> instance.GetType().GetProperties())
+		{
+			<span class=hljs-keyword>foreach</span>(Attribute attribute <span class=hljs-keyword>in</span> property.GetCustomAttributes(<span class=hljs-literal>true</span>))
+			{
+				<span class=hljs-keyword>if</span>(attribute <span class=hljs-keyword>is</span> InjectableAttribute)
+				{
+					<span class=hljs-keyword>if</span>(!property.CanWrite)
+						<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(property.Name + <span class=hljs-string>" is marked as Injectable but not writable."</span>);
+
+					property.SetValue(instance, GetInjectableService(property.PropertyType), <span class=hljs-literal>null</span>);
+				}
+			}
+		}
+	}
+}</code></pre><p>You can now construct new instances and inject dependencies on existing instances. Some usage examples:
+<pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>interface</span> <span class=hljs-title>IFoo</span>
+{
+	<span class=hljs-keyword>int</span> Value { <span class=hljs-keyword>get</span>; }
 }
-<span class=t></span></div></code></pre><p>You can now construct new instances and inject dependencies on existing instances. Some usage examples:
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>interface</span> <span class=id>IFoo</span>
-<span class=t>{</span>
-	<span class=k>int</span> <span class=id>Value</span> <span class=t>{</span> <span class=k>get</span><span class=t>;</span> <span class=t>}</span>
-<span class=t>}</span>
 
-<span class=k>public</span> <span class=k>class</span> <span class="id ty">Foo</span> <span class=t>:</span> <span class="id ty">IFoo</span>
-<span class=t>{</span>
-	<span class=k>public</span> <span class=k>int</span> <span class="id ty">Value</span>
-	<span class=t>{</span>
-		<span class=k>get</span><span class=t>;</span>
-		<span class=k>set</span><span class=t>;</span>
-	<span class=t>}</span>
+<span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Foo</span> : <span class=hljs-title>IFoo</span>
+{
+	<span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> Value
+	{
+		<span class=hljs-keyword>get</span>;
+		<span class=hljs-keyword>set</span>;
+	}
 
-	<span class=t>[</span><span class="id ty">Injectable</span><span class=t>]</span>
-	<span class=k>public</span> <span class="id ty">Foo</span><span class=t>(</span><span class=t>)</span>
-	<span class=t>{</span>
-	<span class=t>}</span>
+	[<span class=hljs-meta>Injectable</span>]
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>Foo</span>(<span class=hljs-params></span>)</span>
+	{
+	}
 
-	<span class=k>public</span> <span class=k>void</span> <span class="id m">DoIt</span><span class=t>(</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class=id>Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>Value</span><span class=t>)</span><span class=t>;</span>
-	<span class=t>}</span>
-<span class=t>}</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoIt</span>(<span class=hljs-params></span>)</span>
+	{
+		Console.WriteLine(<span class=hljs-keyword>this</span>.Value);
+	}
+}
 
-<span class=k>public</span> <span class=k>interface</span> <span class=id>IBar</span>
-<span class=t>{</span>
-	<span class=k>string</span> <span class=id>Value</span> <span class=t>{</span> <span class=k>get</span><span class=t>;</span> <span class=t>}</span>
-<span class=t>}</span>
+<span class=hljs-keyword>public</span> <span class=hljs-keyword>interface</span> <span class=hljs-title>IBar</span>
+{
+	<span class=hljs-keyword>string</span> Value { <span class=hljs-keyword>get</span>; }
+}
 
-<span class=k>public</span> <span class=k>class</span> <span class="id ty">Bar</span> <span class=t>:</span> <span class="id ty">IBar</span>
-<span class=t>{</span>
-	<span class=id>IFoo</span> <span class=id>foo</span><span class=t>;</span>
+<span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Bar</span> : <span class=hljs-title>IBar</span>
+{
+	IFoo foo;
 
-	<span class=k>public</span> <span class=k>string</span> <span class="id ty">Value</span>
-	<span class=t>{</span>
-		<span class=k>get</span><span class=t>;</span>
-		<span class=k>set</span><span class=t>;</span>
-	<span class=t>}</span>
+	<span class=hljs-keyword>public</span> <span class=hljs-keyword>string</span> Value
+	{
+		<span class=hljs-keyword>get</span>;
+		<span class=hljs-keyword>set</span>;
+	}
 
-	<span class=t>[</span><span class="id ty">Injectable</span><span class=t>]</span>
-	<span class=k>public</span> <span class="id ty">Bar</span><span class=t>(</span><span class="id ty">IFoo</span> <span class="id ty">foo</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class=k>this</span><span class=t>.</span><span class=id>foo</span> <span class=t>=</span> <span class=id>foo</span><span class=t>;</span>
-	<span class=t>}</span>
+	[<span class=hljs-meta>Injectable</span>]
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>Bar</span>(<span class=hljs-params>IFoo foo</span>)</span>
+	{
+		<span class=hljs-keyword>this</span>.foo = foo;
+	}
 
-	<span class=k>public</span> <span class=k>void</span> <span class="id m">DoIt</span><span class=t>(</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class=id>Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>Value</span> <span class=t>+</span> <span class=str>": "</span> <span class=t>+</span> <span class=k>this</span><span class=t>.</span><span class=id>foo</span><span class=t>.</span><span class=id>Value</span><span class=t>)</span><span class=t>;</span>
-	<span class=t>}</span>
-<span class=t>}</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoIt</span>(<span class=hljs-params></span>)</span>
+	{
+		Console.WriteLine(<span class=hljs-keyword>this</span>.Value + <span class=hljs-string>": "</span> + <span class=hljs-keyword>this</span>.foo.Value);
+	}
+}
 
-<span class=k>public</span> <span class=k>class</span> <span class="id ty">Baz</span>
-<span class=t>{</span>
-	<span class=t>[</span><span class=id>Injectable</span><span class=t>]</span>
-	<span class=k>public</span> <span class=id>IFoo</span> <span class="id ty">Foo</span>
-	<span class=t>{</span>
-		<span class=k>get</span><span class=t>;</span>
-		<span class=k>set</span><span class=t>;</span>
-	<span class=t>}</span>
+<span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Baz</span>
+{
+	[<span class=hljs-meta>Injectable</span>]
+	<span class=hljs-keyword>public</span> IFoo Foo
+	{
+		<span class=hljs-keyword>get</span>;
+		<span class=hljs-keyword>set</span>;
+	}
 
-	<span class=t>[</span><span class=id>Injectable</span><span class=t>]</span>
-	<span class=k>public</span> <span class=id>IBar</span> <span class="id ty">Bar</span>
-	<span class=t>{</span>
-		<span class=k>get</span><span class=t>;</span>
-		<span class=k>set</span><span class=t>;</span>
-	<span class=t>}</span>
+	[<span class=hljs-meta>Injectable</span>]
+	<span class=hljs-keyword>public</span> IBar Bar
+	{
+		<span class=hljs-keyword>get</span>;
+		<span class=hljs-keyword>set</span>;
+	}
 							
-	<span class=k>public</span> <span class=k>void</span> <span class="id m">DoIt</span><span class=t>(</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class=id>Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=k>this</span><span class=t>.</span><span class=id>Bar</span><span class=t>.</span><span class=id>Value</span> <span class=t>+</span> <span class=str>" | "</span> <span class=t>+</span> <span class=k>this</span><span class=t>.</span><span class=id>Foo</span><span class=t>.</span><span class=id>Value</span><span class=t>)</span><span class=t>;</span>
-	<span class=t>}</span>
-<span class=t>}</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoIt</span>(<span class=hljs-params></span>)</span>
+	{
+		Console.WriteLine(<span class=hljs-keyword>this</span>.Bar.Value + <span class=hljs-string>" | "</span> + <span class=hljs-keyword>this</span>.Foo.Value);
+	}
+}
 
-<span class=k>class</span> <span class="id ty">Program</span>
-<span class=t>{</span>
-	<span class=k>static</span> <span class=k>void</span> <span class="id m">Main</span><span class=t>(</span><span class=k>string</span><span class=t>[</span><span class=t></span><span class=t>]</span> <span class=id>args</span><span class=t>)</span>
-	<span class=t>{</span>
-		<span class="id v">var</span> <span class=id>container</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">ServiceContainer</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+<span class=hljs-keyword>class</span> <span class=hljs-title>Program</span>
+{
+	<span class=hljs-function><span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-keyword>string</span>[] args</span>)</span>
+	{
+		<span class=hljs-keyword>var</span> container = <span class=hljs-keyword>new</span> ServiceContainer();
 
-		<span class="id v">var</span> <span class=id>foo</span> <span class=t>=</span> <span class=id>container</span><span class=t>.</span><span class=id>Construct</span><span class=t>&</span><span class=id>lt</span><span class=t>;</span><span class=id>Foo</span><span class=t>&</span><span class=id>gt</span><span class=t>;</span><span class=t>(</span><span class=id></span><span class=t>)</span><span class=t>;</span>
-		<span class=id>foo</span><span class=t>.</span><span class=id>Value</span> <span class=t>=</span> <span class=n>5</span><span class=t>;</span>
-		<span class=id>container</span><span class=t>.</span><span class="id inv">AddService</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class="id ty">IFoo</span><span class=t>)</span><span class=t>,</span> <span class=id>foo</span><span class=t>)</span><span class=t>;</span>
+		<span class=hljs-keyword>var</span> foo = container.Construct&amp;lt;Foo&amp;gt;();
+		foo.Value = <span class=hljs-number>5</span>;
+		container.AddService(<span class=hljs-keyword>typeof</span>(IFoo), foo);
 
-		<span class="id v">var</span> <span class=id>bar</span> <span class=t>=</span> <span class=id>container</span><span class=t>.</span><span class=id>Construct</span><span class=t>&</span><span class=id>lt</span><span class=t>;</span><span class=id>Bar</span><span class=t>&</span><span class=id>gt</span><span class=t>;</span><span class=t>(</span><span class=id></span><span class=t>)</span><span class=t>;</span>
-		<span class=id>container</span><span class=t>.</span><span class="id inv">AddService</span><span class=t>(</span><span class=k>typeof</span><span class=t>(</span><span class="id ty">IBar</span><span class=t>)</span><span class=t>,</span> <span class=id>bar</span><span class=t>)</span><span class=t>;</span>
-		<span class=id>bar</span><span class=t>.</span><span class=id>Value</span> <span class=t>=</span> <span class=str>"Hello World!"</span><span class=t>;</span>
-		<span class=id>bar</span><span class=t>.</span><span class="id inv">DoIt</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+		<span class=hljs-keyword>var</span> bar = container.Construct&amp;lt;Bar&amp;gt;();
+		container.AddService(<span class=hljs-keyword>typeof</span>(IBar), bar);
+		bar.Value = <span class=hljs-string>"Hello World!"</span>;
+		bar.DoIt();
 
-		<span class="id v">var</span> <span class=id>baz</span> <span class=t>=</span> <span class=k>new</span> <span class="id ty">Baz</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-		<span class=id>container</span><span class=t>.</span><span class="id inv">Inject</span><span class=t>(</span><span class=id>baz</span><span class=t>)</span><span class=t>;</span>
-		<span class=id>baz</span><span class=t>.</span><span class="id inv">DoIt</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-	<span class=t>}</span>
-<span class=t>}</span>
-<span class=t></span></div></code></pre></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2010/500-downloads-of-the-same-game.html class="page-link older">Older</a><li class=page-item><a href=blog/2010/xna-load-texture2d-from-embedded-resource.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+		<span class=hljs-keyword>var</span> baz = <span class=hljs-keyword>new</span> Baz();
+		container.Inject(baz);
+		baz.DoIt();
+	}
+}</code></pre></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2010/500-downloads-of-the-same-game.html class="page-link older">Older</a><li class=page-item><a href=blog/2010/xna-load-texture2d-from-embedded-resource.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

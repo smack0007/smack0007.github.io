@@ -1,41 +1,40 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Disable C# null checks for a field or property</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2020/disable-csharp-null-checks-for-a-field-or-property.html>Disable C# null checks for a field or property</a></h2><div class=meta><span class=date><span class=icon-calendar></span>January 02, 2020</span> <span class=tags><span class=icon-price-tags></span>c#, nrt, nullable</span></div><div class=content><p>The new nullable reference types in C# are great but sometimes you might need to disable it for a single field or property. You can do that by assigning the value to <code>null</code> and using the <code>!</code> operator.
 
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>public</span> <span class=k>class</span> <span class="id ty">Renderer</span>
-<span class=t>{</span>
-    <span class=k>private</span> <span class=k>bool</span> <span class=id>_drawInProgress</span> <span class=t>=</span> <span class=k>false</span><span class=t>;</span>
-    <span class=k>private</span> <span class=id>Surface</span> <span class=id>_drawTarget</span> <span class=t>=</span> <span class=k>null</span><span class=t>!</span><span class=t>;</span>
+<pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Renderer</span>
+{
+    <span class=hljs-keyword>private</span> <span class=hljs-keyword>bool</span> _drawInProgress = <span class=hljs-literal>false</span>;
+    <span class=hljs-keyword>private</span> Surface _drawTarget = <span class=hljs-literal>null</span>!;
 
-    <span class=k>public</span> <span class="id ty">Renderer</span><span class=t>(</span><span class=t>)</span>
-    <span class=t>{</span>
-    <span class=t>}</span>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>Renderer</span>(<span class=hljs-params></span>)</span>
+    {
+    }
 
-    <span class=k>public</span> <span class=k>void</span> <span class="id m">BeginDraw</span><span class=t>(</span><span class="id ty">Surface</span> <span class=id>surface</span><span class=t>)</span>
-    <span class=t>{</span>
-        <span class="k sta">if</span> <span class=t>(</span><span class=id>_drawInProgress</span><span class=t>)</span>
-            <span class=k>throw</span> <span class=k>new</span> <span class="id ty">InvalidOperationException</span><span class=t>(</span><span class=str>"Draw currently in progress."</span><span class=t>)</span><span class=t>;</span>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>BeginDraw</span>(<span class=hljs-params>Surface surface</span>)</span>
+    {
+        <span class=hljs-keyword>if</span> (_drawInProgress)
+            <span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(<span class=hljs-string>"Draw currently in progress."</span>);
 
-        <span class=id>_drawInProgress</span> <span class=t>=</span> <span class=k>true</span><span class=t>;</span>
-        <span class=id>_drawTarget</span> <span class=t>=</span> <span class=id>surface</span><span class=t>;</span>
-    <span class=t>}</span>
+        _drawInProgress = <span class=hljs-literal>true</span>;
+        _drawTarget = surface;
+    }
 
-    <span class=k>private</span> <span class=k>void</span> <span class="id m">EnsureDrawInProgress</span><span class=t>(</span><span class=t>)</span>
-    <span class=t>{</span>
-        <span class="k sta">if</span> <span class=t>(</span><span class=t>!</span><span class=id>_drawInProgress</span><span class=t>)</span>
-            <span class=k>throw</span> <span class=k>new</span> <span class="id ty">InvalidOperationException</span><span class=t>(</span><span class=str>"Draw not currently in progress."</span><span class=t>)</span><span class=t>;</span>
-    <span class=t>}</span>
+    <span class=hljs-function><span class=hljs-keyword>private</span> <span class=hljs-keyword>void</span> <span class=hljs-title>EnsureDrawInProgress</span>(<span class=hljs-params></span>)</span>
+    {
+        <span class=hljs-keyword>if</span> (!_drawInProgress)
+            <span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(<span class=hljs-string>"Draw not currently in progress."</span>);
+    }
 
-    <span class=k>public</span> <span class=k>void</span> <span class="id m">EndDraw</span><span class=t>(</span><span class=t>)</span>
-    <span class=t>{</span>
-        <span class="id inv">EnsureDrawInProgress</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>EndDraw</span>(<span class=hljs-params></span>)</span>
+    {
+        EnsureDrawInProgress();
 
-        <span class=id>_drawInProgress</span> <span class=t>=</span> <span class=k>false</span><span class=t>;</span>
-        <span class=id>_drawTarget</span> <span class=t>=</span> <span class=k>null</span><span class=t>!</span><span class=t>;</span>
-    <span class=t>}</span>
+        _drawInProgress = <span class=hljs-literal>false</span>;
+        _drawTarget = <span class=hljs-literal>null</span>!;
+    }
 
-    <span class=k>public</span> <span class=k>void</span> <span class="id m">DrawCaret</span><span class=t>(</span><span class=t>)</span>
-    <span class=t>{</span>
-        <span class="id inv">EnsureDrawInProgress</span><span class=t>(</span><span class=t>)</span><span class=t>;</span>
-        <span class=id>Console</span><span class=t>.</span><span class="id inv">WriteLine</span><span class=t>(</span><span class=str>"^"</span><span class=t>)</span><span class=t>;</span>
-    <span class=t>}</span>
-<span class=t>}</span>
-<span class=t></span></div></code></pre><p><code>_drawTarget</code> will not be null if <code>_drawInProgress</code> is true therefore I don't want to have to check it in every Draw method. Using this trick the null checks are only disabled for the <code>_drawTarget</code> field and not for the entire file.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2019/use-nameof-to-set-string-variable-to-its-name.html class="page-link older">Older</a><li class=page-item><a href=blog/2020/enum-extension-methods.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DrawCaret</span>(<span class=hljs-params></span>)</span>
+    {
+        EnsureDrawInProgress();
+        Console.WriteLine(<span class=hljs-string>"^"</span>);
+    }
+}</code></pre><p><code>_drawTarget</code> will not be null if <code>_drawInProgress</code> is true therefore I don't want to have to check it in every Draw method. Using this trick the null checks are only disabled for the <code>_drawTarget</code> field and not for the entire file.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2019/use-nameof-to-set-string-variable-to-its-name.html class="page-link older">Older</a><li class=page-item><a href=blog/2020/enum-extension-methods.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

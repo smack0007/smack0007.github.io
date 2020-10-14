@@ -1,69 +1,68 @@
 <!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Colors and Hex</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2008/colors-and-hex.html>Colors and Hex</a></h2><div class=meta><span class=date><span class=icon-calendar></span>December 21, 2008</span> <span class=tags><span class=icon-price-tags></span>.NET, XNA</span></div><div class=content><p>I recently needed to write out Color(s) as an xml attribute. I wrote 2 methods to read and write the Color(s) as Hex strings. Here ya go:
 
-<pre><code class=language-c#><div class=HtmlSyntaxHighlighterDotNet><span class=k>namespace</span> <span class="id ns">Snow</span><span class=t>.</span><span class="id ns">Xna</span><span class=t>.</span><span class="id ns">Graphics</span>
-<span class=t>{</span>
-	<span class=k>public</span> <span class=k>static</span> <span class=k>class</span> <span class="id ty">ColorHelper</span>
-	<span class=t>{</span>
-		<span class=k>private</span> <span class=k>static</span> <span class=k>char</span><span class=t>[</span><span class=t></span><span class=t>]</span> <span class=id>_hexDigits</span> <span class=t>=</span> <span class=t>{</span><span class=t>'0'</span><span class=t>,</span> <span class=t>'1'</span><span class=t>,</span> <span class=t>'2'</span><span class=t>,</span> <span class=t>'3'</span><span class=t>,</span> <span class=t>'4'</span><span class=t>,</span> <span class=t>'5'</span><span class=t>,</span> <span class=t>'6'</span><span class=t>,</span> <span class=t>'7'</span><span class=t>,</span> <span class=t>'8'</span><span class=t>,</span> <span class=t>'9'</span><span class=t>,</span> <span class=t>'A'</span><span class=t>,</span> <span class=t>'B'</span><span class=t>,</span> <span class=t>'C'</span><span class=t>,</span> <span class=t>'D'</span><span class=t>,</span> <span class=t>'E'</span><span class=t>,</span> <span class=t>'F'</span><span class=t>}</span><span class=t>;</span>
+<pre><code class="hljs csharp"><span class=hljs-keyword>namespace</span> <span class=hljs-title>Snow.Xna.Graphics</span>
+{
+	<span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>ColorHelper</span>
+	{
+		<span class=hljs-keyword>private</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>char</span>[] _hexDigits = {<span class=hljs-string>'0'</span>, <span class=hljs-string>'1'</span>, <span class=hljs-string>'2'</span>, <span class=hljs-string>'3'</span>, <span class=hljs-string>'4'</span>, <span class=hljs-string>'5'</span>, <span class=hljs-string>'6'</span>, <span class=hljs-string>'7'</span>, <span class=hljs-string>'8'</span>, <span class=hljs-string>'9'</span>, <span class=hljs-string>'A'</span>, <span class=hljs-string>'B'</span>, <span class=hljs-string>'C'</span>, <span class=hljs-string>'D'</span>, <span class=hljs-string>'E'</span>, <span class=hljs-string>'F'</span>};
 
-		<span class=k>public</span> <span class=k>static</span> <span class=k>string</span> <span class="id m">ToHexString</span><span class=t>(</span><span class="id ty">Color</span> <span class=id>color</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class=k>byte</span><span class=t>[</span><span class=t></span><span class=t>]</span> <span class=id>bytes</span> <span class=t>=</span> <span class=k>new</span> <span class=k>byte</span><span class=t>[</span><span class=n>4</span><span class=t>]</span><span class=t>;</span>
+		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>ToHexString</span>(<span class=hljs-params>Color color</span>)</span>
+		{
+			<span class=hljs-keyword>byte</span>[] bytes = <span class=hljs-keyword>new</span> <span class=hljs-keyword>byte</span>[<span class=hljs-number>4</span>];
 
-			<span class=id>bytes</span><span class=t>[</span><span class=n>0</span><span class=t>]</span> <span class=t>=</span> <span class=id>color</span><span class=t>.</span><span class=id>A</span><span class=t>;</span>
-			<span class=id>bytes</span><span class=t>[</span><span class=n>1</span><span class=t>]</span> <span class=t>=</span> <span class=id>color</span><span class=t>.</span><span class=id>R</span><span class=t>;</span>
-			<span class=id>bytes</span><span class=t>[</span><span class=n>2</span><span class=t>]</span> <span class=t>=</span> <span class=id>color</span><span class=t>.</span><span class=id>G</span><span class=t>;</span>
-			<span class=id>bytes</span><span class=t>[</span><span class=n>3</span><span class=t>]</span> <span class=t>=</span> <span class=id>color</span><span class=t>.</span><span class=id>B</span><span class=t>;</span>
+			bytes[<span class=hljs-number>0</span>] = color.A;
+			bytes[<span class=hljs-number>1</span>] = color.R;
+			bytes[<span class=hljs-number>2</span>] = color.G;
+			bytes[<span class=hljs-number>3</span>] = color.B;
 
-			<span class=k>char</span><span class=t>[</span><span class=t></span><span class=t>]</span> <span class=id>chars</span> <span class=t>=</span> <span class=k>new</span> <span class=k>char</span><span class=t>[</span><span class=n>8</span><span class=t>]</span><span class=t>;</span>
+			<span class=hljs-keyword>char</span>[] chars = <span class=hljs-keyword>new</span> <span class=hljs-keyword>char</span>[<span class=hljs-number>8</span>];
 
-			<span class=k>for</span><span class=t>(</span><span class=k>int</span> <span class=id>i</span> <span class=t>=</span> <span class=n>0</span><span class=t>;</span> <span class=id>i</span> <span class=t><</span> <span class=n>4</span><span class=t>;</span> <span class=id>i</span><span class=t>++</span><span class=t>)</span>
-			<span class=t>{</span>
-				<span class=k>int</span> <span class=id>b</span> <span class=t>=</span> <span class=id>bytes</span><span class=t>[</span><span class=id>i</span><span class=t>]</span><span class=t>;</span>
-				<span class=id>chars</span><span class=t>[</span><span class=id>i</span> <span class=t>*</span> <span class=n>2</span><span class=t>]</span> <span class=t>=</span> <span class=id>_hexDigits</span><span class=t>[</span><span class=id>b</span> <span class=t>>></span> <span class=n>4</span><span class=t>]</span><span class=t>;</span>
-				<span class=id>chars</span><span class=t>[</span><span class=id>i</span> <span class=t>*</span> <span class=n>2</span> <span class=t>+</span> <span class=n>1</span><span class=t>]</span> <span class=t>=</span> <span class=id>_hexDigits</span><span class=t>[</span><span class=id>b</span> <span class=t>&</span> <span class=n>0xF</span><span class=t>]</span><span class=t>;</span>
-			<span class=t>}</span>
+			<span class=hljs-keyword>for</span>(<span class=hljs-keyword>int</span> i = <span class=hljs-number>0</span>; i &lt; <span class=hljs-number>4</span>; i++)
+			{
+				<span class=hljs-keyword>int</span> b = bytes[i];
+				chars[i * <span class=hljs-number>2</span>] = _hexDigits[b >> <span class=hljs-number>4</span>];
+				chars[i * <span class=hljs-number>2</span> + <span class=hljs-number>1</span>] = _hexDigits[b &amp; <span class=hljs-number>0xF</span>];
+			}
 
-			<span class="k sta">return</span> <span class=k>new</span> <span class=k>string</span><span class=t>(</span><span class=id>chars</span><span class=t>)</span><span class=t>;</span>
-		<span class=t>}</span>
+			<span class=hljs-keyword>return</span> <span class=hljs-keyword>new</span> <span class=hljs-keyword>string</span>(chars);
+		}
 
-		<span class=k>private</span> <span class=k>static</span> <span class=k>byte</span> <span class="id m">HexDigitToByte</span><span class=t>(</span><span class=k>char</span> <span class=id>c</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class="k sta">switch</span><span class=t>(</span><span class=id>c</span><span class=t>)</span>
-			<span class=t>{</span>
-				<span class=k>case</span> <span class=t>'0'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>0</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'1'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>1</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'2'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>2</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'3'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>3</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'4'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>4</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'5'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>5</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'6'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>6</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'7'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>7</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'8'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>8</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'9'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>9</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'A'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>10</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'B'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>11</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'C'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>12</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'D'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>13</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'E'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>14</span><span class=t>;</span>
-				<span class=k>case</span> <span class=t>'F'</span><span class=t>:</span> <span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>15</span><span class=t>;</span>
-			<span class=t>}</span>
+		<span class=hljs-function><span class=hljs-keyword>private</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>byte</span> <span class=hljs-title>HexDigitToByte</span>(<span class=hljs-params><span class=hljs-keyword>char</span> c</span>)</span>
+		{
+			<span class=hljs-keyword>switch</span>(c)
+			{
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'0'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>0</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'1'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>1</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'2'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>2</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'3'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>3</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'4'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>4</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'5'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>5</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'6'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>6</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'7'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>7</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'8'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>8</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'9'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>9</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'A'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>10</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'B'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>11</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'C'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>12</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'D'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>13</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'E'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>14</span>;
+				<span class=hljs-keyword>case</span> <span class=hljs-string>'F'</span>: <span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>15</span>;
+			}
 
-			<span class="k sta">return</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=n>0</span><span class=t>;</span>
-		<span class=t>}</span>
+			<span class=hljs-keyword>return</span> (<span class=hljs-keyword>byte</span>)<span class=hljs-number>0</span>;
+		}
 
-		<span class=k>public</span> <span class=k>static</span> <span class=id>Color</span> <span class="id m">FromHexString</span><span class=t>(</span><span class=k>string</span> <span class=id>hex</span><span class=t>)</span>
-		<span class=t>{</span>
-			<span class="k sta">if</span><span class=t>(</span> <span class=id>hex</span><span class=t>.</span><span class=id>Length</span> <span class=t>!=</span> <span class=n>8</span> <span class=t>)</span>
-				<span class="k sta">return</span> <span class=id>Color</span><span class=t>.</span><span class=id>Black</span><span class=t>;</span>
+		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> Color <span class=hljs-title>FromHexString</span>(<span class=hljs-params><span class=hljs-keyword>string</span> hex</span>)</span>
+		{
+			<span class=hljs-keyword>if</span>( hex.Length != <span class=hljs-number>8</span> )
+				<span class=hljs-keyword>return</span> Color.Black;
 
-			<span class=k>int</span> <span class=id>a</span> <span class=t>=</span> <span class=t>(</span><span class="id inv">HexDigitToByte</span><span class=t>(</span><span class=id>hex</span><span class=t>[</span><span class=n>0</span><span class=t>]</span><span class=t>)</span> <span class=t><<</span> <span class=n>4</span><span class=t>)</span> <span class=t>+</span> <span class="id inv">HexDigitToByte</span><span class=t>(</span><span class=id>hex</span><span class=t>[</span><span class=n>1</span><span class=t>]</span><span class=t>)</span><span class=t>;</span>
-			<span class=k>int</span> <span class=id>r</span> <span class=t>=</span> <span class=t>(</span><span class="id inv">HexDigitToByte</span><span class=t>(</span><span class=id>hex</span><span class=t>[</span><span class=n>2</span><span class=t>]</span><span class=t>)</span> <span class=t><<</span> <span class=n>4</span><span class=t>)</span> <span class=t>+</span> <span class="id inv">HexDigitToByte</span><span class=t>(</span><span class=id>hex</span><span class=t>[</span><span class=n>3</span><span class=t>]</span><span class=t>)</span><span class=t>;</span>
-			<span class=k>int</span> <span class=id>g</span> <span class=t>=</span> <span class=t>(</span><span class="id inv">HexDigitToByte</span><span class=t>(</span><span class=id>hex</span><span class=t>[</span><span class=n>4</span><span class=t>]</span><span class=t>)</span> <span class=t><<</span> <span class=n>4</span><span class=t>)</span> <span class=t>+</span> <span class="id inv">HexDigitToByte</span><span class=t>(</span><span class=id>hex</span><span class=t>[</span><span class=n>5</span><span class=t>]</span><span class=t>)</span><span class=t>;</span>
-			<span class=k>int</span> <span class=id>b</span> <span class=t>=</span> <span class=t>(</span><span class="id inv">HexDigitToByte</span><span class=t>(</span><span class=id>hex</span><span class=t>[</span><span class=n>6</span><span class=t>]</span><span class=t>)</span> <span class=t><<</span> <span class=n>4</span><span class=t>)</span> <span class=t>+</span> <span class="id inv">HexDigitToByte</span><span class=t>(</span><span class=id>hex</span><span class=t>[</span><span class=n>7</span><span class=t>]</span><span class=t>)</span><span class=t>;</span>
+			<span class=hljs-keyword>int</span> a = (HexDigitToByte(hex[<span class=hljs-number>0</span>]) &lt;&lt; <span class=hljs-number>4</span>) + HexDigitToByte(hex[<span class=hljs-number>1</span>]);
+			<span class=hljs-keyword>int</span> r = (HexDigitToByte(hex[<span class=hljs-number>2</span>]) &lt;&lt; <span class=hljs-number>4</span>) + HexDigitToByte(hex[<span class=hljs-number>3</span>]);
+			<span class=hljs-keyword>int</span> g = (HexDigitToByte(hex[<span class=hljs-number>4</span>]) &lt;&lt; <span class=hljs-number>4</span>) + HexDigitToByte(hex[<span class=hljs-number>5</span>]);
+			<span class=hljs-keyword>int</span> b = (HexDigitToByte(hex[<span class=hljs-number>6</span>]) &lt;&lt; <span class=hljs-number>4</span>) + HexDigitToByte(hex[<span class=hljs-number>7</span>]);
 
-			<span class="k sta">return</span> <span class=k>new</span> <span class="id ty">Color</span><span class=t>(</span><span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=id>r</span><span class=t>,</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=id>g</span><span class=t>,</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=id>b</span><span class=t>,</span> <span class=t>(</span><span class=k>byte</span><span class=t>)</span><span class=id>a</span><span class=t>)</span><span class=t>;</span>
-		<span class=t>}</span>
-	<span class=t>}</span>
-<span class=t>}</span>
-<span class=t></span></div></code></pre></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2008/zend_db_table-as-a-model.html class="page-link older">Older</a><li class=page-item><a href=blog/2009/spritesheet-class.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+			<span class=hljs-keyword>return</span> <span class=hljs-keyword>new</span> Color((<span class=hljs-keyword>byte</span>)r, (<span class=hljs-keyword>byte</span>)g, (<span class=hljs-keyword>byte</span>)b, (<span class=hljs-keyword>byte</span>)a);
+		}
+	}
+}</code></pre></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2008/zend_db_table-as-a-model.html class="page-link older">Older</a><li class=page-item><a href=blog/2009/spritesheet-class.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
