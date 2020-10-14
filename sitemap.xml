@@ -7,6 +7,9 @@
 		<loc>http://smack0007.github.io/about.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/blog/2020/angular-in-visual-studio.html</loc>
 	</url>
 	<url>
@@ -316,6 +319,9 @@
 		<loc>http://smack0007.github.io/tags/cplusplus.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/tags/csharp.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/tags/cygwin.html</loc>
 	</url>
 	<url>
@@ -370,6 +376,9 @@
 		<loc>http://smack0007.github.io/tags/github.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/tags/highlightjs.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/tags/http.html</loc>
 	</url>
 	<url>
@@ -386,6 +395,9 @@
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/ioc.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/javascript.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/lambda.html</loc>
@@ -419,6 +431,9 @@
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/netcore.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/node.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/nrt.html</loc>

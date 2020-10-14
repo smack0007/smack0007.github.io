@@ -4,9 +4,20 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 14 Oct 2020 12:18:50 GMT</lastBuildDate>
-	<pubDate>Thu, 08 Oct 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Wed, 14 Oct 2020 13:43:29 GMT</lastBuildDate>
+	<pubDate>Wed, 14 Oct 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Node script for syntax highlighting]]></title>
+		<description><![CDATA[<p>I decided to switch my blog to use highlightjs instead of the mixture of my own library and
+<a href="https://github.com/windows-toolkit/ColorCode-Universal">ColorCode</a>. I still wanted everything to rendered statically
+though so I decided to use <a href="https://highlightjs.org/">highlight.js</a> as it already offered instructions on how to use the
+library from node.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</link>
+		<guid>http://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</guid>
+		<pubDate>Wed, 14 Oct 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Angular in Visual Studio]]></title>
 		<description><![CDATA[<p>Now that the <a href="https://devblogs.microsoft.com/visualstudio/angular-language-service-for-visual-studio/">Angular Language Service</a>
@@ -290,15 +301,6 @@ the commit to origin master branch.</p>
 		<link>http://smack0007.github.io/blog/2018/git-quick-push.html</link>
 		<guid>http://smack0007.github.io/blog/2018/git-quick-push.html</guid>
 		<pubDate>Thu, 29 Mar 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Poor Man's Template Engine in C# Part 3]]></title>
-		<description><![CDATA[<p>In our <a href="blog/2018/poor-mans-template-engine-2.html">last episode</a> we implemeted the first
-two helper funcitons <code>HtmlEncode</code> and <code>If</code>. Today we want to implement <code>Include</code>.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</link>
-		<guid>http://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</guid>
-		<pubDate>Thu, 22 Mar 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
