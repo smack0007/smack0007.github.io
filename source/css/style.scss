@@ -1,6 +1,6 @@
 @import 'bootstrap.min.css';
 @import 'icomoon.css';
-@import "HtmlSyntaxHighlighterDotNet.css";
+@import '../../ext/highlight.js/scss/vs2015.scss';
 
 body {
     font-family: 'Open Sans';
@@ -31,26 +31,12 @@ code {
 }
 
 pre {
-    margin-top: 0;
-    margin-bottom: 1rem;
     font-size: 1rem;
-    padding: 0.5rem;
-    line-height: 1.4;
-    white-space: pre;
-    white-space: pre-wrap;
-    word-break: break-all;
-    word-wrap: break-word;
-    
-    @import "syntax.scss";
-    color: $syntaxFontColor;
-    background-color: $syntaxBackgroundColor;
+    overflow-x: auto;
 
     code {
-        color: inherit;
-        background-color: inherit;
         font-size: 18px;
-        display: block;
-        padding: 0;
+        background: #303030;
     }
 }
 
@@ -133,13 +119,5 @@ footer {
 
 .rounded {
     border-radius: 6px;
-}
-
-pre {
-    overflow-x: auto;
-}
-
-pre code {
-    white-space: pre;
 }
 

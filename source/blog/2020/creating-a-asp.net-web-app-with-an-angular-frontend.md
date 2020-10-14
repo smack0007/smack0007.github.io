@@ -124,7 +124,7 @@ And then change `src/app.component.html` to:
 Now start up your frontend with `ng serve` and visit `http://localhost:4200`. You should see the json your backend
 delivers if everything works. You should see a message from the Angular dev server indicating that a redirect occured:
 
-```
+```cmd
 [HPM] GET /api/weatherforecast -> https://localhost:5001
 ```
 
