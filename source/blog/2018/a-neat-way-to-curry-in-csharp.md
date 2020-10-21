@@ -1,7 +1,6 @@
 ---
 Title: A neat way to curry in C#
 Date: 2018-05-25
-Category: c#
 Tags: c#, fp
 ---
 

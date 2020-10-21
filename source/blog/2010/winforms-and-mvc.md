@@ -1,10 +1,7 @@
 ---
 Title: WinForms and MVC
-Layout: Post
-Permalink: 2010/05/26/winforms-and-mvc.html
 Date: 2010-05-26
-Category: .NET
-Tags: MVC, WinForms 
+Tags: .net, mvc, winforms 
 Comments: true
 ---
 

@@ -1,11 +1,7 @@
 ---
 Title: Favoring Composition over Inheritance
-Layout: Post
-Permalink: 2011/01/18/favoring-composition-over-inheritance.html
 Date: 2011-01-18
-Category: Design Patterns
-Tags: Composition over Inheritance 
-Comments: true
+Tags: design-patterns, composition-over-inheritance
 ---
 
 You may have heard the expression before "Favor Composition over Inheritance", but do you know what it means and how to apply it? Lets take this code for example:

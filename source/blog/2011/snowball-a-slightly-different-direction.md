@@ -1,11 +1,7 @@
 ---
 Title: Snowball: A Slightly Different Direction
-Layout: Post
-Permalink: 2011/07/02/snowball-a-slightly-different-direction.html
 Date: 2011-07-02
-Category: .NET
-Tags: CodePlex 
-Comments: true
+Tags: .net, codeplex 
 ---
 
 At first, I had imagined [Snowball](http://snowball.codeplex.com/), now located on Codeplex, to be a framework which would define how your game objects look. I.E. I had a class called GameEntity which I imagined would handle a lot of boiler plate code for you such as setting up Initialize(), Update(), Draw(), etc. 

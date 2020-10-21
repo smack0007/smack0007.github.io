@@ -1,11 +1,7 @@
 ---
 Title: Snowball now using SharpDX
-Layout: Post
-Permalink: 2012/04/16/snowball-now-using-sharpdx.html
 Date: 2012-04-16
-Category: .NET
-Tags: SharpDX, Open Source, SlimDX 
-Comments: true
+Tags: .net, sharpdx, open-source, slimdx
 ---
 
 For a little while, I was thinking about giving up on Snowball. When you're one guy working on a project that gets to a certain size, it can start to feel a little daunting. You find a bug, and you feel like you need to fix it asap. I don't know if anyone reading this has actually tried Snowball, but if you have, please comment to let me know. It would encourage me.

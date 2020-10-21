@@ -1,7 +1,7 @@
 ---
 Title: Drawing 2D Lines as Rotated Quads
 Date: 2009-02-07
-Tags: .NET
+Tags: .net
 ---
 
 I haven't had much time lately with work but one question I've seen asked many many times is how to draw lines of different widths. So, to cut to the chase I'll share the code I've used to do it.

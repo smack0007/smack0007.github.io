@@ -2,7 +2,6 @@
 Title: Enabling the latest version of C#
 Subtitle: 
 Date: 2018-06-21
-Category: c#
 Tags: c#, msbuild
 ---
 

@@ -1,11 +1,7 @@
 ---
 Title: Creating and consuming services in your XNA Game
-Layout: Post
-Permalink: 2010/02/18/creating-and-consuming-services-in-your-xna-game.html
 Date: 2010-02-18
-Category: .NET
-Tags:  
-Comments: true
+Tags: .net
 ---
 
 The [GameServiceContainer](http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx) implements the [IServiceProvider](http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx) interface and the MSDN documentation says about the IServiceProvider interface:

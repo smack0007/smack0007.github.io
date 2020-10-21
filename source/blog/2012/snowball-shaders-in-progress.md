@@ -1,11 +1,7 @@
 ---
-Title: Snowball: \Shaders\ in progress
-Layout: Post
-Permalink: 2012/06/22/snowball-shaders-in-progress.html
+Title: Snowball - Shaders in progress
 Date: 2012-06-22
-Category: .NET
-Tags: Open Source 
-Comments: true
+Tags: .net, open-source
 ---
 
 It's been a long couple of months. I'm in the middle of switching jobs, been on vacation a bit, and have been playing around with OpenGL a bit to get a feel for how that API works compared to Direct3D. As of yesterday I started working on implementing shaders in Snowball.

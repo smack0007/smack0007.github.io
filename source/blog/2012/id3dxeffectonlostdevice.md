@@ -1,11 +1,7 @@
 ---
 Title: ID3DXEffect::OnLostDevice()
-Layout: Post
-Permalink: 2012/07/20/id3dxeffectonlostdevice.html
 Date: 2012-07-20
-Category: .NET
-Tags: Direct3D9, DirectX, ID3DXEffect 
-Comments: true
+Tags: .net, direct3D9, directx
 ---
 
 I fixed a bug yesterday in Snowball related to a lost graphics device. I noticed that when I would use CTRL + ALT + DELETE, my apps were crashing. Turned out it was due to not recovering properly from a lost device.

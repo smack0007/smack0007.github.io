@@ -1,11 +1,7 @@
 ---
-Title: Snowball: Now based on shaders
-Layout: Post
-Permalink: 2012/06/26/snowball-now-based-on-shaders.html
+Title: Snowball - Now based on shaders
 Date: 2012-06-26
-Category: .NET
-Tags: Shaders, Game Programming 
-Comments: true
+Tags: .net, shaders, game-programming 
 ---
 
 I've now merged the "Shaders" branch back into the "master" branch. All rendering is now based on shaders and no longer on the fixed function pipeline.

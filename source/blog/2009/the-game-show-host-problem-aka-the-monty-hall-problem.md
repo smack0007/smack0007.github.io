@@ -1,7 +1,7 @@
 ---
 Title: The Game Show Host Problem, aka The Monty Hall Problem
 Date: 2009-02-12
-Category: Random
+Category: random
 ---
 
 *NOTE: This is a repost from my old blog.*

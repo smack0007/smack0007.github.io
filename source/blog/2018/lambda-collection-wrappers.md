@@ -2,8 +2,7 @@
 Title: Lambda Collection Wrappers
 Subtitle: 
 Date: 2018-04-26
-Category: c#
-Tags: c#, lambda, fp
+Tags: c#, fp
 ---
 
 I've been reading a lot as of late about functional programming and I try to

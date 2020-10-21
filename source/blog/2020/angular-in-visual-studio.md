@@ -2,7 +2,7 @@
 Title: Angular in Visual Studio
 Subtitle: 
 Date: 2020-10-08
-Tags: Angular, VisualStudio
+Tags: angular, vs
 ---
 
 Now that the [Angular Language Service](https://devblogs.microsoft.com/visualstudio/angular-language-service-for-visual-studio/)

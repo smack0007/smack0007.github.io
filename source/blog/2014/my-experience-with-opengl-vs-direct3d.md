@@ -1,11 +1,7 @@
 ---
 Title: My Experience with OpenGL vs Direct3D
-Layout: Post
-Permalink: 2014/11/18/my-experience-with-opengl-vs-direct3d.html
 Date: 2014-11-18
-Category: Graphics
-Tags: OpenGL, Direct3D 
-Comments: true
+Tags: graphics, opengl, direct3D 
 ---
 
 I've struggled a lot with myself over whether I should use OpenGL or Direct3D. There is no blanket answer to this question that anyone can tell you.

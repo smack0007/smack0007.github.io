@@ -1,11 +1,7 @@
 ---
 Title: Progress Bar in Windows 7 Taskbars
-Layout: Post
-Permalink: 2010/06/01/progress-bars-in-windows-7-taskbars.html
 Date: 2010-06-01
-Category: .NET
-Tags: .NET, C#, Windows 7 
-Comments: true
+Tags: .net, c#, windows-7 
 ---
 
 I decided to add progress bar to the Windows 7 Taskbar in my Timer app.

@@ -1,7 +1,7 @@
 ---
 Title: SpriteSheet Class
 Date: 2009-01-09
-Tags: .NET, SpriteSheet, XNA
+Tags: .net, xna
 ---
 
 I've been talking with a guy on the creator forums lately about SpriteSheets and so I decided it might be a good idea to post my SpriteSheet class.

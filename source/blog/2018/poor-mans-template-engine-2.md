@@ -2,7 +2,6 @@
 Title: Poor Man's Template Engine in C# Part 2
 Subtitle: HtmlEncode and If
 Date: 2018-03-14
-Category: c#
 Tags: c#, template, template-engine
 ---
 

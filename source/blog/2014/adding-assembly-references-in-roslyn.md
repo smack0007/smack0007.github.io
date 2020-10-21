@@ -1,11 +1,7 @@
 ---
 Title: Adding assembly references in Roslyn
-Layout: Post
-Permalink: 2014/04/15/adding-assembly-references-in-roslyn.html
 Date: 2014-04-15
-Category: .NET
-Tags: Roslyn 
-Comments: true
+Tags: .net, c#, roslyn 
 ---
 
 In the Roslyn preview that was released at Build 2014 the way references to global assmeblies are added was changed. Before the preview I could use code like this:

@@ -2,7 +2,7 @@
 Title: Predictable Random Number Generation in TypeScript
 Subtitle: Lehmer
 Date: 2020-08-25
-Tags: typescript, rng, lehmer
+Tags: typescript, rng
 ---
 
 I got the idea for using this type of RNG from the javidx9 video

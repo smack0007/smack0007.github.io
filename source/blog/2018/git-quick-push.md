@@ -2,7 +2,6 @@
 Title: Git Quick Push
 Subtitle: 
 Date: 2018-03-29
-Category: git
 Tags: git, batch
 ---
 

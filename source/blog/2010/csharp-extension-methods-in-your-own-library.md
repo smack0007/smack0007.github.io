@@ -1,11 +1,7 @@
 ---
 Title: C# Extension Methods in your own Library
-Layout: Post
-Permalink: 2010/03/08/csharp-extension-methods-in-your-own-library.html
 Date: 2010-03-08
-Category: .NET
-Tags: C#, Extension Methods 
-Comments: true
+Tags: .net, c#, extension-methods 
 ---
 
 Normally I use extension methods in C# to extend a library that I did not write and therefore I have no control over. There are situations where it makes sense to use extension methods for a library that you yourself are writing.

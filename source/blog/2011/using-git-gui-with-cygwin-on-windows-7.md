@@ -1,11 +1,7 @@
 ---
 Title: Using git-gui with Cygwin on Windows 7
-Layout: Post
-Permalink: 2011/04/07/using-git-gui-with-cygwin-on-windows-7.html
 Date: 2011-04-07
-Category: Random
-Tags: Cygwin, git, git-gui, Windows 7 
-Comments: true
+Tags: cygwin, git, windows-7 
 ---
 
 I've started using git via [cygwin](http://www.cygwin.com/) and was running into trouble trying to pin it to my taskbar in Windows 7.

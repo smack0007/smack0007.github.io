@@ -2,7 +2,6 @@
 Title: Functional Card Deck in C#
 Subtitle: 
 Date: 2018-10-11
-Category: c#
 Tags: c#, fp
 ---
 

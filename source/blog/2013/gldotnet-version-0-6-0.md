@@ -1,20 +1,12 @@
 ---
 Title: GLDotNet Version 0.6.0
-Layout: Post
-Permalink: 2013/02/19/gldotnet-version-0-6-0.html
 Date: 2013-02-19
-Category: .NET
-Tags: C#, OpenGL, .NET 
-Comments: true
+Tags: c#, opengl, .net 
 ---
 
 I just released GLDotNet Version 0.6.0.
 
-
-
 ## Changelog:
-
-
 
 <ul>
 <li>**GLDotNet.Toolkit**: Assembly containing simple app framework.</li>

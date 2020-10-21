@@ -2,7 +2,6 @@
 Title: Disable C# null checks for a field or property
 Subtitle: 
 Date: 2020-01-02
-Category: c#
 Tags: c#, nrt, nullable
 ---
 

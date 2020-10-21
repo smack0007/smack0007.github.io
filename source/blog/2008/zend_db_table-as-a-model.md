@@ -1,6 +1,5 @@
 ---
 Title: Zend_Db_Table as a Model
-Layout: Post
 Date: 2008-06-20
 Tags: php
 ---

@@ -1,11 +1,7 @@
 ---
 Title: Keeping SplitContainer SplitterDistance consistent
-Layout: Post
-Permalink: 2011/02/09/keeping-splitcontainer-splitterdistance-consistent.html
 Date: 2011-02-09
-Category: .NET
-Tags: Split Container, WinForms 
-Comments: true
+Tags: .net, winforms 
 ---
 
 If you're having trouble keeping the SplitterDistance property of a SplitContainer consistent across app sessions, you can set the FixedPanel property of the splitter to FixedPanel.Panel1.

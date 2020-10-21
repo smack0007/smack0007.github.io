@@ -1,11 +1,7 @@
 ---
 Title: Getting started with SlimDX
-Layout: Post
-Permalink: 2011/03/31/getting-started-with-slimdx.html
 Date: 2011-03-31
-Category: .NET
-Tags: DirectX 
-Comments: true
+Tags: .net, directx
 ---
 
 ***Update 2013-09-29:** At this point SlimDX is quite out of date and I would recommend starting with [SharpDX](http://sharpdx.org/).

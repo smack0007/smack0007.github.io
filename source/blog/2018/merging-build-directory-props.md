@@ -2,7 +2,6 @@
 Title: Merging Build.Directory.props
 Subtitle: 
 Date: 2018-04-04
-Category: MSBuild
 Tags: msbuild, .net
 ---
 

@@ -1,11 +1,7 @@
 ---
 Title: Xna: Load Texture2D from Embedded Resource
-Layout: Post
-Permalink: 2010/07/03/xna-load-texture2d-from-embedded-resource.html
 Date: 2010-07-03
-Category: .NET
-Tags: Embedded Resources 
-Comments: true
+Tags: .net, embedded-resources 
 ---
 
 If you're writing an app which uses Xna, you may need to load a texture from an embedded resource. Here's how:

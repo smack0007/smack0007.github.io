@@ -1,11 +1,7 @@
 ---
 Title: Implementing basic Dependency Injection using a Service Container
-Layout: Post
-Permalink: 2010/06/21/implementing-basic-dependency-injection-using-services-container.html
 Date: 2010-06-21
-Category: .NET
-Tags: .NET, C#, Dependency Injection, Design Patterns, Service Continer 
-Comments: true
+Tags: .net, c#, dependency-injection, design-patterns, service-continer
 ---
 
 By extending your Service Container class, a very basic version of dependency injection can be implemented. We'll implement two forms of dependency injection: constructor and property injection. 

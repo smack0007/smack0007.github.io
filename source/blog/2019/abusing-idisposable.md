@@ -2,8 +2,7 @@
 Title: Abusing IDisposable
 Subtitle: 
 Date: 2019-08-27
-Category: c#
-Tags: c#, IDisposable
+Tags: .net, c#
 ---
 
 In C# the interface `IDisposable` is usually used to indicate that an object

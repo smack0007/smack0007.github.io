@@ -1,11 +1,7 @@
 ---
 Title: Using batch files as the task runner in Visual Studio Code
-Layout: Post
-Permalink: 2015/07/09/using-batch-files-as-task-runner-vs-code.html
 Date: 2015-07-09
-Category: Visual Studio
-Tags: Visual Studio, Visual Studio Code, Batch Files 
-Comments: true
+Tags: vs, vscode, batch
 ---
 
 [Visual Studio Code](https://code.visualstudio.com/) allows you specify tasks which can be in a task runner. Most examples

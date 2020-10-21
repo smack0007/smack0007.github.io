@@ -2,7 +2,6 @@
 Title: Checking for uncommited git changes in a batch program
 Subtitle: 
 Date: 2020-07-22
-Category: git
 Tags: batch, git
 ---
 

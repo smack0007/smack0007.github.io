@@ -1,11 +1,7 @@
 ---
-Title: OpenTK: Simple Movable Sprite
-Layout: Post
-Permalink: 2011/03/29/opentk-simple-movable-sprite.html
+Title: OpenTK - Simple Movable Sprite
 Date: 2011-03-29
-Category: .NET
-Tags: OpenGL 
-Comments: true
+Tags: .net, opengl 
 ---
 
 I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can [download it](/files/OpenTKApp2.zip).

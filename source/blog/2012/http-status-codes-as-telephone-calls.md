@@ -1,11 +1,7 @@
 ---
 Title: HTTP Status Codes as Telephone Calls
-Layout: Post
-Permalink: 2012/12/18/http-status-codes-as-telephone-calls.html
 Date: 2012-12-18
-Category: Random
-Tags: Http, Http Status Codes 
-Comments: true
+Tags: http
 ---
 
 I had a funny idea to describe HTTP Status Codes as telephone conversations so I thought I'd write it in a blog post.

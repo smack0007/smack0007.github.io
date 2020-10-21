@@ -1,11 +1,7 @@
 ---
 Title: What is Snowball and what do I want to do with it?
-Layout: Post
-Permalink: 2011/10/16/what-is-snowball-and-what-do-i-want-to-do-with-it.html
 Date: 2011-10-16
-Category: .NET
-Tags: 2d, C#, CodePlex, Open Source, SlimDX, Xna 
-Comments: true
+Tags: .net, c#, codeplex, open-source, slimdx, xna 
 ---
 
 I originally got the idea for Snowball after working with the Xna Framework. The Xna Framework is a good piece of software for what it is but there are some things about which I just do not agree with:

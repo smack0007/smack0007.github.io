@@ -2,8 +2,7 @@
 Title: Dynamically loaded DLL thows AccessViolationException on first function call
 Subtitle: 
 Date: 2019-10-22
-Category: c#
-Tags: c#, LoadLibrary, GetProcAddress
+Tags: .net, c#
 ---
 
 In my library [GLESDotNet](https://github.com/smack0007/GLESDotNet) I load

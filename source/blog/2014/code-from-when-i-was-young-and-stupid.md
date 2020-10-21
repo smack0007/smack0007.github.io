@@ -1,11 +1,7 @@
 ---
 Title: Code from when I was young and stupid and needed the money
-Layout: Post
-Permalink: 2014/06/18/code-from-when-i-was-young-and-stupid.html
 Date: 2014-06-18
-Category: Random
-Tags: Old Code, Cplusplus, Young  
-Comments: true
+Tags: old-code, c++
 ---
 
 We have had 2 interns at work for the past few weeks and one of the tasks we gave them was to implement [Quicksort](http://en.wikipedia.org/wiki/Quick_sort).

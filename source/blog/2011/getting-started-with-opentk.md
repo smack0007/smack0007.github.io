@@ -1,11 +1,7 @@
 ---
 Title: Getting started with OpenTK
-Layout: Post
-Permalink: 2011/03/29/getting-started-with-opentk.html
 Date: 2011-03-29
-Category: .NET
-Tags: OpenGL 
-Comments: true
+Tags: .net, opengl 
 ---
 
 I started experimenting with [OpenTK](http://www.opentk.com) and I had to look in a few places to put this code together, so I'm posting it here for anyone who might be looking for an easy getting started lesson.

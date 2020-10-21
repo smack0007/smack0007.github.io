@@ -1,11 +1,7 @@
 ---
 Title: Getting Started with Snowball
-Layout: Post
-Permalink: 2012/03/04/getting-started-with-snowball.html
 Date: 2012-03-04
-Category: .NET
-Tags: C#, .NET, Game Programming 
-Comments: true
+Tags: c#, .net, game-programming
 ---
 
 My game framework Snowball is far enough along that small games can be developed with it by now. The basic overall design is now laid out and not too much is likely to change as I'm now developing my own small games with it. 

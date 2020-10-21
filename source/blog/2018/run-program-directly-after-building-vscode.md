@@ -2,7 +2,6 @@
 Title: Run a program directly after building in VS Code
 Subtitle: 
 Date: 2018-04-11
-Category: .net 
 Tags: .net, .netcore, msbuild, vscode
 ---
 

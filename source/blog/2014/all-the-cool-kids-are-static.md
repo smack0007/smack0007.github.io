@@ -1,11 +1,7 @@
 ---
 Title: All the cool kids are static
-Layout: Post
-Permalink: 2014/03/09/all-the-cool-kids-are-static.html
 Date: 2014-03-09
-Category: Random
-Tags: Static Websites 
-Comments: true
+Tags: static-websites 
 ---
 
 Seems like all the cool kids these days have converted their websites to completely static ones. I'm looking at you [Mr. Haacked](http://haacked.com). I thought this was a pretty cool idea and a chance

@@ -2,8 +2,7 @@
 Title: string.Join Extension Method
 Subtitle: 
 Date: 2018-04-19
-Category: c#
-Tags: c#, linq
+Tags: .net, c#, linq
 ---
 
 Normally if want to do a `string.Join` on the result of a Linq query you end up with somthing looking like

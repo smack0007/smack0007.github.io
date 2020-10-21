@@ -2,8 +2,7 @@
 Title: Generating string permutations for unit testing
 Subtitle: 
 Date: 2019-02-11
-Category: c#
-Tags: c#, nunit, math
+Tags: .net, c#, nunit
 ---
 
 I needed to parse a string containing 6 characters. Each character should only

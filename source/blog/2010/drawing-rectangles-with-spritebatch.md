@@ -1,11 +1,7 @@
 ---
 Title: Drawing Rectangles with SpriteBatch
-Layout: Post
-Permalink: 2010/03/29/drawing-rectangles-with-spritebatch.html
 Date: 2010-03-29
-Category: .NET
-Tags: C#, Code Snippets, Xna 
-Comments: true
+Tags: .net, c#, code-snippets, xna 
 ---
 
 Just a quick code snippet which adds an extension method for drawing Rectangles to SpriteBatch:

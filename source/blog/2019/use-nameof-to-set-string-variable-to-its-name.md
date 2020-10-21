@@ -2,8 +2,7 @@
 Title: Use nameof() to set a string variable to its name
 Subtitle: 
 Date: 2019-12-17
-Category: c#
-Tags: c#, nameof()
+Tags: .net, c#
 ---
 
 This is one of those things that should have just been obvious to me

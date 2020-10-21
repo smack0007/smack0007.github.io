@@ -2,7 +2,6 @@
 Title: Poor Man's Template Engine in C# Part 3
 Subtitle: Include
 Date: 2018-03-22
-Category: c#
 Tags: c#, template, template-engine
 ---
 

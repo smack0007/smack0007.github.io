@@ -1,11 +1,7 @@
 ---
 Title: Introducing GLDotNet
-Layout: Post
-Permalink: 2013/01/02/introducing-gldotnet.html
 Date: 2013-01-02
-Category: .NET
-Tags: C#, OpenGL, .NET, Open Source 
-Comments: true
+Tags: c#, opengl, .net, open-source 
 ---
 
 Today I released a project I've been playing around with for a year or so on Codeplex. It's called [GLDotNet](https://gldotnet.codeplex.com/). From the project description:

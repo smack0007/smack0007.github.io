@@ -1,11 +1,7 @@
 ---
 Title: Using Themes in Visual Studio Express for Windows Desktop
-Layout: Post
-Permalink: 2012/09/15/using-themes-in-visual-studio-express-for-windows-desktop.html
 Date: 2012-09-15
-Category: .NET
-Tags: VS2012 Themes, VS2012 WD 
-Comments: true
+Tags: vs, vs2012
 ---
 
 I just want to post some information that took me while to find. Check out the original article [here](http://alinconstantin.blogspot.de/2012/09/using-color-themes-with-visual-studio.html) with pictures and more information.

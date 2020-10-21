@@ -1,11 +1,7 @@
 ---
 Title: Component Glue v1.0
-Layout: Post
-Permalink: 2013/06/11/component-glue-v1-0.html
 Date: 2013-06-11
-Category: .NET
-Tags: .NET, C#, ComponentGlue, Dependency Injection, Github, IoC, NuGet 
-Comments: true
+Tags: .net, c#, component-glue, dependency-injection, github, ioc, nuget 
 ---
 
 I finally brought Component Glue up to a state where I felt like the product was finished. You can get it via NuGet:

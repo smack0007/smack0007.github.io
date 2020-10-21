@@ -1,8 +1,7 @@
 ---
 Title: Snowball V2.0
 Date: 2018-02-23
-Category: Snowball
-Tags: Snowball, c#
+Tags: .net, snowball, c#
 ---
 
 I haven't written anything new here in a very long time and a lot has happened since then. I started a new job at

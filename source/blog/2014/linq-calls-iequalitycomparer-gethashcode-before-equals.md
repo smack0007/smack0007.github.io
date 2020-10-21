@@ -1,11 +1,7 @@
 ---
 Title: LINQ calls IEqualityComparer<T>.GetHashCode() before Equals()
-Layout: Post
-Permalink: 2014/11/24/linq-calls-iequalitycomparer-gethashcode-before-equals.html
 Date: 2014-11-24
-Category: .NET
-Tags: LINQ, IEqualityComparer, GetHashCode 
-Comments: true
+Tags: .net, linq
 ---
 
 This is a problem that has bitten me more than a few times so I thought it was about time to write a blog post about it. It's one of those problems

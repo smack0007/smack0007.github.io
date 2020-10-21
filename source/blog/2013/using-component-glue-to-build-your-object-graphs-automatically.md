@@ -1,11 +1,7 @@
 ---
 Title: Using Component Glue to build your object graphs automatically
-Layout: Post
-Permalink: 2013/07/26/using-component-glue-to-build-your-object-graphs-automatically.html
 Date: 2013-07-26
-Category: .NET
-Tags: Open Source, Dependency Injection, IoC, C#, .NET 
-Comments: true
+Tags: open-Source, dependency-injection, ioc, c#, .net 
 ---
 
 Component Glue is an IoC container and you use it of course to wire up your object graphs for you. Component Glue can also build your object graphs for you automatically if there are no interfaces involved. Take this example:
