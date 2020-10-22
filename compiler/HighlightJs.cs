@@ -36,6 +36,7 @@ namespace compiler
             {
                 case "bat":
                 case "cmd":
+                case "shell":
                     return "shell";
 
                 case "cpp":

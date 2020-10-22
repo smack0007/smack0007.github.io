@@ -2,7 +2,7 @@
 Title: Node script for syntax highlighting
 Subtitle: 
 Date: 2020-10-14
-Tags: node, javascript, highlightjs, csharp
+Tags: node, javascript, highlightjs, c#
 ---
 
 I decided to switch my blog to use highlightjs instead of the mixture of my own library and
