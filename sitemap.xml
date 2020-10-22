@@ -310,9 +310,6 @@
 		<loc>http://smack0007.github.io/tags/composition-over-inheritance.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/csharp.html</loc>
-	</url>
-	<url>
 		<loc>http://smack0007.github.io/tags/cygwin.html</loc>
 	</url>
 	<url>
@@ -421,7 +418,7 @@
 		<loc>http://smack0007.github.io/tags/same-game.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/service-continer.html</loc>
+		<loc>http://smack0007.github.io/tags/service-container.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/shaders.html</loc>
