@@ -277,211 +277,259 @@
 		<loc>http://smack0007.github.io/blog/page15.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/net.html</loc>
+		<loc>http://smack0007.github.io/tags/net/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/netcore.html</loc>
+		<loc>http://smack0007.github.io/tags/net/2.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/angular.html</loc>
+		<loc>http://smack0007.github.io/tags/net/3.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/aspnet.html</loc>
+		<loc>http://smack0007.github.io/tags/net/4.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/batch.html</loc>
+		<loc>http://smack0007.github.io/tags/net/5.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/csharp.html</loc>
+		<loc>http://smack0007.github.io/tags/net/6.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/c++.html</loc>
+		<loc>http://smack0007.github.io/tags/net/7.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/codeplex.html</loc>
+		<loc>http://smack0007.github.io/tags/net/8.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/code-snippets.html</loc>
+		<loc>http://smack0007.github.io/tags/net/9.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/component-glue.html</loc>
+		<loc>http://smack0007.github.io/tags/net/10.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/composition-over-inheritance.html</loc>
+		<loc>http://smack0007.github.io/tags/netcore/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/cygwin.html</loc>
+		<loc>http://smack0007.github.io/tags/angular/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/dependency-injection.html</loc>
+		<loc>http://smack0007.github.io/tags/aspnet/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/design-patterns.html</loc>
+		<loc>http://smack0007.github.io/tags/batch/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/direct3d.html</loc>
+		<loc>http://smack0007.github.io/tags/csharp/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/direct3d9.html</loc>
+		<loc>http://smack0007.github.io/tags/csharp/2.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/directx.html</loc>
+		<loc>http://smack0007.github.io/tags/csharp/3.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/embedded-resources.html</loc>
+		<loc>http://smack0007.github.io/tags/csharp/4.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/enum.html</loc>
+		<loc>http://smack0007.github.io/tags/csharp/5.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/extension-methods.html</loc>
+		<loc>http://smack0007.github.io/tags/csharp/6.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/fp.html</loc>
+		<loc>http://smack0007.github.io/tags/cpp/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/game-programming.html</loc>
+		<loc>http://smack0007.github.io/tags/codeplex/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/git.html</loc>
+		<loc>http://smack0007.github.io/tags/code-snippets/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/github.html</loc>
+		<loc>http://smack0007.github.io/tags/component-glue/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/graphics.html</loc>
+		<loc>http://smack0007.github.io/tags/composition-over-inheritance/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/highlightjs.html</loc>
+		<loc>http://smack0007.github.io/tags/cygwin/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/http.html</loc>
+		<loc>http://smack0007.github.io/tags/dependency-injection/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/ioc.html</loc>
+		<loc>http://smack0007.github.io/tags/design-patterns/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/javascript.html</loc>
+		<loc>http://smack0007.github.io/tags/direct3d/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/linq.html</loc>
+		<loc>http://smack0007.github.io/tags/direct3d9/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/mercurial.html</loc>
+		<loc>http://smack0007.github.io/tags/directx/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/msbuild.html</loc>
+		<loc>http://smack0007.github.io/tags/embedded-resources/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/mvc.html</loc>
+		<loc>http://smack0007.github.io/tags/enum/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/netcore.html</loc>
+		<loc>http://smack0007.github.io/tags/extension-methods/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/node.html</loc>
+		<loc>http://smack0007.github.io/tags/fp/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/nrt.html</loc>
+		<loc>http://smack0007.github.io/tags/game-programming/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/nuget.html</loc>
+		<loc>http://smack0007.github.io/tags/git/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/nullable.html</loc>
+		<loc>http://smack0007.github.io/tags/github/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/nunit.html</loc>
+		<loc>http://smack0007.github.io/tags/graphics/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/old-code.html</loc>
+		<loc>http://smack0007.github.io/tags/highlightjs/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/opengl.html</loc>
+		<loc>http://smack0007.github.io/tags/http/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/open-source.html</loc>
+		<loc>http://smack0007.github.io/tags/ioc/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/php.html</loc>
+		<loc>http://smack0007.github.io/tags/javascript/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/quake.html</loc>
+		<loc>http://smack0007.github.io/tags/linq/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/rng.html</loc>
+		<loc>http://smack0007.github.io/tags/mercurial/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/roslyn.html</loc>
+		<loc>http://smack0007.github.io/tags/msbuild/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/same-game.html</loc>
+		<loc>http://smack0007.github.io/tags/mvc/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/service-container.html</loc>
+		<loc>http://smack0007.github.io/tags/netcore/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/shaders.html</loc>
+		<loc>http://smack0007.github.io/tags/node/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/sharpdx.html</loc>
+		<loc>http://smack0007.github.io/tags/nrt/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/slimdx.html</loc>
+		<loc>http://smack0007.github.io/tags/nuget/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/snowball.html</loc>
+		<loc>http://smack0007.github.io/tags/nullable/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/static-websites.html</loc>
+		<loc>http://smack0007.github.io/tags/nunit/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/template.html</loc>
+		<loc>http://smack0007.github.io/tags/old-code/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/template-engine.html</loc>
+		<loc>http://smack0007.github.io/tags/opengl/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/terminal.html</loc>
+		<loc>http://smack0007.github.io/tags/open-source/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/typescript.html</loc>
+		<loc>http://smack0007.github.io/tags/open-source/2.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/typscript.html</loc>
+		<loc>http://smack0007.github.io/tags/php/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/vectors.html</loc>
+		<loc>http://smack0007.github.io/tags/quake/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/vs.html</loc>
+		<loc>http://smack0007.github.io/tags/rng/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/vs2012.html</loc>
+		<loc>http://smack0007.github.io/tags/roslyn/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/vscode.html</loc>
+		<loc>http://smack0007.github.io/tags/same-game/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/windows.html</loc>
+		<loc>http://smack0007.github.io/tags/service-container/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/windows-7.html</loc>
+		<loc>http://smack0007.github.io/tags/shaders/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/winforms.html</loc>
+		<loc>http://smack0007.github.io/tags/sharpdx/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/winquakecon.html</loc>
+		<loc>http://smack0007.github.io/tags/slimdx/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/wmi.html</loc>
+		<loc>http://smack0007.github.io/tags/snowball/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/xaudio2.html</loc>
+		<loc>http://smack0007.github.io/tags/static-websites/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/xna.html</loc>
+		<loc>http://smack0007.github.io/tags/template/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/template-engine/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/terminal/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/typescript/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/typscript/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/vectors/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/vs/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/vs2012/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/vscode/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/windows/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/windows-7/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/winforms/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/winquakecon/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/wmi/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/xaudio2/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/xna/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/xna/2.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags.html</loc>
