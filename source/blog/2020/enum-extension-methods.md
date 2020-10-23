@@ -3,7 +3,7 @@ Title: Enum Extension Methods
 Subtitle: 
 Date: 2020-07-17
 Category: c#
-Tags: c#, enum, extension-methods
+Tags: .net, c#, enum, extension-methods
 ---
 
 Did you know you can create extension methods for enums?

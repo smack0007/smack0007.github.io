@@ -2,7 +2,7 @@
 Title: Disable C# null checks for a field or property
 Subtitle: 
 Date: 2020-01-02
-Tags: c#, nrt, nullable
+Tags: .net, c#, nrt, nullable
 ---
 
 The new nullable reference types in C# are great but sometimes you might need to disable it for a

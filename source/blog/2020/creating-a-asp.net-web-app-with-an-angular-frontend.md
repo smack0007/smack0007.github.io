@@ -2,7 +2,7 @@
 Title: Creating a asp.net web app with an Angular frontend
 Subtitle: WebShell
 Date: 2020-10-02
-Tags: asp.net, netcore, angular
+Tags: asp.net, .net, netcore, angular
 ---
 
 We're going to create a what I call a "WebShell" application with asp.net core on the backend and Angular on the
