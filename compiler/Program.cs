@@ -232,23 +232,34 @@ namespace compiler
             
             foreach (var tagName in tagNames)
             {
-                var tagPath = Path.Combine("tags", $"{Utility.InflectFileName(tagName)}.html");
+                var tagPath = Path.Combine("tags", Utility.InflectFileName(tagName));
+                Directory.CreateDirectory(Path.Combine(outputPath, tagPath));
 
                 var tagPosts = posts
                     .Where(x => x.Tags.Contains(tagName, StringComparer.InvariantCultureIgnoreCase))
                     .OrderByDescending(x => x.SortDate)
                     .ToArray();
 
-                Console.WriteLine($"Tag: ({tagPosts.Length}) {tagPath}");
+                int tagPageCount = (int)Math.Ceiling(tagPosts.Length / (double)PostsPerPage);
+                Console.WriteLine($"Tag: ({tagPosts.Length}) {tagPath} / {tagPageCount} Pages");
 
-                RenderPage(
-                    tagPath,
-                    Path.Combine(outputPath, tagPath),
-                    tagName,
-                    IndexTemplate.Run(new IndexData(tagPosts, x => PostHeaderTemplate.Run(x))),
-                    showPagination: false);
+                tags.Add(new TagData(tagName, Path.Combine(tagPath, "index.html"), tagPosts));
 
-                tags.Add(new TagData(tagName, tagPath, tagPosts));
+                for (int i = 0; i < tagPageCount; i++)
+                {   
+                    tagPath = GetTagPageName(i, tagPageCount, tagName) ?? "";
+
+                    var indexTagPosts = tagPosts.OrderByDescending(x => x.SortDate).Skip(i * PostsPerPage).Take(PostsPerPage);
+
+                    RenderPage(
+                        tagPath,
+                        Path.Combine(outputPath, tagPath),
+                        tagName,
+                        IndexTemplate.Run(new IndexData(indexTagPosts, x => PostHeaderTemplate.Run(x))),
+                        showPagination: true,
+                        paginationOlderLink: GetTagPageName(i + 1, tagPageCount, tagName),
+                        paginationNewerLink: GetTagPageName(i - 1, tagPageCount, tagName));
+                }
             }
 
             RenderPage(
@@ -262,6 +273,17 @@ namespace compiler
             File.WriteAllText(Path.Combine(outputPath, "sitemap.xml"), GenerateSiteMap(Pages));
 
             return 0;
+        }
+
+        private static string? GetTagPageName(int index, int pageCount, string tagName)
+        {   
+            if (index < 0 || index >= pageCount)
+                return null;
+            
+            return Path.Combine(
+                "tags",
+                Utility.InflectFileName(tagName),
+                (index == 0 ? "index" : (index + 1).ToString()) + ".html");
         }
 
         private static (FrontMatter FrontMatter, string Content) ProcessMarkdown(string[] lines)

@@ -74,5 +74,10 @@ namespace compiler
         {
             return _renderPostHeader(this);
         }
+
+        public string GetTagLink(string tagName)
+        {
+            return $"tags/{Utility.InflectFileName(tagName)}/index.html";
+        }
     }
 }

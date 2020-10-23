@@ -9,6 +9,13 @@
 
 <div class="meta">
     <span class="date"><span class="icon-calendar"></span>@(Date)</span>
-    @{ var tags = Tags.Select(x => HtmlEncode(x)); }
-    <span class="tags"><span class="icon-price-tags"></span>@(string.Join(", ", tags))</span>
+    <span class="tags">
+        @foreach (var tag in Tags)
+        {
+            <a href="@(GetTagLink(tag))">
+                <span class="icon icon-price-tags"></span>
+                <span class="tagName">@(HtmlEncode(tag))</span>
+            </a>
+        }
+    </span>
 </div>

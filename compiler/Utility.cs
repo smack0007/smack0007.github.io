@@ -16,8 +16,11 @@ namespace compiler
                 .Replace(")", "")
                 .Replace(" ", "-");
 
-            if (name == "c#")
-                return "csharp";
+            switch (name)
+            {
+                case "c++": name = "cpp"; break;
+                case "c#": name = "csharp"; break;
+            }
 
             return name;
         }

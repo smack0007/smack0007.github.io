@@ -77,16 +77,34 @@ main {
             margin-bottom: 1rem;
         }
         
-        .meta span {
-            margin-right: 0.6rem;
+        .meta {
+            span {
+                margin-right: 0.6rem;
 
-            [class^="icon-"] {
-                margin-right: 0.2rem;
+                [class^="icon-"] {
+                    margin-right: 0.2rem;
+                }
             }
-        }
-        
-        .meta span .fas {
-            margin-right: 4px;
+
+            .tags {
+                a {
+                    margin-right: 0.6rem;
+                    text-decoration: none;
+
+                    .icon {
+                        margin-right: 0.1rem;
+                        color: #212529;
+                    }
+
+                    .tagName {
+                        margin-right: 0;
+                    }
+                }
+
+                a:hover .tagName {
+                    text-decoration: underline;
+                }
+            }
         }
         
         .content {
