@@ -4,9 +4,17 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 23 Oct 2020 12:16:40 GMT</lastBuildDate>
-	<pubDate>Thu, 22 Oct 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Wed, 04 Nov 2020 08:51:01 GMT</lastBuildDate>
+	<pubDate>Wed, 04 Nov 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Filter ItemGroup by extension in MSBuild]]></title>
+		<description><![CDATA[<p>Just a quick snippet that shows how to filter an exiting ItemGroup by an extension.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</link>
+		<guid>http://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</guid>
+		<pubDate>Wed, 04 Nov 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Use Newtonsoft.Json in .NET Core 3 Web Api]]></title>
 		<description><![CDATA[<p>This post is mostly just distilling information I got from
@@ -280,28 +288,6 @@ how to run the program via the dotnet cli but this trick can easily be applied t
 		<link>http://smack0007.github.io/blog/2018/run-program-directly-after-building-vscode.html</link>
 		<guid>http://smack0007.github.io/blog/2018/run-program-directly-after-building-vscode.html</guid>
 		<pubDate>Wed, 11 Apr 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Merging Build.Directory.props]]></title>
-		<description><![CDATA[<p>MSBuild version 15 introduced the concept of &quot;Directory.Build.props&quot; files. From the docs:</p>
-<ul>
-<li><code>Directory.Build.props</code> is a user-defined file that provides customizations to projects under a directory. This
-file is automatically imported from Microsoft.Common.props unless the property <code>ImportDirectoryBuildTargets</code> is
-set to false.</li>
-</ul>
-<p>What is not stated here is that only one <code>Directory.Build.props</code> will be imported automatically. Imagine your project
-exists in the directory <code>C:\repo\src\foo\foo.csproj</code> and there exists a file in both <code>C:\repo\src\Directory.Build.props</code> and
-<code>C:\repo\Directory.Build.props</code> then only <code>C:\repo\src\Directory.Build.props</code> will be automatically included when building
-<code>C:\repo\src\foo\foo.csproj</code>. If you would like <code>C:\repo\Directory.Build.props</code> to be included as well, then
-<code>C:\repo\src\Directory.Build.props</code> will have to include <code>C:\repo\Directory.Build.props</code> like so:</p>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Project</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">Import</span> <span class="hljs-attr">Project</span>=<span class="hljs-string">&quot;$([MSBuild]::GetPathOfFileAbove(&#x27;Directory.Build.props&#x27;, &#x27;$(MSBuildThisFileDirectory)../&#x27;))&quot;</span> /&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">Project</span>&gt;</span></pre></code>
-<p>This is documented <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build#use-case-multi-level-merging">here</a>.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/merging-build-directory-props.html</link>
-		<guid>http://smack0007.github.io/blog/2018/merging-build-directory-props.html</guid>
-		<pubDate>Wed, 04 Apr 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>

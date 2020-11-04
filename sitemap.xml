@@ -7,6 +7,9 @@
 		<loc>http://smack0007.github.io/about.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/blog/2020/use-newtonsoft.json-in-.net-core-3-web-api.html</loc>
 	</url>
 	<url>
@@ -277,6 +280,9 @@
 		<loc>http://smack0007.github.io/blog/page15.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/blog/page16.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/tags/net/index.html</loc>
 	</url>
 	<url>
@@ -413,6 +419,9 @@
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/msbuild/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/msbuild/2.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/mvc/index.html</loc>
