@@ -4,9 +4,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 04 Nov 2020 08:51:01 GMT</lastBuildDate>
-	<pubDate>Wed, 04 Nov 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 20 Nov 2020 10:19:03 GMT</lastBuildDate>
+	<pubDate>Fri, 20 Nov 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Execute different commands in MSBuild depending on platform]]></title>
+		<description><![CDATA[<p>Another quick snippet that shows how to change what command will be executed in MSBuild
+based on the OS the script is running on.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/execute-different-commands-in-msbuild-depending-on-platform.html</link>
+		<guid>http://smack0007.github.io/blog/2020/execute-different-commands-in-msbuild-depending-on-platform.html</guid>
+		<pubDate>Fri, 20 Nov 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Filter ItemGroup by extension in MSBuild]]></title>
 		<description><![CDATA[<p>Just a quick snippet that shows how to filter an exiting ItemGroup by an extension.</p>
@@ -277,17 +286,6 @@ of the code and would be easier to read if the <code>string.Join</code> was at t
 		<link>http://smack0007.github.io/blog/2018/string-join-extension-method.html</link>
 		<guid>http://smack0007.github.io/blog/2018/string-join-extension-method.html</guid>
 		<pubDate>Thu, 19 Apr 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Run a program directly after building in VS Code]]></title>
-		<description><![CDATA[<p>Whenever I have a program that is just a generator of some kind I like to have that
-program execute directly after having built the program successfully. I'm going to show
-how to run the program via the dotnet cli but this trick can easily be applied to regular
-.NET programs or any program which is built using MSBuild.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/run-program-directly-after-building-vscode.html</link>
-		<guid>http://smack0007.github.io/blog/2018/run-program-directly-after-building-vscode.html</guid>
-		<pubDate>Wed, 11 Apr 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
