@@ -21,7 +21,7 @@ IF EXIST bin (
     )
 )
 
-dotnet build .\compiler\compiler.csproj -p:BuildSite=true
+dotnet build .\compiler\compiler.csproj -p:BuildSite=true -nologo
 
 git log -1 --pretty=%%B > commit.msg
 
