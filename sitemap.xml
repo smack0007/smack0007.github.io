@@ -7,6 +7,9 @@
 		<loc>http://smack0007.github.io/about.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/blog/2020/execute-different-commands-in-msbuild-depending-on-platform.html</loc>
 	</url>
 	<url>
@@ -349,10 +352,13 @@
 		<loc>http://smack0007.github.io/tags/cpp/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/codeplex/index.html</loc>
+		<loc>http://smack0007.github.io/tags/cmd/index.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/code-snippets/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/codeplex/index.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/component-glue/index.html</loc>
@@ -451,13 +457,13 @@
 		<loc>http://smack0007.github.io/tags/old-code/index.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/tags/opengl/index.html</loc>
-	</url>
-	<url>
 		<loc>http://smack0007.github.io/tags/open-source/index.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/open-source/2.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/opengl/index.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/php/index.html</loc>

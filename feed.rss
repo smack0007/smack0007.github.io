@@ -4,9 +4,21 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 20 Nov 2020 10:19:03 GMT</lastBuildDate>
-	<pubDate>Fri, 20 Nov 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Thu, 26 Nov 2020 10:11:33 GMT</lastBuildDate>
+	<pubDate>Thu, 26 Nov 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Add the current time to your command prompt]]></title>
+		<description><![CDATA[<p>I am someone who never made the jump to Powershell and to this day still use my
+cmd shell with pride. My cmd is very personalized at this point and is available
+on <a href="https://github.com/smack0007/cmd">GitHub</a> though I'm not sure how useful it is
+for anyone but me. I use git and GitHub to synchronize my cmd between my different
+machines.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</link>
+		<guid>http://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</guid>
+		<pubDate>Thu, 26 Nov 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Execute different commands in MSBuild depending on platform]]></title>
 		<description><![CDATA[<p>Another quick snippet that shows how to change what command will be executed in MSBuild
@@ -263,29 +275,6 @@ I've definitely started using is wrapping collections in lambda functions.</p>
 		<link>http://smack0007.github.io/blog/2018/lambda-collection-wrappers.html</link>
 		<guid>http://smack0007.github.io/blog/2018/lambda-collection-wrappers.html</guid>
 		<pubDate>Thu, 26 Apr 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[string.Join Extension Method]]></title>
-		<description><![CDATA[<p>Normally if want to do a <code>string.Join</code> on the result of a Linq query you end up with somthing looking like
-this:</p>
-<pre><code class="hljs csharp">Console.WriteLine(<span class="hljs-keyword">string</span>.Join(<span class="hljs-string">&quot;, &quot;</span>, numbers.Where(x =&gt; x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)));</pre></code>
-<p>The call to <code>string.Join</code> has to come first and then the Linq query. I've always felt this breaks the flow
-of the code and would be easier to read if the <code>string.Join</code> was at the end of the Linq query:</p>
-<pre><code class="hljs csharp">Console.WriteLine(numbers.Where(x =&gt; x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>).JoinString(<span class="hljs-string">&quot;, &quot;</span>));</pre></code>
-<p>This can be implemented with the following extension methods:</p>
-<pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">JoinStringExtensions</span>
-{
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span> <span class="hljs-title">JoinString</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">this</span> IEnumerable&lt;T&gt; source, <span class="hljs-keyword">string</span> seperator</span>)</span> =&gt;
-        <span class="hljs-keyword">string</span>.Join(seperator, source.Select(x =&gt; x.ToString()));
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span> <span class="hljs-title">JoinString</span>(<span class="hljs-params"><span class="hljs-keyword">this</span> IEnumerable&lt;<span class="hljs-keyword">string</span>&gt; source, <span class="hljs-keyword">string</span> seperator</span>)</span> =&gt;
-        <span class="hljs-keyword">string</span>.Join(seperator, source);
-}</pre></code>
-<p>The specialization for <code>IEnumerable&lt;string&gt;</code> is just mirroring the implementation from <code>string.Join</code>.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/string-join-extension-method.html</link>
-		<guid>http://smack0007.github.io/blog/2018/string-join-extension-method.html</guid>
-		<pubDate>Thu, 19 Apr 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
