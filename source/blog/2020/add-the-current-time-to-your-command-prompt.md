@@ -60,9 +60,9 @@ it would be nice to cut off the `,36`. The escape code `$H` will perform a backs
 can use 3 `$H` to remove the `,36`:
 
 ```cmd
-C:\Users\zachary>PROMPT $P [$T$H$H$H]$G$_
+C:\Users\smack0007>PROMPT $P [$T$H$H$H]$G$_
 
-C:\Users\zachary [10:05:27]>
+C:\Users\smack0007 [10:05:27]>
 _
 ```
 
@@ -70,6 +70,7 @@ If you close the cmd window and reopen the prompt would be reset. We can set the
 variable `PROMPT` with the command `SETX`:
 
 ```cmd
+C:\Users\smack0007 [10:06:42]>
 SETX "PROMPT=$P [$T$H$H$H]$G$_"
 ```
 
