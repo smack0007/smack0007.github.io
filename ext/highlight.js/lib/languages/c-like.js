@@ -2,7 +2,6 @@
 Language: C-like foundation grammar for C/C++ grammars
 Author: Ivan Sagalaev <maniac@softwaremaniacs.org>
 Contributors: Evgeny Stepanischev <imbolk@gmail.com>, Zaven Muradyan <megalivoithos@gmail.com>, Roel Deckers <admin@codingcat.nl>, Sam Wu <samsam2310@gmail.com>, Jordi Petit <jordi.petit@gmail.com>, Pieter Vantorre <pietervantorre@gmail.com>, Google Inc. (David Benjamin) <davidben@google.com>
-Category: common, system
 */
 
 /* In the future the intention is to split out the C/C++ grammars distinctly
@@ -18,6 +17,12 @@ function cLike(hljs) {
   function optional(s) {
     return '(?:' + s + ')?';
   }
+  // added for historic reasons because `hljs.C_LINE_COMMENT_MODE` does
+  // not include such support nor can we be sure all the grammars depending
+  // on it would desire this behavior
+  var C_LINE_COMMENT_MODE = hljs.COMMENT('//', '$', {
+    contains: [{begin: /\\\n/}]
+  });
   var DECLTYPE_AUTO_RE = 'decltype\\(auto\\)';
   var NAMESPACE_RE = '[a-zA-Z_]\\w*::';
   var TEMPLATE_ARGUMENT_RE = '<.*?>';
@@ -80,7 +85,7 @@ function cLike(hljs) {
         begin: /<.*?>/, end: /$/,
         illegal: '\\n',
       },
-      hljs.C_LINE_COMMENT_MODE,
+      C_LINE_COMMENT_MODE,
       hljs.C_BLOCK_COMMENT_MODE
     ]
   };
@@ -119,8 +124,9 @@ function cLike(hljs) {
   };
 
   var EXPRESSION_CONTAINS = [
+    PREPROCESSOR,
     CPP_PRIMITIVE_TYPES,
-    hljs.C_LINE_COMMENT_MODE,
+    C_LINE_COMMENT_MODE,
     hljs.C_BLOCK_COMMENT_MODE,
     NUMBERS,
     STRINGS
@@ -172,7 +178,7 @@ function cLike(hljs) {
         keywords: CPP_KEYWORDS,
         relevance: 0,
         contains: [
-          hljs.C_LINE_COMMENT_MODE,
+          C_LINE_COMMENT_MODE,
           hljs.C_BLOCK_COMMENT_MODE,
           STRINGS,
           NUMBERS,
@@ -184,7 +190,7 @@ function cLike(hljs) {
             relevance: 0,
             contains: [
               'self',
-              hljs.C_LINE_COMMENT_MODE,
+              C_LINE_COMMENT_MODE,
               hljs.C_BLOCK_COMMENT_MODE,
               STRINGS,
               NUMBERS,
@@ -194,7 +200,7 @@ function cLike(hljs) {
         ]
       },
       CPP_PRIMITIVE_TYPES,
-      hljs.C_LINE_COMMENT_MODE,
+      C_LINE_COMMENT_MODE,
       hljs.C_BLOCK_COMMENT_MODE,
       PREPROCESSOR
     ]
@@ -224,9 +230,9 @@ function cLike(hljs) {
       },
       {
         className: 'class',
-        beginKeywords: 'class struct', end: /[{;:]/,
+        beginKeywords: 'enum class struct union', end: /[{;:<>=]/,
         contains: [
-          {begin: /</, end: />/, contains: ['self']}, // skip generic stuff
+          { beginKeywords: "final class struct" },
           hljs.TITLE_MODE
         ]
       }

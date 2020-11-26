@@ -1,13 +1,14 @@
 /*
-Language: Python REPL
-Requires: python.js
-Author: Josh Goebel <hello@joshgoebel.com>
-Category: common
+Language: Node REPL
+Requires: javascript.js
+Author: Marat Nagayev <nagaevmt@yandex.ru>
+Category: scripting
 */
 
-function pythonRepl(hljs) {
+/** @type LanguageFn */
+function nodeRepl(hljs) {
   return {
-    aliases: [ 'pycon' ],
+    name: 'Node REPL',
     contains: [
       {
         className: 'meta',
@@ -17,12 +18,12 @@ function pythonRepl(hljs) {
           end: / |$/,
           starts: {
             end: '$',
-            subLanguage: 'python'
+            subLanguage: 'javascript'
           }
         },
         variants: [
           {
-            begin: /^>>>(?=[ ]|$)/
+            begin: /^>(?=[ ]|$)/
           },
           {
             begin: /^\.\.\.(?=[ ]|$)/
@@ -33,4 +34,4 @@ function pythonRepl(hljs) {
   };
 }
 
-module.exports = pythonRepl;
+module.exports = nodeRepl;

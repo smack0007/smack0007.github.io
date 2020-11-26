@@ -142,7 +142,7 @@ type MatchType = "begin" | "end" | "illegal"
 
  interface ModeCallbacks {
      "on:end"?: Function,
-     "on:begin"?: Function,
+     "on:begin"?: ModeCallback
  }
 
 interface Mode extends ModeCallbacks, ModeDetails {
@@ -154,10 +154,12 @@ interface LanguageDetail {
     rawDefinition?: () => Language
     aliases?: string[]
     disableAutodetect?: boolean
-    contains: ("self"|Mode)[]
+    contains: (Mode)[]
     case_insensitive?: boolean
     keywords?: Record<string, any> | string
-    compiled?: boolean
+    compiled?: boolean,
+    exports?: any,
+    classNameAliases?: Record<string, string>
 }
 
 type Language = LanguageDetail & Partial<Mode>
@@ -213,6 +215,7 @@ interface ModeDetails {
     // parsed
     subLanguage?: string | string[]
     compiled?: boolean
+    label?: string
 }
 
 // deprecated API since v10
