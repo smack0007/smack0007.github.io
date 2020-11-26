@@ -11,10 +11,15 @@ IF "%__HAS_CHANGES%" NEQ "0" (
 )
 
 IF EXIST bin (
-    RMDIR /s /q bin
+    IF EXIST bin/.git (
+        PUSHD bin
+        git reset --hard
+        POPD
+    ) else (
+        RMDIR /s /q bin
+        git clone "https://github.com/smack0007/smack0007.github.io.git" -b master bin
+    )
 )
-
-git clone "https://github.com/smack0007/smack0007.github.io.git" -b master bin
 
 dotnet build .\compiler\compiler.csproj -p:BuildSite=true
 
