@@ -50,7 +50,7 @@ class Program
 
 The output is of course:
 
-```
+```cmd
 Doing work...
 Doing more work...
 Deferred Action 1
@@ -86,7 +86,7 @@ public static void Main(string[] args)
 
 And the output:
 
-```
+```cmd
 Doing work...
 Doing more work...
 Deferred Action 1
