@@ -17,7 +17,7 @@
 
 <span class=hljs-keyword>class</span> <span class=hljs-title>Program</span>
 {
-    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-keyword>string</span>[] args</span>)</span>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-built_in>string</span>[] args</span>)</span>
     {
         <span class=hljs-keyword>using</span> (<span class=hljs-keyword>var</span> deferredActions = <span class=hljs-keyword>new</span> DeferredActions())
         {
@@ -35,7 +35,7 @@ Deferred Action 1
 Deferred Action 2
 Deferred Action 3
 </code></pre><p>Here we're using the <code>using</code> syntax to indicate when our deferred actions should be executed. We can also use an <code>IDisposable</code> object in multiple <code>using</code> blocks:
-<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-keyword>string</span>[] args</span>)</span>
+<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-built_in>string</span>[] args</span>)</span>
 {
     <span class=hljs-keyword>var</span> deferredActions = <span class=hljs-keyword>new</span> DeferredActions();
 

@@ -113,8 +113,8 @@
 		}
 	}
 }</code></pre><p>And here is another:
-<pre><code class="hljs cpp"><span class=hljs-keyword>template</span>&lt;<span class=hljs-class><span class=hljs-keyword>class</span> <span class=hljs-title>T</span>>
-<span class=hljs-title>void</span> <span class=hljs-title>CArray</span>&lt;T>:</span>:Sort(<span class=hljs-keyword>int</span> (*Compare)(T &amp;item1, T &amp;item2), <span class=hljs-keyword>int</span> left, <span class=hljs-keyword>int</span> right)
+<pre><code class="hljs cpp"><span class=hljs-keyword>template</span>&lt;<span class=hljs-class><span class=hljs-keyword>class</span> <span class=hljs-title>T</span>></span>
+<span class=hljs-keyword>void</span> CArray&lt;T>::Sort(<span class=hljs-keyword>int</span> (*Compare)(T &amp;item1, T &amp;item2), <span class=hljs-keyword>int</span> left, <span class=hljs-keyword>int</span> right)
 {
 	<span class=hljs-keyword>if</span>(left >= right)
 		<span class=hljs-keyword>return</span>;

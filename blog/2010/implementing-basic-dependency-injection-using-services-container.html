@@ -7,7 +7,7 @@
 <pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>interface</span> <span class=hljs-title>IDependencyInjector</span>
 {
 	T Construct&amp;lt;T&amp;gt;();
-	<span class=hljs-function><span class=hljs-keyword>void</span> <span class=hljs-title>Inject</span>(<span class=hljs-params><span class=hljs-keyword>object</span> instance</span>)</span>;
+	<span class=hljs-function><span class=hljs-keyword>void</span> <span class=hljs-title>Inject</span>(<span class=hljs-params><span class=hljs-built_in>object</span> instance</span>)</span>;
 }</code></pre><p>We'll define our service container like so:
 <pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>ServiceContainer</span> : <span class=hljs-title>IDependencyInjector</span>, <span class=hljs-title>IServiceProvider</span>
 {
@@ -16,7 +16,7 @@
 	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>ServiceContainer</span>(<span class=hljs-params></span>)
 		: <span class=hljs-title>base</span>(<span class=hljs-params></span>)</span>
 	{
-		<span class=hljs-keyword>this</span>.services = <span class=hljs-keyword>new</span> Dictionary&amp;lt;Type, <span class=hljs-keyword>object</span>&amp;gt;();
+		<span class=hljs-keyword>this</span>.services = <span class=hljs-keyword>new</span> Dictionary&amp;lt;Type, <span class=hljs-built_in>object</span>&amp;gt;();
 	}
 
 	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>AddService</span>(<span class=hljs-params>Type type, Object provider</span>)</span>
@@ -38,7 +38,7 @@
 		<span class=hljs-keyword>this</span>.services.Add(type, provider);
 	}
 
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>object</span> <span class=hljs-title>GetService</span>(<span class=hljs-params>Type type</span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>object</span> <span class=hljs-title>GetService</span>(<span class=hljs-params>Type type</span>)</span>
 	{
 		<span class=hljs-keyword>if</span>(<span class=hljs-literal>null</span> == type)
 			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> ArgumentNullException(<span class=hljs-string>"type"</span>);
@@ -57,7 +57,7 @@
 		<span class=hljs-keyword>this</span>.services.Remove(type);
 	}
 
-	<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-keyword>object</span> <span class=hljs-title>GetInjectableService</span>(<span class=hljs-params>Type type</span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-built_in>object</span> <span class=hljs-title>GetInjectableService</span>(<span class=hljs-params>Type type</span>)</span>
 	{
 		<span class=hljs-keyword>if</span>(type == <span class=hljs-keyword>typeof</span>(IDependencyInjector) ||
 		   type == <span class=hljs-keyword>typeof</span>(IServiceProvider))
@@ -66,7 +66,7 @@
 		}
 		<span class=hljs-keyword>else</span>
 		{
-			<span class=hljs-keyword>object</span> service = <span class=hljs-keyword>this</span>.GetService(type);
+			<span class=hljs-built_in>object</span> service = <span class=hljs-keyword>this</span>.GetService(type);
 
 			<span class=hljs-keyword>if</span>(service == <span class=hljs-literal>null</span>)
 				<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(<span class=hljs-string>"Failed to find "</span> + type + <span class=hljs-string>" depenedency."</span>);
@@ -97,16 +97,16 @@
 			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(<span class=hljs-string>"No injectable constructor found."</span>);
 
 		<span class=hljs-keyword>var</span> parameters = injectableConstructor.GetParameters();
-		<span class=hljs-keyword>var</span> services = <span class=hljs-keyword>new</span> <span class=hljs-keyword>object</span>[parameters.Length];
+		<span class=hljs-keyword>var</span> services = <span class=hljs-keyword>new</span> <span class=hljs-built_in>object</span>[parameters.Length];
 
-		<span class=hljs-keyword>int</span> i = <span class=hljs-number>0</span>;
+		<span class=hljs-built_in>int</span> i = <span class=hljs-number>0</span>;
 		<span class=hljs-keyword>foreach</span>(ParameterInfo parameter <span class=hljs-keyword>in</span> parameters)
 			services[i++] = GetInjectableService(parameter.ParameterType);
 
 		<span class=hljs-keyword>return</span> (T)injectableConstructor.Invoke(services);
 	}
 
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Inject</span>(<span class=hljs-params><span class=hljs-keyword>object</span> instance</span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Inject</span>(<span class=hljs-params><span class=hljs-built_in>object</span> instance</span>)</span>
 	{
 		<span class=hljs-keyword>foreach</span>(PropertyInfo property <span class=hljs-keyword>in</span> instance.GetType().GetProperties())
 		{
@@ -125,12 +125,12 @@
 }</code></pre><p>You can now construct new instances and inject dependencies on existing instances. Some usage examples:
 <pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>interface</span> <span class=hljs-title>IFoo</span>
 {
-	<span class=hljs-keyword>int</span> Value { <span class=hljs-keyword>get</span>; }
+	<span class=hljs-built_in>int</span> Value { <span class=hljs-keyword>get</span>; }
 }
 
 <span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Foo</span> : <span class=hljs-title>IFoo</span>
 {
-	<span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> Value
+	<span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> Value
 	{
 		<span class=hljs-keyword>get</span>;
 		<span class=hljs-keyword>set</span>;
@@ -149,14 +149,14 @@
 
 <span class=hljs-keyword>public</span> <span class=hljs-keyword>interface</span> <span class=hljs-title>IBar</span>
 {
-	<span class=hljs-keyword>string</span> Value { <span class=hljs-keyword>get</span>; }
+	<span class=hljs-built_in>string</span> Value { <span class=hljs-keyword>get</span>; }
 }
 
 <span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Bar</span> : <span class=hljs-title>IBar</span>
 {
 	IFoo foo;
 
-	<span class=hljs-keyword>public</span> <span class=hljs-keyword>string</span> Value
+	<span class=hljs-keyword>public</span> <span class=hljs-built_in>string</span> Value
 	{
 		<span class=hljs-keyword>get</span>;
 		<span class=hljs-keyword>set</span>;
@@ -198,7 +198,7 @@
 
 <span class=hljs-keyword>class</span> <span class=hljs-title>Program</span>
 {
-	<span class=hljs-function><span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-keyword>string</span>[] args</span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-built_in>string</span>[] args</span>)</span>
 	{
 		<span class=hljs-keyword>var</span> container = <span class=hljs-keyword>new</span> ServiceContainer();
 

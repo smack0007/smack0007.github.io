@@ -2,17 +2,17 @@
 
 <pre><code class="hljs csharp"><span class=hljs-keyword>namespace</span> <span class=hljs-title>Pmte</span>
 {
-    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>delegate</span> <span class=hljs-title>IEnumerable</span>&lt;<span class=hljs-title>string</span>> <span class=hljs-title>Template</span>&lt;<span class=hljs-title>TData</span>>(<span class=hljs-params>TData data</span>)</span>;
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>delegate</span> <span class=hljs-title>IEnumerable</span>&lt;<span class=hljs-title>string</span>> <span class=hljs-title>Template</span>&lt;<span class=hljs-title>TData</span>>(<span class=hljs-params>TData data</span>)</span>;
 
     <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>TemplateExtensions</span>
     {   
-        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>Render</span>(<span class=hljs-params><span class=hljs-keyword>this</span> IEnumerable&lt;<span class=hljs-keyword>string</span>> templateResult</span>)</span> => <span class=hljs-keyword>string</span>.Join(Environment.NewLine, templateResult);
+        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>string</span> <span class=hljs-title>Render</span>(<span class=hljs-params><span class=hljs-keyword>this</span> IEnumerable&lt;<span class=hljs-built_in>string</span>> templateResult</span>)</span> => <span class=hljs-built_in>string</span>.Join(Environment.NewLine, templateResult);
 
-        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>HtmlEncode</span>(<span class=hljs-params><span class=hljs-keyword>string</span> input</span>)</span> => WebUtility.HtmlEncode(input);
+        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>string</span> <span class=hljs-title>HtmlEncode</span>(<span class=hljs-params><span class=hljs-built_in>string</span> input</span>)</span> => WebUtility.HtmlEncode(input);
 
-        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>If</span>(<span class=hljs-params><span class=hljs-keyword>bool</span> condition, <span class=hljs-keyword>string</span> trueString, <span class=hljs-keyword>string</span> falseString = <span class=hljs-literal>null</span></span>)</span> => condition ? trueString : falseString;
+        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>string</span> <span class=hljs-title>If</span>(<span class=hljs-params><span class=hljs-built_in>bool</span> condition, <span class=hljs-built_in>string</span> trueString, <span class=hljs-built_in>string</span> falseString = <span class=hljs-literal>null</span></span>)</span> => condition ? trueString : falseString;
 
-        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>Include</span>&lt;<span class=hljs-title>TData</span>>(<span class=hljs-params>Template&lt;TData> template, TData data</span>)</span> =>
+        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>string</span> <span class=hljs-title>Include</span>&lt;<span class=hljs-title>TData</span>>(<span class=hljs-params>Template&lt;TData> template, TData data</span>)</span> =>
             template(data).Render();
     }
 }</code></pre><p>Include can be used by specifying the template function and the data used to call the template function. The rendered result is returned.<p>Example usage:
@@ -20,17 +20,17 @@
 
 <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Templates</span>
 {
-    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-keyword>string</span>> <span class=hljs-title>Post</span>(<span class=hljs-params>PostData post</span>)</span>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-built_in>string</span>> <span class=hljs-title>Post</span>(<span class=hljs-params>PostData post</span>)</span>
     {
         <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>"&lt;div class=\"post\">"</span>;
-            <span class=hljs-function><span class=hljs-keyword>yield</span> return <span class=hljs-title>Include</span>(<span class=hljs-params>PostHeader, post</span>)</span>;
+            <span class=hljs-function><span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-title>Include</span>(<span class=hljs-params>PostHeader, post</span>)</span>;
             <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>"&lt;div class=\"content\">"</span>;
                 <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> post.Content;
             <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>"&lt;/div>"</span>;
         <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>"&lt;/div>"</span>;
     }
     
-    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-keyword>string</span>> <span class=hljs-title>PostHeader</span>(<span class=hljs-params>PostData post</span>)</span>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-built_in>string</span>> <span class=hljs-title>PostHeader</span>(<span class=hljs-params>PostData post</span>)</span>
     {
         <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>$"&lt;h2>&lt;a href=\"<span class=hljs-subst>{post.Url}</span>\"><span class=hljs-subst>{HtmlEncode(post.Title)}</span>&lt;/a>&lt;/h2>"</span>;   
 
@@ -40,14 +40,14 @@
         <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>"&lt;/div>"</span>;
     }
 
-    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-keyword>string</span>> <span class=hljs-title>PostsList</span>(<span class=hljs-params>IEnumerable&lt;PostData> posts</span>)</span>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-built_in>string</span>> <span class=hljs-title>PostsList</span>(<span class=hljs-params>IEnumerable&lt;PostData> posts</span>)</span>
     {
         <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>"&lt;div class=\"posts\">"</span>;
 
         <span class=hljs-keyword>foreach</span> (<span class=hljs-keyword>var</span> post <span class=hljs-keyword>in</span> posts)
         {
             <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>"&lt;div class=\"post\">"</span>;
-                <span class=hljs-function><span class=hljs-keyword>yield</span> return <span class=hljs-title>Include</span>(<span class=hljs-params>PostHeader, post</span>)</span>;
+                <span class=hljs-function><span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-title>Include</span>(<span class=hljs-params>PostHeader, post</span>)</span>;
             <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>"&lt;/div>"</span>;
         }
 

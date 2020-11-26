@@ -13,8 +13,8 @@
 {
 	<span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>AppWindow</span> : <span class=hljs-title>GameWindow</span>
 	{
-		<span class=hljs-keyword>int</span> texture;
-		<span class=hljs-keyword>float</span> x, y;
+		<span class=hljs-built_in>int</span> texture;
+		<span class=hljs-built_in>float</span> x, y;
 
 		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>AppWindow</span>(<span class=hljs-params></span>)</span>
 		{
@@ -52,8 +52,8 @@
 			bitmap.UnlockBits(data);
 			bitmap.Dispose();
 
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (<span class=hljs-keyword>int</span>)TextureMinFilter.Linear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (<span class=hljs-keyword>int</span>)TextureMagFilter.Linear);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (<span class=hljs-built_in>int</span>)TextureMinFilter.Linear);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (<span class=hljs-built_in>int</span>)TextureMagFilter.Linear);
 
 			<span class=hljs-keyword>this</span>.x = <span class=hljs-number>40f</span>;
 			<span class=hljs-keyword>this</span>.y = <span class=hljs-number>41.5f</span>;
@@ -63,8 +63,8 @@
 		{
 			<span class=hljs-keyword>base</span>.OnUpdateFrame(e);
 
-			<span class=hljs-keyword>float</span> dx = <span class=hljs-number>0.0f</span>;
-			<span class=hljs-keyword>float</span> dy = <span class=hljs-number>0.0f</span>;
+			<span class=hljs-built_in>float</span> dx = <span class=hljs-number>0.0f</span>;
+			<span class=hljs-built_in>float</span> dy = <span class=hljs-number>0.0f</span>;
 
 			<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Left])
 				dx = <span class=hljs-number>-1.0f</span>;
@@ -76,8 +76,8 @@
 			<span class=hljs-keyword>else</span> <span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Down])
 				dy = <span class=hljs-number>1.0f</span>;
 
-			<span class=hljs-keyword>this</span>.x += <span class=hljs-number>100.0f</span> * dx * (<span class=hljs-keyword>float</span>)e.Time;
-			<span class=hljs-keyword>this</span>.y += <span class=hljs-number>100.0f</span> * dy * (<span class=hljs-keyword>float</span>)e.Time;
+			<span class=hljs-keyword>this</span>.x += <span class=hljs-number>100.0f</span> * dx * (<span class=hljs-built_in>float</span>)e.Time;
+			<span class=hljs-keyword>this</span>.y += <span class=hljs-number>100.0f</span> * dy * (<span class=hljs-built_in>float</span>)e.Time;
 		}
 
 		<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>OnRenderFrame</span>(<span class=hljs-params>FrameEventArgs e</span>)</span>

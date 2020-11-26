@@ -3,33 +3,33 @@
 <span class=hljs-class><span class=hljs-keyword>class</span> <span class=hljs-title>Db_Table_Row</span> <span class=hljs-keyword>extends</span> <span class=hljs-title>Zend_Db_Table_Row</span> </span>{ ... }</code></pre><p>Why do I do this? Say at some later point I figure out that I need some function that the Zend Framework doesn't provide. I just stick that code in Db_Table and now all my Db_Table classes have that functionality. This is actually a good idea for a lot of things in the Zend Framework. Even if you don't add any functionality yourself now, it makes it easier later to add it if you need to.
 <pre><code class="hljs php"><span class=hljs-class><span class=hljs-keyword>class</span> <span class=hljs-title>Db_Table_Row</span> <span class=hljs-keyword>extends</span> <span class=hljs-title>Zend_Db_Table_Row</span>
 </span>{
-	<span class=hljs-keyword>public</span> <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>__get</span>(<span class=hljs-params>$key</span>)
+	<span class=hljs-keyword>public</span> <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>__get</span>(<span class=hljs-params><span class=hljs-variable>$key</span></span>)
 	</span>{
-		$inflector = <span class=hljs-keyword>new</span> Zend_Filter_Word_UnderscoreToCamelCase();
+		<span class=hljs-variable>$inflector</span> = <span class=hljs-keyword>new</span> Zend_Filter_Word_UnderscoreToCamelCase();
 		
-		$method = <span class=hljs-string>'get'</span> . $inflector->filter($key);
+		<span class=hljs-variable>$method</span> = <span class=hljs-string>'get'</span> . <span class=hljs-variable>$inflector</span>->filter(<span class=hljs-variable>$key</span>);
 		
-		<span class=hljs-keyword>if</span>(method_exists(<span class=hljs-keyword>$this</span>, $method))
-			<span class=hljs-keyword>return</span> <span class=hljs-keyword>$this</span>->{$method}();
+		<span class=hljs-keyword>if</span>(method_exists(<span class=hljs-keyword>$this</span>, <span class=hljs-variable>$method</span>))
+			<span class=hljs-keyword>return</span> <span class=hljs-keyword>$this</span>->{<span class=hljs-variable>$method</span>}();
 		
-		<span class=hljs-keyword>return</span> <span class=hljs-built_in>parent</span>::__get($key);
+		<span class=hljs-keyword>return</span> <span class=hljs-built_in>parent</span>::__get(<span class=hljs-variable>$key</span>);
 	}
 	
-	<span class=hljs-keyword>public</span> <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>__set</span>(<span class=hljs-params>$key, $value</span>)
+	<span class=hljs-keyword>public</span> <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>__set</span>(<span class=hljs-params><span class=hljs-variable>$key</span>, <span class=hljs-variable>$value</span></span>)
 	</span>{
-		$inflector = <span class=hljs-keyword>new</span> Zend_Filter_Word_UnderscoreToCamelCase();
+		<span class=hljs-variable>$inflector</span> = <span class=hljs-keyword>new</span> Zend_Filter_Word_UnderscoreToCamelCase();
 		
-		$method = <span class=hljs-string>'set'</span> . $inflector->filter($key);
+		<span class=hljs-variable>$method</span> = <span class=hljs-string>'set'</span> . <span class=hljs-variable>$inflector</span>->filter(<span class=hljs-variable>$key</span>);
 		
-		<span class=hljs-keyword>if</span>(method_exists(<span class=hljs-keyword>$this</span>, $method))
-			<span class=hljs-keyword>return</span> <span class=hljs-keyword>$this</span>->{$method}($value);
+		<span class=hljs-keyword>if</span>(method_exists(<span class=hljs-keyword>$this</span>, <span class=hljs-variable>$method</span>))
+			<span class=hljs-keyword>return</span> <span class=hljs-keyword>$this</span>->{<span class=hljs-variable>$method</span>}(<span class=hljs-variable>$value</span>);
 			
-	        <span class=hljs-keyword>return</span> <span class=hljs-built_in>parent</span>::__set($key, $value);
+	        <span class=hljs-keyword>return</span> <span class=hljs-built_in>parent</span>::__set(<span class=hljs-variable>$key</span>, <span class=hljs-variable>$value</span>);
 	}
 	
-	<span class=hljs-keyword>public</span> <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>markModified</span>(<span class=hljs-params>$key</span>)
+	<span class=hljs-keyword>public</span> <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>markModified</span>(<span class=hljs-params><span class=hljs-variable>$key</span></span>)
 	</span>{
-		<span class=hljs-keyword>$this</span>->_modifiedFields[$key] = <span class=hljs-literal>true</span>;
+		<span class=hljs-keyword>$this</span>->_modifiedFields[<span class=hljs-variable>$key</span>] = <span class=hljs-literal>true</span>;
 	}
 }
 
@@ -43,9 +43,9 @@
                 <span class=hljs-keyword>return</span> <span class=hljs-keyword>$this</span>->_data[<span class=hljs-string>'bar'</span>] + <span class=hljs-number>5</span>;
         }
 
-        <span class=hljs-keyword>public</span> <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>setBar</span>(<span class=hljs-params>$value</span>)
+        <span class=hljs-keyword>public</span> <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>setBar</span>(<span class=hljs-params><span class=hljs-variable>$value</span></span>)
         </span>{
-                <span class=hljs-keyword>$this</span>->_data[<span class=hljs-string>'bar'</span>] = $value - <span class=hljs-number>5</span>;
+                <span class=hljs-keyword>$this</span>->_data[<span class=hljs-string>'bar'</span>] = <span class=hljs-variable>$value</span> - <span class=hljs-number>5</span>;
                 
                 <span class=hljs-comment>// This next line tells the underlying Zend_Db_Table class that</span>
                 <span class=hljs-comment>// the value of 'bar' has changed and it should be written to the</span>
@@ -55,5 +55,5 @@
 }
 
 <span class=hljs-comment>// Now, if foo is a valid instance</span>
-<span class=hljs-keyword>echo</span> $foo->bar;
-$foo->bar = <span class=hljs-number>5</span>;</code></pre><p>In this case, when accessing $foo->bar, the method getBar() will be called and the result will be whatever is stored in the database plus 5. Also, when doing $foo->bar = 5, setBar($value) will be called and the number 0 will be stored in the database instead of 5. Granted this is a fairly simple example but I'll explain a better one.<p>Say you have a date field. At different points in your program you pass in different types of date values. At one point, a timestamp. At another, a string representing a date. At another, an instance of Zend_Date. Using this method, you can store the logic for setting the date that gets stored in one place. It's also helpful if for instance you have to change the underlying field in the database. Maybe you had a Date field at first and now it's become a Timestamp. The point is, the logic is in one place.<p>This method also more accurately represents what the MVC pattern is supposed to be. There is one place, where the business logic is stored and all the Controller then has to worry about is pushing user input to the Model and requesting output from the Model.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class="page-item disabled"><a class="page-link older" href=# tabindex=-1>Older</a><li class=page-item><a href=blog/2008/colors-and-hex.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+<span class=hljs-keyword>echo</span> <span class=hljs-variable>$foo</span>->bar;
+<span class=hljs-variable>$foo</span>->bar = <span class=hljs-number>5</span>;</code></pre><p>In this case, when accessing $foo->bar, the method getBar() will be called and the result will be whatever is stored in the database plus 5. Also, when doing $foo->bar = 5, setBar($value) will be called and the number 0 will be stored in the database instead of 5. Granted this is a fairly simple example but I'll explain a better one.<p>Say you have a date field. At different points in your program you pass in different types of date values. At one point, a timestamp. At another, a string representing a date. At another, an instance of Zend_Date. Using this method, you can store the logic for setting the date that gets stored in one place. It's also helpful if for instance you have to change the underlying field in the database. Maybe you had a Date field at first and now it's become a Timestamp. The point is, the logic is in one place.<p>This method also more accurately represents what the MVC pattern is supposed to be. There is one place, where the business logic is stored and all the Controller then has to worry about is pushing user input to the Model and requesting output from the Model.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class="page-item disabled"><a class="page-link older" href=# tabindex=-1>Older</a><li class=page-item><a href=blog/2008/colors-and-hex.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>

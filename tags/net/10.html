@@ -15,15 +15,15 @@
 	<span class=hljs-tag>&lt;/<span class=hljs-name>PropertyGroup</span>></span></code></pre><p>Save the file and open your project back up. Your project's output should now target only x86.</div></div><div class=post><h2><a href=blog/2009/calculating-an-angle-from-a-vector2.html>Calculating an angle from a Vector2</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 28, 2009</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a> <a href=tags/vectors/index.html><span class="icon icon-price-tags"></span> <span class=tagName>vectors</span></a> <a href=tags/xna/index.html><span class="icon icon-price-tags"></span> <span class=tagName>xna</span></a></span></div><div class=content><p>When you need to calculate an angle from a Vector2 structure, you can use this piece of code:
 <pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Vector2Helper</span>
 {
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>float</span> <span class=hljs-title>CalculateAngle</span>(<span class=hljs-params>Vector2 v</span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>float</span> <span class=hljs-title>CalculateAngle</span>(<span class=hljs-params>Vector2 v</span>)</span>
 	{
-		<span class=hljs-keyword>float</span> angle = <span class=hljs-number>0.0f</span>;
+		<span class=hljs-built_in>float</span> angle = <span class=hljs-number>0.0f</span>;
 
 		<span class=hljs-keyword>if</span>(v != Vector2.Zero)
 		{
 			v.Normalize();
 
-			angle = (<span class=hljs-keyword>float</span>)Math.Acos(v.Y);
+			angle = (<span class=hljs-built_in>float</span>)Math.Acos(v.Y);
 
 			<span class=hljs-keyword>if</span>(v.X &amp;lt; <span class=hljs-number>0.0f</span>)
 			angle = -angle;
@@ -32,17 +32,17 @@
 		<span class=hljs-keyword>return</span> angle;
 	}
 }</code></pre><p>I used this to calculate an angle from the Vector2 of the Left Stick.<p>The original credit for this source code comes from <a href=http://xnagamer.spaces.live.com/blog/cns!EC20BAAE6808B682!139.entry>here</a>.</div></div><div class=post><h2><a href=blog/2009/drawing-2d-lines-as-rotated-quads.html>Drawing 2D Lines as Rotated Quads</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 07, 2009</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a></span></div><div class=content><p>I haven't had much time lately with work but one question I've seen asked many many times is how to draw lines of different widths. So, to cut to the chase I'll share the code I've used to do it.
-<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DrawLine</span>(<span class=hljs-params>Vector3 p1, Color c1, Vector3 p2, Color c2, <span class=hljs-keyword>int</span> width</span>)</span>
+<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DrawLine</span>(<span class=hljs-params>Vector3 p1, Color c1, Vector3 p2, Color c2, <span class=hljs-built_in>int</span> width</span>)</span>
 {
-	<span class=hljs-keyword>float</span> distance = Vector3.Distance(p1, p2);
-	<span class=hljs-keyword>float</span> halfDistance = distance / <span class=hljs-number>2.0f</span>;
-	<span class=hljs-keyword>float</span> halfWidth = width / <span class=hljs-number>2.0f</span>;
+	<span class=hljs-built_in>float</span> distance = Vector3.Distance(p1, p2);
+	<span class=hljs-built_in>float</span> halfDistance = distance / <span class=hljs-number>2.0f</span>;
+	<span class=hljs-built_in>float</span> halfWidth = width / <span class=hljs-number>2.0f</span>;
 
 	Vector3 difference = p2 - p1;
 	Vector3 destination = <span class=hljs-keyword>new</span> Vector3(p1.X + difference.X / <span class=hljs-number>2.0f</span>, p1.Y + difference.Y / <span class=hljs-number>2.0f</span>, p1.Z + difference.Z);
 
 	<span class=hljs-comment>// Calculate angle between two points</span>
-	<span class=hljs-keyword>float</span> angle = (<span class=hljs-keyword>float</span>)Math.Atan2(difference.Y, difference.X);
+	<span class=hljs-built_in>float</span> angle = (<span class=hljs-built_in>float</span>)Math.Atan2(difference.Y, difference.X);
 
 	Vector3 v1, v2, v3, v4;
 
@@ -78,13 +78,13 @@
 	{
 		<span class=hljs-meta>#<span class=hljs-meta-keyword>region</span> Fields</span>
 
-		<span class=hljs-keyword>string</span> name;
+		<span class=hljs-built_in>string</span> name;
 
 		Texture2D texture;
 
 		Rectangle[] rectangles;
 
-		<span class=hljs-keyword>int</span> spriteWidth, spriteHeight;
+		<span class=hljs-built_in>int</span> spriteWidth, spriteHeight;
 
 		<span class=hljs-meta>#<span class=hljs-meta-keyword>endregion</span></span>
 
@@ -93,7 +93,7 @@
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;summary></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> The name of this SpriteSheet.</span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;/summary></span></span>
-		<span class=hljs-keyword>public</span> <span class=hljs-keyword>string</span> Name
+		<span class=hljs-keyword>public</span> <span class=hljs-built_in>string</span> Name
 		{
 			<span class=hljs-keyword>get</span> { <span class=hljs-keyword>return</span> name; }
 		}
@@ -111,7 +111,7 @@
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;/summary></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;param name="i"></span>index<span class=hljs-doctag>&lt;/param></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;returns></span><span class=hljs-doctag>&lt;/returns></span></span>
-		<span class=hljs-keyword>public</span> Rectangle <span class=hljs-keyword>this</span>[<span class=hljs-keyword>int</span> i]
+		<span class=hljs-keyword>public</span> Rectangle <span class=hljs-keyword>this</span>[<span class=hljs-built_in>int</span> i]
 		{
 			<span class=hljs-keyword>get</span> { <span class=hljs-keyword>return</span> rectangles[i]; }
 		}
@@ -119,7 +119,7 @@
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;summary></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> The number of sprites in this SpriteSheet.</span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;/summary></span></span>
-		<span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> Count
+		<span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> Count
 		{
 			<span class=hljs-keyword>get</span> { <span class=hljs-keyword>return</span> rectangles.Length; }
 		}
@@ -127,7 +127,7 @@
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;summary></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> The width of the texture.</span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;/summary></span></span>
-		<span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> Width
+		<span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> Width
 		{
 			<span class=hljs-keyword>get</span> { <span class=hljs-keyword>return</span> texture.Width; }
 		}
@@ -135,7 +135,7 @@
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;summary></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> The width of each sprite in the SpriteSheet.</span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;/summary></span></span>
-		<span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> SpriteWidth
+		<span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> SpriteWidth
 		{
 			<span class=hljs-keyword>get</span> { <span class=hljs-keyword>return</span> spriteWidth; }
 		}
@@ -143,7 +143,7 @@
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;summary></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> The height of the texture.</span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;/summary></span></span>
-		<span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> Height
+		<span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> Height
 		{
 			<span class=hljs-keyword>get</span> { <span class=hljs-keyword>return</span> texture.Height; }
 		}
@@ -151,7 +151,7 @@
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;summary></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> The height of each sprite in the SpriteSheet.</span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;/summary></span></span>
-		<span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> SpriteHeight
+		<span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> SpriteHeight
 		{
 			<span class=hljs-keyword>get</span> { <span class=hljs-keyword>return</span> spriteHeight; }
 		}
@@ -164,7 +164,7 @@
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;param name="texture"></span><span class=hljs-doctag>&lt;/param></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;param name="spriteWidth"></span>Width of each sprite.<span class=hljs-doctag>&lt;/param></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;param name="spriteHeight"></span>Height of each sprite.<span class=hljs-doctag>&lt;/param></span></span>
-		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>SpriteSheet</span>(<span class=hljs-params><span class=hljs-keyword>string</span> name, Texture2D texture, <span class=hljs-keyword>int</span> spriteWidth, <span class=hljs-keyword>int</span> spriteHeight</span>)
+		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>SpriteSheet</span>(<span class=hljs-params><span class=hljs-built_in>string</span> name, Texture2D texture, <span class=hljs-built_in>int</span> spriteWidth, <span class=hljs-built_in>int</span> spriteHeight</span>)
 			: <span class=hljs-title>this</span>(<span class=hljs-params>name, texture, spriteWidth, spriteHeight, <span class=hljs-number>0</span></span>)</span>
 		{
 		}
@@ -176,7 +176,7 @@
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;param name="spriteWidth"></span>Width of each sprite.<span class=hljs-doctag>&lt;/param></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;param name="spriteHeight"></span>Height of each sprite.<span class=hljs-doctag>&lt;/param></span></span>
 		<span class=hljs-comment><span class=hljs-doctag>///</span> <span class=hljs-doctag>&lt;param name="count"></span>The number of sprites in the sheet.<span class=hljs-doctag>&lt;/param></span></span>
-		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>SpriteSheet</span>(<span class=hljs-params><span class=hljs-keyword>string</span> name, Texture2D texture, <span class=hljs-keyword>int</span> spriteWidth, <span class=hljs-keyword>int</span> spriteHeight, <span class=hljs-keyword>int</span> count</span>)</span>
+		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>SpriteSheet</span>(<span class=hljs-params><span class=hljs-built_in>string</span> name, Texture2D texture, <span class=hljs-built_in>int</span> spriteWidth, <span class=hljs-built_in>int</span> spriteHeight, <span class=hljs-built_in>int</span> count</span>)</span>
 		{
 			<span class=hljs-keyword>this</span>.name = name;
 			<span class=hljs-keyword>this</span>.texture = texture;
@@ -185,8 +185,8 @@
 
 			<span class=hljs-keyword>if</span>(count == <span class=hljs-number>0</span>)
 			{
-				<span class=hljs-keyword>int</span> numX = texture.Width / spriteWidth;
-				<span class=hljs-keyword>int</span> numY = texture.Height / spriteHeight;
+				<span class=hljs-built_in>int</span> numX = texture.Width / spriteWidth;
+				<span class=hljs-built_in>int</span> numY = texture.Height / spriteHeight;
 
 				rectangles = <span class=hljs-keyword>new</span> Rectangle[numX * numY];
 			}
@@ -195,8 +195,8 @@
 				rectangles = <span class=hljs-keyword>new</span> Rectangle[count];
 			}
 
-			<span class=hljs-keyword>int</span> x = <span class=hljs-number>0</span>, y = <span class=hljs-number>0</span>;
-			<span class=hljs-keyword>for</span>(<span class=hljs-keyword>int</span> i = <span class=hljs-number>0</span>; i &lt; rectangles.Length; i++)
+			<span class=hljs-built_in>int</span> x = <span class=hljs-number>0</span>, y = <span class=hljs-number>0</span>;
+			<span class=hljs-keyword>for</span>(<span class=hljs-built_in>int</span> i = <span class=hljs-number>0</span>; i &lt; rectangles.Length; i++)
 			{
 				rectangles[i] = <span class=hljs-keyword>new</span> Rectangle(x, y, spriteWidth, spriteHeight);
 

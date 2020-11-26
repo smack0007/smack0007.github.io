@@ -2,26 +2,26 @@
 
 <pre><code class="hljs csharp"><span class=hljs-keyword>namespace</span> <span class=hljs-title>Pmte</span>
 {
-    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>delegate</span> <span class=hljs-title>IEnumerable</span>&lt;<span class=hljs-title>string</span>> <span class=hljs-title>Template</span>&lt;<span class=hljs-title>TData</span>>(<span class=hljs-params>TData data</span>)</span>;
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>delegate</span> <span class=hljs-title>IEnumerable</span>&lt;<span class=hljs-title>string</span>> <span class=hljs-title>Template</span>&lt;<span class=hljs-title>TData</span>>(<span class=hljs-params>TData data</span>)</span>;
 
     <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>TemplateExtensions</span>
     {   
-        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>Render</span>(<span class=hljs-params><span class=hljs-keyword>this</span> IEnumerable&lt;<span class=hljs-keyword>string</span>> templateResult</span>)</span> => <span class=hljs-keyword>string</span>.Join(Environment.NewLine, templateResult);
+        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>string</span> <span class=hljs-title>Render</span>(<span class=hljs-params><span class=hljs-keyword>this</span> IEnumerable&lt;<span class=hljs-built_in>string</span>> templateResult</span>)</span> => <span class=hljs-built_in>string</span>.Join(Environment.NewLine, templateResult);
 
-        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>HtmlEncode</span>(<span class=hljs-params><span class=hljs-keyword>string</span> input</span>)</span> => WebUtility.HtmlEncode(input);
+        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>string</span> <span class=hljs-title>HtmlEncode</span>(<span class=hljs-params><span class=hljs-built_in>string</span> input</span>)</span> => WebUtility.HtmlEncode(input);
 
-        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>If</span>(<span class=hljs-params><span class=hljs-keyword>bool</span> condition, <span class=hljs-keyword>string</span> trueString, <span class=hljs-keyword>string</span> falseString = <span class=hljs-literal>null</span></span>)</span> => condition ? trueString : falseString;
+        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>string</span> <span class=hljs-title>If</span>(<span class=hljs-params><span class=hljs-built_in>bool</span> condition, <span class=hljs-built_in>string</span> trueString, <span class=hljs-built_in>string</span> falseString = <span class=hljs-literal>null</span></span>)</span> => condition ? trueString : falseString;
     }
 }</code></pre><p>The first helper function <code>HtmlEncode</code> is fairly self explanitory. Use it to encode a string so that it is valid html.<p><code>If</code> can be used inside an interpolated string to optionally include a string or include a different string depending on if condition is true or false.
 <pre><code class="hljs csharp"><span class=hljs-keyword>using</span> <span class=hljs-keyword>static</span> Pmte.TemplateExtensions;
 
 <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Templates</span>
 {
-    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-keyword>string</span>> <span class=hljs-title>Path</span>(<span class=hljs-params><span class=hljs-keyword>string</span>[] paths</span>)</span>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-built_in>string</span>> <span class=hljs-title>Path</span>(<span class=hljs-params><span class=hljs-built_in>string</span>[] paths</span>)</span>
     {
-        <span class=hljs-keyword>string</span> output = <span class=hljs-string>""</span>;
+        <span class=hljs-built_in>string</span> output = <span class=hljs-string>""</span>;
 
-        <span class=hljs-keyword>for</span> (<span class=hljs-keyword>int</span> i = <span class=hljs-number>0</span>; i &lt; paths.Length; i++)
+        <span class=hljs-keyword>for</span> (<span class=hljs-built_in>int</span> i = <span class=hljs-number>0</span>; i &lt; paths.Length; i++)
             output += <span class=hljs-string>$"<span class=hljs-subst>{paths[i]}</span><span class=hljs-subst>{If(i &lt; paths.Length - <span class=hljs-number>1</span>, HtmlEncode(<span class=hljs-string>" >"</span>))}</span>"</span>;
 
         <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> output;

@@ -2,18 +2,18 @@
 
 <pre><code class="hljs csharp"><span class=hljs-keyword>namespace</span> <span class=hljs-title>Pmte</span>
 {
-    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>delegate</span> <span class=hljs-title>IEnumerable</span>&lt;<span class=hljs-title>string</span>> <span class=hljs-title>Template</span>&lt;<span class=hljs-title>TData</span>>(<span class=hljs-params>TData data</span>)</span>;
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>delegate</span> <span class=hljs-title>IEnumerable</span>&lt;<span class=hljs-title>string</span>> <span class=hljs-title>Template</span>&lt;<span class=hljs-title>TData</span>>(<span class=hljs-params>TData data</span>)</span>;
 
     <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>TemplateExtensions</span>
     {   
-        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>Render</span>(<span class=hljs-params><span class=hljs-keyword>this</span> IEnumerable&lt;<span class=hljs-keyword>string</span>> templateResult</span>)</span> => <span class=hljs-keyword>string</span>.Join(Environment.NewLine, templateResult);
+        <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>string</span> <span class=hljs-title>Render</span>(<span class=hljs-params><span class=hljs-keyword>this</span> IEnumerable&lt;<span class=hljs-built_in>string</span>> templateResult</span>)</span> => <span class=hljs-built_in>string</span>.Join(Environment.NewLine, templateResult);
     }
 }</code></pre><p>We define a template as being any function that returns an <code>IEnumerable&lt;string></code>. We are going to build a functional style template engine. TemplateExtensions will contain methods for working with templates and template results.<p>Implement a template like so:
 <pre><code class="hljs csharp"><span class=hljs-keyword>using</span> <span class=hljs-keyword>static</span> Pmte.TemplateExtensions;
 
 <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Templates</span>
 {
-    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-keyword>string</span>> <span class=hljs-title>PeopleList</span>(<span class=hljs-params>IEnumerable&lt;Person> people</span>)</span>
+    <span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> IEnumerable&lt;<span class=hljs-built_in>string</span>> <span class=hljs-title>PeopleList</span>(<span class=hljs-params>IEnumerable&lt;Person> people</span>)</span>
     {
         <span class=hljs-keyword>foreach</span> (<span class=hljs-keyword>var</span> person <span class=hljs-keyword>in</span> people)
             <span class=hljs-keyword>yield</span> <span class=hljs-keyword>return</span> <span class=hljs-string>$"<span class=hljs-subst>{person.FirstName}</span> <span class=hljs-subst>{person.LastName}</span>"</span>;

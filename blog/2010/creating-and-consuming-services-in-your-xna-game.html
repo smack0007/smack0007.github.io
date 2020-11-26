@@ -6,7 +6,7 @@
 	{
 	}
 	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
 	{
 		<span class=hljs-comment>// Do something and return an int.</span>
 	}
@@ -24,7 +24,7 @@
 	
 	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoBar</span>(<span class=hljs-params></span>)</span>
 	{
-		<span class=hljs-keyword>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
+		<span class=hljs-built_in>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
 		<span class=hljs-comment>// Do something based on result.</span>
 	}
 }</code></pre><p>There's nothing wrong with the code, but BarComponent has a dependency on FooComponent. BarComponent directly interacts with FooComponent and therefore any change made to FooComponent indirectly affects BarComponent. For instance, let's assume the constructor for FooComponent needs to be modified. That means we now have to update not only the FooComponent class but as well the BarComponent class. Throw in a few more components with dependencies on FooComponent and you could start to get headache really fast. This design is highly coupled.<p>Let's try a slight redesign:
@@ -35,7 +35,7 @@
 	{
 	}
 	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
 	{
 		<span class=hljs-comment>// Do something and return an int.</span>
 	}
@@ -53,13 +53,13 @@
 	
 	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoBar</span>(<span class=hljs-params></span>)</span>
 	{
-		<span class=hljs-keyword>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
+		<span class=hljs-built_in>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
 		<span class=hljs-comment>// Do something based on result.</span>
 	}
 }</code></pre><p>We've now eliminated the construction of the FooComponent from within the BarComponent. The design is better but still not that great. BarComponent is still directly relying on and communicating with FooComponent. We want to change BarComponent so that it has no direct dependency on a concrete implementation of FooComponent. We'll create an interface:
 <pre><code class="hljs csharp"><span class=hljs-keyword>interface</span> <span class=hljs-title>IFooService</span>
 {
-	<span class=hljs-function><span class=hljs-keyword>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>;
+	<span class=hljs-function><span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>;
 }
 
 <span class=hljs-keyword>class</span> <span class=hljs-title>FooComponent</span> : <span class=hljs-title>GameComponent</span>, <span class=hljs-title>IFooService</span>
@@ -69,7 +69,7 @@
 	{
 	}
 	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
 	{
 		<span class=hljs-comment>// Do something and return an int.</span>
 	}
@@ -87,7 +87,7 @@
 	
 	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoBar</span>(<span class=hljs-params></span>)</span>
 	{
-		<span class=hljs-keyword>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
+		<span class=hljs-built_in>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
 		<span class=hljs-comment>// Do something based on result.</span>
 	}
 }</code></pre><p>We can now change FooComponent as much as we want and BarComponent will be unaffected. BarComponent now communicates with FooComponent through the IFooService interface. This also allows us to have multiple implementations of DoFoo():
@@ -98,7 +98,7 @@
 	{
 	}
 	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
 	{
 		<span class=hljs-keyword>return</span> <span class=hljs-number>5</span>; <span class=hljs-comment>// The class says "Simple"</span>
 	}
@@ -111,9 +111,9 @@
 	{
 	}
 	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
 	{
-		<span class=hljs-keyword>int</span> result = <span class=hljs-number>0</span>;
+		<span class=hljs-built_in>int</span> result = <span class=hljs-number>0</span>;
 		<span class=hljs-comment>// Do some very complex calculation</span>
 		<span class=hljs-keyword>return</span> result;
 	}
@@ -137,7 +137,7 @@
 	
 	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoBar</span>(<span class=hljs-params></span>)</span>
 	{
-		<span class=hljs-keyword>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
+		<span class=hljs-built_in>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
 		<span class=hljs-comment>// Do something based on result.</span>
 	}
 }
@@ -164,7 +164,7 @@
 		<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.foo != <span class=hljs-literal>null</span>)
 			<span class=hljs-keyword>return</span> <span class=hljs-keyword>this</span>.foo.DoFoo();
 		
-		<span class=hljs-keyword>int</span> result = <span class=hljs-number>0</span>;
+		<span class=hljs-built_in>int</span> result = <span class=hljs-number>0</span>;
 		<span class=hljs-comment>// Otherwise do some other calculation.</span>
 		<span class=hljs-keyword>return</span> result;
 	}

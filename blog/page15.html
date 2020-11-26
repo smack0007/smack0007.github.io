@@ -15,15 +15,15 @@
 	<span class=hljs-tag>&lt;/<span class=hljs-name>PropertyGroup</span>></span></code></pre><p>Save the file and open your project back up. Your project's output should now target only x86.</div></div><div class=post><h2><a href=blog/2009/calculating-an-angle-from-a-vector2.html>Calculating an angle from a Vector2</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 28, 2009</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a> <a href=tags/vectors/index.html><span class="icon icon-price-tags"></span> <span class=tagName>vectors</span></a> <a href=tags/xna/index.html><span class="icon icon-price-tags"></span> <span class=tagName>xna</span></a></span></div><div class=content><p>When you need to calculate an angle from a Vector2 structure, you can use this piece of code:
 <pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>Vector2Helper</span>
 {
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>float</span> <span class=hljs-title>CalculateAngle</span>(<span class=hljs-params>Vector2 v</span>)</span>
+	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>float</span> <span class=hljs-title>CalculateAngle</span>(<span class=hljs-params>Vector2 v</span>)</span>
 	{
-		<span class=hljs-keyword>float</span> angle = <span class=hljs-number>0.0f</span>;
+		<span class=hljs-built_in>float</span> angle = <span class=hljs-number>0.0f</span>;
 
 		<span class=hljs-keyword>if</span>(v != Vector2.Zero)
 		{
 			v.Normalize();
 
-			angle = (<span class=hljs-keyword>float</span>)Math.Acos(v.Y);
+			angle = (<span class=hljs-built_in>float</span>)Math.Acos(v.Y);
 
 			<span class=hljs-keyword>if</span>(v.X &amp;lt; <span class=hljs-number>0.0f</span>)
 			angle = -angle;
@@ -32,17 +32,17 @@
 		<span class=hljs-keyword>return</span> angle;
 	}
 }</code></pre><p>I used this to calculate an angle from the Vector2 of the Left Stick.<p>The original credit for this source code comes from <a href=http://xnagamer.spaces.live.com/blog/cns!EC20BAAE6808B682!139.entry>here</a>.</div></div><div class=post><h2><a href=blog/2009/the-game-show-host-problem-aka-the-monty-hall-problem.html>The Game Show Host Problem, aka The Monty Hall Problem</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 12, 2009</span> <span class=tags></span></div><div class=content><p><em>NOTE: This is a repost from my old blog.</em><p>So, me and my girlfriend went to see 21 last night and in the movie they make mention of The Game Show Host problem, aka The Monty Hall Problem.<p>The jist of the problem is this: You are on a game show. The host presents you with 3 doors, 1 of which has a car behind it, the other 2 have goats. The game show host tells you to pick a door. You do so, at which point the game show host opens up a door to show you a goat behind the door and then asks you if you would like to switch your choice to the other closed door. The question is then, should you switch your choice?<p>The correct answer is yes. More on why after the jump.<p>I won’t go too far into detail about why you should switch your answer, I’ll leave that to Wikipedia. Some things to note that may not be obvious: 1) The game show host will always open a door that is not the correct door 2) He will never open your door. These are the keys to this problem. By switching, you will win a prize 2/3 of the time as opposed to only winning 1/3 of the time if you do not.<p>Many people will argue that once the game show host opens the door with the goat behind it that there is now a 50% chance of you picking the right door by either staying with your door or switching. This is simply not true. Each door still only has 33.3% chance of being the door with the car behind it. The thing is though, once you pick your door, the game show host then eliminates a door based on 2 criteria: 1) The door is not the one with the prize behind it 2) The door is not yours. Due to these criteria, the odds of the correct door do not change for the door that you have picked, but rather change for the doors that you have not picked. The 2 doors not chosen by you then in a sense combine into one option and they together have a probability of 66.7%.<p>The Wikipedia article explains in much more mathematical detail why it is better to switch. I suggest you look there if I have done nothing but confuse you. This is simple strategy and probability. Knowing exactly how the game works can make you alot better at it.</div></div><div class=post><h2><a href=blog/2009/drawing-2d-lines-as-rotated-quads.html>Drawing 2D Lines as Rotated Quads</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 07, 2009</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a></span></div><div class=content><p>I haven't had much time lately with work but one question I've seen asked many many times is how to draw lines of different widths. So, to cut to the chase I'll share the code I've used to do it.
-<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DrawLine</span>(<span class=hljs-params>Vector3 p1, Color c1, Vector3 p2, Color c2, <span class=hljs-keyword>int</span> width</span>)</span>
+<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DrawLine</span>(<span class=hljs-params>Vector3 p1, Color c1, Vector3 p2, Color c2, <span class=hljs-built_in>int</span> width</span>)</span>
 {
-	<span class=hljs-keyword>float</span> distance = Vector3.Distance(p1, p2);
-	<span class=hljs-keyword>float</span> halfDistance = distance / <span class=hljs-number>2.0f</span>;
-	<span class=hljs-keyword>float</span> halfWidth = width / <span class=hljs-number>2.0f</span>;
+	<span class=hljs-built_in>float</span> distance = Vector3.Distance(p1, p2);
+	<span class=hljs-built_in>float</span> halfDistance = distance / <span class=hljs-number>2.0f</span>;
+	<span class=hljs-built_in>float</span> halfWidth = width / <span class=hljs-number>2.0f</span>;
 
 	Vector3 difference = p2 - p1;
 	Vector3 destination = <span class=hljs-keyword>new</span> Vector3(p1.X + difference.X / <span class=hljs-number>2.0f</span>, p1.Y + difference.Y / <span class=hljs-number>2.0f</span>, p1.Z + difference.Z);
 
 	<span class=hljs-comment>// Calculate angle between two points</span>
-	<span class=hljs-keyword>float</span> angle = (<span class=hljs-keyword>float</span>)Math.Atan2(difference.Y, difference.X);
+	<span class=hljs-built_in>float</span> angle = (<span class=hljs-built_in>float</span>)Math.Atan2(difference.Y, difference.X);
 
 	Vector3 v1, v2, v3, v4;
 

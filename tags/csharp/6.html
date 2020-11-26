@@ -4,14 +4,14 @@
 <span class=hljs-keyword>if</span>(TaskbarManager.IsPlatformSupported)
 {
 	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
-	TaskbarManager.Instance.SetProgressValue(<span class=hljs-number>0</span>, (<span class=hljs-keyword>int</span>)<span class=hljs-keyword>this</span>.totalTime.TotalSeconds, <span class=hljs-keyword>this</span>.Handle);
+	TaskbarManager.Instance.SetProgressValue(<span class=hljs-number>0</span>, (<span class=hljs-built_in>int</span>)<span class=hljs-keyword>this</span>.totalTime.TotalSeconds, <span class=hljs-keyword>this</span>.Handle);
 }</code></pre><p>to stop the progress bar:
 <pre><code class="hljs csharp"><span class=hljs-comment>// Stop progress bar</span>
 <span class=hljs-keyword>if</span>(TaskbarManager.IsPlatformSupported)
 	TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);</code></pre><p>and finally to update the progress bar on each tick:
 <pre><code class="hljs csharp"><span class=hljs-comment>// Update progress bar</span>
 <span class=hljs-keyword>if</span>(TaskbarManager.IsPlatformSupported)
-	TaskbarManager.Instance.SetProgressValue((<span class=hljs-keyword>int</span>)<span class=hljs-keyword>this</span>.totalTime.TotalSeconds - (<span class=hljs-keyword>int</span>)<span class=hljs-keyword>this</span>.time.TotalSeconds, (<span class=hljs-keyword>int</span>)<span class=hljs-keyword>this</span>.totalTime.TotalSeconds, <span class=hljs-keyword>this</span>.Handle);</code></pre></div></div><div class=post><h2><a href=blog/2010/drawing-rectangles-with-spritebatch.html>Drawing Rectangles with SpriteBatch</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2010</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a> <a href=tags/csharp/index.html><span class="icon icon-price-tags"></span> <span class=tagName>c#</span></a> <a href=tags/code-snippets/index.html><span class="icon icon-price-tags"></span> <span class=tagName>code-snippets</span></a> <a href=tags/xna/index.html><span class="icon icon-price-tags"></span> <span class=tagName>xna</span></a></span></div><div class=content><p>Just a quick code snippet which adds an extension method for drawing Rectangles to SpriteBatch:
+	TaskbarManager.Instance.SetProgressValue((<span class=hljs-built_in>int</span>)<span class=hljs-keyword>this</span>.totalTime.TotalSeconds - (<span class=hljs-built_in>int</span>)<span class=hljs-keyword>this</span>.time.TotalSeconds, (<span class=hljs-built_in>int</span>)<span class=hljs-keyword>this</span>.totalTime.TotalSeconds, <span class=hljs-keyword>this</span>.Handle);</code></pre></div></div><div class=post><h2><a href=blog/2010/drawing-rectangles-with-spritebatch.html>Drawing Rectangles with SpriteBatch</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2010</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a> <a href=tags/csharp/index.html><span class="icon icon-price-tags"></span> <span class=tagName>c#</span></a> <a href=tags/code-snippets/index.html><span class="icon icon-price-tags"></span> <span class=tagName>code-snippets</span></a> <a href=tags/xna/index.html><span class="icon icon-price-tags"></span> <span class=tagName>xna</span></a></span></div><div class=content><p>Just a quick code snippet which adds an extension method for drawing Rectangles to SpriteBatch:
 <pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>SpriteBatchHelper</span>
 {
 	<span class=hljs-keyword>static</span> Texture2D pixel;
@@ -34,12 +34,12 @@
 <pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>interface</span> <span class=hljs-title>IServiceContainer</span>
 {
     <span class=hljs-function><span class=hljs-keyword>void</span> <span class=hljs-title>AddService</span>(<span class=hljs-params>Type type, Object provider</span>)</span>;
-    <span class=hljs-function><span class=hljs-keyword>object</span> <span class=hljs-title>GetService</span>(<span class=hljs-params>Type type</span>)</span>;
+    <span class=hljs-function><span class=hljs-built_in>object</span> <span class=hljs-title>GetService</span>(<span class=hljs-params>Type type</span>)</span>;
 }
 
 <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>IServiceContainerExtensions</span>
 {
-    <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> AddService&amp;lt;T&amp;gt;(<span class=hljs-keyword>this</span> IServiceContainer services, <span class=hljs-keyword>object</span> provider)
+    <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> AddService&amp;lt;T&amp;gt;(<span class=hljs-keyword>this</span> IServiceContainer services, <span class=hljs-built_in>object</span> provider)
     {
         services.AddService(<span class=hljs-keyword>typeof</span>(T), provider);
     }

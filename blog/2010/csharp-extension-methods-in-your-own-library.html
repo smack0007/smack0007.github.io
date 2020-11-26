@@ -2,12 +2,12 @@
 <pre><code class="hljs csharp"><span class=hljs-keyword>public</span> <span class=hljs-keyword>interface</span> <span class=hljs-title>IServiceContainer</span>
 {
     <span class=hljs-function><span class=hljs-keyword>void</span> <span class=hljs-title>AddService</span>(<span class=hljs-params>Type type, Object provider</span>)</span>;
-    <span class=hljs-function><span class=hljs-keyword>object</span> <span class=hljs-title>GetService</span>(<span class=hljs-params>Type type</span>)</span>;
+    <span class=hljs-function><span class=hljs-built_in>object</span> <span class=hljs-title>GetService</span>(<span class=hljs-params>Type type</span>)</span>;
 }
 
 <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>class</span> <span class=hljs-title>IServiceContainerExtensions</span>
 {
-    <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> AddService&amp;lt;T&amp;gt;(<span class=hljs-keyword>this</span> IServiceContainer services, <span class=hljs-keyword>object</span> provider)
+    <span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> AddService&amp;lt;T&amp;gt;(<span class=hljs-keyword>this</span> IServiceContainer services, <span class=hljs-built_in>object</span> provider)
     {
         services.AddService(<span class=hljs-keyword>typeof</span>(T), provider);
     }

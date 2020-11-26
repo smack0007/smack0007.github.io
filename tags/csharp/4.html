@@ -5,7 +5,7 @@
 	.AddReferences(MetadataReference.CreateAssemblyReference(<span class=hljs-string>"System.Core"</span>))
 	.AddReferences(<span class=hljs-keyword>new</span> MetadataFileReference(<span class=hljs-keyword>this</span>.GetType().Assembly.Location))
 	.AddSyntaxTrees(syntaxTree);</code></pre><p>The static factory method "MetadataReference.CreateAssemblyReference" added a reference to global assemblies such as "mscorlib.dll" or "System.dll". In the Roslyn preview, the same be achieved like so:
-<pre><code class="hljs csharp"><span class=hljs-keyword>var</span> assemblyPath = Path.GetDirectoryName(<span class=hljs-keyword>typeof</span>(<span class=hljs-keyword>object</span>).Assembly.Location);
+<pre><code class="hljs csharp"><span class=hljs-keyword>var</span> assemblyPath = Path.GetDirectoryName(<span class=hljs-keyword>typeof</span>(<span class=hljs-built_in>object</span>).Assembly.Location);
 
 <span class=hljs-keyword>var</span> compilation = CSharpCompilation.Create(assemblyName)
 	.WithOptions(<span class=hljs-keyword>new</span> CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))

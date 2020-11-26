@@ -41,11 +41,11 @@
 <pre><code class="hljs typescript"><span class=hljs-keyword>import</span> { Component, OnInit } <span class=hljs-keyword>from</span> <span class=hljs-string>'@angular/core'</span>;
 
 <span class=hljs-meta>@Component</span>({
-  selector: <span class=hljs-string>'app-root'</span>,
-  templateUrl: <span class=hljs-string>'./app.component.html'</span>,
-  styleUrls: [<span class=hljs-string>'./app.component.scss'</span>]
+  <span class=hljs-attr>selector</span>: <span class=hljs-string>'app-root'</span>,
+  <span class=hljs-attr>templateUrl</span>: <span class=hljs-string>'./app.component.html'</span>,
+  <span class=hljs-attr>styleUrls</span>: [<span class=hljs-string>'./app.component.scss'</span>]
 })
-<span class=hljs-keyword>export</span> <span class=hljs-keyword>class</span> AppComponent <span class=hljs-keyword>implements</span> OnInit {
+<span class=hljs-keyword>export</span> <span class=hljs-class><span class=hljs-keyword>class</span> <span class=hljs-title>AppComponent</span> <span class=hljs-title>implements</span> <span class=hljs-title>OnInit</span> </span>{
   weather = <span class=hljs-string>''</span>;
 
   <span class=hljs-keyword>public</span> ngOnInit(): <span class=hljs-built_in>void</span> {

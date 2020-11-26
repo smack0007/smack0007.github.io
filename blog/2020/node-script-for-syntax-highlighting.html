@@ -7,7 +7,7 @@
 
 <span class=hljs-built_in>console</span>.info(hljs.highlight(process.argv[<span class=hljs-number>2</span>], stdin).value);</code></pre><p>I didn't feel like bothering with node_modules to the highlight.js library is just placed directly in the <code>ext</code> directory for my blog and I reference it directly from the script. The script can be invoked from the command line like so:
 <pre><code class="hljs shell">node highlight.js html &lt; file.html</code></pre><p>Where the <code>html</code> after the <code>highlight.js</code> is the language name and <code>&lt; file.hmtml</code> indicates to pass the contents of <code>file.html</code> via stdin. The script can be invoked from C# like so:
-<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>string</span> <span class=hljs-title>Highlight</span>(<span class=hljs-params><span class=hljs-keyword>string</span> language, <span class=hljs-keyword>string</span> input</span>)</span>
+<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-built_in>string</span> <span class=hljs-title>Highlight</span>(<span class=hljs-params><span class=hljs-built_in>string</span> language, <span class=hljs-built_in>string</span> input</span>)</span>
 {
     <span class=hljs-keyword>using</span> <span class=hljs-keyword>var</span> process = <span class=hljs-keyword>new</span> Process();
     process.StartInfo.FileName = <span class=hljs-string>"node.exe"</span>;

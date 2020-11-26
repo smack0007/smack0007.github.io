@@ -6,13 +6,13 @@
 {
     <span class=hljs-keyword>class</span> <span class=hljs-title>Program</span>
     {
-        <span class=hljs-keyword>enum</span> Suit { Diamonds, Hearts, Clubs, Spades }
+        <span class=hljs-built_in>enum</span> Suit { Diamonds, Hearts, Clubs, Spades }
 
-        <span class=hljs-keyword>enum</span> Face { Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace }
+        <span class=hljs-built_in>enum</span> Face { Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace }
 
         <span class=hljs-keyword>struct</span> Card { <span class=hljs-keyword>public</span> Suit Suit; <span class=hljs-keyword>public</span> Face Face; }
 
-        <span class=hljs-function><span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-keyword>string</span>[] args</span>)</span>
+        <span class=hljs-function><span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-built_in>string</span>[] args</span>)</span>
         {
             <span class=hljs-keyword>var</span> allFaces = (Face[])Enum.GetValues(<span class=hljs-keyword>typeof</span>(Face));
 
