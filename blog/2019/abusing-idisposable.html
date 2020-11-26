@@ -29,12 +29,11 @@
         }
     }
 }</code></pre><p>The output is of course:
-<pre><code>Doing work...
+<pre><code class="hljs shell">Doing work...
 Doing more work...
 Deferred Action 1
 Deferred Action 2
-Deferred Action 3
-</code></pre><p>Here we're using the <code>using</code> syntax to indicate when our deferred actions should be executed. We can also use an <code>IDisposable</code> object in multiple <code>using</code> blocks:
+Deferred Action 3</code></pre><p>Here we're using the <code>using</code> syntax to indicate when our deferred actions should be executed. We can also use an <code>IDisposable</code> object in multiple <code>using</code> blocks:
 <pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-built_in>string</span>[] args</span>)</span>
 {
     <span class=hljs-keyword>var</span> deferredActions = <span class=hljs-keyword>new</span> DeferredActions();
@@ -55,12 +54,11 @@ Deferred Action 3
         deferredActions.Push(() => Console.WriteLine(<span class=hljs-string>"Deferred Action 5"</span>));
     }
 }</code></pre><p>And the output:
-<pre><code>Doing work...
+<pre><code class="hljs shell">Doing work...
 Doing more work...
 Deferred Action 1
 Deferred Action 2
 Deferred Action 3
 Reticulating splines...
 Deferred Action 4
-Deferred Action 5
-</code></pre></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2019/generating-string-permutations-for-unit-testing.html class="page-link older">Older</a><li class=page-item><a href=blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+Deferred Action 5</code></pre></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2019/generating-string-permutations-for-unit-testing.html class="page-link older">Older</a><li class=page-item><a href=blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
