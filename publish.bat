@@ -14,6 +14,7 @@ IF EXIST bin (
     IF EXIST bin/.git (
         PUSHD bin
         git reset --hard
+        git pull origin
         POPD
     ) else (
         RMDIR /s /q bin
