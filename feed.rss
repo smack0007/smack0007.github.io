@@ -4,9 +4,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Thu, 26 Nov 2020 11:53:24 GMT</lastBuildDate>
-	<pubDate>Thu, 26 Nov 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Tue, 01 Dec 2020 15:43:31 GMT</lastBuildDate>
+	<pubDate>Tue, 01 Dec 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Use nginx in docker to serve static files]]></title>
+		<description><![CDATA[<p>Not sure how practical this really is but I thought it was neat. Run nginx and tell it to
+serve some static content on your system.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</link>
+		<guid>http://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</guid>
+		<pubDate>Tue, 01 Dec 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Add the current time to your command prompt]]></title>
 		<description><![CDATA[<p>I am someone who never made the jump to Powershell and to this day still use my
@@ -265,16 +274,6 @@ Console.WriteLine(five());</pre></code>
 		<link>http://smack0007.github.io/blog/2018/a-neat-way-to-curry-in-csharp.html</link>
 		<guid>http://smack0007.github.io/blog/2018/a-neat-way-to-curry-in-csharp.html</guid>
 		<pubDate>Fri, 25 May 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Lambda Collection Wrappers]]></title>
-		<description><![CDATA[<p>I've been reading a lot as of late about functional programming and I try to
-incorperate as much as possible into my everyday programming. One trick that
-I've definitely started using is wrapping collections in lambda functions.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/lambda-collection-wrappers.html</link>
-		<guid>http://smack0007.github.io/blog/2018/lambda-collection-wrappers.html</guid>
-		<pubDate>Thu, 26 Apr 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>

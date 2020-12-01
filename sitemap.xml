@@ -7,6 +7,9 @@
 		<loc>http://smack0007.github.io/about.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</loc>
 	</url>
 	<url>
@@ -385,6 +388,9 @@
 		<loc>http://smack0007.github.io/tags/directx/index.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/tags/docker/index.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/tags/embedded-resources/index.html</loc>
 	</url>
 	<url>
@@ -437,6 +443,9 @@
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/netcore/index.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/nginx/index.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/node/index.html</loc>
