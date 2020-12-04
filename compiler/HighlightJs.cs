@@ -12,7 +12,7 @@ namespace compiler
             language = InflectLanguageName(language);
 
             using var process = new Process();
-            process.StartInfo.FileName = "node.exe";
+            process.StartInfo.FileName = "node";
             process.StartInfo.Arguments = $"highlight.js {language}";
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardInput = true;
