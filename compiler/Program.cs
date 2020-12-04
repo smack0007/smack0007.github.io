@@ -190,7 +190,12 @@ namespace compiler
 
                 var output = Path.Combine(outputPath, staticFile);
 
-                Directory.CreateDirectory(Path.GetDirectoryName(output));
+                var outputDirectory = Path.GetDirectoryName(output);
+
+                if (outputDirectory == null)
+                    continue;
+
+                Directory.CreateDirectory(outputDirectory);
 
                 File.Copy(
                     Path.Combine(inputPath, staticFile),
