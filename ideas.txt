@@ -1,0 +1,13 @@
+=== Byte Strings ===
+
+string input =
+@"0a 0b 74 65 73 74 73 65 72 76 69 63 65 12 02 34
+33 1a 63 0a 43 74 79 70 65 2e 67 6f 6f 67 6c 65
+61 70 69 73 2e 63 6f 6d 2f 63 6f 6d 2e 62 65 75
+6d 65 72 2e 64 65 6d 6f 70 72 6f 6a 65 63 74 2e
+65 76 65 6e 74 73 2e 50 61 63 6b 61 67 65 54 72
+61 63 6b 45 76 65 6e 74 12 1c 0a 07 53 6f 72 74
+65 72 31 12 09 50 61 63 6b 61 67 65 5f 31 18 01
+22 04 08 03 10 2b".Replace(Environment.NewLine, " ");
+
+var bytes = input.Split(' ').Select(x => Convert.ToByte(x, 16)).ToArray();
