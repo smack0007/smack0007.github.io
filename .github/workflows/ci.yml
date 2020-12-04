@@ -21,5 +21,6 @@ jobs:
 
       - name: Build
         run: |
+          git clone https://github.com/smack0007/smack0007.github.io.git -b main bin
           cd compiler
           dotnet run -p compiler.csproj ../source ../bin
