@@ -1,17 +1,19 @@
 {
-    "version": "0.1.0",
+    "version": "2.0.0",
     "command": "dotnet",
-    "isShellCommand": true,
     "args": [],
     "tasks": [
         {
-            "taskName": "build",
+            "label": "build",
+            "group": "build",
+            "command": "dotnet",
             "args": [
-                "-nologo",
-                "${workspaceRoot}/compiler/compiler.csproj",
-                "-p:BuildSite=true"
+                "run",
+                "-p",
+                "${workspaceRoot}/compiler",
+                "source",
+                "bin"
             ],
-            "isBuildCommand": true,
             "problemMatcher": "$msCompile"
         }
     ]

@@ -54,17 +54,18 @@ namespace compiler
                 return 1;
             }
 
-            var inputPath = Path.GetFullPath(args[0]);
+            var inputPath = Path.GetFullPath(args[0]);           
             var outputPath = Path.GetFullPath(args[1]);
             
+            Console.WriteLine($"Input path: {inputPath}");
+            Console.WriteLine($"Output path: {outputPath}");
+
             Directory.CreateDirectory(outputPath);
             Directory.CreateDirectory(Path.Combine(outputPath, "blog"));
             Directory.CreateDirectory(Path.Combine(outputPath, "tags"));
-            
-            Console.WriteLine($"Input path: {inputPath}");
 
             var files = Directory.EnumerateFiles(inputPath, "*.*", SearchOption.AllDirectories)
-                .Select(x => x.Substring(inputPath.Length))
+                .Select(x => x.Substring(inputPath.Length).Trim(Path.DirectorySeparatorChar))
                 .ToArray();
 
             var templateFiles = files.Where(x => Path.GetExtension(x) == ".cshtml");
@@ -95,7 +96,8 @@ namespace compiler
 
                 Directory.CreateDirectory(outputDirectory);
 
-                (var frontMatter, var content) = ProcessMarkdown(await File.ReadAllLinesAsync(Path.Combine(inputPath, fileName)));
+                var filePath = Path.Combine(inputPath, fileName);
+                (var frontMatter, var content) = ProcessMarkdown(await File.ReadAllLinesAsync(filePath));
 
                 if (isPost)
                 {
