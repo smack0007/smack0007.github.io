@@ -4,9 +4,6 @@
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
-
-    <SiteSourceDirectory>$(MSBuildThisFileDirectory)..\source\</SiteSourceDirectory>
-    <SiteOutputDirectory>$(MSBuildThisFileDirectory)..\bin\</SiteOutputDirectory>
   </PropertyGroup>
   
   <ItemGroup>
@@ -15,8 +12,4 @@
     <PackageReference Include="SharpScss" Version="1.4.0" />
     <PackageReference Include="TextDecoratorDotNet" Version="19.11.2" />
   </ItemGroup>
-  
-  <!-- <Target Name="BuildSite" AfterTargets="AfterBuild" Condition="$(BuildSite) == true">
-    <Exec WorkingDirectory="$(MSBuildThisFileDirectory)" Command="dotnet run &quot;$(SiteSourceDirectory)\&quot; &quot;$(SiteOutputDirectory)\&quot;" />
-  </Target> -->
 </Project>

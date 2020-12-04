@@ -6,13 +6,16 @@
         {
             "label": "build",
             "group": "build",
+            "options": {
+                "cwd": "${workspaceRoot}/compiler"
+            },
             "command": "dotnet",
             "args": [
                 "run",
                 "-p",
-                "${workspaceRoot}/compiler",
-                "source",
-                "bin"
+                "compiler.csproj",
+                "../source",
+                "../bin"
             ],
             "problemMatcher": "$msCompile"
         }
