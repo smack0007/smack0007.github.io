@@ -4,9 +4,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Sun, 06 Dec 2020 20:59:23 GMT</lastBuildDate>
-	<pubDate>Tue, 01 Dec 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Sun, 06 Dec 2020 21:07:52 GMT</lastBuildDate>
+	<pubDate>Sun, 06 Dec 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[GitHub Actions]]></title>
+		<description><![CDATA[<p>My blog is now being generated via GitHub actions. This post will serve as a test until
+I can write something useful.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/github-actions.html</link>
+		<guid>http://smack0007.github.io/blog/2020/github-actions.html</guid>
+		<pubDate>Sun, 06 Dec 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Use nginx in docker to serve static files]]></title>
 		<description><![CDATA[<p>Not sure how practical this really is but I thought it was neat. Run nginx and tell it to
@@ -247,33 +256,6 @@ although the code will compile without any problems.</p>
 		<link>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-csharp.html</link>
 		<guid>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-csharp.html</guid>
 		<pubDate>Thu, 21 Jun 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[A neat way to curry in C#]]></title>
-		<description><![CDATA[<p>I was reading an older blogpost from <a href="http://mikehadlow.blogspot.de/2015/09/partial-application-in-c.html">Mike Hadlow</a> about
-<a href="http://mikehadlow.blogspot.de/2015/09/partial-application-in-c.html">Partial Application in C#</a> in which he discusses how
-<a href="https://en.wikipedia.org/wiki/Partial_application">Partial Application</a> can be implemented in C# via
-<a href="https://en.wikipedia.org/wiki/Currying">Currying</a>. Although I appreciate his example of implementing currying via extsion
-methods, the syntax is hideous. There is a suggestion in the comments though that I found to be a much better solution.</p>
-<pre><code class="hljs csharp"><span class="hljs-comment">// Define a local function Add.</span>
-<span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a, <span class="hljs-built_in">int</span> b</span>)</span> =&gt; a + b;
-
-<span class="hljs-comment">// Here we do the currying.</span>
-Func&lt;<span class="hljs-built_in">int</span>, <span class="hljs-built_in">int</span>&gt; add3 = (b) =&gt; Add(<span class="hljs-number">3</span>, b);
-
-<span class="hljs-comment">// This will print 5.</span>
-Console.WriteLine(add3(<span class="hljs-number">2</span>));
-
-<span class="hljs-comment">// Curry one more time so that we have</span>
-<span class="hljs-comment">// a function that simply produces 5.</span>
-Func&lt;<span class="hljs-built_in">int</span>&gt; five = () =&gt; add3(<span class="hljs-number">2</span>);
-
-<span class="hljs-comment">// This will also print 5.</span>
-Console.WriteLine(five());</pre></code>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/a-neat-way-to-curry-in-csharp.html</link>
-		<guid>http://smack0007.github.io/blog/2018/a-neat-way-to-curry-in-csharp.html</guid>
-		<pubDate>Fri, 25 May 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
