@@ -28,7 +28,7 @@ jobs:
 
       - name: Publish
         run: |
-          git log -1 --pretty=%%B > commit.msg
+          git log -1 --pretty=%B > commit.msg
           cd bin
           git config --global user.name "smack0007"
           git config --global user.email "zachary.snow@gmail.com"
