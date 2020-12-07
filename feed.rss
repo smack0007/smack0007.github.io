@@ -4,13 +4,13 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Mon, 07 Dec 2020 08:28:07 GMT</lastBuildDate>
+	<lastBuildDate>Mon, 07 Dec 2020 08:39:31 GMT</lastBuildDate>
 	<pubDate>Sun, 06 Dec 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
 		<title><![CDATA[GitHub Actions]]></title>
-		<description><![CDATA[<p>My blog is now being generated via GitHub actions. This post will serve as a test until
-I can write something useful.</p>
+		<description><![CDATA[<p>My blog is now being generated via GitHub actions in <code>ubuntu-latest</code>. This allows me to rebuild my
+blog everytime there is a pushed commit.</p>
 ]]></description>
 		<link>http://smack0007.github.io/blog/2020/github-actions.html</link>
 		<guid>http://smack0007.github.io/blog/2020/github-actions.html</guid>
