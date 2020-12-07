@@ -66,6 +66,10 @@ namespace compiler
 
                 case "xml":
                     return "xml";
+
+                case "yaml":
+                case "yml":
+                    return "yaml";
             }
 
             Console.Error.WriteLine($"ERROR: Unknown language '{language}'.");
