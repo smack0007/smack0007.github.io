@@ -2,7 +2,6 @@
 Title: Enum Extension Methods
 Subtitle: 
 Date: 2020-07-17
-Category: c#
 Tags: .net, c#, enum, extension-methods
 ---
 
