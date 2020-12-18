@@ -7,6 +7,9 @@
 		<loc>http://smack0007.github.io/about.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/blog/2020/github-actions.html</loc>
 	</url>
 	<url>
@@ -184,10 +187,10 @@
 		<loc>http://smack0007.github.io/blog/2011/getting-started-with-slimdx.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/getting-started-with-opentk.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/opentk-simple-movable-sprite.html</loc>
 	</url>
 	<url>
-		<loc>http://smack0007.github.io/blog/2011/opentk-simple-movable-sprite.html</loc>
+		<loc>http://smack0007.github.io/blog/2011/getting-started-with-opentk.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/blog/2011/keeping-splitcontainer-splitterdistance-consistent.html</loc>
@@ -295,6 +298,9 @@
 		<loc>http://smack0007.github.io/blog/page16.html</loc>
 	</url>
 	<url>
+		<loc>http://smack0007.github.io/blog/page17.html</loc>
+	</url>
+	<url>
 		<loc>http://smack0007.github.io/tags/net/index.html</loc>
 	</url>
 	<url>
@@ -353,6 +359,9 @@
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/csharp/6.html</loc>
+	</url>
+	<url>
+		<loc>http://smack0007.github.io/tags/c#9/index.html</loc>
 	</url>
 	<url>
 		<loc>http://smack0007.github.io/tags/cpp/index.html</loc>

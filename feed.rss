@@ -4,9 +4,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 16 Dec 2020 10:07:23 GMT</lastBuildDate>
-	<pubDate>Sun, 06 Dec 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 18 Dec 2020 14:25:58 GMT</lastBuildDate>
+	<pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[NativeLibraryLoader for Assembly with ModuleInitializer]]></title>
+		<description><![CDATA[<p>In C# 9 the <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#support-for-code-generators"><code>ModuleInitializer</code></a>
+atrribute was introduced which makes it easy to implement loading of native assemblies in your library.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</link>
+		<guid>http://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</guid>
+		<pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[GitHub Actions]]></title>
 		<description><![CDATA[<p>My blog is now being generated via GitHub actions in <code>ubuntu-latest</code>. This allows me to rebuild my
@@ -239,23 +248,6 @@ point have contained a C# example but for some reason this one didn't. This insp
 		<link>http://smack0007.github.io/blog/2018/functional-card-deck-in-csharp.html</link>
 		<guid>http://smack0007.github.io/blog/2018/functional-card-deck-in-csharp.html</guid>
 		<pubDate>Thu, 11 Oct 2018 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Enabling the latest version of C#]]></title>
-		<description><![CDATA[<p>As of this writing when creating a new console project via <code>dotnet new console</code> the version of C# used in the project
-is version 7.0. This means you're missing out cool features like <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-1#default-literal-expressions">Default Literal Expressions</a>. The language version
-can be changed via Visual Studio though I prefer to enable it via MSBuild. This can be done in the <code>csproj</code> file
-or globally via a <code>Build.Directory.props</code> file. Changing the C# language version is done via a property known as <code>LangVersion</code>.</p>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">PropertyGroup</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">LangVersion</span>&gt;</span>latest<span class="hljs-tag">&lt;/<span class="hljs-name">LangVersion</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">PropertyGroup</span>&gt;</span></pre></code>
-<p>This property can set to any of the values listed <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/langversion-compiler-option">here</a>. As of
-this writing VS Code doesn't seem to like it when you use 7.3 instead of latest. VS Code will show errors in your code
-although the code will compile without any problems.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-csharp.html</link>
-		<guid>http://smack0007.github.io/blog/2018/enabling-the-latest-version-of-csharp.html</guid>
-		<pubDate>Thu, 21 Jun 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
