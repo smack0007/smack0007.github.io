@@ -10,7 +10,7 @@ If you'd like to get a Redis instance up and running to play with it's fairly ea
 <!--more-->
 
 ```cmd
-docker run --name my-redis -d redis redis-server --appendonly yes
+docker run --name my-redis -p 6379:6379 -d redis redis-server --appendonly yes
 ```
 
 This will start a Redis instance with the name `my-redis` with persistent storage turned on. You can also
