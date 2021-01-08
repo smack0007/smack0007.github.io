@@ -4,9 +4,17 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 18 Dec 2020 14:25:58 GMT</lastBuildDate>
-	<pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 08 Jan 2021 10:27:49 GMT</lastBuildDate>
+	<pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Starting Redis and the Redis CLI with Docker]]></title>
+		<description><![CDATA[<p>If you'd like to get a Redis instance up and running to play with it's fairly easy via Docker.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2021/starting-redis-and-the-redis-cli-with-docker.html</link>
+		<guid>http://smack0007.github.io/blog/2021/starting-redis-and-the-redis-cli-with-docker.html</guid>
+		<pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[NativeLibraryLoader for Assembly with ModuleInitializer]]></title>
 		<description><![CDATA[<p>In C# 9 the <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#support-for-code-generators"><code>ModuleInitializer</code></a>
@@ -238,16 +246,6 @@ sounded easy enough to generate a whole bunch of unit tests for.</p>
 		<link>http://smack0007.github.io/blog/2019/generating-string-permutations-for-unit-testing.html</link>
 		<guid>http://smack0007.github.io/blog/2019/generating-string-permutations-for-unit-testing.html</guid>
 		<pubDate>Mon, 11 Feb 2019 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Functional Card Deck in C#]]></title>
-		<description><![CDATA[<p>I've been inspired lately by Mark Seemann's series of posts about <a href="http://blog.ploeh.dk/2018/10/01/applicative-functors/">Applicative Functors</a>. One of the latest posts is an example about
-creating a <a href="http://blog.ploeh.dk/2018/10/08/full-deck/">full deck</a> of cards. Most of posts up to this
-point have contained a C# example but for some reason this one didn't. This inspired me to take a shot at it.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2018/functional-card-deck-in-csharp.html</link>
-		<guid>http://smack0007.github.io/blog/2018/functional-card-deck-in-csharp.html</guid>
-		<pubDate>Thu, 11 Oct 2018 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
