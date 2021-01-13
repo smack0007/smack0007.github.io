@@ -4,7 +4,7 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 13 Jan 2021 13:54:46 GMT</lastBuildDate>
+	<lastBuildDate>Wed, 13 Jan 2021 13:55:41 GMT</lastBuildDate>
 	<pubDate>Wed, 13 Jan 2021 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
 	<item>
@@ -12,8 +12,8 @@
 		<description><![CDATA[<p>I needed to convert a TypeScript AST (Abstract Syntax Tree) to json so that I can consume it in
 a C# application so I wrote a tiny node script to convert the AST to json.</p>
 ]]></description>
-		<link>http://smack0007.github.io/blog/2021/conver-typescript-ast-to-json.html</link>
-		<guid>http://smack0007.github.io/blog/2021/conver-typescript-ast-to-json.html</guid>
+		<link>http://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</link>
+		<guid>http://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</guid>
 		<pubDate>Wed, 13 Jan 2021 00:00:00 GMT</pubDate>
 	</item>
 	<item>
