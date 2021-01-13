@@ -4,9 +4,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 08 Jan 2021 10:46:32 GMT</lastBuildDate>
-	<pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
+	<lastBuildDate>Wed, 13 Jan 2021 13:54:46 GMT</lastBuildDate>
+	<pubDate>Wed, 13 Jan 2021 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Convert TypeScript AST to JSON]]></title>
+		<description><![CDATA[<p>I needed to convert a TypeScript AST (Abstract Syntax Tree) to json so that I can consume it in
+a C# application so I wrote a tiny node script to convert the AST to json.</p>
+]]></description>
+		<link>http://smack0007.github.io/blog/2021/conver-typescript-ast-to-json.html</link>
+		<guid>http://smack0007.github.io/blog/2021/conver-typescript-ast-to-json.html</guid>
+		<pubDate>Wed, 13 Jan 2021 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Starting Redis and the Redis CLI with Docker]]></title>
 		<description><![CDATA[<p>If you'd like to get a Redis instance up and running to play with it's fairly easy via Docker.</p>
@@ -236,16 +245,6 @@ can use to collect some actions to be &quot;deferred&quot; until a later time.</
 		<link>http://smack0007.github.io/blog/2019/abusing-idisposable.html</link>
 		<guid>http://smack0007.github.io/blog/2019/abusing-idisposable.html</guid>
 		<pubDate>Tue, 27 Aug 2019 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Generating string permutations for unit testing]]></title>
-		<description><![CDATA[<p>I needed to parse a string containing 6 characters. Each character should only
-be one of 3 possibilities: '?' for null, '0' for false or '1' for true. The problem
-sounded easy enough to generate a whole bunch of unit tests for.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2019/generating-string-permutations-for-unit-testing.html</link>
-		<guid>http://smack0007.github.io/blog/2019/generating-string-permutations-for-unit-testing.html</guid>
-		<pubDate>Mon, 11 Feb 2019 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
