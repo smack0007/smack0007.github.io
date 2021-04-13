@@ -1,12 +1,15 @@
-import { cd, ls } from "shelljs";
-import { join } from "path";
+import { chDir, join, listFiles } from "./node";
 
-cd(join(__dirname, "..", "source"));
+chDir(join(__dirname, "..", "source"));
 
-const mdFileNames: string[] = [];
+main();
 
-for (const fileName of ls("**/*.md")) {
-    mdFileNames.push(fileName);
+async function main() {
+    const mdFileNames: string[] = [];
+
+    for (const fileName of await listFiles(".", ".md")) {
+        mdFileNames.push(fileName);
+    }
+
+    console.info("mdFileNames", mdFileNames);
 }
-
-console.info("mdFileNames", mdFileNames);

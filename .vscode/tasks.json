@@ -1,23 +1,18 @@
 {
-    "version": "2.0.0",
-    "command": "dotnet",
-    "args": [],
-    "tasks": [
-        {
-            "label": "build",
-            "group": "build",
-            "options": {
-                "cwd": "${workspaceRoot}/compiler"
-            },
-            "command": "dotnet",
-            "args": [
-                "run",
-                "-p",
-                "compiler.csproj",
-                "../source",
-                "../bin"
-            ],
-            "problemMatcher": "$msCompile"
-        }
-    ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": {
+				"isDefault": true,
+				"kind": "build"
+			},
+			"label": "npm: build",
+			"detail": "ts-node ./compiler/main.ts"
+		}
+	]
 }

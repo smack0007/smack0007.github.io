@@ -2,7 +2,6 @@
     "editor.formatOnSave": true,
     "files.exclude": {
         "**/dist": true,
-        "**/node_modules": true,
-        "compiler/**/*.js": true,
+        "**/node_modules": true
     },
 }

@@ -3,14 +3,11 @@
     "target": "es6",
     "module": "commonjs",
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    /* Advanced Options */
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   }
 }
