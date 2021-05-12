@@ -60,6 +60,9 @@ namespace compiler
                 case "php":
                     return "php";
 
+                case "powershell":
+                    return "powershell";
+
                 case "ts":
                 case "typescript":
                     return "typescript";
