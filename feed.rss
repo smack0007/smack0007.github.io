@@ -4,9 +4,19 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>http://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 05 May 2021 08:23:37 GMT</lastBuildDate>
-	<pubDate>Wed, 13 Jan 2021 00:00:00 GMT</pubDate>
+	<lastBuildDate>Wed, 12 May 2021 07:28:16 GMT</lastBuildDate>
+	<pubDate>Wed, 12 May 2021 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Windows Terminal fork command]]></title>
+		<description><![CDATA[<p>I wanted a way to <a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork</a> the current tab in <a href="https://github.com/microsoft/terminal">Windows Terminal</a> and
+so I've come up with this PowerShell function:</p>
+<pre><code class="hljs shell">function fork { wt -w 0 -d &quot;$(Get-Location)&quot; }</pre></code>
+]]></description>
+		<link>http://smack0007.github.io/blog/2021/windows-terminal-fork-command.html</link>
+		<guid>http://smack0007.github.io/blog/2021/windows-terminal-fork-command.html</guid>
+		<pubDate>Wed, 12 May 2021 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Convert TypeScript AST to JSON]]></title>
 		<description><![CDATA[<p>I needed to convert a TypeScript AST (Abstract Syntax Tree) to json so that I can consume it in
@@ -231,20 +241,6 @@ loading <code>libegl.dll</code> must be implicitly loading <code>libglesv2.dll</
 		<link>http://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</link>
 		<guid>http://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</guid>
 		<pubDate>Tue, 22 Oct 2019 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Abusing IDisposable]]></title>
-		<description><![CDATA[<p>In C# the interface <code>IDisposable</code> is usually used to indicate that an object
-needs to dispose of unmanaged resources. C# provides the <code>using</code> syntax to
-ensure that the <code>Dispose</code> method is called once the instance of the object is
-no longer needed.</p>
-<p><code>Dispose</code> is just like any other method though and the <code>using</code> syntax can
-be used quite nicely for other use cases as well. Let's create a class we
-can use to collect some actions to be &quot;deferred&quot; until a later time.</p>
-]]></description>
-		<link>http://smack0007.github.io/blog/2019/abusing-idisposable.html</link>
-		<guid>http://smack0007.github.io/blog/2019/abusing-idisposable.html</guid>
-		<pubDate>Tue, 27 Aug 2019 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
