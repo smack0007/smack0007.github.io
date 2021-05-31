@@ -1,15 +1,18 @@
-@import 'bootstrap.min.css';
-@import 'icomoon.css';
-@import '../../ext/highlight.js/scss/vs2015.scss';
+@import "./bootstrap.min.scss";
+@import "./icomoon.scss";
+@import "../../ext/highlight.js/scss/vs2015.scss";
 
 body {
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     font-weight: 400;
     font-size: 18px;
 }
 
-a, a:hover, .page-link, .page-link:hover {
-    color: #569cd6
+a,
+a:hover,
+.page-link,
+.page-link:hover {
+    color: #569cd6;
 }
 
 .social {
@@ -24,10 +27,10 @@ a, a:hover, .page-link, .page-link:hover {
 }
 
 code {
-  padding: .25em .5em;
-  color: #bf616a;
-  background-color: #f9f9f9;
-  border-radius: 3px;
+    padding: 0.25em 0.5em;
+    color: #bf616a;
+    background-color: #f9f9f9;
+    border-radius: 3px;
 }
 
 pre {
@@ -76,7 +79,7 @@ main {
             font-size: $postSubtitleFontSize;
             margin-bottom: 1rem;
         }
-        
+
         .meta {
             span {
                 margin-right: 0.6rem;
@@ -106,7 +109,7 @@ main {
                 }
             }
         }
-        
+
         .content {
             margin-top: 0;
         }
@@ -114,7 +117,7 @@ main {
 }
 
 footer {
-    font-size: .875rem;
+    font-size: 0.875rem;
 
     ul li {
         display: inline-block;
@@ -138,4 +141,3 @@ footer {
 .rounded {
     border-radius: 6px;
 }
-

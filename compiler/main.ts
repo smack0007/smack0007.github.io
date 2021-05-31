@@ -1,25 +1,20 @@
 import { chdir } from "process";
-import { join, parse } from "path";
-import { ensureDirectory, listFiles, readFile, writeFile } from "./utils";
+import { join, parse, sep as PATH_SEPERATOR } from "path";
+import {
+    copyDirectory,
+    ensureDirectory,
+    listFiles,
+    readFile,
+    writeFile,
+} from "./utils";
 import * as marked from "marked";
+import * as sass from "sass";
+import { FrontMatter, Page } from "./types";
+import { PageTemplate, PostTemplate } from "./templates";
 
 const ROOT_DIRECTORY = join(__dirname, "..");
 const INPUT_DIRECTORY = join(ROOT_DIRECTORY, "source");
 const OUTPUT_DIRECTORY = join(ROOT_DIRECTORY, "bin");
-
-interface FrontMatter {
-    title: string;
-    subtitle: string;
-    date: Date;
-    tags: string[];
-}
-
-interface PageData {
-    frontMatter: FrontMatter;
-    contents: string;
-}
-
-const pages: Record<string, PageData> = {};
 
 main();
 
@@ -28,20 +23,65 @@ async function main() {
 
     chdir(INPUT_DIRECTORY);
 
+    //
+    // Markdown
+    //
+
     for (const inputFileName of await listFiles(".", ".md")) {
-        const page = await parsePage(await readFile(inputFileName));
+        let page = await parsePage(
+            inputFileName,
+            await readFile(inputFileName)
+        );
 
         const pathParts = parse(inputFileName);
-        const outputFileName = join(pathParts.dir, pathParts.name) + ".html";
-
-        pages[inputFileName] = page;
-
         await ensureDirectory(join(OUTPUT_DIRECTORY, pathParts.dir));
-        await writeFile(join(OUTPUT_DIRECTORY, outputFileName), page.contents);
+
+        if (inputFileName.startsWith("blog" + PATH_SEPERATOR)) {
+            page = {
+                frontMatter: page.frontMatter,
+                url: page.url,
+                contents: PostTemplate(page) as string,
+            };
+        }
+
+        await writeFile(
+            join(OUTPUT_DIRECTORY, page.url.replace("/", PATH_SEPERATOR)),
+            PageTemplate(page) as string
+        );
     }
+
+    //
+    // SCSS
+    //
+
+    var result = sass.renderSync({
+        file: join(INPUT_DIRECTORY, "css", "style.scss"),
+        importer: (
+            url: string,
+            prev: string,
+            done: (data: sass.ImporterReturnType) => void
+        ) => {
+            console.info(url);
+        },
+    });
+
+    await ensureDirectory(join(OUTPUT_DIRECTORY, "css"));
+    await writeFile(
+        join(OUTPUT_DIRECTORY, "css", "style.css"),
+        result.css.toString()
+    );
+
+    //
+    // Fonts
+    //
+
+    copyDirectory(
+        join(INPUT_DIRECTORY, "fonts"),
+        join(OUTPUT_DIRECTORY, "fonts")
+    );
 }
 
-async function parsePage(data: string): Promise<PageData> {
+async function parsePage(inputFileName: string, data: string): Promise<Page> {
     const endFrontMatter = data.indexOf("---", 1);
     const frontMatterLength = endFrontMatter + "---".length;
     const frontMatterData = data.substring(0, frontMatterLength).trim();
@@ -78,10 +118,16 @@ async function parsePage(data: string): Promise<PageData> {
         }
     }
 
+    const pathParts = parse(inputFileName);
+    const outputFileName = (
+        join(pathParts.dir, pathParts.name) + ".html"
+    ).replace(PATH_SEPERATOR, "/");
+
     const contents = await marked(markdownData);
 
     return {
         frontMatter,
+        url: outputFileName,
         contents,
     };
 }

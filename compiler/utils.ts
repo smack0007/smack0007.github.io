@@ -1,11 +1,25 @@
 import {
+    copyFile,
     lstat,
     mkdir,
     readdir,
     readFile as _readFile,
     writeFile as _writeFile,
 } from "fs/promises";
-import { extname, join, sep, resolve } from "path";
+import { extname, join } from "path";
+
+export async function copyDirectory(src: string, dest: string): Promise<void> {
+    await ensureDirectory(dest);
+    const files = await readdir(src);
+    for (const file of files) {
+        const current = await lstat(join(src, file));
+        if (current.isDirectory()) {
+            await copyDirectory(join(src, file), join(dest, file));
+        } else {
+            await copyFile(join(src, file), join(dest, file));
+        }
+    }
+}
 
 export async function ensureDirectory(
     directory: string
