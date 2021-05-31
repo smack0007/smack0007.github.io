@@ -7,7 +7,9 @@ import {
 } from "fs/promises";
 import { extname, join, sep, resolve } from "path";
 
-export async function ensureDirectory(directory: string): Promise<string> {
+export async function ensureDirectory(
+    directory: string
+): Promise<string | undefined> {
     return mkdir(directory, { mode: 755, recursive: true }).catch((error) => {
         if (error.code !== "EEXIST") {
             throw error;
