@@ -1,8 +1,7 @@
 ---
 Title: WinForms and MVC
 Date: 2010-05-26
-Tags: .net, mvc, winforms 
-Comments: true
+Tags: .net mvc winforms
 ---
 
 I recently became interested in doing MVC inside of a Windows Forms app. I found a few MVC frameworks which work with WinForms ([see here](http://stackoverflow.com/questions/2406/looking-for-a-mvc-sample-for-winforms)) but they didn't really interest me. Too heavy I felt for what I was looking to do. I ended up with a solution looking something like this:

@@ -1,10 +1,10 @@
 ---
 Title: The Game Show Host Problem, aka The Monty Hall Problem
 Date: 2009-02-12
-Category: random
+Tags: random
 ---
 
-*NOTE: This is a repost from my old blog.*
+_NOTE: This is a repost from my old blog._
 
 So, me and my girlfriend went to see 21 last night and in the movie they make mention of The Game Show Host problem, aka The Monty Hall Problem.
 

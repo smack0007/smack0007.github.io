@@ -9,28 +9,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install .NET 5.0
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '5.0.x'
-
-      - name: Use Node.js 12
+      - name: Use Node.js 16
         uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: "16"
 
       - name: Build
         run: |
           git clone https://github.com/smack0007/smack0007.github.io.git -b main bin
-          cd compiler
-          dotnet run -p compiler.csproj ../source ../bin
-          cd ..
 
-      - name: Publish
-        run: |
-          git log -1 --pretty=%B > commit.msg
-          cd bin
-          git config --global user.name "smack0007"
-          git config --global user.email "zachary.snow@gmail.com"
-          git add -A && git commit -F "../commit.msg"
-          git push https://smack0007:${{ secrets.API_KEY }}@github.com/smack0007/smack0007.github.io.git
+      # - name: Publish
+      #   run: |
+      #     git log -1 --pretty=%B > commit.msg
+      #     cd bin
+      #     git config --global user.name "smack0007"
+      #     git config --global user.email "zachary.snow@gmail.com"
+      #     git add -A && git commit -F "../commit.msg"
+      #     git push https://smack0007:${{ secrets.API_KEY }}@github.com/smack0007/smack0007.github.io.git
