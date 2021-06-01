@@ -6,6 +6,7 @@ import * as sass from "sass";
 import { FrontMatter, Page, Post } from "./types";
 import { PageTemplate, PostTemplate, IndexTemplate } from "./templates";
 import { BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg";
+import { copyFile } from "fs/promises";
 
 const ROOT_DIRECTORY = join(__dirname, "..");
 const INPUT_DIRECTORY = join(ROOT_DIRECTORY, "source");
@@ -38,6 +39,7 @@ async function main() {
 
     await compileScss();
     await copyFonts();
+    await copyStaticFiles();
 }
 
 async function parseMarkdownFiles(): Promise<MarkdownFilesResult> {
@@ -204,4 +206,15 @@ async function compileScss(): Promise<void> {
 
 async function copyFonts(): Promise<void> {
     await copyDirectory(join(INPUT_DIRECTORY, "fonts"), join(OUTPUT_DIRECTORY, "fonts"));
+}
+
+async function copyStaticFiles(): Promise<void> {
+    for (const file of await listFiles(INPUT_DIRECTORY, undefined, false)) {
+        if (file.endsWith(".md")) {
+            continue;
+        }
+
+        const pathParts = parse(file);
+        copyFile(file, join(OUTPUT_DIRECTORY, pathParts.base));
+    }
 }

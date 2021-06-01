@@ -23,14 +23,16 @@ export async function ensureDirectory(directory: string): Promise<string | undef
     });
 }
 
-export async function listFiles(path: string, ext?: string): Promise<string[]> {
+export async function listFiles(path: string, ext?: string, recursive: boolean = true): Promise<string[]> {
     const files = [];
     for (const file of await readdir(path)) {
         const filePath = join(path, file);
         const fileStat = await lstat(filePath);
 
         if (fileStat.isDirectory()) {
-            files.push(...(await listFiles(filePath, ext)));
+            if (recursive) {
+                files.push(...(await listFiles(filePath, ext)));
+            }
         } else {
             if (ext !== undefined) {
                 const fileExt = extname(filePath);
