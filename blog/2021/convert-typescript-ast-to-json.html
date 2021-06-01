@@ -1,47 +1,55 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Convert TypeScript AST to JSON</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2021/convert-typescript-ast-to-json.html>Convert TypeScript AST to JSON</a></h2><div class=meta><span class=date><span class=icon-calendar></span>January 13, 2021</span> <span class=tags><a href=tags/node/index.html><span class="icon icon-price-tags"></span> <span class=tagName>node</span></a> <a href=tags/typescript/index.html><span class="icon icon-price-tags"></span> <span class=tagName>typescript</span></a></span></div><div class=content><p>I needed to convert a TypeScript AST (Abstract Syntax Tree) to json so that I can consume it in a C# application so I wrote a tiny node script to convert the AST to json.
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Convert TypeScript AST to JSON</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2021/convert-typescript-ast-to-json.html">Convert TypeScript AST to JSON</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>January 13, 2021</span><span class="tags"><a href="tags/node/index.html"><span class="icon icon-price-tags"></span><span class="tagName">node</span></a><a href="tags/typescript/index.html"><span class="icon icon-price-tags"></span><span class="tagName">typescript</span></a></span></div></div><div class="content"><p>I needed to convert a TypeScript AST (Abstract Syntax Tree) to json so that I can consume it in
+a C# application so I wrote a tiny node script to convert the AST to json.</p>
+<!--more-->
 
-<pre><code class="hljs javascript"><span class=hljs-comment>// Inspiration for this script taken from StackOverflow: https://stackoverflow.com/a/20197641/26566</span>
-<span class=hljs-keyword>const</span> fs = <span class=hljs-built_in>require</span>(<span class=hljs-string>'fs'</span>);
-<span class=hljs-keyword>const</span> ts = <span class=hljs-built_in>require</span>(<span class=hljs-string>'typescript'</span>);
-<span class=hljs-keyword>const</span> process = <span class=hljs-built_in>require</span>(<span class=hljs-string>'process'</span>);
+<pre><code class="hljs js"><span class="hljs-comment">// Inspiration for this script taken from StackOverflow: https://stackoverflow.com/a/20197641/26566</span>
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
+<span class="hljs-keyword">const</span> ts = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;typescript&#x27;</span>);
+<span class="hljs-keyword">const</span> process = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;process&#x27;</span>);
 
-<span class=hljs-keyword>const</span> source = fs.readFileSync(process.argv[<span class=hljs-number>2</span>], <span class=hljs-string>'utf-8'</span>);
+<span class="hljs-keyword">const</span> source = fs.<span class="hljs-title function_">readFileSync</span>(process.<span class="hljs-property">argv</span>[<span class="hljs-number">2</span>], <span class="hljs-string">&#x27;utf-8&#x27;</span>);
 
-<span class=hljs-keyword>const</span> sourceFile = ts.createSourceFile(process.argv[<span class=hljs-number>2</span>], source, ts.ScriptTarget.Latest, <span class=hljs-literal>true</span>);
+<span class="hljs-keyword">const</span> sourceFile = ts.<span class="hljs-title function_">createSourceFile</span>(process.<span class="hljs-property">argv</span>[<span class="hljs-number">2</span>], source, ts.<span class="hljs-property">ScriptTarget</span>.<span class="hljs-property">Latest</span>, <span class="hljs-literal">true</span>);
 
-<span class=hljs-comment>// Add an ID to every node in the tree to make it easier to identify in</span>
-<span class=hljs-comment>// the consuming application.</span>
-<span class=hljs-keyword>let</span> nextId = <span class=hljs-number>0</span>;
-<span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>addId</span>(<span class=hljs-params>node</span>) </span>{
+<span class="hljs-comment">// Add an ID to every node in the tree to make it easier to identify in</span>
+<span class="hljs-comment">// the consuming application.</span>
+<span class="hljs-keyword">let</span> nextId = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">addId</span>(<span class="hljs-params">node</span>) {
     nextId++;
-    node.id = nextId;
-    ts.forEachChild(node, addId);
+    node.<span class="hljs-property">id</span> = nextId;
+    ts.<span class="hljs-title function_">forEachChild</span>(node, addId);
 }
-addId(sourceFile);
+<span class="hljs-title function_">addId</span>(sourceFile);
 
-<span class=hljs-comment>// No need to save the source again.</span>
-<span class=hljs-keyword>delete</span> sourceFile.text;
+<span class="hljs-comment">// No need to save the source again.</span>
+<span class="hljs-keyword">delete</span> sourceFile.<span class="hljs-property">text</span>;
 
-<span class=hljs-keyword>const</span> cache = [];
-<span class=hljs-keyword>const</span> json = <span class=hljs-built_in>JSON</span>.stringify(sourceFile, <span class=hljs-function>(<span class=hljs-params>key, value</span>) =></span> {
-  <span class=hljs-comment>// Discard the following.</span>
-  <span class=hljs-keyword>if</span> (key === <span class=hljs-string>'flags'</span> || key === <span class=hljs-string>'transformFlags'</span> || key === <span class=hljs-string>'modifierFlagsCache'</span>) {
-      <span class=hljs-keyword>return</span>;
+<span class="hljs-keyword">const</span> cache = [];
+<span class="hljs-keyword">const</span> json = <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(sourceFile, <span class="hljs-function">(<span class="hljs-params">key, value</span>) =&gt;</span> {
+  <span class="hljs-comment">// Discard the following.</span>
+  <span class="hljs-keyword">if</span> (key === <span class="hljs-string">&#x27;flags&#x27;</span> || key === <span class="hljs-string">&#x27;transformFlags&#x27;</span> || key === <span class="hljs-string">&#x27;modifierFlagsCache&#x27;</span>) {
+      <span class="hljs-keyword">return</span>;
   }
   
-  <span class=hljs-comment>// Replace 'kind' with the string representation.</span>
-  <span class=hljs-keyword>if</span> (key === <span class=hljs-string>'kind'</span>) {
-      value = ts.SyntaxKind[value];
+  <span class="hljs-comment">// Replace &#x27;kind&#x27; with the string representation.</span>
+  <span class="hljs-keyword">if</span> (key === <span class="hljs-string">&#x27;kind&#x27;</span>) {
+      value = ts.<span class="hljs-property">SyntaxKind</span>[value];
   }
   
-  <span class=hljs-keyword>if</span> (<span class=hljs-keyword>typeof</span> value === <span class=hljs-string>'object'</span> &amp;&amp; value !== <span class=hljs-literal>null</span>) {
-    <span class=hljs-comment>// Duplicate reference found, discard key</span>
-    <span class=hljs-keyword>if</span> (cache.includes(value)) <span class=hljs-keyword>return</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">&#x27;object&#x27;</span> &amp;&amp; value !== <span class="hljs-literal">null</span>) {
+    <span class="hljs-comment">// Duplicate reference found, discard key</span>
+    <span class="hljs-keyword">if</span> (cache.<span class="hljs-title function_">includes</span>(value)) <span class="hljs-keyword">return</span>;
 
-    cache.push(value);
+    cache.<span class="hljs-title function_">push</span>(value);
   }
-  <span class=hljs-keyword>return</span> value;
+  <span class="hljs-keyword">return</span> value;
 });
 
-<span class=hljs-built_in>console</span>.info(json);</code></pre><p>The script will write the json to standard output. The script is meant to be invoked like so:
-<pre><code class="hljs shell">node ts2json.ts input.d.ts > output.json</code></pre><p>I've only tested it so far on <code>.d.ts</code> files but there shouldn't be any reason it won't work on normal ts files.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2021/starting-redis-and-the-redis-cli-with-docker.html class="page-link older">Older</a><li class=page-item><a href=blog/2021/windows-terminal-fork-command.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(json);
+</code></pre>
+<p>The script will write the json to standard output. The script is meant to be invoked like so:</p>
+<pre><code class="hljs cmd">node ts2json.ts input.d.ts &gt; output.json
+</code></pre>
+<p>I&#39;ve only tested it so far on <code>.d.ts</code> files but there shouldn&#39;t be any reason it won&#39;t work
+on normal ts files.</p>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

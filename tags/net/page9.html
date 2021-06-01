@@ -1,0 +1,85 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>.net</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link" href="index.html">Home</a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link active" href="tags/index.html">Tags<span class="sr-only">(current)</span></a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2010/progress-bars-in-windows-7-taskbars.html">Progress Bar in Windows 7 Taskbars</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>June 1, 2010</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/csharp/index.html"><span class="icon icon-price-tags"></span><span class="tagName">c#</span></a><a href="tags/windows-7/index.html"><span class="icon icon-price-tags"></span><span class="tagName">windows-7</span></a></span></div></div><div class="content"><p>I decided to add progress bar to the Windows 7 Taskbar in my Timer app.</p>
+<p>I started by downloading and compiling the <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows API Code Pack</a> in Release mode. I then added a reference to the Microsoft.WindowsAPICodePack.dll and Microsoft.WindowsAPICodePack.Shell.dll files to the project. After that add the lines:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">using</span> Microsoft.WindowsAPICodePack.Taskbar;
+</code></pre>
+<p>to your using statements. When the clock starts running I create the progress bar in the taskbar with:</p>
+<pre><code class="hljs c#"><span class="hljs-comment">// Initialize progress bar</span>
+<span class="hljs-keyword">if</span>(TaskbarManager.IsPlatformSupported)
+{
+    TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
+    TaskbarManager.Instance.SetProgressValue(<span class="hljs-number">0</span>, (<span class="hljs-built_in">int</span>)<span class="hljs-keyword">this</span>.totalTime.TotalSeconds, <span class="hljs-keyword">this</span>.Handle);
+}
+</code></pre>
+<p>to stop the progress bar:</p>
+<pre><code class="hljs c#"><span class="hljs-comment">// Stop progress bar</span>
+<span class="hljs-keyword">if</span>(TaskbarManager.IsPlatformSupported)
+    TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
+</code></pre>
+<p>and finally to update the progress bar on each tick:</p>
+<pre><code class="hljs c#"><span class="hljs-comment">// Update progress bar</span>
+<span class="hljs-keyword">if</span>(TaskbarManager.IsPlatformSupported)
+    TaskbarManager.Instance.SetProgressValue((<span class="hljs-built_in">int</span>)<span class="hljs-keyword">this</span>.totalTime.TotalSeconds - (<span class="hljs-built_in">int</span>)<span class="hljs-keyword">this</span>.time.TotalSeconds, (<span class="hljs-built_in">int</span>)<span class="hljs-keyword">this</span>.totalTime.TotalSeconds, <span class="hljs-keyword">this</span>.Handle);
+</code></pre>
+</div></div><div class="post"><div class="post-header"><h2><a href="blog/2010/winforms-and-mvc.html">WinForms and MVC</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>May 26, 2010</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/mvc/index.html"><span class="icon icon-price-tags"></span><span class="tagName">mvc</span></a><a href="tags/winforms/index.html"><span class="icon icon-price-tags"></span><span class="tagName">winforms</span></a></span></div></div><div class="content"><p>I recently became interested in doing MVC inside of a Windows Forms app. I found a few MVC frameworks which work with WinForms (<a href="http://stackoverflow.com/questions/2406/looking-for-a-mvc-sample-for-winforms">see here</a>) but they didn&#39;t really interest me. Too heavy I felt for what I was looking to do. I ended up with a solution looking something like this:</p>
+<p>There is really only one controller and that is the &quot;Application&quot; class. It contains all the methods your app can call to manipulate your models, which are in the &quot;Data&quot; folder / namespace. The &quot;WinFormsApplication&quot; class inherits from the &quot;Application&quot; class and just sets the view to an instance of &quot;WinFormsView&quot;. The &quot;Application&quot; class communicates with the view through the &quot;IView&quot; interface. The &quot;WinFormsView&quot; class is a Windows Forms implementation of that view. The &quot;Application&quot; class and your models are not coupled in any way to your Windows Forms implementation of the view.</p>
+<p>If you want you view to be as dumb as possible, your view can communicate with the &quot;Application&quot; class only through events. In my case though, I choose to go with a smart view and have the view call back to methods in the &quot;Application&quot; class. The &quot;Application&quot; class tells the view when models are loaded and unloaded. The view subscribes to events on the models and reacts to the events.</p>
+<p>All of my forms and controls communicate with each other through the &quot;WinFormsView&quot; class. One control might change the value of a property in the &quot;WinFormsView&quot; class and another control might subscribe to a change event and update as necessary. This keeps the controls and forms slightly less coupled.</p>
+<p>It&#39;s not a perfect implementation of MVC but it keeps my model logic decoupled enough from my view logic that I can later implement a WPF version of the view I think.</p>
+</div></div><div class="post"><div class="post-header"><h2><a href="blog/2010/drawing-rectangles-with-spritebatch.html">Drawing Rectangles with SpriteBatch</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>March 29, 2010</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/csharp/index.html"><span class="icon icon-price-tags"></span><span class="tagName">c#</span></a><a href="tags/code-snippets/index.html"><span class="icon icon-price-tags"></span><span class="tagName">code-snippets</span></a><a href="tags/xna/index.html"><span class="icon icon-price-tags"></span><span class="tagName">xna</span></a></span></div></div><div class="content"><p>Just a quick code snippet which adds an extension method for drawing Rectangles to SpriteBatch:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">SpriteBatchHelper</span>
+{
+    <span class="hljs-keyword">static</span> Texture2D pixel;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">LoadPixel</span>(<span class="hljs-params">GraphicsDevice graphicsDevice</span>)</span>
+    {
+        <span class="hljs-keyword">if</span>(pixel == <span class="hljs-literal">null</span>)
+        {
+            pixel = <span class="hljs-keyword">new</span> Texture2D(graphicsDevice, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+            pixel.SetData&amp;lt;Color&amp;gt;(<span class="hljs-keyword">new</span> Color[] { Color.White });
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DrawRectangle</span>(<span class="hljs-params"><span class="hljs-keyword">this</span> SpriteBatch spriteBatch, Rectangle rectangle, Color color</span>)</span>
+    {
+        LoadPixel(spriteBatch.GraphicsDevice);
+        spriteBatch.Draw(pixel, rectangle, color);
+    }
+}
+</code></pre>
+</div></div><div class="post"><div class="post-header"><h2><a href="blog/2010/csharp-extension-methods-in-your-own-library.html">C# Extension Methods in your own Library</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>March 8, 2010</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/csharp/index.html"><span class="icon icon-price-tags"></span><span class="tagName">c#</span></a><a href="tags/extension-methods/index.html"><span class="icon icon-price-tags"></span><span class="tagName">extension-methods</span></a></span></div></div><div class="content"><p>Normally I use extension methods in C# to extend a library that I did not write and therefore I have no control over. There are situations where it makes sense to use extension methods for a library that you yourself are writing.</p>
+<p>For example, when you have interfaces in your library. You want to keep the number of methods in that interface as low as possible so that classes implementing the interface don&#39;t have to do a lot of heavy lifting. This means cutting out methods in an interface that are for the most part just syntactic sugar for another method in the interface.</p>
+<pre><code class="hljs c#">
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IServiceContainer</span>
+{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddService</span>(<span class="hljs-params">Type type, Object provider</span>)</span>;
+    <span class="hljs-function"><span class="hljs-built_in">object</span> <span class="hljs-title">GetService</span>(<span class="hljs-params">Type type</span>)</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">IServiceContainerExtensions</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> AddService&amp;lt;T&amp;gt;(<span class="hljs-keyword">this</span> IServiceContainer services, <span class="hljs-built_in">object</span> provider)
+    {
+        services.AddService(<span class="hljs-keyword">typeof</span>(T), provider);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> T GetService&amp;lt;T&amp;gt;(<span class="hljs-keyword">this</span> IServiceContainer services) <span class="hljs-keyword">where</span> T : <span class="hljs-keyword">class</span>
+    {
+        <span class="hljs-keyword">return</span> services.GetService(<span class="hljs-keyword">typeof</span>(T)) <span class="hljs-keyword">as</span> T;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> T GetRequiredService&amp;lt;T&amp;gt;(<span class="hljs-keyword">this</span> IServiceContainer services) <span class="hljs-keyword">where</span> T : <span class="hljs-keyword">class</span>
+    {
+        T service = services.GetService(<span class="hljs-keyword">typeof</span>(T)) <span class="hljs-keyword">as</span> T;
+
+        <span class="hljs-keyword">if</span>(service == <span class="hljs-literal">null</span>)
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ServiceNotFoundException(<span class="hljs-keyword">typeof</span>(T));
+
+        <span class="hljs-keyword">return</span> service;
+    }
+}
+</code></pre>
+<p>All of the methods in IServiceContainerExtensions are just helper methods for method in IServiceContainer. By making them extension methods in our own library though, we&#39;ve made the barrier to entry lower. Other people can implement the interface and in a sense &quot;inherit&quot; the helper methods as well.</p>
+</div></div><div class="post"><div class="post-header"><h2><a href="blog/2010/creating-and-consuming-services-in-your-xna-game.html">Creating and consuming services in your XNA Game</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>February 18, 2010</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a></span></div></div><div class="content"><p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
+<blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote>
+
+<p>This article will &quot;<em>attempt</em>&quot; to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game&#39;s entity objects.</p><a class="readMore" href="@(post.Url)">Read More</a></div></div></div><div class="clear"></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class="page-item"><a href="tags/net/page10.html" class="page-link older">Older</a></li><li class="page-item"><a href="tags/net/page8.html" class="page-link newer">Newer</a></li></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

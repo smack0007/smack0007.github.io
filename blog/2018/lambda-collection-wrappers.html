@@ -1,123 +1,143 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Lambda Collection Wrappers</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2018/lambda-collection-wrappers.html>Lambda Collection Wrappers</a></h2><div class=meta><span class=date><span class=icon-calendar></span>April 26, 2018</span> <span class=tags><a href=tags/csharp/index.html><span class="icon icon-price-tags"></span> <span class=tagName>c#</span></a> <a href=tags/fp/index.html><span class="icon icon-price-tags"></span> <span class=tagName>fp</span></a></span></div><div class=content><p>I've been reading a lot as of late about functional programming and I try to incorperate as much as possible into my everyday programming. One trick that I've definitely started using is wrapping collections in lambda functions.<p>I'll try to explain with an example:
-<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-built_in>string</span>[] args</span>)</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Lambda Collection Wrappers</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2018/lambda-collection-wrappers.html">Lambda Collection Wrappers</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>April 26, 2018</span><span class="tags"><a href="tags/csharp/index.html"><span class="icon icon-price-tags"></span><span class="tagName">c#</span></a><a href="tags/fp/index.html"><span class="icon icon-price-tags"></span><span class="tagName">fp</span></a></span></div></div><div class="content"><p>I&#39;ve been reading a lot as of late about functional programming and I try to
+incorperate as much as possible into my everyday programming. One trick that
+I&#39;ve definitely started using is wrapping collections in lambda functions.</p>
+<!--more-->
+
+<p>I&#39;ll try to explain with an example:</p>
+<pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-built_in">string</span>[] args</span>)</span>
 {
-    <span class=hljs-keyword>var</span> typesToAssemblies = <span class=hljs-keyword>new</span> Dictionary&lt;Type, Assembly>();
+    <span class="hljs-keyword">var</span> typesToAssemblies = <span class="hljs-keyword">new</span> Dictionary&lt;Type, Assembly&gt;();
     
-    <span class=hljs-function><span class=hljs-keyword>void</span> <span class=hljs-title>BuildMap</span>(<span class=hljs-params>Assembly assembly</span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMap</span>(<span class="hljs-params">Assembly assembly</span>)</span>
     {
-        <span class=hljs-keyword>foreach</span> (<span class=hljs-keyword>var</span> type <span class=hljs-keyword>in</span> assembly.DefinedTypes)
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> type <span class="hljs-keyword">in</span> assembly.DefinedTypes)
             typesToAssemblies[type.AsType()] = type.Assembly;
 
-        <span class=hljs-keyword>foreach</span> (<span class=hljs-keyword>var</span> reference <span class=hljs-keyword>in</span> assembly.GetReferencedAssemblies())
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> reference <span class="hljs-keyword">in</span> assembly.GetReferencedAssemblies())
             BuildMap(Assembly.Load(reference));
     }
 
     BuildMap(Assembly.GetEntryAssembly());
 
-    DisplayType(typesToAssemblies, <span class=hljs-keyword>typeof</span>(<span class=hljs-built_in>string</span>));
-    DisplayType(typesToAssemblies, <span class=hljs-keyword>typeof</span>(Enumerable));
-    DisplayType(typesToAssemblies, <span class=hljs-keyword>typeof</span>(TypeInfo));
-    DisplayType(typesToAssemblies, <span class=hljs-keyword>typeof</span>(Dictionary&lt;,>));
+    DisplayType(typesToAssemblies, <span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">string</span>));
+    DisplayType(typesToAssemblies, <span class="hljs-keyword">typeof</span>(Enumerable));
+    DisplayType(typesToAssemblies, <span class="hljs-keyword">typeof</span>(TypeInfo));
+    DisplayType(typesToAssemblies, <span class="hljs-keyword">typeof</span>(Dictionary&lt;,&gt;));
 }
 
-<span class=hljs-function><span class=hljs-keyword>private</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DisplayType</span>(<span class=hljs-params>Dictionary&lt;Type, Assembly> typesToAssemblies, Type type</span>)</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DisplayType</span>(<span class="hljs-params">Dictionary&lt;Type, Assembly&gt; typesToAssemblies, Type type</span>)</span>
 {
-    <span class=hljs-keyword>if</span> (typesToAssemblies.TryGetValue(type, <span class=hljs-keyword>out</span> <span class=hljs-keyword>var</span> assembly))
+    <span class="hljs-keyword">if</span> (typesToAssemblies.TryGetValue(type, <span class="hljs-keyword">out</span> <span class="hljs-keyword">var</span> assembly))
     {
-        Console.WriteLine(<span class=hljs-string>$"<span class=hljs-subst>{type}</span>: &lt;<span class=hljs-subst>{assembly}</span>>"</span>);
+        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{type}</span>: &lt;<span class="hljs-subst">{assembly}</span>&gt;&quot;</span>);
     }
-    <span class=hljs-keyword>else</span>
+    <span class="hljs-keyword">else</span>
     {
-        Console.WriteLine(<span class=hljs-string>$"<span class=hljs-subst>{type}</span> is not available."</span>);
+        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{type}</span> is not available.&quot;</span>);
     }
-}</code></pre><p>The function <code>DisplayType</code> takes a <code>Dictionary&lt;Type, Assembly></code> as it's first parameter although it really only needs some function to look up if the type exists. This is evident by the fact that <code>TryGetValue</code> is the only method used from the dictionary. Let's refactor.
-<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-built_in>string</span>[] args</span>)</span>
+}
+</code></pre>
+<p>The function <code>DisplayType</code> takes a <code>Dictionary&lt;Type, Assembly&gt;</code> as it&#39;s first parameter although
+it really only needs some function to look up if the type exists. This is evident by the fact that
+<code>TryGetValue</code> is the only method used from the dictionary. Let&#39;s refactor.</p>
+<pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-built_in">string</span>[] args</span>)</span>
 {
-    <span class=hljs-keyword>var</span> typesToAssemblies = <span class=hljs-keyword>new</span> Dictionary&lt;Type, Assembly>();
+    <span class="hljs-keyword">var</span> typesToAssemblies = <span class="hljs-keyword">new</span> Dictionary&lt;Type, Assembly&gt;();
     
-    <span class=hljs-function><span class=hljs-keyword>void</span> <span class=hljs-title>BuildMap</span>(<span class=hljs-params>Assembly assembly</span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMap</span>(<span class="hljs-params">Assembly assembly</span>)</span>
     {
-        <span class=hljs-keyword>foreach</span> (<span class=hljs-keyword>var</span> type <span class=hljs-keyword>in</span> assembly.DefinedTypes)
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> type <span class="hljs-keyword">in</span> assembly.DefinedTypes)
             typesToAssemblies[type.AsType()] = type.Assembly;
 
-        <span class=hljs-keyword>foreach</span> (<span class=hljs-keyword>var</span> reference <span class=hljs-keyword>in</span> assembly.GetReferencedAssemblies())
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> reference <span class="hljs-keyword">in</span> assembly.GetReferencedAssemblies())
             BuildMap(Assembly.Load(reference));
     }
 
     BuildMap(Assembly.GetEntryAssembly());
 
-    Func&lt;Type, Assembly> getAssembly = x =>
+    Func&lt;Type, Assembly&gt; getAssembly = x =&gt;
     {
-        <span class=hljs-keyword>if</span>(typesToAssemblies.TryGetValue(x, <span class=hljs-keyword>out</span> <span class=hljs-keyword>var</span> assembly))
+        <span class="hljs-keyword">if</span>(typesToAssemblies.TryGetValue(x, <span class="hljs-keyword">out</span> <span class="hljs-keyword">var</span> assembly))
         {
-            <span class=hljs-keyword>return</span> assembly;
+            <span class="hljs-keyword">return</span> assembly;
         }
 
-        <span class=hljs-keyword>return</span> <span class=hljs-literal>null</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
     };
 
-    DisplayType(getAssembly, <span class=hljs-keyword>typeof</span>(<span class=hljs-built_in>string</span>));
-    DisplayType(getAssembly, <span class=hljs-keyword>typeof</span>(Enumerable));
-    DisplayType(getAssembly, <span class=hljs-keyword>typeof</span>(TypeInfo));
-    DisplayType(getAssembly, <span class=hljs-keyword>typeof</span>(Dictionary&lt;,>));
+    DisplayType(getAssembly, <span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">string</span>));
+    DisplayType(getAssembly, <span class="hljs-keyword">typeof</span>(Enumerable));
+    DisplayType(getAssembly, <span class="hljs-keyword">typeof</span>(TypeInfo));
+    DisplayType(getAssembly, <span class="hljs-keyword">typeof</span>(Dictionary&lt;,&gt;));
 }
 
-<span class=hljs-function><span class=hljs-keyword>private</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DisplayType</span>(<span class=hljs-params>Func&lt;Type, Assembly> getAssembly, Type type</span>)</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DisplayType</span>(<span class="hljs-params">Func&lt;Type, Assembly&gt; getAssembly, Type type</span>)</span>
 {
-    <span class=hljs-keyword>var</span> assembly = getAssembly(type);
-    <span class=hljs-keyword>if</span> (assembly != <span class=hljs-literal>null</span>)
+    <span class="hljs-keyword">var</span> assembly = getAssembly(type);
+    <span class="hljs-keyword">if</span> (assembly != <span class="hljs-literal">null</span>)
     {
-        Console.WriteLine(<span class=hljs-string>$"<span class=hljs-subst>{type}</span>: &lt;<span class=hljs-subst>{assembly}</span>>"</span>);
+        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{type}</span>: &lt;<span class="hljs-subst">{assembly}</span>&gt;&quot;</span>);
     }
-    <span class=hljs-keyword>else</span>
+    <span class="hljs-keyword">else</span>
     {
-        Console.WriteLine(<span class=hljs-string>$"<span class=hljs-subst>{type}</span> is not available."</span>);
+        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{type}</span> is not available.&quot;</span>);
     }
-}</code></pre><p>This version produces the same output as the previous version. You may be thinking to yourself: Great but you just shuffled some code around. Yes and no. <code>DisplayType</code> is no longer dependent on the type <code>Dictionary&lt;Type, Assembly></code>. We could in theory, build the <code>typesToAssemblies</code> dictionary lazily.
-<pre><code class="hljs csharp"><span class=hljs-function><span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params><span class=hljs-built_in>string</span>[] args</span>)</span>
+}
+</code></pre>
+<p>This version produces the same output as the previous version. You may be thinking to yourself:
+Great but you just shuffled some code around. Yes and no. <code>DisplayType</code> is no longer dependent on
+the type <code>Dictionary&lt;Type, Assembly&gt;</code>. We could in theory, build the <code>typesToAssemblies</code> dictionary
+lazily.</p>
+<pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-built_in">string</span>[] args</span>)</span>
 {
-    Dictionary&lt;Type, Assembly> typesToAssemblies = <span class=hljs-literal>null</span>;
+    Dictionary&lt;Type, Assembly&gt; typesToAssemblies = <span class="hljs-literal">null</span>;
     
-    <span class=hljs-function><span class=hljs-keyword>void</span> <span class=hljs-title>BuildMap</span>(<span class=hljs-params>Assembly assembly</span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMap</span>(<span class="hljs-params">Assembly assembly</span>)</span>
     {
-        <span class=hljs-keyword>foreach</span> (<span class=hljs-keyword>var</span> type <span class=hljs-keyword>in</span> assembly.DefinedTypes)
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> type <span class="hljs-keyword">in</span> assembly.DefinedTypes)
             typesToAssemblies[type.AsType()] = type.Assembly;
 
-        <span class=hljs-keyword>foreach</span> (<span class=hljs-keyword>var</span> reference <span class=hljs-keyword>in</span> assembly.GetReferencedAssemblies())
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> reference <span class="hljs-keyword">in</span> assembly.GetReferencedAssemblies())
             BuildMap(Assembly.Load(reference));
     }
 
-    Func&lt;Type, Assembly> getAssembly = x =>
+    Func&lt;Type, Assembly&gt; getAssembly = x =&gt;
     {
-        <span class=hljs-keyword>if</span> (typesToAssemblies == <span class=hljs-literal>null</span>)
+        <span class="hljs-keyword">if</span> (typesToAssemblies == <span class="hljs-literal">null</span>)
         {
-            typesToAssemblies = <span class=hljs-keyword>new</span> Dictionary&lt;Type, Assembly>();
+            typesToAssemblies = <span class="hljs-keyword">new</span> Dictionary&lt;Type, Assembly&gt;();
             BuildMap(Assembly.GetEntryAssembly());
         }
 
-        <span class=hljs-keyword>if</span>(typesToAssemblies.TryGetValue(x, <span class=hljs-keyword>out</span> <span class=hljs-keyword>var</span> assembly))
+        <span class="hljs-keyword">if</span>(typesToAssemblies.TryGetValue(x, <span class="hljs-keyword">out</span> <span class="hljs-keyword">var</span> assembly))
         {
-            <span class=hljs-keyword>return</span> assembly;
+            <span class="hljs-keyword">return</span> assembly;
         }
 
-        <span class=hljs-keyword>return</span> <span class=hljs-literal>null</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
     };
 
-    DisplayType(getAssembly, <span class=hljs-keyword>typeof</span>(<span class=hljs-built_in>string</span>));
-    DisplayType(getAssembly, <span class=hljs-keyword>typeof</span>(Enumerable));
-    DisplayType(getAssembly, <span class=hljs-keyword>typeof</span>(TypeInfo));
-    DisplayType(getAssembly, <span class=hljs-keyword>typeof</span>(Dictionary&lt;,>));
+    DisplayType(getAssembly, <span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">string</span>));
+    DisplayType(getAssembly, <span class="hljs-keyword">typeof</span>(Enumerable));
+    DisplayType(getAssembly, <span class="hljs-keyword">typeof</span>(TypeInfo));
+    DisplayType(getAssembly, <span class="hljs-keyword">typeof</span>(Dictionary&lt;,&gt;));
 }
 
-<span class=hljs-function><span class=hljs-keyword>private</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DisplayType</span>(<span class=hljs-params>Func&lt;Type, Assembly> getAssembly, Type type</span>)</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DisplayType</span>(<span class="hljs-params">Func&lt;Type, Assembly&gt; getAssembly, Type type</span>)</span>
 {
-    <span class=hljs-keyword>var</span> assembly = getAssembly(type);
-    <span class=hljs-keyword>if</span> (assembly != <span class=hljs-literal>null</span>)
+    <span class="hljs-keyword">var</span> assembly = getAssembly(type);
+    <span class="hljs-keyword">if</span> (assembly != <span class="hljs-literal">null</span>)
     {
-        Console.WriteLine(<span class=hljs-string>$"<span class=hljs-subst>{type}</span>: &lt;<span class=hljs-subst>{assembly}</span>>"</span>);
+        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{type}</span>: &lt;<span class="hljs-subst">{assembly}</span>&gt;&quot;</span>);
     }
-    <span class=hljs-keyword>else</span>
+    <span class="hljs-keyword">else</span>
     {
-        Console.WriteLine(<span class=hljs-string>$"<span class=hljs-subst>{type}</span> is not available."</span>);
+        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{type}</span> is not available.&quot;</span>);
     }
-}</code></pre><p>By using a lambda to wrap the collection, we have made the <code>DisplayType</code> function more flexible. If we decide that <code>Dictionary&lt;Type, Assembly></code> is the wrong collection type for our use case at some point, <code>DisplayType</code> will not be affected as long as you can give it a function with the same interface.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2018/string-join-extension-method.html class="page-link older">Older</a><li class=page-item><a href=blog/2018/a-neat-way-to-curry-in-csharp.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+}
+</code></pre>
+<p>By using a lambda to wrap the collection, we have made the <code>DisplayType</code> function
+more flexible. If we decide that <code>Dictionary&lt;Type, Assembly&gt;</code> is the wrong collection
+type for our use case at some point, <code>DisplayType</code> will not be affected as long as
+you can give it a function with the same interface.</p>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

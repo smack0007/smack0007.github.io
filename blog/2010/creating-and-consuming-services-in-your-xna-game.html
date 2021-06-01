@@ -1,216 +1,240 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Creating and consuming services in your XNA Game</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2010/creating-and-consuming-services-in-your-xna-game.html>Creating and consuming services in your XNA Game</a></h2><div class=meta><span class=date><span class=icon-calendar></span>February 18, 2010</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a></span></div><div class=content><p>The <a href=http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx>GameServiceContainer</a> implements the <a href=http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx>IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:<blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote><p>This article will "<em>attempt</em>" to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game's entity objects.<p>The most obvious place to use the GameServiceContainer is in your GameComponent(s). But first, lets talk about "<a href=http://en.wikipedia.org/wiki/Coupling_(computer_science)>Coupling</a>". Let's assume you have the following components:
-<pre><code class="hljs csharp"><span class=hljs-keyword>class</span> <span class=hljs-title>FooComponent</span> : <span class=hljs-title>GameComponent</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Creating and consuming services in your XNA Game</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2010/creating-and-consuming-services-in-your-xna-game.html">Creating and consuming services in your XNA Game</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>February 18, 2010</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a></span></div></div><div class="content"><p>The <a href="http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.gameservicecontainer.aspx">GameServiceContainer</a> implements the <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">IServiceProvider</a> interface and the MSDN documentation says about the IServiceProvider interface:</p>
+<blockquote>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</blockquote>
+
+<p>This article will &quot;<em>attempt</em>&quot; to describe how can you use the GameServiceContainer in your XNA game, in both your GameComponent(s) and your game&#39;s entity objects.</p>
+<!--more-->
+<p>The most obvious place to use the GameServiceContainer is in your GameComponent(s). But first, lets talk about &quot;<a href="http://en.wikipedia.org/wiki/Coupling_(computer_science)">Coupling</a>&quot;. Let&#39;s assume you have the following components:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">FooComponent</span> : <span class="hljs-title">GameComponent</span>
 {
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>FooComponent</span>(<span class=hljs-params>Game game</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-comment>// Do something and return an int.</span>
-	}
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FooComponent</span>(<span class="hljs-params">Game game</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-comment">// Do something and return an int.</span>
+    }
 }
 
-<span class=hljs-keyword>class</span> <span class=hljs-title>BarComponent</span> : <span class=hljs-title>GameComponent</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">BarComponent</span> : <span class="hljs-title">GameComponent</span>
 {
-	FooComponent foo;
+    FooComponent foo;
 
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>BarComponent</span>(<span class=hljs-params>Game game</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-		<span class=hljs-keyword>this</span>.foo = <span class=hljs-keyword>new</span> FooComponent(game);
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoBar</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-built_in>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
-		<span class=hljs-comment>// Do something based on result.</span>
-	}
-}</code></pre><p>There's nothing wrong with the code, but BarComponent has a dependency on FooComponent. BarComponent directly interacts with FooComponent and therefore any change made to FooComponent indirectly affects BarComponent. For instance, let's assume the constructor for FooComponent needs to be modified. That means we now have to update not only the FooComponent class but as well the BarComponent class. Throw in a few more components with dependencies on FooComponent and you could start to get headache really fast. This design is highly coupled.<p>Let's try a slight redesign:
-<pre><code class="hljs csharp"><span class=hljs-keyword>class</span> <span class=hljs-title>FooComponent</span> : <span class=hljs-title>GameComponent</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BarComponent</span>(<span class="hljs-params">Game game</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.foo = <span class="hljs-keyword">new</span> FooComponent(game);
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-built_in">int</span> result = <span class="hljs-keyword">this</span>.foo.DoFoo();
+        <span class="hljs-comment">// Do something based on result.</span>
+    }
+}
+</code></pre>
+<p>There&#39;s nothing wrong with the code, but BarComponent has a dependency on FooComponent. BarComponent directly interacts with FooComponent and therefore any change made to FooComponent indirectly affects BarComponent. For instance, let&#39;s assume the constructor for FooComponent needs to be modified. That means we now have to update not only the FooComponent class but as well the BarComponent class. Throw in a few more components with dependencies on FooComponent and you could start to get headache really fast. This design is highly coupled.</p>
+<p>Let&#39;s try a slight redesign:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">FooComponent</span> : <span class="hljs-title">GameComponent</span>
 {
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>FooComponent</span>(<span class=hljs-params>Game game</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-comment>// Do something and return an int.</span>
-	}
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FooComponent</span>(<span class="hljs-params">Game game</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-comment">// Do something and return an int.</span>
+    }
 }
 
-<span class=hljs-keyword>class</span> <span class=hljs-title>BarComponent</span> : <span class=hljs-title>GameComponent</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">BarComponent</span> : <span class="hljs-title">GameComponent</span>
 {
-	FooComponent foo;
+    FooComponent foo;
 
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>BarComponent</span>(<span class=hljs-params>Game game, FooComponent foo</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-		<span class=hljs-keyword>this</span>.foo = foo;
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoBar</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-built_in>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
-		<span class=hljs-comment>// Do something based on result.</span>
-	}
-}</code></pre><p>We've now eliminated the construction of the FooComponent from within the BarComponent. The design is better but still not that great. BarComponent is still directly relying on and communicating with FooComponent. We want to change BarComponent so that it has no direct dependency on a concrete implementation of FooComponent. We'll create an interface:
-<pre><code class="hljs csharp"><span class=hljs-keyword>interface</span> <span class=hljs-title>IFooService</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BarComponent</span>(<span class="hljs-params">Game game, FooComponent foo</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.foo = foo;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-built_in">int</span> result = <span class="hljs-keyword">this</span>.foo.DoFoo();
+        <span class="hljs-comment">// Do something based on result.</span>
+    }
+}
+</code></pre>
+<p>We&#39;ve now eliminated the construction of the FooComponent from within the BarComponent. The design is better but still not that great. BarComponent is still directly relying on and communicating with FooComponent. We want to change BarComponent so that it has no direct dependency on a concrete implementation of FooComponent. We&#39;ll create an interface:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">interface</span> <span class="hljs-title">IFooService</span>
 {
-	<span class=hljs-function><span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>;
+    <span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>;
 }
 
-<span class=hljs-keyword>class</span> <span class=hljs-title>FooComponent</span> : <span class=hljs-title>GameComponent</span>, <span class=hljs-title>IFooService</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">FooComponent</span> : <span class="hljs-title">GameComponent</span>, <span class="hljs-title">IFooService</span>
 {
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>FooComponent</span>(<span class=hljs-params>Game game</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-comment>// Do something and return an int.</span>
-	}
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FooComponent</span>(<span class="hljs-params">Game game</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-comment">// Do something and return an int.</span>
+    }
 }
 
-<span class=hljs-keyword>class</span> <span class=hljs-title>BarComponent</span> : <span class=hljs-title>GameComponent</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">BarComponent</span> : <span class="hljs-title">GameComponent</span>
 {
-	IFooService foo;
+    IFooService foo;
 
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>BarComponent</span>(<span class=hljs-params>Game game, IFooService foo</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-		<span class=hljs-keyword>this</span>.foo = foo;
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoBar</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-built_in>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
-		<span class=hljs-comment>// Do something based on result.</span>
-	}
-}</code></pre><p>We can now change FooComponent as much as we want and BarComponent will be unaffected. BarComponent now communicates with FooComponent through the IFooService interface. This also allows us to have multiple implementations of DoFoo():
-<pre><code class="hljs csharp"><span class=hljs-keyword>class</span> <span class=hljs-title>SimpleFooComponent</span> : <span class=hljs-title>GameComponent</span>, <span class=hljs-title>IFooService</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BarComponent</span>(<span class="hljs-params">Game game, IFooService foo</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.foo = foo;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-built_in">int</span> result = <span class="hljs-keyword">this</span>.foo.DoFoo();
+        <span class="hljs-comment">// Do something based on result.</span>
+    }
+}
+</code></pre>
+<p>We can now change FooComponent as much as we want and BarComponent will be unaffected. BarComponent now communicates with FooComponent through the IFooService interface. This also allows us to have multiple implementations of DoFoo():</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleFooComponent</span> : <span class="hljs-title">GameComponent</span>, <span class="hljs-title">IFooService</span>
 {
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>SimpleFooComponent</span>(<span class=hljs-params>Game game</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-keyword>return</span> <span class=hljs-number>5</span>; <span class=hljs-comment>// The class says "Simple"</span>
-	}
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleFooComponent</span>(<span class="hljs-params">Game game</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">5</span>; <span class="hljs-comment">// The class says &quot;Simple&quot;</span>
+    }
 }
 
-<span class=hljs-keyword>class</span> <span class=hljs-title>ComplexFooComponent</span> : <span class=hljs-title>GameComponent</span>, <span class=hljs-title>IFooService</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">ComplexFooComponent</span> : <span class="hljs-title">GameComponent</span>, <span class="hljs-title">IFooService</span>
 {
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>ComplexFooComponent</span>(<span class=hljs-params>Game game</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> <span class=hljs-title>DoFoo</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-built_in>int</span> result = <span class=hljs-number>0</span>;
-		<span class=hljs-comment>// Do some very complex calculation</span>
-		<span class=hljs-keyword>return</span> result;
-	}
-}</code></pre><p>We can pass BarComponent an instance of SimpleFooComponent or ComplexFooComponent. Whatever the situation may call for.<p>Where does GameServiceContainer fit into all of this? You can use the GameServiceContainer to hold all your "Services". Add whatever class will implement the IFooService and then from within your BarComponent you can query for it:
-<pre><code class="hljs csharp"><span class=hljs-keyword>class</span> <span class=hljs-title>BarComponent</span> : <span class=hljs-title>GameComponent</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ComplexFooComponent</span>(<span class="hljs-params">Game game</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-built_in">int</span> result = <span class="hljs-number">0</span>;
+        <span class="hljs-comment">// Do some very complex calculation</span>
+        <span class="hljs-keyword">return</span> result;
+    }
+}
+</code></pre>
+<p>We can pass BarComponent an instance of SimpleFooComponent or ComplexFooComponent. Whatever the situation may call for.</p>
+<p>Where does GameServiceContainer fit into all of this? You can use the GameServiceContainer to hold all your &quot;Services&quot;. Add whatever class will implement the IFooService and then from within your BarComponent you can query for it:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">BarComponent</span> : <span class="hljs-title">GameComponent</span>
 {
-	IFooService foo;
+    IFooService foo;
 
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>BarComponent</span>(<span class=hljs-params>Game game</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Initialize</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-keyword>this</span>.foo = <span class=hljs-keyword>this</span>.Game.Services.GetService(<span class=hljs-keyword>typeof</span>(IFooService)) <span class=hljs-keyword>as</span> IFooService;
-		
-		<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.foo == <span class=hljs-literal>null</span>)
-			<span class=hljs-keyword>throw</span> <span class=hljs-keyword>new</span> InvalidOperationException(<span class=hljs-string>"IFooService not found."</span>);
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>DoBar</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-built_in>int</span> result = <span class=hljs-keyword>this</span>.foo.DoFoo();
-		<span class=hljs-comment>// Do something based on result.</span>
-	}
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BarComponent</span>(<span class="hljs-params">Game game</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.foo = <span class="hljs-keyword">this</span>.Game.Services.GetService(<span class="hljs-keyword">typeof</span>(IFooService)) <span class="hljs-keyword">as</span> IFooService;
+        
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.foo == <span class="hljs-literal">null</span>)
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InvalidOperationException(<span class="hljs-string">&quot;IFooService not found.&quot;</span>);
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-built_in">int</span> result = <span class="hljs-keyword">this</span>.foo.DoFoo();
+        <span class="hljs-comment">// Do something based on result.</span>
+    }
 }
 
-<span class=hljs-comment>// In your Game's constructor.</span>
-<span class=hljs-keyword>this</span>.Services.AddService(<span class=hljs-keyword>typeof</span>(IFooService), <span class=hljs-keyword>new</span> SimpleFooComponent(<span class=hljs-keyword>this</span>));</code></pre><p>Not only does BarComponent no longer require an instance of IFooService in its constructor, it also no longer matters if the instance of IFooService is constructed before or after the BarComponent. So long as all the services BarComponent requires are in the GameServiceContainer before Initialize() is called, it doesn't matter what order your components are constructed in. Now, suppose that BarComponent didn't necessarily depend on IFooService and instead the behavior of DoBar() is changed based on whether or not IFooService is available:
-<pre><code class="hljs csharp"><span class=hljs-keyword>class</span> <span class=hljs-title>BarComponent</span> : <span class=hljs-title>GameComponent</span>
+<span class="hljs-comment">// In your Game&#x27;s constructor.</span>
+<span class="hljs-keyword">this</span>.Services.AddService(<span class="hljs-keyword">typeof</span>(IFooService), <span class="hljs-keyword">new</span> SimpleFooComponent(<span class="hljs-keyword">this</span>));
+</code></pre>
+<p>Not only does BarComponent no longer require an instance of IFooService in its constructor, it also no longer matters if the instance of IFooService is constructed before or after the BarComponent. So long as all the services BarComponent requires are in the GameServiceContainer before Initialize() is called, it doesn&#39;t matter what order your components are constructed in. Now, suppose that BarComponent didn&#39;t necessarily depend on IFooService and instead the behavior of DoBar() is changed based on whether or not IFooService is available:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">BarComponent</span> : <span class="hljs-title">GameComponent</span>
 {
-	IFooService foo;
+    IFooService foo;
 
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>BarComponent</span>(<span class=hljs-params>Game game</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Initialize</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-keyword>this</span>.foo = <span class=hljs-keyword>this</span>.Game.Services.GetService(<span class=hljs-keyword>typeof</span>(IFooService)) <span class=hljs-keyword>as</span> IFooService;
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>intDoBar</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-comment>// If the IFooService is available, delegate to the DoFoo() method.</span>
-		<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.foo != <span class=hljs-literal>null</span>)
-			<span class=hljs-keyword>return</span> <span class=hljs-keyword>this</span>.foo.DoFoo();
-		
-		<span class=hljs-built_in>int</span> result = <span class=hljs-number>0</span>;
-		<span class=hljs-comment>// Otherwise do some other calculation.</span>
-		<span class=hljs-keyword>return</span> result;
-	}
-}</code></pre><p>Service providers don't always have to be GameComponent(s). Our BarComponent needs a Camera class now:
-<pre><code class="hljs csharp"><span class=hljs-keyword>interface</span> <span class=hljs-title>ICamera</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BarComponent</span>(<span class="hljs-params">Game game</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.foo = <span class="hljs-keyword">this</span>.Game.Services.GetService(<span class="hljs-keyword">typeof</span>(IFooService)) <span class="hljs-keyword">as</span> IFooService;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">intDoBar</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-comment">// If the IFooService is available, delegate to the DoFoo() method.</span>
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.foo != <span class="hljs-literal">null</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.foo.DoFoo();
+        
+        <span class="hljs-built_in">int</span> result = <span class="hljs-number">0</span>;
+        <span class="hljs-comment">// Otherwise do some other calculation.</span>
+        <span class="hljs-keyword">return</span> result;
+    }
+}
+</code></pre>
+<p>Service providers don&#39;t always have to be GameComponent(s). Our BarComponent needs a Camera class now:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">interface</span> <span class="hljs-title">ICamera</span>
 {
-	Matrix Transform { <span class=hljs-keyword>get</span>; }
+    Matrix Transform { <span class="hljs-keyword">get</span>; }
 }
 
-<span class=hljs-keyword>class</span> <span class=hljs-title>IdentityCamera</span> : <span class=hljs-title>ICamera</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">IdentityCamera</span> : <span class="hljs-title">ICamera</span>
 {
-	<span class=hljs-keyword>public</span> Matrix Transform
-	{
-		<span class=hljs-keyword>get</span> { <span class=hljs-keyword>return</span> Matrix.Identity; }
-	}
+    <span class="hljs-keyword">public</span> Matrix Transform
+    {
+        <span class="hljs-keyword">get</span> { <span class="hljs-keyword">return</span> Matrix.Identity; }
+    }
 }
 
-<span class=hljs-keyword>class</span> <span class=hljs-title>MovingCamera</span> : <span class=hljs-title>ICamera</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">MovingCamera</span> : <span class="hljs-title">ICamera</span>
 {
-	<span class=hljs-keyword>public</span> Matrix Transform
-	{
-		<span class=hljs-keyword>get</span>;
-		<span class=hljs-keyword>set</span>;
-	}
+    <span class="hljs-keyword">public</span> Matrix Transform
+    {
+        <span class="hljs-keyword">get</span>;
+        <span class="hljs-keyword">set</span>;
+    }
 }
 
-<span class=hljs-keyword>class</span> <span class=hljs-title>BarComponent</span> : <span class=hljs-title>DrawableGameComponent</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">BarComponent</span> : <span class="hljs-title">DrawableGameComponent</span>
 {
-	ICamera camera;
+    ICamera camera;
 
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>BarComponent</span>(<span class=hljs-params>Game game</span>)
-		: <span class=hljs-title>base</span>(<span class=hljs-params>game</span>)</span>
-	{
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Initialize</span>(<span class=hljs-params></span>)</span>
-	{
-		<span class=hljs-keyword>this</span>.camera = <span class=hljs-keyword>this</span>.Game.Services.GetService(<span class=hljs-keyword>typeof</span>(ICamera)) <span class=hljs-keyword>as</span> ICamera;
-	}
-	
-	<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Draw</span>(<span class=hljs-params>GameTime gameTime</span>)</span>
-	{
-		Matrix transform = <span class=hljs-keyword>this</span>.camera.Transform;
-		<span class=hljs-comment>// Draw based on the transform matrix</span>
-	}
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BarComponent</span>(<span class="hljs-params">Game game</span>)
+        : <span class="hljs-title">base</span>(<span class="hljs-params">game</span>)</span>
+    {
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.camera = <span class="hljs-keyword">this</span>.Game.Services.GetService(<span class="hljs-keyword">typeof</span>(ICamera)) <span class="hljs-keyword">as</span> ICamera;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Draw</span>(<span class="hljs-params">GameTime gameTime</span>)</span>
+    {
+        Matrix transform = <span class="hljs-keyword">this</span>.camera.Transform;
+        <span class="hljs-comment">// Draw based on the transform matrix</span>
+    }
 }
 
-<span class=hljs-comment>// In your Game's constructor.</span>
-<span class=hljs-keyword>this</span>.Services.AddService(<span class=hljs-keyword>typeof</span>(ICamera), <span class=hljs-keyword>new</span> MovingCamera());</code></pre><p>BarComponent uses the camera's Transform matrix and doesn't care how it is calculated. It's completely decoupled from the camera's implementation.<p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.<p>Loosely coupling your classes has the added benefit of making them more testable. That's another blog post though.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2010/changing-the-platformtarge-in-visual-c-express.html class="page-link older">Older</a><li class=page-item><a href=blog/2010/csharp-extension-methods-in-your-own-library.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+<span class="hljs-comment">// In your Game&#x27;s constructor.</span>
+<span class="hljs-keyword">this</span>.Services.AddService(<span class="hljs-keyword">typeof</span>(ICamera), <span class="hljs-keyword">new</span> MovingCamera());
+</code></pre>
+<p>BarComponent uses the camera&#39;s Transform matrix and doesn&#39;t care how it is calculated. It&#39;s completely decoupled from the camera&#39;s implementation.</p>
+<p>In closing, using the GameServiceContainer and interfaces makes your classes more loosely coupled. This makes it easier to make changes to the way your game works. Your classes also become more reusable as you can now mix and match service providers and consumers as needed. If you need a specific implementation of a camera for your game, you can still use the BarComponent so long as your camera class implements the ICamera interface.</p>
+<p>Loosely coupling your classes has the added benefit of making them more testable. That&#39;s another blog post though.</p>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

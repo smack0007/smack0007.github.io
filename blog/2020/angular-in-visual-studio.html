@@ -1,39 +1,49 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Angular in Visual Studio</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2020/angular-in-visual-studio.html>Angular in Visual Studio</a></h2><div class=meta><span class=date><span class=icon-calendar></span>October 08, 2020</span> <span class=tags><a href=tags/angular/index.html><span class="icon icon-price-tags"></span> <span class=tagName>angular</span></a> <a href=tags/vs/index.html><span class="icon icon-price-tags"></span> <span class=tagName>vs</span></a></span></div><div class=content><p>Now that the <a href=https://devblogs.microsoft.com/visualstudio/angular-language-service-for-visual-studio/ >Angular Language Service</a> is available for Visual Studio working on Angular projects from inside Visual Studio is a viable option. The linked blog post mentions a couple of ways of adding the Angular project to Visual Studio but I felt the suggestions left something to be desired here is what I came up with.<p>Here is the csproj file I came up with:
-<pre><code class="hljs xml"><span class=hljs-tag>&lt;<span class=hljs-name>Project</span>></span>
-  <span class=hljs-tag>&lt;<span class=hljs-name>Import</span> <span class=hljs-attr>Project</span>=<span class=hljs-string>"Sdk.props"</span> <span class=hljs-attr>Sdk</span>=<span class=hljs-string>"Microsoft.NET.Sdk.Web"</span> /></span>
-  
-  <span class=hljs-tag>&lt;<span class=hljs-name>PropertyGroup</span>></span>
-    <span class=hljs-tag>&lt;<span class=hljs-name>TargetFramework</span>></span>netcoreapp3.1<span class=hljs-tag>&lt;/<span class=hljs-name>TargetFramework</span>></span>
-    <span class=hljs-tag>&lt;<span class=hljs-name>TypeScriptCompileBlocked</span>></span>true<span class=hljs-tag>&lt;/<span class=hljs-name>TypeScriptCompileBlocked</span>></span>
-    <span class=hljs-tag>&lt;<span class=hljs-name>IsPackable</span>></span>false<span class=hljs-tag>&lt;/<span class=hljs-name>IsPackable</span>></span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Angular in Visual Studio</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2020/angular-in-visual-studio.html">Angular in Visual Studio</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>October 8, 2020</span><span class="tags"><a href="tags/angular/index.html"><span class="icon icon-price-tags"></span><span class="tagName">angular</span></a><a href="tags/vs/index.html"><span class="icon icon-price-tags"></span><span class="tagName">vs</span></a></span></div></div><div class="content"><p>Now that the <a href="https://devblogs.microsoft.com/visualstudio/angular-language-service-for-visual-studio/">Angular Language Service</a>
+is available for Visual Studio working on Angular projects from inside Visual Studio is a viable option. The linked blog
+post mentions a couple of ways of adding the Angular project to Visual Studio but I felt the suggestions left something
+to be desired here is what I came up with.</p>
+<!--more-->
 
-    <span class=hljs-comment>&lt;!-- Don't show node_modules and dist folder --></span>
-    <span class=hljs-tag>&lt;<span class=hljs-name>DefaultItemExcludes</span>></span>$(DefaultItemExcludes);node_modules\**;dist\**<span class=hljs-tag>&lt;/<span class=hljs-name>DefaultItemExcludes</span>></span>
-  <span class=hljs-tag>&lt;/<span class=hljs-name>PropertyGroup</span>></span>
+<p>Here is the csproj file I came up with:</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Project</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Import</span> <span class="hljs-attr">Project</span>=<span class="hljs-string">&quot;Sdk.props&quot;</span> <span class="hljs-attr">Sdk</span>=<span class="hljs-string">&quot;Microsoft.NET.Sdk.Web&quot;</span> /&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">PropertyGroup</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TargetFramework</span>&gt;</span>netcoreapp3.1<span class="hljs-tag">&lt;/<span class="hljs-name">TargetFramework</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TypeScriptCompileBlocked</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">TypeScriptCompileBlocked</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">IsPackable</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">IsPackable</span>&gt;</span>
 
-  <span class=hljs-tag>&lt;<span class=hljs-name>ItemGroup</span>></span>
-    <span class=hljs-comment>&lt;!-- Properties folder really only exists to make VisualStudio happy. --></span>
-    <span class=hljs-tag>&lt;<span class=hljs-name>Content</span> <span class=hljs-attr>Remove</span>=<span class=hljs-string>"Properties/*"</span> /></span>
-  <span class=hljs-tag>&lt;/<span class=hljs-name>ItemGroup</span>></span>
-  
-  <span class=hljs-tag>&lt;<span class=hljs-name>Import</span> <span class=hljs-attr>Project</span>=<span class=hljs-string>"Sdk.targets"</span> <span class=hljs-attr>Sdk</span>=<span class=hljs-string>"Microsoft.NET.Sdk.Web"</span> /></span>
+    <span class="hljs-comment">&lt;!-- Don&#x27;t show node_modules and dist folder --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">DefaultItemExcludes</span>&gt;</span>$(DefaultItemExcludes);node_modules\**;dist\**<span class="hljs-tag">&lt;/<span class="hljs-name">DefaultItemExcludes</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">PropertyGroup</span>&gt;</span>
 
-  <span class=hljs-tag>&lt;<span class=hljs-name>Target</span> <span class=hljs-attr>Name</span>=<span class=hljs-string>"Restore"</span>></span>
-    <span class=hljs-tag>&lt;<span class=hljs-name>Exec</span> <span class=hljs-attr>Command</span>=<span class=hljs-string>"npm i"</span> /></span>
-  <span class=hljs-tag>&lt;/<span class=hljs-name>Target</span>></span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">ItemGroup</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- Properties folder really only exists to make VisualStudio happy. --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Content</span> <span class="hljs-attr">Remove</span>=<span class="hljs-string">&quot;Properties/*&quot;</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">ItemGroup</span>&gt;</span>
   
-  <span class=hljs-tag>&lt;<span class=hljs-name>Target</span> <span class=hljs-attr>Name</span>=<span class=hljs-string>"Build"</span>></span>
-    <span class=hljs-tag>&lt;<span class=hljs-name>Exec</span> <span class=hljs-attr>Command</span>=<span class=hljs-string>"npm run build"</span> /></span>
-  <span class=hljs-tag>&lt;/<span class=hljs-name>Target</span>></span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Import</span> <span class="hljs-attr">Project</span>=<span class="hljs-string">&quot;Sdk.targets&quot;</span> <span class="hljs-attr">Sdk</span>=<span class="hljs-string">&quot;Microsoft.NET.Sdk.Web&quot;</span> /&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">Target</span> <span class="hljs-attr">Name</span>=<span class="hljs-string">&quot;Restore&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Exec</span> <span class="hljs-attr">Command</span>=<span class="hljs-string">&quot;npm i&quot;</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Target</span>&gt;</span>
   
-<span class=hljs-tag>&lt;/<span class=hljs-name>Project</span>></span></code></pre><p>And here is what I ended up with in my launchSettings.json file:
-<pre><code class="hljs json">{
-  <span class=hljs-attr>"profiles"</span>: {
-    <span class=hljs-attr>"ng serve"</span>: {
-      <span class=hljs-attr>"commandName"</span>: <span class=hljs-string>"Executable"</span>,
-      <span class=hljs-attr>"workingDirectory"</span>: <span class=hljs-string>"$(ProjectDir)"</span>,
-      <span class=hljs-attr>"executablePath"</span>: <span class=hljs-string>"node_modules\\.bin\\ng.cmd"</span>,
-      <span class=hljs-attr>"commandLineArgs"</span>: <span class=hljs-string>"serve"</span>
-    }
-  }
-}</code></pre></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html class="page-link older">Older</a><li class=page-item><a href=blog/2020/node-script-for-syntax-highlighting.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Target</span> <span class="hljs-attr">Name</span>=<span class="hljs-string">&quot;Build&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Exec</span> <span class="hljs-attr">Command</span>=<span class="hljs-string">&quot;npm run build&quot;</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Target</span>&gt;</span>
+  
+<span class="hljs-tag">&lt;/<span class="hljs-name">Project</span>&gt;</span>
+</code></pre>
+<p>And here is what I ended up with in my launchSettings.json file:</p>
+<pre><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;profiles&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;ng serve&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;commandName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Executable&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;workingDirectory&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$(ProjectDir)&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;executablePath&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;node_modules\\.bin\\ng.cmd&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;commandLineArgs&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;serve&quot;</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

@@ -1,114 +1,118 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>OpenTK - Simple Movable Sprite</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2011/opentk-simple-movable-sprite.html>OpenTK - Simple Movable Sprite</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 29, 2011</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a> <a href=tags/opengl/index.html><span class="icon icon-price-tags"></span> <span class=tagName>opengl</span></a></span></div><div class=content><p>I wrote my second OpenTK app. This time I'm drawing a sprite which you can move around the screen using the keyboard. I've included the source code after the jump or you can <a href=/files/OpenTKApp2.zip>download it</a>.
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>OpenTK - Simple Movable Sprite</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2011/opentk-simple-movable-sprite.html">OpenTK - Simple Movable Sprite</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>March 29, 2011</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/opengl/index.html"><span class="icon icon-price-tags"></span><span class="tagName">opengl</span></a></span></div></div><div class="content"><p>I wrote my second OpenTK app. This time I&#39;m drawing a sprite which you can move around the screen using the keyboard. I&#39;ve included the source code after the jump or you can <a href="/files/OpenTKApp2.zip">download it</a>.</p>
+<!--more-->
 
-<pre><code class="hljs csharp"><span class=hljs-keyword>using</span> System;
-<span class=hljs-keyword>using</span> System.Drawing;
-<span class=hljs-keyword>using</span> System.Drawing.Imaging;
-<span class=hljs-keyword>using</span> System.IO;
-<span class=hljs-keyword>using</span> OpenTK;
-<span class=hljs-keyword>using</span> OpenTK.Graphics;
-<span class=hljs-keyword>using</span> OpenTK.Graphics.OpenGL;
-<span class=hljs-keyword>using</span> OpenTK.Input;
+<pre><code class="hljs c#"><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Drawing;
+<span class="hljs-keyword">using</span> System.Drawing.Imaging;
+<span class="hljs-keyword">using</span> System.IO;
+<span class="hljs-keyword">using</span> OpenTK;
+<span class="hljs-keyword">using</span> OpenTK.Graphics;
+<span class="hljs-keyword">using</span> OpenTK.Graphics.OpenGL;
+<span class="hljs-keyword">using</span> OpenTK.Input;
 
-<span class=hljs-keyword>namespace</span> <span class=hljs-title>OpenTKApp2</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">OpenTKApp2</span>
 {
-	<span class=hljs-keyword>public</span> <span class=hljs-keyword>class</span> <span class=hljs-title>AppWindow</span> : <span class=hljs-title>GameWindow</span>
-	{
-		<span class=hljs-built_in>int</span> texture;
-		<span class=hljs-built_in>float</span> x, y;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AppWindow</span> : <span class="hljs-title">GameWindow</span>
+    {
+        <span class="hljs-built_in">int</span> texture;
+        <span class="hljs-built_in">float</span> x, y;
 
-		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>AppWindow</span>(<span class=hljs-params></span>)</span>
-		{
-			<span class=hljs-keyword>this</span>.Title = <span class=hljs-string>"OpenTK App 2"</span>;
-			<span class=hljs-keyword>this</span>.WindowBorder = WindowBorder.Fixed;
-			<span class=hljs-keyword>this</span>.ClientSize = <span class=hljs-keyword>new</span> Size(<span class=hljs-number>800</span>, <span class=hljs-number>600</span>);
-		}
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AppWindow</span>(<span class="hljs-params"></span>)</span>
+        {
+            <span class="hljs-keyword">this</span>.Title = <span class="hljs-string">&quot;OpenTK App 2&quot;</span>;
+            <span class="hljs-keyword">this</span>.WindowBorder = WindowBorder.Fixed;
+            <span class="hljs-keyword">this</span>.ClientSize = <span class="hljs-keyword">new</span> Size(<span class="hljs-number">800</span>, <span class="hljs-number">600</span>);
+        }
 
-		<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>OnLoad</span>(<span class=hljs-params>EventArgs e</span>)</span>
-		{
-			<span class=hljs-keyword>base</span>.OnLoad(e);
-			
-			GL.ClearColor(Color.CornflowerBlue);
-			GL.Ortho(<span class=hljs-number>0</span>, <span class=hljs-number>800</span>, <span class=hljs-number>600</span>, <span class=hljs-number>0</span>, <span class=hljs-number>-1</span>, <span class=hljs-number>1</span>);
-			GL.Viewport(<span class=hljs-number>0</span>, <span class=hljs-number>0</span>, <span class=hljs-number>800</span>, <span class=hljs-number>600</span>);
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnLoad</span>(<span class="hljs-params">EventArgs e</span>)</span>
+        {
+            <span class="hljs-keyword">base</span>.OnLoad(e);
+            
+            GL.ClearColor(Color.CornflowerBlue);
+            GL.Ortho(<span class="hljs-number">0</span>, <span class="hljs-number">800</span>, <span class="hljs-number">600</span>, <span class="hljs-number">0</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>);
+            GL.Viewport(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">800</span>, <span class="hljs-number">600</span>);
 
-			GL.Enable(EnableCap.Texture2D);
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
-			GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
+            GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
 
-			GL.GenTextures(<span class=hljs-number>1</span>, <span class=hljs-keyword>out</span> <span class=hljs-keyword>this</span>.texture);
-			GL.BindTexture(TextureTarget.Texture2D, <span class=hljs-keyword>this</span>.texture);
+            GL.GenTextures(<span class="hljs-number">1</span>, <span class="hljs-keyword">out</span> <span class="hljs-keyword">this</span>.texture);
+            GL.BindTexture(TextureTarget.Texture2D, <span class="hljs-keyword">this</span>.texture);
 
-			Bitmap bitmap = <span class=hljs-keyword>new</span> Bitmap(<span class=hljs-string>"ship.png"</span>);
-			bitmap.MakeTransparent(Color.Magenta);
+            Bitmap bitmap = <span class="hljs-keyword">new</span> Bitmap(<span class="hljs-string">&quot;ship.png&quot;</span>);
+            bitmap.MakeTransparent(Color.Magenta);
 
-			BitmapData data = bitmap.LockBits(<span class=hljs-keyword>new</span> Rectangle(<span class=hljs-number>0</span>, <span class=hljs-number>0</span>, bitmap.Width, bitmap.Height),
-				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            BitmapData data = bitmap.LockBits(<span class="hljs-keyword">new</span> Rectangle(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, bitmap.Width, bitmap.Height),
+                ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-			GL.TexImage2D(TextureTarget.Texture2D, <span class=hljs-number>0</span>, PixelInternalFormat.Rgba, data.Width, data.Height, <span class=hljs-number>0</span>,
-				OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+            GL.TexImage2D(TextureTarget.Texture2D, <span class="hljs-number">0</span>, PixelInternalFormat.Rgba, data.Width, data.Height, <span class="hljs-number">0</span>,
+                OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 
-			bitmap.UnlockBits(data);
-			bitmap.Dispose();
+            bitmap.UnlockBits(data);
+            bitmap.Dispose();
 
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (<span class=hljs-built_in>int</span>)TextureMinFilter.Linear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (<span class=hljs-built_in>int</span>)TextureMagFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (<span class="hljs-built_in">int</span>)TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (<span class="hljs-built_in">int</span>)TextureMagFilter.Linear);
 
-			<span class=hljs-keyword>this</span>.x = <span class=hljs-number>40f</span>;
-			<span class=hljs-keyword>this</span>.y = <span class=hljs-number>41.5f</span>;
-		}
+            <span class="hljs-keyword">this</span>.x = <span class="hljs-number">40f</span>;
+            <span class="hljs-keyword">this</span>.y = <span class="hljs-number">41.5f</span>;
+        }
 
-		<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>OnUpdateFrame</span>(<span class=hljs-params>FrameEventArgs e</span>)</span>
-		{
-			<span class=hljs-keyword>base</span>.OnUpdateFrame(e);
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnUpdateFrame</span>(<span class="hljs-params">FrameEventArgs e</span>)</span>
+        {
+            <span class="hljs-keyword">base</span>.OnUpdateFrame(e);
 
-			<span class=hljs-built_in>float</span> dx = <span class=hljs-number>0.0f</span>;
-			<span class=hljs-built_in>float</span> dy = <span class=hljs-number>0.0f</span>;
+            <span class="hljs-built_in">float</span> dx = <span class="hljs-number">0.0f</span>;
+            <span class="hljs-built_in">float</span> dy = <span class="hljs-number">0.0f</span>;
 
-			<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Left])
-				dx = <span class=hljs-number>-1.0f</span>;
-			<span class=hljs-keyword>else</span> <span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Right])
-				dx = <span class=hljs-number>1.0f</span>;
+            <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.Keyboard[Key.Left])
+                dx = <span class="hljs-number">-1.0f</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.Keyboard[Key.Right])
+                dx = <span class="hljs-number">1.0f</span>;
 
-			<span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Up])
-				dy = <span class=hljs-number>-1.0f</span>;
-			<span class=hljs-keyword>else</span> <span class=hljs-keyword>if</span>(<span class=hljs-keyword>this</span>.Keyboard[Key.Down])
-				dy = <span class=hljs-number>1.0f</span>;
+            <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.Keyboard[Key.Up])
+                dy = <span class="hljs-number">-1.0f</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.Keyboard[Key.Down])
+                dy = <span class="hljs-number">1.0f</span>;
 
-			<span class=hljs-keyword>this</span>.x += <span class=hljs-number>100.0f</span> * dx * (<span class=hljs-built_in>float</span>)e.Time;
-			<span class=hljs-keyword>this</span>.y += <span class=hljs-number>100.0f</span> * dy * (<span class=hljs-built_in>float</span>)e.Time;
-		}
+            <span class="hljs-keyword">this</span>.x += <span class="hljs-number">100.0f</span> * dx * (<span class="hljs-built_in">float</span>)e.Time;
+            <span class="hljs-keyword">this</span>.y += <span class="hljs-number">100.0f</span> * dy * (<span class="hljs-built_in">float</span>)e.Time;
+        }
 
-		<span class=hljs-function><span class=hljs-keyword>protected</span> <span class=hljs-keyword>override</span> <span class=hljs-keyword>void</span> <span class=hljs-title>OnRenderFrame</span>(<span class=hljs-params>FrameEventArgs e</span>)</span>
-		{
-			<span class=hljs-keyword>base</span>.OnRenderFrame(e);
-						
-			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnRenderFrame</span>(<span class="hljs-params">FrameEventArgs e</span>)</span>
+        {
+            <span class="hljs-keyword">base</span>.OnRenderFrame(e);
+                        
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-			GL.MatrixMode(MatrixMode.Projection);
-			GL.LoadIdentity();
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
 
-			GL.Begin(BeginMode.Quads);
-			GL.TexCoord2(<span class=hljs-number>0</span>, <span class=hljs-number>0</span>);
-			GL.Vertex2(<span class=hljs-keyword>this</span>.x - <span class=hljs-number>40.0f</span>, <span class=hljs-keyword>this</span>.y - <span class=hljs-number>41.5f</span>);
-			GL.TexCoord2(<span class=hljs-number>1</span>, <span class=hljs-number>0</span>);
-			GL.Vertex2(<span class=hljs-keyword>this</span>.x + <span class=hljs-number>40.0f</span>, <span class=hljs-keyword>this</span>.y - <span class=hljs-number>41.5f</span>);
-			GL.TexCoord2(<span class=hljs-number>1</span>, <span class=hljs-number>1</span>);
-			GL.Vertex2(<span class=hljs-keyword>this</span>.x + <span class=hljs-number>40.0f</span>, <span class=hljs-keyword>this</span>.y + <span class=hljs-number>41.5f</span>);
-			GL.TexCoord2(<span class=hljs-number>0</span>, <span class=hljs-number>1</span>);
-			GL.Vertex2(<span class=hljs-keyword>this</span>.x - <span class=hljs-number>40.0f</span>, <span class=hljs-keyword>this</span>.y + <span class=hljs-number>41.5f</span>);
-			GL.End();
+            GL.Begin(BeginMode.Quads);
+            GL.TexCoord2(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+            GL.Vertex2(<span class="hljs-keyword">this</span>.x - <span class="hljs-number">40.0f</span>, <span class="hljs-keyword">this</span>.y - <span class="hljs-number">41.5f</span>);
+            GL.TexCoord2(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
+            GL.Vertex2(<span class="hljs-keyword">this</span>.x + <span class="hljs-number">40.0f</span>, <span class="hljs-keyword">this</span>.y - <span class="hljs-number">41.5f</span>);
+            GL.TexCoord2(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+            GL.Vertex2(<span class="hljs-keyword">this</span>.x + <span class="hljs-number">40.0f</span>, <span class="hljs-keyword">this</span>.y + <span class="hljs-number">41.5f</span>);
+            GL.TexCoord2(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+            GL.Vertex2(<span class="hljs-keyword">this</span>.x - <span class="hljs-number">40.0f</span>, <span class="hljs-keyword">this</span>.y + <span class="hljs-number">41.5f</span>);
+            GL.End();
 
-			GL.Flush();
-			<span class=hljs-keyword>this</span>.SwapBuffers();
-		}
+            GL.Flush();
+            <span class="hljs-keyword">this</span>.SwapBuffers();
+        }
 
-		[<span class=hljs-meta>STAThread</span>]
-		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params></span>)</span>
-		{
-			AppWindow window = <span class=hljs-keyword>new</span> AppWindow();
-			window.Run(<span class=hljs-number>60</span>);
-		}
-	}
-}</code></pre><p><a href=/files/OpenTKApp2.zip>Download Visual Studio Project</a></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2011/keeping-splitcontainer-splitterdistance-consistent.html class="page-link older">Older</a><li class=page-item><a href=blog/2011/getting-started-with-opentk.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+        [<span class="hljs-meta">STAThread</span>]
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+        {
+            AppWindow window = <span class="hljs-keyword">new</span> AppWindow();
+            window.Run(<span class="hljs-number">60</span>);
+        }
+    }
+}
+</code></pre>
+<p><a href="/files/OpenTKApp2.zip">Download Visual Studio Project</a></p>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

@@ -1,38 +1,50 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Using batch files as the task runner in Visual Studio Code</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2015/using-batch-files-as-task-runner-vs-code.html>Using batch files as the task runner in Visual Studio Code</a></h2><div class=meta><span class=date><span class=icon-calendar></span>July 09, 2015</span> <span class=tags><a href=tags/vs/index.html><span class="icon icon-price-tags"></span> <span class=tagName>vs</span></a> <a href=tags/vscode/index.html><span class="icon icon-price-tags"></span> <span class=tagName>vscode</span></a> <a href=tags/batch/index.html><span class="icon icon-price-tags"></span> <span class=tagName>batch</span></a></span></div><div class=content><p><a href=https://code.visualstudio.com/ >Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples I've seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can't simpley use batch files though.<p>An example tasks.json:
-<pre><code class="hljs javascript">{
-	<span class=hljs-string>"version"</span>: <span class=hljs-string>"0.1.0"</span>,
-	<span class=hljs-string>"command"</span>: <span class=hljs-string>"${workspaceRoot}/runTask.bat"</span>,
-	<span class=hljs-string>"isShellCommand"</span>: <span class=hljs-literal>true</span>,
-	<span class=hljs-string>"showOutput"</span>: <span class=hljs-string>"always"</span>,
-	<span class=hljs-string>"args"</span>: [],
-	<span class=hljs-string>"tasks"</span>: [
-		{
-			<span class=hljs-string>"taskName"</span>: <span class=hljs-string>"build"</span>,
-			<span class=hljs-string>"isBuildCommand"</span>: <span class=hljs-literal>true</span>,
-			<span class=hljs-string>"showOutput"</span>: <span class=hljs-string>"always"</span>
-		},
-		{
-			<span class=hljs-string>"taskName"</span>: <span class=hljs-string>"serve"</span>,
-			<span class=hljs-string>"showOutput"</span>: <span class=hljs-string>"never"</span>
-		}
-	]
-}</code></pre><p>This sets the batch file "runTask.bat" in the root of your workspace as the task runner. There are two tasks which can be started: "build" and "serve". "build" can be started with "ctrl+shift+T" and "serve" can be started via "ctrl+shift+P" and typing "run task". I like to map this shortcut to "ctrl+shift+R".<p>Here is how runTask.bat should look:
-<pre><code class="hljs shell">@ECHO OFF
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Using batch files as the task runner in Visual Studio Code</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2015/using-batch-files-as-task-runner-vs-code.html">Using batch files as the task runner in Visual Studio Code</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>July 9, 2015</span><span class="tags"><a href="tags/vs/index.html"><span class="icon icon-price-tags"></span><span class="tagName">vs</span></a><a href="tags/vscode/index.html"><span class="icon icon-price-tags"></span><span class="tagName">vscode</span></a><a href="tags/batch/index.html"><span class="icon icon-price-tags"></span><span class="tagName">batch</span></a></span></div></div><div class="content"><p><a href="https://code.visualstudio.com/">Visual Studio Code</a> allows you specify tasks which can be in a task runner. Most examples
+I&#39;ve seen show how to integrate with Javascript task runners such as Gulp. There is no reason why you can&#39;t simpley use
+batch files though.</p>
+<!--more-->
 
-IF "%1" == "build" GOTO BUILD
-IF "%1" == "serve" GOTO SERVE
-GOTO UNKNOWN
+<p>An example tasks.json:</p>
+<pre><code class="hljs js">{
+    <span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.1.0&quot;</span>,
+    <span class="hljs-string">&quot;command&quot;</span>: <span class="hljs-string">&quot;${workspaceRoot}/runTask.bat&quot;</span>,
+    <span class="hljs-string">&quot;isShellCommand&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">&quot;showOutput&quot;</span>: <span class="hljs-string">&quot;always&quot;</span>,
+    <span class="hljs-string">&quot;args&quot;</span>: [],
+    <span class="hljs-string">&quot;tasks&quot;</span>: [
+        {
+            <span class="hljs-string">&quot;taskName&quot;</span>: <span class="hljs-string">&quot;build&quot;</span>,
+            <span class="hljs-string">&quot;isBuildCommand&quot;</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">&quot;showOutput&quot;</span>: <span class="hljs-string">&quot;always&quot;</span>
+        },
+        {
+            <span class="hljs-string">&quot;taskName&quot;</span>: <span class="hljs-string">&quot;serve&quot;</span>,
+            <span class="hljs-string">&quot;showOutput&quot;</span>: <span class="hljs-string">&quot;never&quot;</span>
+        }
+    ]
+}
+</code></pre>
+<p>This sets the batch file &quot;runTask.bat&quot; in the root of your workspace as the task runner. There are two tasks
+which can be started: &quot;build&quot; and &quot;serve&quot;. &quot;build&quot; can be started with &quot;ctrl+shift+T&quot; and &quot;serve&quot; can be
+started via &quot;ctrl+shift+P&quot; and typing &quot;run task&quot;. I like to map this shortcut to &quot;ctrl+shift+R&quot;.</p>
+<p>Here is how runTask.bat should look:</p>
+<pre><code class="hljs bat">@<span class="hljs-built_in">ECHO</span> OFF
+
+<span class="hljs-keyword">IF</span> &quot;%<span class="hljs-number">1</span>&quot; == &quot;build&quot; <span class="hljs-keyword">GOTO</span> BUILD
+<span class="hljs-keyword">IF</span> &quot;%<span class="hljs-number">1</span>&quot; == &quot;serve&quot; <span class="hljs-keyword">GOTO</span> SERVE
+<span class="hljs-keyword">GOTO</span> UNKNOWN
 
 :BUILD
-CALL build.bat
-GOTO END
+<span class="hljs-keyword">CALL</span> build.bat
+<span class="hljs-keyword">GOTO</span> END
 
 :SERVE
-START serve.bat
-GOTO END
+<span class="hljs-built_in">START</span> serve.bat
+<span class="hljs-keyword">GOTO</span> END
 
 :UNKNOWN
-ECHO Unknown Task
-GOTO END
+<span class="hljs-built_in">ECHO</span> Unknown Task
+<span class="hljs-keyword">GOTO</span> END
 
-:END</code></pre></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html class="page-link older">Older</a><li class=page-item><a href=blog/2018/snowball-2.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+:END
+</code></pre>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

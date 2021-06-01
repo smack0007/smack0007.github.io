@@ -1,71 +1,76 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>directx</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class="nav-item active"><a class=nav-link href=index.html>Home <span class=sr-only>(current)</span></a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2012/id3dxeffectonlostdevice.html>ID3DXEffect::OnLostDevice()</a></h2><div class=meta><span class=date><span class=icon-calendar></span>July 20, 2012</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a> <a href=tags/direct3d9/index.html><span class="icon icon-price-tags"></span> <span class=tagName>direct3D9</span></a> <a href=tags/directx/index.html><span class="icon icon-price-tags"></span> <span class=tagName>directx</span></a></span></div><div class=content><p>I fixed a bug yesterday in Snowball related to a lost graphics device. I noticed that when I would use CTRL + ALT + DELETE, my apps were crashing. Turned out it was due to not recovering properly from a lost device.<p>The root of the problem was that I needed to call the ID3DXEffect::OnLostDevice() method when the device was being lost. This allows the effect to recover from the lost device. I've made the Effect class in Snowball now do this automatically.</div></div><div class=post><h2><a href=blog/2011/getting-started-with-slimdx.html>Getting started with SlimDX</a></h2><div class=meta><span class=date><span class=icon-calendar></span>March 31, 2011</span> <span class=tags><a href=tags/net/index.html><span class="icon icon-price-tags"></span> <span class=tagName>.net</span></a> <a href=tags/directx/index.html><span class="icon icon-price-tags"></span> <span class=tagName>directx</span></a></span></div><div class=content><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href=http://sharpdx.org/ >SharpDX</a>.<p>Since I tried OpenTK, I decided to give <a href=http://slimdx.org/ >SlimDX</a> a try as well. So, here's a simple getting started app:
-<pre><code class="hljs csharp"><span class=hljs-keyword>using</span> System;
-<span class=hljs-keyword>using</span> System.Drawing;
-<span class=hljs-keyword>using</span> System.Windows.Forms;
-<span class=hljs-keyword>using</span> SlimDX;
-<span class=hljs-keyword>using</span> SlimDX.Direct3D9;
-<span class=hljs-keyword>using</span> SlimDX.Windows;
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>directx</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link" href="index.html">Home</a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link active" href="tags/index.html">Tags<span class="sr-only">(current)</span></a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2012/id3dxeffectonlostdevice.html">ID3DXEffect::OnLostDevice()</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>July 20, 2012</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/direct3d9/index.html"><span class="icon icon-price-tags"></span><span class="tagName">direct3D9</span></a><a href="tags/directx/index.html"><span class="icon icon-price-tags"></span><span class="tagName">directx</span></a></span></div></div><div class="content"><p>I fixed a bug yesterday in Snowball related to a lost graphics device. I noticed that when I would use CTRL + ALT + DELETE, my apps were crashing. Turned out it was due to not recovering properly from a lost device.</p>
+<p>The root of the problem was that I needed to call the ID3DXEffect::OnLostDevice() method when the device was being lost. This allows the effect to recover from the lost device. I&#39;ve made the Effect class in Snowball now do this automatically.</p>
+</div></div><div class="post"><div class="post-header"><h2><a href="blog/2011/getting-started-with-slimdx.html">Getting started with SlimDX</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>March 31, 2011</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/directx/index.html"><span class="icon icon-price-tags"></span><span class="tagName">directx</span></a></span></div></div><div class="content"><p>*<strong>Update 2013-09-29:</strong> At this point SlimDX is quite out of date and I would recommend starting with <a href="http://sharpdx.org/">SharpDX</a>.</p>
+<p>Since I tried OpenTK, I decided to give <a href="http://slimdx.org/">SlimDX</a> a try as well. So, here&#39;s a simple getting started app:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Drawing;
+<span class="hljs-keyword">using</span> System.Windows.Forms;
+<span class="hljs-keyword">using</span> SlimDX;
+<span class="hljs-keyword">using</span> SlimDX.Direct3D9;
+<span class="hljs-keyword">using</span> SlimDX.Windows;
 
-<span class=hljs-keyword>namespace</span> <span class=hljs-title>SlimDXApp1</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">SlimDXApp1</span>
 {
-	<span class=hljs-keyword>public</span> <span class=hljs-keyword>partial</span> <span class=hljs-keyword>class</span> <span class=hljs-title>SlimDXApp1Form</span> : <span class=hljs-title>RenderForm</span>
-	{
-		<span class=hljs-keyword>struct</span> Vertex
-		{
-			<span class=hljs-keyword>public</span> Vector4 Position;
-			<span class=hljs-keyword>public</span> <span class=hljs-built_in>int</span> Color;
-		}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> <span class="hljs-title">SlimDXApp1Form</span> : <span class="hljs-title">RenderForm</span>
+    {
+        <span class="hljs-keyword">struct</span> Vertex
+        {
+            <span class="hljs-keyword">public</span> Vector4 Position;
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> Color;
+        }
 
-		Device device;
-		VertexDeclaration vertexDeclaration;
-		
-		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-title>SlimDXApp1Form</span>(<span class=hljs-params></span>)
-			: <span class=hljs-title>base</span>(<span class=hljs-params><span class=hljs-string>"SlimDXApp1"</span></span>)</span>
-		{
-			<span class=hljs-keyword>this</span>.ClientSize = <span class=hljs-keyword>new</span> Size(<span class=hljs-number>800</span>, <span class=hljs-number>600</span>);
+        Device device;
+        VertexDeclaration vertexDeclaration;
+        
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SlimDXApp1Form</span>(<span class="hljs-params"></span>)
+            : <span class="hljs-title">base</span>(<span class="hljs-params"><span class="hljs-string">&quot;SlimDXApp1&quot;</span></span>)</span>
+        {
+            <span class="hljs-keyword">this</span>.ClientSize = <span class="hljs-keyword">new</span> Size(<span class="hljs-number">800</span>, <span class="hljs-number">600</span>);
 
-			<span class=hljs-keyword>this</span>.device = <span class=hljs-keyword>new</span> Device(<span class=hljs-keyword>new</span> Direct3D(), <span class=hljs-number>0</span>, DeviceType.Hardware, <span class=hljs-keyword>this</span>.Handle, CreateFlags.HardwareVertexProcessing, <span class=hljs-keyword>new</span> PresentParameters()
+            <span class="hljs-keyword">this</span>.device = <span class="hljs-keyword">new</span> Device(<span class="hljs-keyword">new</span> Direct3D(), <span class="hljs-number">0</span>, DeviceType.Hardware, <span class="hljs-keyword">this</span>.Handle, CreateFlags.HardwareVertexProcessing, <span class="hljs-keyword">new</span> PresentParameters()
             {
-                BackBufferWidth = <span class=hljs-keyword>this</span>.ClientSize.Width,
-                BackBufferHeight = <span class=hljs-keyword>this</span>.ClientSize.Height
+                BackBufferWidth = <span class="hljs-keyword">this</span>.ClientSize.Width,
+                BackBufferHeight = <span class="hljs-keyword">this</span>.ClientSize.Height
             });
 
-			<span class=hljs-keyword>this</span>.vertexDeclaration = <span class=hljs-keyword>new</span> VertexDeclaration(<span class=hljs-keyword>this</span>.device, <span class=hljs-keyword>new</span>[] {
-        		<span class=hljs-keyword>new</span> VertexElement(<span class=hljs-number>0</span>, <span class=hljs-number>0</span>, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, <span class=hljs-number>0</span>),
-        		<span class=hljs-keyword>new</span> VertexElement(<span class=hljs-number>0</span>, <span class=hljs-number>16</span>, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, <span class=hljs-number>0</span>),
-				VertexElement.VertexDeclarationEnd
-        	});
-		}
+            <span class="hljs-keyword">this</span>.vertexDeclaration = <span class="hljs-keyword">new</span> VertexDeclaration(<span class="hljs-keyword">this</span>.device, <span class="hljs-keyword">new</span>[] {
+                <span class="hljs-keyword">new</span> VertexElement(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, <span class="hljs-number">0</span>),
+                <span class="hljs-keyword">new</span> VertexElement(<span class="hljs-number">0</span>, <span class="hljs-number">16</span>, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, <span class="hljs-number">0</span>),
+                VertexElement.VertexDeclarationEnd
+            });
+        }
 
-		<span class=hljs-function><span class=hljs-keyword>public</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Run</span>(<span class=hljs-params></span>)</span>
-		{
-			MessagePump.Run(<span class=hljs-keyword>this</span>, () =>
-			{
-				<span class=hljs-keyword>this</span>.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, <span class=hljs-number>1.0f</span>, <span class=hljs-number>0</span>);
-				<span class=hljs-keyword>this</span>.device.BeginScene();
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Run</span>(<span class="hljs-params"></span>)</span>
+        {
+            MessagePump.Run(<span class="hljs-keyword">this</span>, () =&gt;
+            {
+                <span class="hljs-keyword">this</span>.device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, <span class="hljs-number">1.0f</span>, <span class="hljs-number">0</span>);
+                <span class="hljs-keyword">this</span>.device.BeginScene();
 
-				<span class=hljs-keyword>this</span>.device.VertexDeclaration = <span class=hljs-keyword>this</span>.vertexDeclaration;
+                <span class="hljs-keyword">this</span>.device.VertexDeclaration = <span class="hljs-keyword">this</span>.vertexDeclaration;
 
-				<span class=hljs-keyword>this</span>.device.DrawUserPrimitives&lt;Vertex>(PrimitiveType.TriangleList, <span class=hljs-number>1</span>, <span class=hljs-keyword>new</span>[] {
-					<span class=hljs-keyword>new</span> Vertex() { Color = Color.Red.ToArgb(), Position = <span class=hljs-keyword>new</span> Vector4(<span class=hljs-number>400.0f</span>, <span class=hljs-number>100.0f</span>, <span class=hljs-number>0.5f</span>, <span class=hljs-number>1.0f</span>) },
-					<span class=hljs-keyword>new</span> Vertex() { Color = Color.Blue.ToArgb(), Position = <span class=hljs-keyword>new</span> Vector4(<span class=hljs-number>650.0f</span>, <span class=hljs-number>500.0f</span>, <span class=hljs-number>0.5f</span>, <span class=hljs-number>1.0f</span>) },
-					<span class=hljs-keyword>new</span> Vertex() { Color = Color.Green.ToArgb(), Position = <span class=hljs-keyword>new</span> Vector4(<span class=hljs-number>150.0f</span>, <span class=hljs-number>500.0f</span>, <span class=hljs-number>0.5f</span>, <span class=hljs-number>1.0f</span>) }
-				});
-				
-				<span class=hljs-keyword>this</span>.device.EndScene();
-				<span class=hljs-keyword>this</span>.device.Present();
-			});
-		}
+                <span class="hljs-keyword">this</span>.device.DrawUserPrimitives&lt;Vertex&gt;(PrimitiveType.TriangleList, <span class="hljs-number">1</span>, <span class="hljs-keyword">new</span>[] {
+                    <span class="hljs-keyword">new</span> Vertex() { Color = Color.Red.ToArgb(), Position = <span class="hljs-keyword">new</span> Vector4(<span class="hljs-number">400.0f</span>, <span class="hljs-number">100.0f</span>, <span class="hljs-number">0.5f</span>, <span class="hljs-number">1.0f</span>) },
+                    <span class="hljs-keyword">new</span> Vertex() { Color = Color.Blue.ToArgb(), Position = <span class="hljs-keyword">new</span> Vector4(<span class="hljs-number">650.0f</span>, <span class="hljs-number">500.0f</span>, <span class="hljs-number">0.5f</span>, <span class="hljs-number">1.0f</span>) },
+                    <span class="hljs-keyword">new</span> Vertex() { Color = Color.Green.ToArgb(), Position = <span class="hljs-keyword">new</span> Vector4(<span class="hljs-number">150.0f</span>, <span class="hljs-number">500.0f</span>, <span class="hljs-number">0.5f</span>, <span class="hljs-number">1.0f</span>) }
+                });
+                
+                <span class="hljs-keyword">this</span>.device.EndScene();
+                <span class="hljs-keyword">this</span>.device.Present();
+            });
+        }
 
-		[<span class=hljs-meta>STAThread</span>]
-		<span class=hljs-function><span class=hljs-keyword>static</span> <span class=hljs-keyword>void</span> <span class=hljs-title>Main</span>(<span class=hljs-params></span>)</span>
-		{
-			SlimDXApp1Form form = <span class=hljs-keyword>new</span> SlimDXApp1Form();
-			form.Run();
+        [<span class="hljs-meta">STAThread</span>]
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+        {
+            SlimDXApp1Form form = <span class="hljs-keyword">new</span> SlimDXApp1Form();
+            form.Run();
 
-			<span class=hljs-comment>// Cleans up COM handles</span>
-			<span class=hljs-keyword>foreach</span>(<span class=hljs-keyword>var</span> item <span class=hljs-keyword>in</span> ObjectTable.Objects)
-				item.Dispose();
-		}
-	}
-}</code></pre></div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class="page-item disabled"><a class="page-link older" href=# tabindex=-1>Older</a><li class="page-item disabled"><a class="page-link newer" href=# tabindex=-1>Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+            <span class="hljs-comment">// Cleans up COM handles</span>
+            <span class="hljs-keyword">foreach</span>(<span class="hljs-keyword">var</span> item <span class="hljs-keyword">in</span> ObjectTable.Objects)
+                item.Dispose();
+        }
+    }
+}
+</code></pre>
+</div></div></div><div class="clear"></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class="page-item disabled"><a href="#" class="page-link older">Older</a></li><li class="page-item disabled"><a href="#" class="page-link newer">Newer</a></li></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

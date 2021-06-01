@@ -1,144 +1,158 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Code from when I was young and stupid and needed the money</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2014/code-from-when-i-was-young-and-stupid.html>Code from when I was young and stupid and needed the money</a></h2><div class=meta><span class=date><span class=icon-calendar></span>June 18, 2014</span> <span class=tags><a href=tags/old-code/index.html><span class="icon icon-price-tags"></span> <span class=tagName>old-code</span></a> <a href=tags/cpp/index.html><span class="icon icon-price-tags"></span> <span class=tagName>c++</span></a></span></div><div class=content><p>We have had 2 interns at work for the past few weeks and one of the tasks we gave them was to implement <a href=http://en.wikipedia.org/wiki/Quick_sort>Quicksort</a>. This got me to thinking about my youth and some of the code I wrote back then. I've decided to post it.<p>Here is one of my old implementations of Quicksort:
-<pre><code class="hljs cpp"><span class=hljs-function><span class=hljs-keyword>void</span> <span class=hljs-title>Sort</span><span class=hljs-params>(<span class=hljs-keyword>int</span> i, <span class=hljs-keyword>int</span> j)</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Code from when I was young and stupid and needed the money</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2014/code-from-when-i-was-young-and-stupid.html">Code from when I was young and stupid and needed the money</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>June 18, 2014</span><span class="tags"><a href="tags/old-code/index.html"><span class="icon icon-price-tags"></span><span class="tagName">old-code</span></a><a href="tags/cpp/index.html"><span class="icon icon-price-tags"></span><span class="tagName">c++</span></a></span></div></div><div class="content"><p>We have had 2 interns at work for the past few weeks and one of the tasks we gave them was to implement <a href="http://en.wikipedia.org/wiki/Quick_sort">Quicksort</a>.
+This got me to thinking about my youth and some of the code I wrote back then. I&#39;ve decided to post it.</p>
+<!--more-->
+
+<p>Here is one of my old implementations of Quicksort:</p>
+<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Sort</span><span class="hljs-params">(<span class="hljs-type">int</span> i, <span class="hljs-type">int</span> j)</span>
 </span>{
-	T temp;
+    T temp;
 
-	<span class=hljs-keyword>if</span>(i&lt;j)
-	{
-		<span class=hljs-keyword>if</span>(i == j<span class=hljs-number>-1</span>) <span class=hljs-comment>// 2 items</span>
-		{
-			<span class=hljs-keyword>if</span>(m_data[i] > m_data[j])
-			{
-				temp = m_data[i];
-				m_data[i] = m_data[j];
-				m_data[j] = temp;
-			}
-		}
-		<span class=hljs-keyword>else</span> <span class=hljs-keyword>if</span>(i == j<span class=hljs-number>-2</span>) <span class=hljs-comment>// 3 items</span>
-		{
-			<span class=hljs-keyword>if</span>(m_data[i] > m_data[i+<span class=hljs-number>1</span>])
-			{
-				temp = m_data[i];
-				m_data[i] = m_data[i+<span class=hljs-number>1</span>];
-				m_data[i+<span class=hljs-number>1</span>] = temp;
-			}
+    <span class="hljs-keyword">if</span>(i&lt;j)
+    {
+        <span class="hljs-keyword">if</span>(i == j<span class="hljs-number">-1</span>) <span class="hljs-comment">// 2 items</span>
+        {
+            <span class="hljs-keyword">if</span>(m_data[i] &gt; m_data[j])
+            {
+                temp = m_data[i];
+                m_data[i] = m_data[j];
+                m_data[j] = temp;
+            }
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i == j<span class="hljs-number">-2</span>) <span class="hljs-comment">// 3 items</span>
+        {
+            <span class="hljs-keyword">if</span>(m_data[i] &gt; m_data[i+<span class="hljs-number">1</span>])
+            {
+                temp = m_data[i];
+                m_data[i] = m_data[i+<span class="hljs-number">1</span>];
+                m_data[i+<span class="hljs-number">1</span>] = temp;
+            }
 
-			<span class=hljs-keyword>if</span>(m_data[i+<span class=hljs-number>1</span>] > m_data[i+<span class=hljs-number>2</span>])
-			{
-				temp = m_data[i+<span class=hljs-number>1</span>];
-				m_data[i+<span class=hljs-number>1</span>] = m_data[i+<span class=hljs-number>2</span>];
-				m_data[i+<span class=hljs-number>2</span>] = temp;
-			}
+            <span class="hljs-keyword">if</span>(m_data[i+<span class="hljs-number">1</span>] &gt; m_data[i+<span class="hljs-number">2</span>])
+            {
+                temp = m_data[i+<span class="hljs-number">1</span>];
+                m_data[i+<span class="hljs-number">1</span>] = m_data[i+<span class="hljs-number">2</span>];
+                m_data[i+<span class="hljs-number">2</span>] = temp;
+            }
 
-			<span class=hljs-keyword>if</span>(m_data[i] > m_data[i+<span class=hljs-number>1</span>])
-			{
-				temp = m_data[i];
-				m_data[i] = m_data[i+<span class=hljs-number>1</span>];
-				m_data[i+<span class=hljs-number>1</span>] = temp;
-			}
-		}
-		<span class=hljs-keyword>else</span> <span class=hljs-keyword>if</span>(i == j<span class=hljs-number>-3</span>) <span class=hljs-comment>// 4 items</span>
-		{
-			<span class=hljs-keyword>if</span>(m_data[i] > m_data[i+<span class=hljs-number>1</span>])
-			{
-				temp = m_data[i];
-				m_data[i] = m_data[i+<span class=hljs-number>1</span>];
-				m_data[i+<span class=hljs-number>1</span>] = temp;
-			}
+            <span class="hljs-keyword">if</span>(m_data[i] &gt; m_data[i+<span class="hljs-number">1</span>])
+            {
+                temp = m_data[i];
+                m_data[i] = m_data[i+<span class="hljs-number">1</span>];
+                m_data[i+<span class="hljs-number">1</span>] = temp;
+            }
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i == j<span class="hljs-number">-3</span>) <span class="hljs-comment">// 4 items</span>
+        {
+            <span class="hljs-keyword">if</span>(m_data[i] &gt; m_data[i+<span class="hljs-number">1</span>])
+            {
+                temp = m_data[i];
+                m_data[i] = m_data[i+<span class="hljs-number">1</span>];
+                m_data[i+<span class="hljs-number">1</span>] = temp;
+            }
 
-			<span class=hljs-keyword>if</span>(m_data[i+<span class=hljs-number>1</span>] > m_data[i+<span class=hljs-number>2</span>])
-			{
-				temp = m_data[i+<span class=hljs-number>1</span>];
-				m_data[i+<span class=hljs-number>1</span>] = m_data[i+<span class=hljs-number>2</span>];
-				m_data[i+<span class=hljs-number>2</span>] = temp;
-			}
-		
-			<span class=hljs-keyword>if</span>(m_data[i+<span class=hljs-number>2</span>] > m_data[i+<span class=hljs-number>3</span>])
-			{
-				temp = m_data[i+<span class=hljs-number>2</span>];
-				m_data[i+<span class=hljs-number>2</span>] = m_data[i+<span class=hljs-number>3</span>];
-				m_data[i+<span class=hljs-number>3</span>] = temp;
-			}
+            <span class="hljs-keyword">if</span>(m_data[i+<span class="hljs-number">1</span>] &gt; m_data[i+<span class="hljs-number">2</span>])
+            {
+                temp = m_data[i+<span class="hljs-number">1</span>];
+                m_data[i+<span class="hljs-number">1</span>] = m_data[i+<span class="hljs-number">2</span>];
+                m_data[i+<span class="hljs-number">2</span>] = temp;
+            }
+        
+            <span class="hljs-keyword">if</span>(m_data[i+<span class="hljs-number">2</span>] &gt; m_data[i+<span class="hljs-number">3</span>])
+            {
+                temp = m_data[i+<span class="hljs-number">2</span>];
+                m_data[i+<span class="hljs-number">2</span>] = m_data[i+<span class="hljs-number">3</span>];
+                m_data[i+<span class="hljs-number">3</span>] = temp;
+            }
 
-			<span class=hljs-keyword>if</span>(m_data[i] > m_data[i+<span class=hljs-number>1</span>])
-			{
-				temp = m_data[i];
-				m_data[i] = m_data[i+<span class=hljs-number>1</span>];
-				m_data[i+<span class=hljs-number>1</span>] = temp;
-			}
+            <span class="hljs-keyword">if</span>(m_data[i] &gt; m_data[i+<span class="hljs-number">1</span>])
+            {
+                temp = m_data[i];
+                m_data[i] = m_data[i+<span class="hljs-number">1</span>];
+                m_data[i+<span class="hljs-number">1</span>] = temp;
+            }
 
-			<span class=hljs-keyword>if</span>(m_data[i+<span class=hljs-number>1</span>] > m_data[i+<span class=hljs-number>2</span>])
-			{
-				temp = m_data[i+<span class=hljs-number>1</span>];
-				m_data[i+<span class=hljs-number>1</span>] = m_data[i+<span class=hljs-number>2</span>];
-				m_data[i+<span class=hljs-number>2</span>] = temp;
-			}
+            <span class="hljs-keyword">if</span>(m_data[i+<span class="hljs-number">1</span>] &gt; m_data[i+<span class="hljs-number">2</span>])
+            {
+                temp = m_data[i+<span class="hljs-number">1</span>];
+                m_data[i+<span class="hljs-number">1</span>] = m_data[i+<span class="hljs-number">2</span>];
+                m_data[i+<span class="hljs-number">2</span>] = temp;
+            }
 
-			<span class=hljs-keyword>if</span>(m_data[i] > m_data[i+<span class=hljs-number>1</span>])
-			{
-				temp = m_data[i];
-				m_data[i] = m_data[i+<span class=hljs-number>1</span>];
-				m_data[i+<span class=hljs-number>1</span>] = temp;
-			}
-		}
-		<span class=hljs-keyword>else</span> <span class=hljs-comment>// 5 or more items</span>
-		{
-			<span class=hljs-keyword>int</span> pivot = j;
-			<span class=hljs-keyword>int</span> up = i<span class=hljs-number>-1</span>;
-			<span class=hljs-keyword>int</span> down = pivot;
+            <span class="hljs-keyword">if</span>(m_data[i] &gt; m_data[i+<span class="hljs-number">1</span>])
+            {
+                temp = m_data[i];
+                m_data[i] = m_data[i+<span class="hljs-number">1</span>];
+                m_data[i+<span class="hljs-number">1</span>] = temp;
+            }
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-comment">// 5 or more items</span>
+        {
+            <span class="hljs-type">int</span> pivot = j;
+            <span class="hljs-type">int</span> up = i<span class="hljs-number">-1</span>;
+            <span class="hljs-type">int</span> down = pivot;
 
-			<span class=hljs-keyword>while</span>(up&lt;down)
-			{
-				<span class=hljs-keyword>while</span>((m_data[++up] &lt; m_data[pivot]) &amp;&amp; up&lt;down);
+            <span class="hljs-keyword">while</span>(up&lt;down)
+            {
+                <span class="hljs-keyword">while</span>((m_data[++up] &lt; m_data[pivot]) &amp;&amp; up&lt;down);
 
-				<span class=hljs-keyword>if</span>(up>=down)
-					<span class=hljs-keyword>break</span>;
+                <span class="hljs-keyword">if</span>(up&gt;=down)
+                    <span class="hljs-keyword">break</span>;
 
-				<span class=hljs-keyword>while</span>((m_data[--down] > m_data[pivot]) &amp;&amp; up&lt;down);
+                <span class="hljs-keyword">while</span>((m_data[--down] &gt; m_data[pivot]) &amp;&amp; up&lt;down);
 
-				<span class=hljs-keyword>if</span>(up>=down)
-					<span class=hljs-keyword>break</span>;
+                <span class="hljs-keyword">if</span>(up&gt;=down)
+                    <span class="hljs-keyword">break</span>;
 
-				temp = m_data[up];
-				m_data[up] = m_data[down];
-				m_data[down] = temp;
-			}
+                temp = m_data[up];
+                m_data[up] = m_data[down];
+                m_data[down] = temp;
+            }
 
-			temp = m_data[up];
-			m_data[up] = m_data[pivot];
-			m_data[pivot] = temp;
-		
-			Sort(i, up<span class=hljs-number>-1</span>);
-			Sort(up+<span class=hljs-number>1</span>, j);
-		}
-	}
-}</code></pre><p>And here is another:
-<pre><code class="hljs cpp"><span class=hljs-keyword>template</span>&lt;<span class=hljs-class><span class=hljs-keyword>class</span> <span class=hljs-title>T</span>></span>
-<span class=hljs-keyword>void</span> CArray&lt;T>::Sort(<span class=hljs-keyword>int</span> (*Compare)(T &amp;item1, T &amp;item2), <span class=hljs-keyword>int</span> left, <span class=hljs-keyword>int</span> right)
+            temp = m_data[up];
+            m_data[up] = m_data[pivot];
+            m_data[pivot] = temp;
+        
+            <span class="hljs-built_in">Sort</span>(i, up<span class="hljs-number">-1</span>);
+            <span class="hljs-built_in">Sort</span>(up+<span class="hljs-number">1</span>, j);
+        }
+    }
+}
+</code></pre>
+<p>And here is another:</p>
+<pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;
+<span class="hljs-type">void</span> CArray&lt;T&gt;::<span class="hljs-built_in">Sort</span>(<span class="hljs-built_in">int</span> (*Compare)(T &amp;item1, T &amp;item2), <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)
 {
-	<span class=hljs-keyword>if</span>(left >= right)
-		<span class=hljs-keyword>return</span>;
+    <span class="hljs-keyword">if</span>(left &gt;= right)
+        <span class="hljs-keyword">return</span>;
 
-	<span class=hljs-keyword>int</span> up = left<span class=hljs-number>-1</span>;
-	<span class=hljs-keyword>int</span> down = right;
-	<span class=hljs-keyword>int</span> pivot = m_array[right];
+    <span class="hljs-type">int</span> up = left<span class="hljs-number">-1</span>;
+    <span class="hljs-type">int</span> down = right;
+    <span class="hljs-type">int</span> pivot = m_array[right];
 
-	<span class=hljs-keyword>if</span>(right == left + <span class=hljs-number>1</span>)
-		<span class=hljs-keyword>if</span>(Compare(m_array[left], m_array[right]) == <span class=hljs-number>1</span>)
-		{
-			Swap(left, right);
-			<span class=hljs-keyword>return</span>;
-		}
+    <span class="hljs-keyword">if</span>(right == left + <span class="hljs-number">1</span>)
+        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Compare</span>(m_array[left], m_array[right]) == <span class="hljs-number">1</span>)
+        {
+            <span class="hljs-built_in">Swap</span>(left, right);
+            <span class="hljs-keyword">return</span>;
+        }
 
-	<span class=hljs-keyword>while</span>(<span class=hljs-literal>true</span>)
-	{
-		<span class=hljs-keyword>while</span>(Compare(m_array[++up], pivot) == <span class=hljs-number>-1</span> &amp;&amp; up&lt;down);
-		<span class=hljs-keyword>while</span>(Compare(m_array[--down], pivot) == <span class=hljs-number>1</span> &amp;&amp; up&lt;down); 
-		<span class=hljs-keyword>if</span>(up>=down) <span class=hljs-keyword>break</span>;
-		Swap(up, down);
-	}
+    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)
+    {
+        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">Compare</span>(m_array[++up], pivot) == <span class="hljs-number">-1</span> &amp;&amp; up&lt;down);
+        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">Compare</span>(m_array[--down], pivot) == <span class="hljs-number">1</span> &amp;&amp; up&lt;down); 
+        <span class="hljs-keyword">if</span>(up&gt;=down) <span class="hljs-keyword">break</span>;
+        <span class="hljs-built_in">Swap</span>(up, down);
+    }
 
-	Swap(up, right);
-	Sort(Compare, left, up<span class=hljs-number>-1</span>);
-	Sort(Compare, up+<span class=hljs-number>1</span>, right);
-}</code></pre><p>The first example seems to be from 2004 and the second example seems to be from 2006, though I'm not sure how much I can actually trust the timestamps on the files. It is interesting to see how far I progressed in the timespan of about 2 years. 2004 would have been right in the middle of college and 2006 was torwards the end of my college time.<p>In the second example I think I had actually been a "professional" (aka I got paid a little money on the side) programmer for a few months. Like I said, I was young and stupid and I needed the money.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2014/adding-assembly-references-in-roslyn.html class="page-link older">Older</a><li class=page-item><a href=blog/2014/my-experience-with-opengl-vs-direct3d.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+    <span class="hljs-built_in">Swap</span>(up, right);
+    <span class="hljs-built_in">Sort</span>(Compare, left, up<span class="hljs-number">-1</span>);
+    <span class="hljs-built_in">Sort</span>(Compare, up+<span class="hljs-number">1</span>, right);
+}
+</code></pre>
+<p>The first example seems to be from 2004 and the second example seems to be from 2006, though I&#39;m not sure how
+much I can actually trust the timestamps on the files. It is interesting to see how far I progressed in the
+timespan of about 2 years. 2004 would have been right in the middle of college and 2006 was torwards the end
+of my college time.</p>
+<p>In the second example I think I had actually been a &quot;professional&quot; (aka I got paid a little money on the side) programmer
+for a few months. Like I said, I was young and stupid and I needed the money.</p>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

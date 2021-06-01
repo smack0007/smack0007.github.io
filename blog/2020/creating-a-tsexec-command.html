@@ -1,30 +1,41 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name=description content=""><meta name=author content="Zachary Snow"><title>Creating a tsexec command</title><base href=../../ ><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet type=text/css href=css/style.css><link rel=alternate type=application/rss+xml title="The Blog of Zachary Snow" href=feed.rss><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><div class=wrap><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class=navbar-brand href=/ >The Blog of Zachary Snow</a></h1><button id=navbar-toggler class=navbar-toggler type=button aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation"><span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=index.html>Home</a><li class=nav-item><a class=nav-link href=about.html>About</a><li class=nav-item><a class=nav-link href=tags.html>Tags</a></ul><div class="social my-2 my-lg-0"><a href=https://twitter.com/smack0007 class=twitter title=Twitter><span class=icon-twitter></span></a> <a href=https://github.com/smack0007 class=github title=Github><span class=icon-github></span></a> <a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee"><span class=icon-mug></span></a> <a href=feed.rss class=rss title=RSS><span class=icon-rss></span></a></div></div></nav><main class=container><div class=posts><div class=post><h2><a href=blog/2020/creating-a-tsexec-command.html>Creating a tsexec command</a></h2><div class=meta><span class=date><span class=icon-calendar></span>August 21, 2020</span> <span class=tags><a href=tags/typscript/index.html><span class="icon icon-price-tags"></span> <span class=tagName>typscript</span></a> <a href=tags/batch/index.html><span class="icon icon-price-tags"></span> <span class=tagName>batch</span></a></span></div><div class=content><p>I want to use TypeScript as a scripting language for my machine and so I want to be able just to execute TypeScript files directly. There are npm packages like <a href=https://www.npmjs.com/package/ts-node>ts-node</a> that do this already but I wanted to have a crack at implementing it myself. So this is the batch file I've come up with so far.
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Creating a tsexec command</title><base href="http://smack0007.github.io"></base><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2020/creating-a-tsexec-command.html">Creating a tsexec command</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>August 21, 2020</span><span class="tags"><a href="tags/typscript/index.html"><span class="icon icon-price-tags"></span><span class="tagName">typscript</span></a><a href="tags/batch/index.html"><span class="icon icon-price-tags"></span><span class="tagName">batch</span></a></span></div></div><div class="content"><p>I want to use TypeScript as a scripting language for my machine and
+so I want to be able just to execute TypeScript files directly. There
+are npm packages like <a href="https://www.npmjs.com/package/ts-node">ts-node</a>
+that do this already but I wanted to have a crack at implementing it
+myself. So this is the batch file I&#39;ve come up with so far.</p>
+<!--more-->
 
-<pre><code class="hljs shell">@ECHO OFF
-SETLOCAL enableextensions 
+<pre><code class="hljs bat">@<span class="hljs-built_in">ECHO</span> OFF
+<span class="hljs-built_in">SETLOCAL</span> enableextensions 
+<span class="hljs-comment">
+REM Get the location of the the npm-prefix directory.</span>
+<span class="hljs-keyword">FOR</span> /f &quot;tokens=*&quot; <span class="hljs-variable">%%a</span> <span class="hljs-keyword">in</span> ( &#x27;npm config get prefix&#x27; ) <span class="hljs-keyword">DO</span> ( <span class="hljs-built_in">SET</span> __NPM_PREFIX=<span class="hljs-variable">%%a</span> ) 
+<span class="hljs-comment">REM Remove trailing space from npm-prefix.</span>
+<span class="hljs-built_in">SET</span> __NPM_PREFIX=<span class="hljs-variable">%__NPM_PREFIX:~0,-1%</span>
 
-REM Get the location of the the npm-prefix directory.
-FOR /f "tokens=*" %%a in ( 'npm config get prefix' ) DO ( SET __NPM_PREFIX=%%a ) 
-REM Remove trailing space from npm-prefix.
-SET __NPM_PREFIX=%__NPM_PREFIX:~0,-1%
-
-SET __SCRIPTFILE=%1
-SET __OUTPUTFILE=%__SCRIPTFILE%
-
-REM Cut the ts or tsx file extension.
-IF "%__OUTPUTFILE:~-3%" == ".ts" (
-    SET __OUTPUTFILE=%__OUTPUTFILE:~0,-3%
-) ELSE IF "%__OUTPUTFILE:~-4%" == ".tsx" (
-    SET __OUTPUTFILE=%__OUTPUTFILE:~0,-4%
+<span class="hljs-built_in">SET</span> __SCRIPTFILE=%<span class="hljs-number">1</span>
+<span class="hljs-built_in">SET</span> __OUTPUTFILE=<span class="hljs-variable">%__SCRIPTFILE%</span>
+<span class="hljs-comment">
+REM Cut the ts or tsx file extension.</span>
+<span class="hljs-keyword">IF</span> &quot;<span class="hljs-variable">%__OUTPUTFILE:~-3%</span>&quot; == &quot;.ts&quot; (
+    <span class="hljs-built_in">SET</span> __OUTPUTFILE=<span class="hljs-variable">%__OUTPUTFILE:~0,-3%</span>
+) <span class="hljs-keyword">ELSE</span> <span class="hljs-keyword">IF</span> &quot;<span class="hljs-variable">%__OUTPUTFILE:~-4%</span>&quot; == &quot;.tsx&quot; (
+    <span class="hljs-built_in">SET</span> __OUTPUTFILE=<span class="hljs-variable">%__OUTPUTFILE:~0,-4%</span>
 )
 
-SET __OUTPUTFILE=%__OUTPUTFILE%.js
+<span class="hljs-built_in">SET</span> __OUTPUTFILE=<span class="hljs-variable">%__OUTPUTFILE%</span>.js
+<span class="hljs-comment">
+REM Get all arguments except the first.</span>
+<span class="hljs-built_in">SET</span> __SCRIPTARGS=
+<span class="hljs-keyword">FOR</span> /f &quot;tokens=<span class="hljs-number">1</span>,* delims= &quot; <span class="hljs-variable">%%a</span> <span class="hljs-keyword">IN</span> (&quot;%*&quot;) <span class="hljs-keyword">DO</span> ( <span class="hljs-built_in">SET</span> __SCRIPTARGS=<span class="hljs-variable">%%b</span> )
 
-REM Get all arguments except the first.
-SET __SCRIPTARGS=
-FOR /f "tokens=1,* delims= " %%a IN ("%*") DO ( SET __SCRIPTARGS=%%b )
+tsc --strict --typeRoots &quot;<span class="hljs-variable">%__NPM_PREFIX%</span>\node_modules\@types&quot; <span class="hljs-variable">%__SCRIPTFILE%</span> &amp;&amp; node <span class="hljs-variable">%__OUTPUTFILE%</span> <span class="hljs-variable">%__SCRIPTARGS%</span>
 
-tsc --strict --typeRoots "%__NPM_PREFIX%\node_modules\@types" %__SCRIPTFILE% &amp;&amp; node %__OUTPUTFILE% %__SCRIPTARGS%
-
-ENDLOCAL</code></pre><p>I've got the batch file in my path so I can just execute scripts now like this:
-<pre><code class="hljs shell">tsexec hello.ts Zac</code></pre><p>This produces a hello.js file directly next to the hello.ts file. Any imported files will also be compiled with the output file landing directly next to the input file.</div></div></div><div class=clear></div><nav aria-label="Page navigation"><ul class="pagination justify-content-center"><li class=page-item><a href=blog/2020/checking-for-uncommited-git-changes-in-a-batch-program.html class="page-link older">Older</a><li class=page-item><a href=blog/2020/predictable-random-number-generation-in-typescript.html class="page-link newer">Newer</a></ul></nav></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class=container><ul class=links><li><a href=https://twitter.com/smack0007 class=twitter title=Twitter>Twitter</a><li><a href=https://github.com/smack0007 class=github title=Github>GitHub</a><li><a href=https://paypal.me/smack0007 class=coffee title="Buy me a Coffee">Buy me a Coffee</a><li><a href=feed.rss class=rss title=RSS>RSS</a></ul><p class=mb-0>The Blog of Zachary Snow</div></footer></div><script>document.getElementById("navbar-toggler").onclick=function(){document.getElementById("navbarSupportedContent").classList.toggle("collapse")}</script>
+<span class="hljs-built_in">ENDLOCAL</span>
+</code></pre>
+<p>I&#39;ve got the batch file in my path so I can just execute scripts now like this:</p>
+<pre><code class="hljs bat">tsexec hello.ts Zac
+</code></pre>
+<p>This produces a hello.js file directly next to the hello.ts file. Any imported files
+will also be compiled with the output file landing directly next to the input file.</p>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>
