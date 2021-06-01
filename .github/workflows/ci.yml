@@ -17,12 +17,13 @@ jobs:
       - name: Build
         run: |
           git clone https://github.com/smack0007/smack0007.github.io.git -b main bin
+          npm run build:ci
 
-      # - name: Publish
-      #   run: |
-      #     git log -1 --pretty=%B > commit.msg
-      #     cd bin
-      #     git config --global user.name "smack0007"
-      #     git config --global user.email "zachary.snow@gmail.com"
-      #     git add -A && git commit -F "../commit.msg"
-      #     git push https://smack0007:${{ secrets.API_KEY }}@github.com/smack0007/smack0007.github.io.git
+      - name: Publish
+        run: |
+          git log -1 --pretty=%B > commit.msg
+          cd bin
+          git config --global user.name "smack0007"
+          git config --global user.email "zachary.snow@gmail.com"
+          git add -A && git commit -F "../commit.msg"
+          git push https://smack0007:${{ secrets.API_KEY }}@github.com/smack0007/smack0007.github.io.git

@@ -246,7 +246,7 @@ async function writeTagPages(posts: Post[]): Promise<void> {
 
         const pageCount = Math.ceil(tag.posts.length / POSTS_PER_PAGE);
 
-        console.info(`Tag: ${tag.name} ${posts.length} Posts / ${pageCount} Pages`);
+        console.info(`Tag: ${tag.name} ${tag.posts.length} Posts / ${pageCount} Pages`);
 
         const slug = inflectFileName(tag.name);
 
