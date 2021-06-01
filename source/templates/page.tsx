@@ -1,31 +1,21 @@
 import { html, Page } from "~/compiler";
 
-export function PageTemplate(page: Page) {
+export function PageTemplate(page: Page): string {
     return (
         "<!doctype html>" +
         (
             <html lang="en">
                 <head>
                     <meta charset="utf-8"></meta>
-                    <meta
-                        name="viewport"
-                        content="width=device-width, initial-scale=1.0, maximum-scale=1"
-                    ></meta>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"></meta>
                     <meta name="description" content=""></meta>
                     <meta name="author" content="Zachary Snow"></meta>
 
                     <title>{page.frontMatter.title}</title>
                     <base href="/"></base>
 
-                    <link
-                        href="https://fonts.googleapis.com/css?family=Open+Sans"
-                        rel="stylesheet"
-                    ></link>
-                    <link
-                        rel="stylesheet"
-                        type="text/css"
-                        href="css/style.css"
-                    ></link>
+                    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"></link>
+                    <link rel="stylesheet" type="text/css" href="css/style.css"></link>
 
                     <link
                         rel="alternate"
@@ -34,23 +24,9 @@ export function PageTemplate(page: Page) {
                         href="feed.rss"
                     ></link>
 
-                    <link
-                        rel="apple-touch-icon"
-                        sizes="180x180"
-                        href="/apple-touch-icon.png"
-                    ></link>
-                    <link
-                        rel="icon"
-                        type="image/png"
-                        sizes="32x32"
-                        href="/favicon-32x32.png"
-                    ></link>
-                    <link
-                        rel="icon"
-                        type="image/png"
-                        sizes="16x16"
-                        href="/favicon-16x16.png"
-                    ></link>
+                    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"></link>
+                    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
+                    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
                     <link rel="manifest" href="/site.webmanifest"></link>
                 </head>
                 <body>
@@ -72,66 +48,35 @@ export function PageTemplate(page: Page) {
                                 <span class="navbar-toggler-icon"></span>
                             </button>
 
-                            <div
-                                class="collapse navbar-collapse"
-                                id="navbarSupportedContent"
-                            >
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
                                         <a class="nav-link" href="index.html">
                                             Home
-                                            {page.url.endsWith(
-                                                "index.html"
-                                            ) && (
-                                                <span class="sr-only">
-                                                    (current)
-                                                </span>
-                                            )}
+                                            {page.url.endsWith("index.html") && <span class="sr-only">(current)</span>}
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="about.html">
                                             About
-                                            {page.url.endsWith(
-                                                "about.html"
-                                            ) && (
-                                                <span class="sr-only">
-                                                    (current)
-                                                </span>
-                                            )}
+                                            {page.url.endsWith("about.html") && <span class="sr-only">(current)</span>}
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="tags.html">
                                             Tags
-                                            {page.url.endsWith("tags.html") && (
-                                                <span class="sr-only">
-                                                    (current)
-                                                </span>
-                                            )}
+                                            {page.url.endsWith("tags.html") && <span class="sr-only">(current)</span>}
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="social my-2 my-lg-0">
-                                    <a
-                                        href="https://twitter.com/smack0007"
-                                        class="twitter"
-                                        title="Twitter"
-                                    >
+                                    <a href="https://twitter.com/smack0007" class="twitter" title="Twitter">
                                         <span class="icon-twitter"></span>
                                     </a>
-                                    <a
-                                        href="https://github.com/smack0007"
-                                        class="github"
-                                        title="Github"
-                                    >
+                                    <a href="https://github.com/smack0007" class="github" title="Github">
                                         <span class="icon-github"></span>
                                     </a>
-                                    <a
-                                        href="https://paypal.me/smack0007"
-                                        class="coffee"
-                                        title="Buy me a Coffee"
-                                    >
+                                    <a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">
                                         <span class="icon-mug"></span>
                                     </a>
                                     <a href="feed.rss" class="rss" title="RSS">
@@ -176,38 +121,22 @@ export function PageTemplate(page: Page) {
                             <div class="container">
                                 <ul class="links">
                                     <li>
-                                        <a
-                                            href="https://twitter.com/smack0007"
-                                            class="twitter"
-                                            title="Twitter"
-                                        >
+                                        <a href="https://twitter.com/smack0007" class="twitter" title="Twitter">
                                             Twitter
                                         </a>
                                     </li>
                                     <li>
-                                        <a
-                                            href="https://github.com/smack0007"
-                                            class="github"
-                                            title="Github"
-                                        >
+                                        <a href="https://github.com/smack0007" class="github" title="Github">
                                             GitHub
                                         </a>
                                     </li>
                                     <li>
-                                        <a
-                                            href="https://paypal.me/smack0007"
-                                            class="coffee"
-                                            title="Buy me a Coffee"
-                                        >
+                                        <a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">
                                             Buy me a Coffee
                                         </a>
                                     </li>
                                     <li>
-                                        <a
-                                            href="feed.rss"
-                                            class="rss"
-                                            title="RSS"
-                                        >
+                                        <a href="feed.rss" class="rss" title="RSS">
                                             RSS
                                         </a>
                                     </li>

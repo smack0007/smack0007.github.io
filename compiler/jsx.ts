@@ -1,6 +1,6 @@
 declare global {
     namespace JSX {
-        interface Element extends String {}
+        type Element = string;
         interface IntrinsicElements {
             [key: string]: any;
         }
@@ -11,11 +11,7 @@ type HTMLAttributes = { [key: string]: any };
 
 const NO_CLOSING_TAG = ["link", "meta"];
 
-export function html(
-    tagName: string,
-    attributes: HTMLAttributes | null,
-    ...children: unknown[]
-): string {
+export function html(tagName: string, attributes: HTMLAttributes | null, ...children: unknown[]): string {
     let output = `<${tagName}`;
 
     if (attributes !== null) {
@@ -29,6 +25,8 @@ export function html(
     for (const child of children) {
         if (child !== false) {
             output += child;
+        } else if (Array.isArray(child)) {
+            console.info(child);
         }
     }
 

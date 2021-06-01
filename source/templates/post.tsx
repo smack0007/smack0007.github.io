@@ -1,7 +1,7 @@
-import { html, Page } from "~/compiler";
+import { html, Post } from "~/compiler";
 import { PostHeaderTemplate } from "./postHeader";
 
-export function PostTemplate(post: Page) {
+export function PostTemplate(post: Post): string {
     return (
         <div class="post">
             {PostHeaderTemplate(post)}
