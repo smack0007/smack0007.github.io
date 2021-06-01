@@ -30,6 +30,7 @@ function replaceAll(input: string, find: string, replace: string): string {
 export function inflectFileName(input: string): string {
     input = input.toLowerCase();
     input = replaceAll(input, ".", "");
+    input = replaceAll(input, "!", "");
     input = replaceAll(input, "(", "");
     input = replaceAll(input, ")", "");
     input = replaceAll(input, " ", "-");

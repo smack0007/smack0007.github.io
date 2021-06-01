@@ -5,7 +5,8 @@
   "scripts": {
     "build": "ts-node -r ./ts-node-register.ts ./compiler/main.ts",
     "build:ci": "npm run build -- CI",
-    "serve": "serve ./bin"
+    "serve": "serve ./bin",
+    "new-post": "ts-node -r ./ts-node-register.ts ./scripts/new-post.ts"
   },
   "devDependencies": {
     "@types/html-entities": "^1.3.4",
