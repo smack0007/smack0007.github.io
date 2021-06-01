@@ -51,19 +51,28 @@ export function PageTemplate(page: Page): string {
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="index.html">
+                                        <a
+                                            class={"nav-link" + (page.url.endsWith("index.html") ? " active" : "")}
+                                            href="index.html"
+                                        >
                                             Home
                                             {page.url.endsWith("index.html") && <span class="sr-only">(current)</span>}
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="about.html">
+                                        <a
+                                            class={"nav-link" + (page.url.endsWith("about.html") ? " active" : "")}
+                                            href="about.html"
+                                        >
                                             About
                                             {page.url.endsWith("about.html") && <span class="sr-only">(current)</span>}
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="tags.html">
+                                        <a
+                                            class={"nav-link" + (page.url.endsWith("tags.html") ? " active" : "")}
+                                            href="tags.html"
+                                        >
                                             Tags
                                             {page.url.endsWith("tags.html") && <span class="sr-only">(current)</span>}
                                         </a>

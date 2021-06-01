@@ -23,10 +23,10 @@ export function html(tagName: string, attributes: HTMLAttributes | null, ...chil
     output += ">";
 
     for (const child of children) {
-        if (child !== false) {
+        if (Array.isArray(child)) {
+            output += child.join("");
+        } else if (child !== undefined && child !== false) {
             output += child;
-        } else if (Array.isArray(child)) {
-            console.info(child);
         }
     }
 

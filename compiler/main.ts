@@ -1,12 +1,14 @@
+import { copyFile } from "fs/promises";
 import { chdir } from "process";
 import { join, parse, sep as PATH_SEPERATOR } from "path";
-import { copyDirectory, ensureDirectory, listFiles, readFile, writeFile } from "./utils";
 import * as marked from "marked";
 import * as sass from "sass";
+const hljs = require("highlight.js");
+
+import { copyDirectory, ensureDirectory, listFiles, readFile, writeFile } from "./utils";
 import { FrontMatter, Page, Post } from "./types";
 import { PageTemplate, PostTemplate, IndexTemplate } from "./templates";
 import { BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg";
-import { copyFile } from "fs/promises";
 
 const ROOT_DIRECTORY = join(__dirname, "..");
 const INPUT_DIRECTORY = join(ROOT_DIRECTORY, "source");
@@ -26,6 +28,17 @@ main();
 
 async function main() {
     console.info(`Environment: ${ENVIRONMENT}`);
+
+    marked.setOptions({
+        langPrefix: "hljs ",
+        highlight: function (code: string, lang: string) {
+            if (!lang) {
+                return;
+            }
+
+            return hljs.highlight(code, { language: lang }).value;
+        },
+    });
 
     await ensureDirectory(OUTPUT_DIRECTORY);
 
