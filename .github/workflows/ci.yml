@@ -17,6 +17,7 @@ jobs:
       - name: Build
         run: |
           git clone https://github.com/smack0007/smack0007.github.io.git -b main bin
+          npm i
           npm run build:ci
 
       - name: Publish
