@@ -195,9 +195,7 @@ async function writeIndexFiles(posts: Post[]): Promise<void> {
 async function compileScss(): Promise<void> {
     var result = sass.renderSync({
         file: join(INPUT_DIRECTORY, "css", "style.scss"),
-        importer: (url: string, prev: string, done: (data: sass.ImporterReturnType) => void) => {
-            console.info(url);
-        },
+        outputStyle: "compressed",
     });
 
     await ensureDirectory(join(OUTPUT_DIRECTORY, "css"));
