@@ -1,5 +1,3 @@
-import { Page } from "./types";
-
 export { encode } from "html-entities";
 
 const months = [
@@ -18,11 +16,32 @@ const months = [
 ];
 
 export function formatDate(date: Date): string {
-    return `${
-        months[date.getMonth()]
-    } ${date.getDate()}, ${date.getFullYear()}`;
+    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 }
 
-export function isActiveUrl(url: string, page: Page): boolean {
-    return url.endsWith(page.url);
+export function getTagUrl(tag: string): string {
+    return `tags/${inflectFileName(tag)}/index.html`;
+}
+
+function replaceAll(input: string, find: string, replace: string): string {
+    return input.replace(new RegExp(`\\${find}`, "g"), replace);
+}
+
+export function inflectFileName(input: string): string {
+    input = input.toLowerCase();
+    input = replaceAll(input, ".", "");
+    input = replaceAll(input, "(", "");
+    input = replaceAll(input, ")", "");
+    input = replaceAll(input, " ", "-");
+
+    switch (input) {
+        case "c++":
+            input = "cpp";
+            break;
+        case "c#":
+            input = "csharp";
+            break;
+    }
+
+    return input;
 }

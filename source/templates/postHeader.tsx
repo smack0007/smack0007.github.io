@@ -1,4 +1,4 @@
-import { encode, formatDate, html, Post } from "~/compiler";
+import { encode, formatDate, getTagUrl, html, Post } from "~/compiler";
 
 export function PostHeaderTemplate(post: Post): string {
     return (
@@ -14,7 +14,7 @@ export function PostHeaderTemplate(post: Post): string {
                 </span>
                 <span class="tags">
                     {post.frontMatter.tags.map((tag) => (
-                        <a href="">
+                        <a href={getTagUrl(tag)}>
                             <span class="icon icon-price-tags"></span>
                             <span class="tagName">{encode(tag)}</span>
                         </a>

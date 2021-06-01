@@ -52,11 +52,18 @@ export function PageTemplate(page: Page): string {
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
                                         <a
-                                            class={"nav-link" + (page.url.endsWith("index.html") ? " active" : "")}
+                                            class={
+                                                "nav-link" +
+                                                (page.url === "index.html" || page.url.startsWith("blog/")
+                                                    ? " active"
+                                                    : "")
+                                            }
                                             href="index.html"
                                         >
                                             Home
-                                            {page.url.endsWith("index.html") && <span class="sr-only">(current)</span>}
+                                            {(page.url === "index.html" || page.url.startsWith("blog/")) && (
+                                                <span class="sr-only">(current)</span>
+                                            )}
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -70,11 +77,11 @@ export function PageTemplate(page: Page): string {
                                     </li>
                                     <li class="nav-item">
                                         <a
-                                            class={"nav-link" + (page.url.endsWith("tags.html") ? " active" : "")}
-                                            href="tags.html"
+                                            class={"nav-link" + (page.url.startsWith("tags/") ? " active" : "")}
+                                            href="tags/index.html"
                                         >
                                             Tags
-                                            {page.url.endsWith("tags.html") && <span class="sr-only">(current)</span>}
+                                            {page.url.startsWith("tags/") && <span class="sr-only">(current)</span>}
                                         </a>
                                     </li>
                                 </ul>

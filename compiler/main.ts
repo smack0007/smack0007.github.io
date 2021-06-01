@@ -6,9 +6,11 @@ import * as sass from "sass";
 const hljs = require("highlight.js");
 
 import { copyDirectory, ensureDirectory, listFiles, readFile, writeFile } from "./utils";
-import { FrontMatter, Page, Post } from "./types";
+import { FrontMatter, Page, Post, Tag } from "./types";
 import { PageTemplate, PostTemplate, IndexTemplate } from "./templates";
 import { BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg";
+import { getTagUrl, inflectFileName } from "./templateUtils";
+import { TagsTemplate } from "~/source/templates/tags";
 
 const ROOT_DIRECTORY = join(__dirname, "..");
 const INPUT_DIRECTORY = join(ROOT_DIRECTORY, "source");
@@ -48,7 +50,8 @@ async function main() {
 
     posts.sort((a, b) => b.frontMatter.date.getTime() - a.frontMatter.date.getTime());
 
-    await writeIndexFiles(posts);
+    await writeIndexPages(posts);
+    await writeTagPages(posts);
 
     await compileScss();
     await copyFonts();
@@ -172,7 +175,9 @@ function createPage(
     };
 }
 
-async function writeIndexFiles(posts: Post[]): Promise<void> {
+async function writeIndexPages(posts: Post[]): Promise<void> {
+    await ensureDirectory(join(OUTPUT_DIRECTORY, "blog"));
+
     const pageCount = Math.ceil(posts.length / POSTS_PER_PAGE);
 
     console.info(`Index: ${posts.length} Posts / ${pageCount} Pages`);
@@ -202,6 +207,75 @@ async function writeIndexFiles(posts: Post[]): Promise<void> {
         );
 
         await writeFile(join(OUTPUT_DIRECTORY, url.replace("/", PATH_SEPERATOR)), output);
+    }
+}
+
+async function writeTagPages(posts: Post[]): Promise<void> {
+    await ensureDirectory(join(OUTPUT_DIRECTORY, "tags"));
+
+    const tagMap: Record<string, Tag> = {};
+
+    for (const post of posts) {
+        for (const tag of post.frontMatter.tags) {
+            if (tagMap[tag] === undefined) {
+                tagMap[tag] = {
+                    name: tag,
+                    url: getTagUrl(tag),
+                    posts: [],
+                };
+            }
+
+            tagMap[tag]?.posts.push(post);
+        }
+    }
+
+    const tags = Object.values(tagMap);
+    tags.sort((a, b) => a.name.localeCompare(b.name));
+
+    let output = TagsTemplate(tags);
+
+    const url = "tags/index.html";
+
+    output = PageTemplate(createPage({ frontMatter: createFrontMatter({ title: BLOG_TITLE }), contents: output }, url));
+
+    await writeFile(join(OUTPUT_DIRECTORY, url.replace("/", PATH_SEPERATOR)), output);
+
+    for (const tag of tags) {
+        const pathParts = parse(tag.url.replace("/", PATH_SEPERATOR));
+        await ensureDirectory(join(OUTPUT_DIRECTORY, pathParts.dir));
+
+        const pageCount = Math.ceil(tag.posts.length / POSTS_PER_PAGE);
+
+        console.info(`Tag: ${tag.name} ${posts.length} Posts / ${pageCount} Pages`);
+
+        const slug = inflectFileName(tag.name);
+
+        const getUrlForIndex = (index: number) => {
+            if (index < 0 || index >= pageCount) {
+                return undefined;
+            }
+
+            return index == 0 ? `tags/${slug}/index.html` : `tags/${slug}/page${index + 1}.html`;
+        };
+
+        for (let i = 0; i < pageCount; i++) {
+            const postsForPage = tag.posts.slice(i * POSTS_PER_PAGE, i * POSTS_PER_PAGE + POSTS_PER_PAGE);
+
+            let output = IndexTemplate(postsForPage);
+            let url = getUrlForIndex(i) as string;
+
+            output = PageTemplate(
+                createPage(
+                    { frontMatter: createFrontMatter({ title: tag.name }), contents: output },
+                    url,
+                    true,
+                    getUrlForIndex(i + 1),
+                    getUrlForIndex(i - 1)
+                )
+            );
+
+            await writeFile(join(OUTPUT_DIRECTORY, url.replace("/", PATH_SEPERATOR)), output);
+        }
     }
 }
 
