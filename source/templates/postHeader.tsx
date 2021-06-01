@@ -4,7 +4,7 @@ export function PostHeaderTemplate(post: Post): string {
     return (
         <div class="post-header">
             <h2>
-                <a href="@Url">{encode(post.frontMatter.title)}</a>
+                <a href={post.url}>{encode(post.frontMatter.title)}</a>
             </h2>
             {post.frontMatter.subtitle.length > 0 && <h3>{encode(post.frontMatter.subtitle)}</h3>}
             <div class="meta">

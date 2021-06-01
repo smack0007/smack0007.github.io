@@ -17,6 +17,9 @@ export interface Page {
     frontMatter: FrontMatter;
     url: string;
     contents: string;
+    showPagination?: boolean;
+    paginationOlderLink?: string;
+    paginationNewerLink?: string;
 }
 
 export interface Tag {

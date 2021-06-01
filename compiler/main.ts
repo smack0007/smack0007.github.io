@@ -4,8 +4,8 @@ import { copyDirectory, ensureDirectory, listFiles, readFile, writeFile } from "
 import * as marked from "marked";
 import * as sass from "sass";
 import { FrontMatter, Page, Post } from "./types";
-import { PageTemplate, PostTemplate } from "./templates";
-import { IndexTemplate } from "~/source/templates";
+import { PageTemplate, PostTemplate, IndexTemplate } from "./templates";
+import { BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg";
 
 const ROOT_DIRECTORY = join(__dirname, "..");
 const INPUT_DIRECTORY = join(ROOT_DIRECTORY, "source");
@@ -24,6 +24,8 @@ interface MarkdownResult {
 main();
 
 async function main() {
+    console.info(`Environment: ${ENVIRONMENT}`);
+
     await ensureDirectory(OUTPUT_DIRECTORY);
 
     chdir(INPUT_DIRECTORY);
@@ -138,22 +140,54 @@ function createPost(data: MarkdownResult, url: string): Post {
     };
 }
 
-function createPage(data: MarkdownResult, url: string): Page {
+function createPage(
+    data: MarkdownResult,
+    url: string,
+    showPagination?: boolean,
+    paginationOlderLink?: string,
+    paginationNewerLink?: string
+): Page {
     return {
         frontMatter: data.frontMatter,
         contents: data.contents,
         url,
+        showPagination,
+        paginationOlderLink,
+        paginationNewerLink,
     };
 }
 
 async function writeIndexFiles(posts: Post[]): Promise<void> {
-    let output = IndexTemplate(posts);
+    const pageCount = Math.ceil(posts.length / POSTS_PER_PAGE);
 
-    output = PageTemplate(
-        createPage({ frontMatter: createFrontMatter({ title: "Index" }), contents: output }, "index.html")
-    );
+    console.info(`Index: ${posts.length} Posts / ${pageCount} Pages`);
 
-    await writeFile(join(OUTPUT_DIRECTORY, "index.html"), output);
+    const getUrlForIndex = (index: number) => {
+        if (index < 0 || index >= pageCount) {
+            return undefined;
+        }
+
+        return index == 0 ? "index.html" : ["blog", "page" + (index + 1) + ".html"].join("/");
+    };
+
+    for (let i = 0; i < pageCount; i++) {
+        const postsForPage = posts.slice(i * POSTS_PER_PAGE, i * POSTS_PER_PAGE + POSTS_PER_PAGE);
+
+        let output = IndexTemplate(postsForPage);
+        let url = getUrlForIndex(i) as string;
+
+        output = PageTemplate(
+            createPage(
+                { frontMatter: createFrontMatter({ title: BLOG_TITLE }), contents: output },
+                url,
+                true,
+                getUrlForIndex(i + 1),
+                getUrlForIndex(i - 1)
+            )
+        );
+
+        await writeFile(join(OUTPUT_DIRECTORY, url.replace("/", PATH_SEPERATOR)), output);
+    }
 }
 
 async function compileScss(): Promise<void> {

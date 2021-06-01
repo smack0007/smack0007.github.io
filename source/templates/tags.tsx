@@ -1,4 +1,4 @@
-import { html, Page, Tag } from "~/compiler";
+import { html, Tag } from "~/compiler";
 
 export function TagsTemplate(tags: Tag[]): string {
     return (

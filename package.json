@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "ts-node -r ./ts-node-register.ts ./compiler/main.ts",
+    "build:ci": "npm run build -- CI",
     "serve": "serve ./bin"
   },
   "dependencies": {

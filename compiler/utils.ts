@@ -1,11 +1,4 @@
-import {
-    copyFile,
-    lstat,
-    mkdir,
-    readdir,
-    readFile as _readFile,
-    writeFile as _writeFile,
-} from "fs/promises";
+import { copyFile, lstat, mkdir, readdir, readFile as _readFile, writeFile as _writeFile } from "fs/promises";
 import { extname, join } from "path";
 
 export async function copyDirectory(src: string, dest: string): Promise<void> {
@@ -21,9 +14,7 @@ export async function copyDirectory(src: string, dest: string): Promise<void> {
     }
 }
 
-export async function ensureDirectory(
-    directory: string
-): Promise<string | undefined> {
+export async function ensureDirectory(directory: string): Promise<string | undefined> {
     return mkdir(directory, { mode: 755, recursive: true }).catch((error) => {
         if (error.code !== "EEXIST") {
             throw error;
@@ -61,5 +52,6 @@ export async function readFile(path: string): Promise<string> {
 }
 
 export async function writeFile(path: string, data: string): Promise<void> {
+    console.info(`Writing ${path}...`);
     return _writeFile(path, data, "utf-8");
 }

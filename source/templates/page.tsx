@@ -1,4 +1,4 @@
-import { html, Page } from "~/compiler";
+import { BASE_URL, html, Page } from "~/compiler";
 
 export function PageTemplate(page: Page): string {
     return (
@@ -12,7 +12,7 @@ export function PageTemplate(page: Page): string {
                     <meta name="author" content="Zachary Snow"></meta>
 
                     <title>{page.frontMatter.title}</title>
-                    <base href="/"></base>
+                    <base href={BASE_URL}></base>
 
                     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"></link>
                     <link rel="stylesheet" type="text/css" href="css/style.css"></link>
@@ -89,33 +89,22 @@ export function PageTemplate(page: Page): string {
                             <div class="posts">{page.contents}</div>
                             <div class="clear"></div>
 
-                            {/* @if (ShowPagination)
-                {
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item @(PaginationOlderLink == null ? "disabled" : "")">
-                                @if (PaginationOlderLink != null)
-                                {
-                                    <a href="@(PaginationOlderLink)" class="page-link older">Older</a>
-                                }
-                                @if (PaginationOlderLink == null)
-                                {                    
-                                    <a class="page-link older" href="#" tabindex="-1">Older</a>
-                                }
-                            </li>
-                            <li class="page-item @(PaginationNewerLink == null ? "disabled" : "")">
-                                @if (PaginationNewerLink != null)
-                                {
-                                    <a href="@(PaginationNewerLink)" class="page-link newer">Newer</a>                    
-                                }
-                                @if (PaginationNewerLink == null)
-                                {
-                                    <a class="page-link newer" href="#" tabindex="-1">Newer</a>
-                                }
-                            </li>              
-                        </ul>
-                    </nav>
-                } */}
+                            {page.showPagination && (
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <li class={"page-item" + (page.paginationOlderLink ? "" : " disabled")}>
+                                            <a href={page.paginationOlderLink ?? "#"} class="page-link older">
+                                                Older
+                                            </a>
+                                        </li>
+                                        <li class={"page-item" + (page.paginationNewerLink ? "" : " disabled")}>
+                                            <a href={page.paginationNewerLink ?? "#"} class="page-link newer">
+                                                Newer
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            )}
                         </main>
                         <footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light">
                             <div class="container">
@@ -145,11 +134,11 @@ export function PageTemplate(page: Page): string {
                             </div>
                         </footer>
                     </div>
-                    {/* <script type="text/javascript">
-            document.getElementById('navbar-toggler').onclick = function() {
-                document.getElementById('navbarSupportedContent').classList.toggle('collapse');
-            };
-        </script> */}
+                    <script type="text/javascript">
+                        {
+                            "document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };"
+                        }
+                    </script>
                 </body>
             </html>
         )
