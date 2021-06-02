@@ -10,7 +10,7 @@ export function IndexTemplate(posts: Post[]): string {
                     {post.excerpt}
 
                     {post.hasExcerpt && (
-                        <a class="readMore" href="@(post.Url)">
+                        <a class="readMore" href={post.url}>
                             Read More
                         </a>
                     )}
