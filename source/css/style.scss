@@ -36,10 +36,13 @@ code {
 pre {
     font-size: 1rem;
     overflow-x: auto;
+    overflow-y: hidden;
+    background: #1e1e1e;
+    padding: 0 8px;
 
     code {
+        padding: 0;
         font-size: 18px;
-        background: #303030;
     }
 }
 
