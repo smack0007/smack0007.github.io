@@ -319,9 +319,10 @@ async function writeRssFeed(posts: Post[]): Promise<void> {
 
     var pubDate = posts[0].frontMatter.date.toUTCString();
 
-    output += '<?xml version="1.0" encoding="UTF-8" ?>\n';
-    output += '<rss version="2.0">\n';
+    output += '<?xml version="1.0" encoding="UTF-8"?>\n';
+    output += '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n';
     output += "\t<channel>\n";
+    output += `\t<atom:link href="${BASE_URL}/feed.rss" rel="self" type="application/rss+xml" />\n`;
     output += `\t<title>${BLOG_TITLE}</title>\n`;
     output += `\t<description>${BLOG_TITLE}</description>\n`;
     output += `\t<link>${BASE_URL}/</link>\n`;
