@@ -24,7 +24,7 @@ async function main() {
         .replace("{{title}}", title)
         .replace("{{date}}", `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
 
-    const fileName = join(`${inflectFileName(title)}.html`);
+    const fileName = join(`${inflectFileName(title)}.md`);
 
     await ensureDirectory(join(OUTPUT_DIRECTORY, date.getFullYear().toString()));
     await writeFile(join(OUTPUT_DIRECTORY, date.getFullYear().toString(), fileName), template);
