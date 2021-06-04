@@ -22,7 +22,13 @@ async function main() {
 
     template = template
         .replace("{{title}}", title)
-        .replace("{{date}}", `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
+        .replace(
+            "{{date}}",
+            `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date
+                .getDate()
+                .toString()
+                .padStart(2, "0")}`
+        );
 
     const fileName = join(`${inflectFileName(title)}.md`);
 
