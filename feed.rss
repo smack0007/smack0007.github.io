@@ -4,9 +4,23 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 12 May 2021 00:00:00 GMT</lastBuildDate>
-	<pubDate>Wed, 12 May 2021 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 04 Jun 2021 00:00:00 GMT</lastBuildDate>
+	<pubDate>Fri, 04 Jun 2021 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Powered by TypeScript]]></title>
+		<description><![CDATA[<p>Over the past couple of years my career has moved more and more torwards me becoming
+a frontend developer. Since 2018 I&#39;ve basically been a TypeScript programmer professionally
+and the language has really grown on me. Over the last couple of days I&#39;ve had some
+down time so I decided now was the time to reprogram the blog in TypeScript.</p>
+<p>The site is still a static site but the compiler is a now a custom TypeScript program. The
+size of the program is now considerably smaller but that isn&#39;t necessarily becuase C# was
+bad but rather that this is the 2nd implementation and I know what I did and did not need.</p>
+]]></description>
+		<link>https://smack0007.github.io/blog/2021/powered-by-typescript.html</link>
+		<guid>https://smack0007.github.io/blog/2021/powered-by-typescript.html</guid>
+		<pubDate>Fri, 04 Jun 2021 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Windows Terminal fork command]]></title>
 		<description><![CDATA[<p>I wanted a way to <a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork</a> the current tab in <a href="https://github.com/microsoft/terminal">Windows Terminal</a> and
@@ -203,30 +217,6 @@ variable to the name of the variable:</p>
 		<link>https://smack0007.github.io/blog/2019/use-nameof-to-set-string-variable-to-its-name.html</link>
 		<guid>https://smack0007.github.io/blog/2019/use-nameof-to-set-string-variable-to-its-name.html</guid>
 		<pubDate>Tue, 17 Dec 2019 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Dynamically loaded DLL thows AccessViolationException on first function call]]></title>
-		<description><![CDATA[<p>In my library <a href="https://github.com/smack0007/GLESDotNet">GLESDotNet</a> I load
-the <code>libegl.dll</code> and <code>libglesv2.dll</code> DLLs dynamically via the Win32 functions
-<a href="https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryw">LoadLibrary</a>
-and <a href="https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-I already had everything working via <code>DLLImport</code> but I wanted to be able to
-load the DLLs from different subdirectories depending on the architecture.</p>
-<p>For the  first test I only loaded the <code>libegl.dll</code> DLL before moving on to
-the <code>libglesv2.dll</code>. I made the classic programmer mistake of changing too much
-at one time. The first call to any function in <code>libegl.dll</code> resulted in an
-<code>AccessViolationException</code>. I couldn&#39;t figure out what was going wrong so I
-decided to revert my changes and try again.</p>
-<p>I noticed that when the DLLs were in the same directory the
-<code>AccessViolationException</code> went away. Changing the working directory
-to the directory of the DLLs also solved the problem once the DLLs
-were placed in subdirectories again. This led me to believe that
-loading <code>libegl.dll</code> must be implicitly loading <code>libglesv2.dll</code>. Loading
-<code>libglesv2.dll</code> via <code>LoadLibrary</code> along with <code>libegl.dll</code> solved the problem.</p>
-]]></description>
-		<link>https://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</link>
-		<guid>https://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</guid>
-		<pubDate>Tue, 22 Oct 2019 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
