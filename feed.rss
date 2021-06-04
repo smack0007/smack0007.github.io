@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+	<channel>
+	<title>The Blog of Zachary Snow</title>
+	<description>The Blog of Zachary Snow</description>
+	<link>https://smack0007.github.io/</link>
+	<lastBuildDate>Wed, 12 May 2021 00:00:00 GMT</lastBuildDate>
+	<pubDate>Wed, 12 May 2021 00:00:00 GMT</pubDate>
+	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Windows Terminal fork command]]></title>
+		<description><![CDATA[<p>I wanted a way to <a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork</a> the current tab in <a href="https://github.com/microsoft/terminal">Windows Terminal</a> and
+so I&#39;ve come up with this PowerShell function:</p>
+<pre><code class="hljs powershell"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fork</span></span> { wt <span class="hljs-literal">-w</span> <span class="hljs-number">0</span> <span class="hljs-literal">-d</span> <span class="hljs-string">&quot;<span class="hljs-variable">$</span>(Get-Location)&quot;</span> }
+</code></pre>
+]]></description>
+		<link>https://smack0007.github.io/blog/2021/windows-terminal-fork-command.html</link>
+		<guid>https://smack0007.github.io/blog/2021/windows-terminal-fork-command.html</guid>
+		<pubDate>Wed, 12 May 2021 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Convert TypeScript AST to JSON]]></title>
+		<description><![CDATA[<p>I needed to convert a TypeScript AST (Abstract Syntax Tree) to json so that I can consume it in
+a C# application so I wrote a tiny node script to convert the AST to json.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</link>
+		<guid>https://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</guid>
+		<pubDate>Wed, 13 Jan 2021 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Starting Redis and the Redis CLI with Docker]]></title>
+		<description><![CDATA[<p>If you&#39;d like to get a Redis instance up and running to play with it&#39;s fairly easy via Docker.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2021/starting-redis-and-the-redis-cli-with-docker.html</link>
+		<guid>https://smack0007.github.io/blog/2021/starting-redis-and-the-redis-cli-with-docker.html</guid>
+		<pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[NativeLibraryLoader for Assembly with ModuleInitializer]]></title>
+		<description><![CDATA[<p>In C# 9 the <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#support-for-code-generators"><code>ModuleInitializer</code></a>
+atrribute was introduced which makes it easy to implement loading of native assemblies in your library.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</link>
+		<guid>https://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</guid>
+		<pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[GitHub Actions]]></title>
+		<description><![CDATA[<p>My blog is now being generated via GitHub actions in <code>ubuntu-latest</code>. This allows me to rebuild my
+blog everytime there is a pushed commit.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/github-actions.html</link>
+		<guid>https://smack0007.github.io/blog/2020/github-actions.html</guid>
+		<pubDate>Sun, 06 Dec 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Use nginx in docker to serve static files]]></title>
+		<description><![CDATA[<p>Not sure how practical this really is but I thought it was neat. Run nginx and tell it to
+serve some static content on your system.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</link>
+		<guid>https://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</guid>
+		<pubDate>Tue, 01 Dec 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Add the current time to your command prompt]]></title>
+		<description><![CDATA[<p>I am someone who never made the jump to Powershell and to this day still use my
+cmd shell with pride. My cmd is very personalized at this point and is available
+on <a href="https://github.com/smack0007/cmd">GitHub</a> though I&#39;m not sure how useful it is
+for anyone but me. I use git and GitHub to synchronize my cmd between my different
+machines.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</link>
+		<guid>https://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</guid>
+		<pubDate>Thu, 26 Nov 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Execute different commands in MSBuild depending on platform]]></title>
+		<description><![CDATA[<p>Another quick snippet that shows how to change what command will be executed in MSBuild
+based on the OS the script is running on.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/execute-different-commands-in-msbuild-depending-on-platform.html</link>
+		<guid>https://smack0007.github.io/blog/2020/execute-different-commands-in-msbuild-depending-on-platform.html</guid>
+		<pubDate>Fri, 20 Nov 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Filter ItemGroup by extension in MSBuild]]></title>
+		<description><![CDATA[<p>Just a quick snippet that shows how to filter an exiting ItemGroup by an extension.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</link>
+		<guid>https://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</guid>
+		<pubDate>Wed, 04 Nov 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Use Newtonsoft.Json in .NET Core 3 Web Api]]></title>
+		<description><![CDATA[<p>This post is mostly just distilling information I got from
+<a href="https://dotnetcoretutorials.com/2019/12/19/using-newtonsoft-json-in-net-core-3-projects/">.NET Core Tutorials</a> to
+revert back to <a href="https://www.newtonsoft.com/json">Newtonsoft.Json</a> in asp.net core WebApi.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/use-newtonsoft.json-in-.net-core-3-web-api.html</link>
+		<guid>https://smack0007.github.io/blog/2020/use-newtonsoft.json-in-.net-core-3-web-api.html</guid>
+		<pubDate>Thu, 22 Oct 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Node script for syntax highlighting]]></title>
+		<description><![CDATA[<p>I decided to switch my blog to use highlightjs instead of the mixture of my own library and
+<a href="https://github.com/windows-toolkit/ColorCode-Universal">ColorCode</a>. I still wanted everything to rendered statically
+though so I decided to use <a href="https://highlightjs.org/">highlight.js</a> as it already offered instructions on how to use the
+library from node.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</link>
+		<guid>https://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</guid>
+		<pubDate>Wed, 14 Oct 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Angular in Visual Studio]]></title>
+		<description><![CDATA[<p>Now that the <a href="https://devblogs.microsoft.com/visualstudio/angular-language-service-for-visual-studio/">Angular Language Service</a>
+is available for Visual Studio working on Angular projects from inside Visual Studio is a viable option. The linked blog
+post mentions a couple of ways of adding the Angular project to Visual Studio but I felt the suggestions left something
+to be desired here is what I came up with.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/angular-in-visual-studio.html</link>
+		<guid>https://smack0007.github.io/blog/2020/angular-in-visual-studio.html</guid>
+		<pubDate>Thu, 08 Oct 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Creating a asp.net web app with an Angular frontend]]></title>
+		<description><![CDATA[<p>We&#39;re going to create a what I call a &quot;WebShell&quot; application with asp.net core on the backend and Angular on the
+frontend.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html</link>
+		<guid>https://smack0007.github.io/blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html</guid>
+		<pubDate>Fri, 02 Oct 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Predictable Random Number Generation in TypeScript]]></title>
+		<description><![CDATA[<p>I got the idea for using this type of RNG from the javidx9 video
+<a href="https://www.youtube.com/watch?v=ZZY9YE7rZJw">Procedural Generation: Programming The Universe</a>.
+It&#39;s a really good video as are most of the videos he produces so
+I recommend you give it a watch. The algorithm he talks about in
+the video is the <a href="https://en.wikipedia.org/wiki/Lehmer_random_number_generator">Lehmer random number generator</a>.</p>
+<p>I&#39;m implementing a simple match the blocks game in TypeScript and I wanted to implement the algorithm 
+mentioned there in TypeScript.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</link>
+		<guid>https://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</guid>
+		<pubDate>Tue, 25 Aug 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Creating a tsexec command]]></title>
+		<description><![CDATA[<p>I want to use TypeScript as a scripting language for my machine and
+so I want to be able just to execute TypeScript files directly. There
+are npm packages like <a href="https://www.npmjs.com/package/ts-node">ts-node</a>
+that do this already but I wanted to have a crack at implementing it
+myself. So this is the batch file I&#39;ve come up with so far.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/creating-a-tsexec-command.html</link>
+		<guid>https://smack0007.github.io/blog/2020/creating-a-tsexec-command.html</guid>
+		<pubDate>Fri, 21 Aug 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Checking for uncommited git changes in a batch program]]></title>
+		<description><![CDATA[<p>Sometimes it&#39;s helpful to exit out of a batch script if there are pending
+changes to a repo. This is done in batch script in a non intuitive way.</p>
+<pre><code class="hljs bat">@<span class="hljs-built_in">ECHO</span> OFF
+<span class="hljs-built_in">PUSHD</span> %~dp0
+
+<span class="hljs-built_in">SET</span> __HAS_CHANGES=<span class="hljs-number">0</span>
+<span class="hljs-comment">
+REM The loop won&#x27;t be executed if &#x27;git status -s&#x27; doesn&#x27;t produce any output.</span>
+<span class="hljs-keyword">FOR</span> /f &quot;tokens=*&quot; <span class="hljs-variable">%%i</span> <span class="hljs-keyword">IN</span> (&#x27;git status -s&#x27;) <span class="hljs-keyword">DO</span> ( <span class="hljs-built_in">SET</span> __HAS_CHANGES=<span class="hljs-number">1</span> )
+<span class="hljs-comment">
+REM Check if the loop was executed and goto EXIT if it was.</span>
+<span class="hljs-keyword">IF</span> &quot;<span class="hljs-variable">%__HAS_CHANGES%</span>&quot; <span class="hljs-keyword">NEQ</span> &quot;<span class="hljs-number">0</span>&quot; (
+    <span class="hljs-built_in">ECHO</span> There are currently uncommitted changes.
+    <span class="hljs-keyword">GOTO</span> <span class="hljs-keyword">EXIT</span>
+)
+<span class="hljs-comment">
+REM Do the work you want to do here.</span>
+
+:<span class="hljs-keyword">EXIT</span>
+<span class="hljs-built_in">POPD</span>
+</code></pre>
+]]></description>
+		<link>https://smack0007.github.io/blog/2020/checking-for-uncommited-git-changes-in-a-batch-program.html</link>
+		<guid>https://smack0007.github.io/blog/2020/checking-for-uncommited-git-changes-in-a-batch-program.html</guid>
+		<pubDate>Wed, 22 Jul 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Enum Extension Methods]]></title>
+		<description><![CDATA[<p>Did you know you can create extension methods for enums?</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/enum-extension-methods.html</link>
+		<guid>https://smack0007.github.io/blog/2020/enum-extension-methods.html</guid>
+		<pubDate>Fri, 17 Jul 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Disable C# null checks for a field or property]]></title>
+		<description><![CDATA[<p>The new nullable reference types in C# are great but sometimes you might need to disable it for a
+single field or property. You can do that by assigning the value to <code>null</code> and using the <code>!</code> operator.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2020/disable-csharp-null-checks-for-a-field-or-property.html</link>
+		<guid>https://smack0007.github.io/blog/2020/disable-csharp-null-checks-for-a-field-or-property.html</guid>
+		<pubDate>Thu, 02 Jan 2020 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Use nameof() to set a string variable to its name]]></title>
+		<description><![CDATA[<p>This is one of those things that should have just been obvious to me
+but once I saw it I wondered why I had never thought to use it myself.
+<code>nameof()</code> can be used when declaring a variable to set the value of the
+variable to the name of the variable:</p>
+<pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> MyVariable1 = <span class="hljs-keyword">nameof</span>(MyVariable1);
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+{
+    Console.WriteLine(MyVariable1);
+}
+</code></pre>]]></description>
+		<link>https://smack0007.github.io/blog/2019/use-nameof-to-set-string-variable-to-its-name.html</link>
+		<guid>https://smack0007.github.io/blog/2019/use-nameof-to-set-string-variable-to-its-name.html</guid>
+		<pubDate>Tue, 17 Dec 2019 00:00:00 GMT</pubDate>
+	</item>
+	<item>
+		<title><![CDATA[Dynamically loaded DLL thows AccessViolationException on first function call]]></title>
+		<description><![CDATA[<p>In my library <a href="https://github.com/smack0007/GLESDotNet">GLESDotNet</a> I load
+the <code>libegl.dll</code> and <code>libglesv2.dll</code> DLLs dynamically via the Win32 functions
+<a href="https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryw">LoadLibrary</a>
+and <a href="https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
+I already had everything working via <code>DLLImport</code> but I wanted to be able to
+load the DLLs from different subdirectories depending on the architecture.</p>
+<p>For the  first test I only loaded the <code>libegl.dll</code> DLL before moving on to
+the <code>libglesv2.dll</code>. I made the classic programmer mistake of changing too much
+at one time. The first call to any function in <code>libegl.dll</code> resulted in an
+<code>AccessViolationException</code>. I couldn&#39;t figure out what was going wrong so I
+decided to revert my changes and try again.</p>
+<p>I noticed that when the DLLs were in the same directory the
+<code>AccessViolationException</code> went away. Changing the working directory
+to the directory of the DLLs also solved the problem once the DLLs
+were placed in subdirectories again. This led me to believe that
+loading <code>libegl.dll</code> must be implicitly loading <code>libglesv2.dll</code>. Loading
+<code>libglesv2.dll</code> via <code>LoadLibrary</code> along with <code>libegl.dll</code> solved the problem.</p>
+]]></description>
+		<link>https://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</link>
+		<guid>https://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</guid>
+		<pubDate>Tue, 22 Oct 2019 00:00:00 GMT</pubDate>
+	</item>
+	</channel>
+</rss>
+
