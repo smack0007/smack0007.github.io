@@ -8,7 +8,7 @@ const hljs = require("highlight.js");
 import { copyDirectory, ensureDirectory, listFiles, readFile, writeFile } from "./utils";
 import { FrontMatter, Page, Post, Tag } from "./types";
 import { PageTemplate, PostTemplate, IndexTemplate } from "./templates";
-import { BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg";
+import { BASE_URL, BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg";
 import { getTagUrl, inflectFileName } from "./templateUtils";
 import { TagsTemplate } from "~/source/templates/tags";
 
@@ -56,6 +56,8 @@ async function main() {
     await compileScss();
     await copyFonts();
     await copyStaticFiles();
+
+    await writeRssFeed(posts);
 }
 
 async function parseMarkdownFiles(): Promise<MarkdownFilesResult> {
@@ -302,4 +304,40 @@ async function copyStaticFiles(): Promise<void> {
         const pathParts = parse(file);
         copyFile(file, join(OUTPUT_DIRECTORY, pathParts.base));
     }
+}
+
+async function writeRssFeed(posts: Post[]): Promise<void> {
+    let output = "";
+
+    if (posts[0] === undefined) {
+        return;
+    }
+
+    var pubDate = posts[0].frontMatter.date.toUTCString();
+
+    output += '<?xml version="1.0" encoding="UTF-8" ?>\n';
+    output += '<rss version="2.0">\n';
+    output += "\t<channel>\n";
+    output += `\t<title>${BLOG_TITLE}</title>\n`;
+    output += `\t<description>${BLOG_TITLE}</description>\n`;
+    output += `\t<link>${BASE_URL}/</link>\n`;
+    output += `\t<lastBuildDate>${pubDate}</lastBuildDate>\n`;
+    output += `\t<pubDate>${pubDate}</pubDate>\n`;
+    output += "\t<ttl>1800</ttl>\n";
+
+    for (const post of posts.slice(0, 20)) {
+        output += "\t<item>\n";
+        output += `\t\t<title><![CDATA[${post.frontMatter.title}]]></title>\n`;
+        output += `\t\t<description><![CDATA[${post.excerpt}]]></description>\n`;
+        output += `\t\t<link>${BASE_URL}/${post.url}</link>\n`;
+        output += `\t\t<guid>${BASE_URL}/${post.url}</guid>\n`;
+        output += `\t\t<pubDate>${post.frontMatter.date.toUTCString()}</pubDate>\n`;
+        output += "\t</item>\n";
+    }
+
+    output += "\t</channel>\n";
+    output += "</rss>\n";
+    output += "\n";
+
+    await writeFile(join(OUTPUT_DIRECTORY, "feed.rss"), output);
 }
