@@ -53,6 +53,10 @@ export async function readFile(path: string): Promise<string> {
     return _readFile(path, "utf-8");
 }
 
+export function replaceAll(input: string, find: string, replace: string): string {
+    return input.replace(new RegExp(`\\${find}`, "g"), replace);
+}
+
 export async function writeFile(path: string, data: string): Promise<void> {
     console.info(`Writing ${path}...`);
     return _writeFile(path, data, "utf-8");

@@ -1,3 +1,5 @@
+import { replaceAll } from "./utils";
+
 export { encode } from "html-entities";
 
 const months = [
@@ -21,10 +23,6 @@ export function formatDate(date: Date): string {
 
 export function getTagUrl(tag: string): string {
     return `tags/${inflectFileName(tag)}/index.html`;
-}
-
-function replaceAll(input: string, find: string, replace: string): string {
-    return input.replace(new RegExp(`\\${find}`, "g"), replace);
 }
 
 export function inflectFileName(input: string): string {

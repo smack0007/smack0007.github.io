@@ -5,7 +5,7 @@ import * as marked from "marked";
 import * as sass from "sass";
 const hljs = require("highlight.js");
 
-import { copyDirectory, ensureDirectory, listFiles, readFile, writeFile } from "./utils";
+import { copyDirectory, ensureDirectory, listFiles, readFile, replaceAll, writeFile } from "./utils";
 import { FrontMatter, Page, Post, Tag } from "./types";
 import { PageTemplate, PostTemplate, IndexTemplate } from "./templates";
 import { BASE_URL, BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg";
@@ -58,6 +58,7 @@ async function main() {
     await copyStaticFiles();
 
     await writeRssFeed(posts);
+    await writeSiteMap(pages);
 }
 
 async function parseMarkdownFiles(): Promise<MarkdownFilesResult> {
@@ -70,17 +71,20 @@ async function parseMarkdownFiles(): Promise<MarkdownFilesResult> {
 
         const markdownResult = await parseMarkdown(await readFile(inputFileName));
 
-        const url = (join(pathParts.dir, pathParts.name) + ".html").replace(PATH_SEPERATOR, "/");
+        const url = replaceAll(join(pathParts.dir, pathParts.name) + ".html", PATH_SEPERATOR, "/");
 
         let output = "";
 
         if (inputFileName.startsWith("blog" + PATH_SEPERATOR)) {
             const post = createPost(markdownResult, url);
-
             posts.push(post);
 
             output = PostTemplate(post);
-            output = PageTemplate(createPage({ frontMatter: post.frontMatter, contents: output }, url));
+
+            const page = createPage({ frontMatter: post.frontMatter, contents: output }, url);
+            pages.push(page);
+
+            output = PageTemplate(page);
         } else {
             const page = createPage(markdownResult, url);
 
@@ -89,7 +93,7 @@ async function parseMarkdownFiles(): Promise<MarkdownFilesResult> {
             output = PageTemplate(page) as string;
         }
 
-        await writeFile(join(OUTPUT_DIRECTORY, url.replace("/", PATH_SEPERATOR)), output);
+        await writeFile(join(OUTPUT_DIRECTORY, replaceAll(url, "/", PATH_SEPERATOR)), output);
     }
 
     return {
@@ -208,7 +212,7 @@ async function writeIndexPages(posts: Post[]): Promise<void> {
             )
         );
 
-        await writeFile(join(OUTPUT_DIRECTORY, url.replace("/", PATH_SEPERATOR)), output);
+        await writeFile(join(OUTPUT_DIRECTORY, replaceAll(url, "/", PATH_SEPERATOR)), output);
     }
 }
 
@@ -240,10 +244,10 @@ async function writeTagPages(posts: Post[]): Promise<void> {
 
     output = PageTemplate(createPage({ frontMatter: createFrontMatter({ title: BLOG_TITLE }), contents: output }, url));
 
-    await writeFile(join(OUTPUT_DIRECTORY, url.replace("/", PATH_SEPERATOR)), output);
+    await writeFile(join(OUTPUT_DIRECTORY, replaceAll(url, "/", PATH_SEPERATOR)), output);
 
     for (const tag of tags) {
-        const pathParts = parse(tag.url.replace("/", PATH_SEPERATOR));
+        const pathParts = parse(replaceAll(tag.url, "/", PATH_SEPERATOR));
         await ensureDirectory(join(OUTPUT_DIRECTORY, pathParts.dir));
 
         const pageCount = Math.ceil(tag.posts.length / POSTS_PER_PAGE);
@@ -276,7 +280,7 @@ async function writeTagPages(posts: Post[]): Promise<void> {
                 )
             );
 
-            await writeFile(join(OUTPUT_DIRECTORY, url.replace("/", PATH_SEPERATOR)), output);
+            await writeFile(join(OUTPUT_DIRECTORY, replaceAll(url, "/", PATH_SEPERATOR)), output);
         }
     }
 }
@@ -340,4 +344,25 @@ async function writeRssFeed(posts: Post[]): Promise<void> {
     output += "\n";
 
     await writeFile(join(OUTPUT_DIRECTORY, "feed.rss"), output);
+}
+
+async function writeSiteMap(pages: Page[]): Promise<void> {
+    let output = "";
+
+    output += '<?xml version="1.0" encoding="UTF-8" ?>\n';
+    output += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    output += "\t<url>\n";
+    output += `\t\t<loc>${BASE_URL}/index.html</loc>\n`;
+    output += "\t</url>\n";
+
+    for (const page of pages) {
+        output += "\t<url>\n";
+        output += `\t\t<loc>${BASE_URL}/${page.url}</loc>\n`;
+        output += "\t</url>\n";
+    }
+
+    output += "</urlset>\n";
+    output += "\n";
+
+    await writeFile(join(OUTPUT_DIRECTORY, "sitemap.xml"), output);
 }
