@@ -5,9 +5,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 01 Sep 2021 00:00:00 GMT</lastBuildDate>
-	<pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 17 Dec 2021 00:00:00 GMT</lastBuildDate>
+	<pubDate>Fri, 17 Dec 2021 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Practical WebAssembly]]></title>
+		<description><![CDATA[<p>I wrote an article for my company <a href="https://conciso.de">conciso</a> that attempts to show a practical 
+usage of WebAssembly: <a href="https://conciso.de/practical-webassembly/">https://conciso.de/practical-webassembly/</a>.</p>
+]]></description>
+		<link>https://smack0007.github.io/blog/2021/practical-wasm.html</link>
+		<guid>https://smack0007.github.io/blog/2021/practical-wasm.html</guid>
+		<pubDate>Fri, 17 Dec 2021 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Use bash.exe to run bash scripts in Windows]]></title>
 		<description><![CDATA[<p>If you have the Windows Subsystem for Linux (WSL) installed then you can use <code>wsl.exe</code> to start
@@ -202,14 +211,6 @@ REM Do the work you want to do here.</span>
 		<link>https://smack0007.github.io/blog/2020/enum-extension-methods.html</link>
 		<guid>https://smack0007.github.io/blog/2020/enum-extension-methods.html</guid>
 		<pubDate>Fri, 17 Jul 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Disable C# null checks for a field or property]]></title>
-		<description><![CDATA[<p>The new nullable reference types in C# are great but sometimes you might need to disable it for a
-single field or property. You can do that by assigning the value to <code>null</code> and using the <code>!</code> operator.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/disable-csharp-null-checks-for-a-field-or-property.html</link>
-		<guid>https://smack0007.github.io/blog/2020/disable-csharp-null-checks-for-a-field-or-property.html</guid>
-		<pubDate>Thu, 02 Jan 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
