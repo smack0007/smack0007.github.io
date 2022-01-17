@@ -1,7 +1,7 @@
 import { copyFile } from "fs/promises";
 import { chdir } from "process";
 import { join, parse, sep as PATH_SEPERATOR } from "path";
-import * as marked from "marked";
+import { marked } from "marked";
 import * as sass from "sass";
 const hljs = require("highlight.js");
 
