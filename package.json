@@ -17,7 +17,7 @@
     "htmlentities": "^1.0.0",
     "marked": "^4.0.10",
     "sass": "^1.34.0",
-    "serve": "^11.3.2",
+    "serve": "^13.0.2",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
   }
