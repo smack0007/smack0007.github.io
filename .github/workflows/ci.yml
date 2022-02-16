@@ -21,6 +21,7 @@ jobs:
       - name: Build
         run: |
           git clone https://github.com/smack0007/smack0007.github.io.git -b main bin
+          sudo chown -R $USER:$USER ./bin
           npm i
           npm run build:ci
 
@@ -30,6 +31,5 @@ jobs:
           cd bin
           git config --global user.name "smack0007"
           git config --global user.email "zachary.snow@gmail.com"
-          sudo chown -R $USER:$USER .
           git add -A && git commit -F "../commit.msg" || true
           git push https://smack0007:${{ secrets.API_KEY }}@github.com/smack0007/smack0007.github.io.git || true
