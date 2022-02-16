@@ -5,7 +5,7 @@ atrribute was introduced which makes it easy to implement loading of native asse
 <pre><code class="hljs c#"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">NativeLibraryLoader</span>
 {
     [<span class="hljs-meta">ModuleInitializer</span>]
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>()</span>
     {
         NativeLibrary.SetDllImportResolver(<span class="hljs-keyword">typeof</span>(NativeLibraryLoader).Assembly, ResolveDllImport);
     }

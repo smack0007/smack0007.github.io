@@ -4,7 +4,7 @@ but once I saw it I wondered why I had never thought to use it myself.
 variable to the name of the variable:</p>
 <pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> MyVariable1 = <span class="hljs-keyword">nameof</span>(MyVariable1);
 
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span>
 {
     Console.WriteLine(MyVariable1);
 }
@@ -15,14 +15,14 @@ variable to the name of the variable:</p>
 declaration of the class:</p>
 <pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span>&lt;<span class="hljs-title">T</span>&gt;
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteClassName</span>(<span class="hljs-params"></span>)</span> =&gt; Console.WriteLine(<span class="hljs-keyword">typeof</span>(T).Name);
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteClassName</span>()</span> =&gt; Console.WriteLine(<span class="hljs-keyword">typeof</span>(T).Name);
 }
 
 <span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> : <span class="hljs-title">Base</span>&lt;<span class="hljs-title">Foo</span>&gt;
 {
 }
 
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span>
 {
     <span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> Foo();
     obj.WriteClassName();

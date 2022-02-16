@@ -7,7 +7,7 @@ single field or property. You can do that by assigning the value to <code>null</
     <span class="hljs-keyword">private</span> <span class="hljs-built_in">bool</span> _drawInProgress = <span class="hljs-literal">false</span>;
     <span class="hljs-keyword">private</span> Surface _drawTarget = <span class="hljs-literal">null</span>!;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Renderer</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Renderer</span>()</span>
     {
     }
 
@@ -20,13 +20,13 @@ single field or property. You can do that by assigning the value to <code>null</
         _drawTarget = surface;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">EnsureDrawInProgress</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">EnsureDrawInProgress</span>()</span>
     {
         <span class="hljs-keyword">if</span> (!_drawInProgress)
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InvalidOperationException(<span class="hljs-string">&quot;Draw not currently in progress.&quot;</span>);
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">EndDraw</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">EndDraw</span>()</span>
     {
         EnsureDrawInProgress();
 
@@ -34,7 +34,7 @@ single field or property. You can do that by assigning the value to <code>null</
         _drawTarget = <span class="hljs-literal">null</span>!;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DrawCaret</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DrawCaret</span>()</span>
     {
         EnsureDrawInProgress();
         Console.WriteLine(<span class="hljs-string">&quot;^&quot;</span>);

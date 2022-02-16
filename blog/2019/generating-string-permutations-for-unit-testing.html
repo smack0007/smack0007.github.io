@@ -22,15 +22,15 @@ That class looks sort of like this:</p>
 </code></pre>
 <p>I wanted to generate unit tests for every possibly permuation of the string. We&#39;re using
 NUnit so this can be acheived using TestCaseSource:</p>
-<pre><code class="hljs c#"><span class="hljs-keyword">public</span> IEnumerable&lt;<span class="hljs-built_in">object</span>[]&gt; TestValues()
+<pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">IEnumerable</span>&lt;<span class="hljs-title">object</span>[]&gt; <span class="hljs-title">TestValues</span>()</span>
 {
     <span class="hljs-keyword">return</span>
-        <span class="hljs-function"><span class="hljs-keyword">from</span> f1 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>(<span class="hljs-params"></span>)
-        <span class="hljs-keyword">from</span> f2 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>(<span class="hljs-params"></span>)
-        <span class="hljs-keyword">from</span> f3 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>(<span class="hljs-params"></span>)
-        <span class="hljs-keyword">from</span> f4 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>(<span class="hljs-params"></span>)
-        <span class="hljs-keyword">from</span> f5 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>(<span class="hljs-params"></span>)
-        <span class="hljs-keyword">from</span> f6 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>(<span class="hljs-params"></span>)
+        <span class="hljs-function"><span class="hljs-keyword">from</span> f1 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>()
+        <span class="hljs-keyword">from</span> f2 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>()
+        <span class="hljs-keyword">from</span> f3 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>()
+        <span class="hljs-keyword">from</span> f4 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>()
+        <span class="hljs-keyword">from</span> f5 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>()
+        <span class="hljs-keyword">from</span> f6 <span class="hljs-keyword">in</span> <span class="hljs-title">FieldValues</span>()
         <span class="hljs-keyword">select</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">object</span>[]</span>
         {
             <span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">char</span>[] { f1.Key, f2.Key, f3.Key, f4.Key, f5.Key, f6.Key }),
@@ -43,7 +43,7 @@ NUnit so this can be acheived using TestCaseSource:</p>
         };
 }
 
-<span class="hljs-keyword">public</span> IEnumerable&lt;KeyValuePair&lt;<span class="hljs-built_in">char</span>, <span class="hljs-built_in">bool</span>?&gt;&gt; FieldValues()
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">IEnumerable</span>&lt;<span class="hljs-title">KeyValuePair</span>&lt;<span class="hljs-title">char</span>, <span class="hljs-title">bool</span>?&gt;&gt; <span class="hljs-title">FieldValues</span>()</span>
 {
     <span class="hljs-function"><span class="hljs-keyword">yield</span> <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title">KeyValuePair</span>&lt;<span class="hljs-title">char</span>, <span class="hljs-title">bool</span>?&gt;(<span class="hljs-params"><span class="hljs-string">&#x27;?&#x27;</span>, <span class="hljs-literal">null</span></span>)</span>;
     <span class="hljs-function"><span class="hljs-keyword">yield</span> <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title">KeyValuePair</span>&lt;<span class="hljs-title">char</span>, <span class="hljs-title">bool</span>?&gt;(<span class="hljs-params"><span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-literal">false</span></span>)</span>;

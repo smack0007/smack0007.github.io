@@ -20,8 +20,8 @@
 {
     Dictionary&amp;lt;Type, Object&amp;gt; services;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ServiceContainer</span>(<span class="hljs-params"></span>)
-        : <span class="hljs-title">base</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ServiceContainer</span>()
+        : <span class="hljs-title">base</span>()</span>
     {
         <span class="hljs-keyword">this</span>.services = <span class="hljs-keyword">new</span> Dictionary&amp;lt;Type, <span class="hljs-built_in">object</span>&amp;gt;();
     }
@@ -85,7 +85,7 @@
     <span class="hljs-keyword">public</span> T Construct&amp;lt;T&amp;gt;()
     {
         ConstructorInfo injectableConstructor = <span class="hljs-literal">null</span>;
-        <span class="hljs-keyword">foreach</span>(<span class="hljs-function">ConstructorInfo constructor <span class="hljs-keyword">in</span> <span class="hljs-title">typeof</span>(<span class="hljs-params">T</span>).<span class="hljs-title">GetConstructors</span>(<span class="hljs-params"></span>))</span>
+        <span class="hljs-keyword">foreach</span>(<span class="hljs-function">ConstructorInfo constructor <span class="hljs-keyword">in</span> <span class="hljs-title">typeof</span>(<span class="hljs-params">T</span>).<span class="hljs-title">GetConstructors</span>())</span>
         {
             <span class="hljs-keyword">foreach</span>(Attribute attribute <span class="hljs-keyword">in</span> constructor.GetCustomAttributes(<span class="hljs-literal">true</span>))
             {
@@ -146,11 +146,11 @@
     }
 
     [<span class="hljs-meta">Injectable</span>]
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Foo</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Foo</span>()</span>
     {
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoIt</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoIt</span>()</span>
     {
         Console.WriteLine(<span class="hljs-keyword">this</span>.Value);
     }
@@ -177,7 +177,7 @@
         <span class="hljs-keyword">this</span>.foo = foo;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoIt</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoIt</span>()</span>
     {
         Console.WriteLine(<span class="hljs-keyword">this</span>.Value + <span class="hljs-string">&quot;: &quot;</span> + <span class="hljs-keyword">this</span>.foo.Value);
     }
@@ -199,7 +199,7 @@
         <span class="hljs-keyword">set</span>;
     }
                             
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoIt</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoIt</span>()</span>
     {
         Console.WriteLine(<span class="hljs-keyword">this</span>.Bar.Value + <span class="hljs-string">&quot; | &quot;</span> + <span class="hljs-keyword">this</span>.Foo.Value);
     }

@@ -21,7 +21,7 @@
         Device device;
         VertexDeclaration vertexDeclaration;
         
-        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SlimDXApp1Form</span>(<span class="hljs-params"></span>)
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SlimDXApp1Form</span>()
             : <span class="hljs-title">base</span>(<span class="hljs-params"><span class="hljs-string">&quot;SlimDXApp1&quot;</span></span>)</span>
         {
             <span class="hljs-keyword">this</span>.ClientSize = <span class="hljs-keyword">new</span> Size(<span class="hljs-number">800</span>, <span class="hljs-number">600</span>);
@@ -39,7 +39,7 @@
             });
         }
 
-        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Run</span>(<span class="hljs-params"></span>)</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Run</span>()</span>
         {
             MessagePump.Run(<span class="hljs-keyword">this</span>, () =&gt;
             {
@@ -60,7 +60,7 @@
         }
 
         [<span class="hljs-meta">STAThread</span>]
-        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span>
         {
             SlimDXApp1Form form = <span class="hljs-keyword">new</span> SlimDXApp1Form();
             form.Run();
@@ -84,7 +84,7 @@
 {
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AppWindow</span> : <span class="hljs-title">GameWindow</span>
     {
-        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AppWindow</span>(<span class="hljs-params"></span>)</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AppWindow</span>()</span>
         {
             <span class="hljs-keyword">this</span>.Title = <span class="hljs-string">&quot;OpenTK App 1&quot;</span>;
             <span class="hljs-keyword">this</span>.WindowBorder = WindowBorder.Fixed;
@@ -117,7 +117,7 @@
         }
 
         [<span class="hljs-meta">STAThread</span>]
-        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span>
         {
             AppWindow window = <span class="hljs-keyword">new</span> AppWindow();
             window.Run();

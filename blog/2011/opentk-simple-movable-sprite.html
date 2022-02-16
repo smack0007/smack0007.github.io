@@ -17,7 +17,7 @@
         <span class="hljs-built_in">int</span> texture;
         <span class="hljs-built_in">float</span> x, y;
 
-        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AppWindow</span>(<span class="hljs-params"></span>)</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AppWindow</span>()</span>
         {
             <span class="hljs-keyword">this</span>.Title = <span class="hljs-string">&quot;OpenTK App 2&quot;</span>;
             <span class="hljs-keyword">this</span>.WindowBorder = WindowBorder.Fixed;
@@ -106,7 +106,7 @@
         }
 
         [<span class="hljs-meta">STAThread</span>]
-        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span>
         {
             AppWindow window = <span class="hljs-keyword">new</span> AppWindow();
             window.Run(<span class="hljs-number">60</span>);

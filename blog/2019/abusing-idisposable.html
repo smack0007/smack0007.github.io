@@ -9,7 +9,7 @@ can use to collect some actions to be &quot;deferred&quot; until a later time.</
 
 <pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">DeferredActions</span> : <span class="hljs-title">IDisposable</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">List</span>&lt;<span class="hljs-title">Action</span>&gt; _actions</span> = <span class="hljs-keyword">new</span> List&lt;Action&gt;();
+    <span class="hljs-keyword">private</span> List&lt;Action&gt; _actions = <span class="hljs-keyword">new</span> List&lt;Action&gt;();
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Push</span>(<span class="hljs-params">Action action</span>)</span> =&gt; _actions.Add(action);
 

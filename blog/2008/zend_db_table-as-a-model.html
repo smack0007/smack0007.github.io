@@ -11,31 +11,31 @@
 </span>{
     <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__get</span>(<span class="hljs-params"><span class="hljs-variable">$key</span></span>)
     </span>{
-        <span class="hljs-variable">$inflector</span> = <span class="hljs-keyword">new</span> Zend_Filter_Word_UnderscoreToCamelCase();
+        <span class="hljs-variable">$inflector</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Zend_Filter_Word_UnderscoreToCamelCase</span>();
         
-        <span class="hljs-variable">$method</span> = <span class="hljs-string">&#x27;get&#x27;</span> . <span class="hljs-variable">$inflector</span>-&gt;filter(<span class="hljs-variable">$key</span>);
+        <span class="hljs-variable">$method</span> = <span class="hljs-string">&#x27;get&#x27;</span> . <span class="hljs-variable">$inflector</span>-&gt;<span class="hljs-title function_ invoke__">filter</span>(<span class="hljs-variable">$key</span>);
         
-        <span class="hljs-keyword">if</span>(method_exists(<span class="hljs-keyword">$this</span>, <span class="hljs-variable">$method</span>))
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;{<span class="hljs-variable">$method</span>}();
+        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">method_exists</span>(<span class="hljs-variable language_">$this</span>, <span class="hljs-variable">$method</span>))
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;{<span class="hljs-variable">$method</span>}();
         
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">parent</span>::__get(<span class="hljs-variable">$key</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">parent</span>::<span class="hljs-title function_ invoke__">__get</span>(<span class="hljs-variable">$key</span>);
     }
     
     <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__set</span>(<span class="hljs-params"><span class="hljs-variable">$key</span>, <span class="hljs-variable">$value</span></span>)
     </span>{
-        <span class="hljs-variable">$inflector</span> = <span class="hljs-keyword">new</span> Zend_Filter_Word_UnderscoreToCamelCase();
+        <span class="hljs-variable">$inflector</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Zend_Filter_Word_UnderscoreToCamelCase</span>();
         
-        <span class="hljs-variable">$method</span> = <span class="hljs-string">&#x27;set&#x27;</span> . <span class="hljs-variable">$inflector</span>-&gt;filter(<span class="hljs-variable">$key</span>);
+        <span class="hljs-variable">$method</span> = <span class="hljs-string">&#x27;set&#x27;</span> . <span class="hljs-variable">$inflector</span>-&gt;<span class="hljs-title function_ invoke__">filter</span>(<span class="hljs-variable">$key</span>);
         
-        <span class="hljs-keyword">if</span>(method_exists(<span class="hljs-keyword">$this</span>, <span class="hljs-variable">$method</span>))
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;{<span class="hljs-variable">$method</span>}(<span class="hljs-variable">$value</span>);
+        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">method_exists</span>(<span class="hljs-variable language_">$this</span>, <span class="hljs-variable">$method</span>))
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;{<span class="hljs-variable">$method</span>}(<span class="hljs-variable">$value</span>);
             
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">parent</span>::__set(<span class="hljs-variable">$key</span>, <span class="hljs-variable">$value</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">parent</span>::<span class="hljs-title function_ invoke__">__set</span>(<span class="hljs-variable">$key</span>, <span class="hljs-variable">$value</span>);
     }
     
     <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">markModified</span>(<span class="hljs-params"><span class="hljs-variable">$key</span></span>)
     </span>{
-        <span class="hljs-keyword">$this</span>-&gt;_modifiedFields[<span class="hljs-variable">$key</span>] = <span class="hljs-literal">true</span>;
+        <span class="hljs-variable language_">$this</span>-&gt;_modifiedFields[<span class="hljs-variable">$key</span>] = <span class="hljs-literal">true</span>;
     }
 }
 
@@ -46,17 +46,17 @@
                 <span class="hljs-comment">// You must use $this-&gt;_data[$key] to access the values in</span>
                 <span class="hljs-comment">// the underlying database. Using $this-&gt;bar would cause</span>
                 <span class="hljs-comment">// an infinite loop.</span>
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;_data[<span class="hljs-string">&#x27;bar&#x27;</span>] + <span class="hljs-number">5</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;_data[<span class="hljs-string">&#x27;bar&#x27;</span>] + <span class="hljs-number">5</span>;
         }
 
         <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setBar</span>(<span class="hljs-params"><span class="hljs-variable">$value</span></span>)
         </span>{
-                <span class="hljs-keyword">$this</span>-&gt;_data[<span class="hljs-string">&#x27;bar&#x27;</span>] = <span class="hljs-variable">$value</span> - <span class="hljs-number">5</span>;
+                <span class="hljs-variable language_">$this</span>-&gt;_data[<span class="hljs-string">&#x27;bar&#x27;</span>] = <span class="hljs-variable">$value</span> - <span class="hljs-number">5</span>;
                 
                 <span class="hljs-comment">// This next line tells the underlying Zend_Db_Table class that</span>
                 <span class="hljs-comment">// the value of &#x27;bar&#x27; has changed and it should be written to the</span>
                 <span class="hljs-comment">// database.</span>
-                <span class="hljs-keyword">$this</span>-&gt;markModified(<span class="hljs-string">&#x27;bar&#x27;</span>);
+                <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">markModified</span>(<span class="hljs-string">&#x27;bar&#x27;</span>);
         }
 }
 

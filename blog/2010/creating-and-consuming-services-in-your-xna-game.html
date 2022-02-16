@@ -11,7 +11,7 @@
     {
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>()</span>
     {
         <span class="hljs-comment">// Do something and return an int.</span>
     }
@@ -27,7 +27,7 @@
         <span class="hljs-keyword">this</span>.foo = <span class="hljs-keyword">new</span> FooComponent(game);
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>()</span>
     {
         <span class="hljs-built_in">int</span> result = <span class="hljs-keyword">this</span>.foo.DoFoo();
         <span class="hljs-comment">// Do something based on result.</span>
@@ -43,7 +43,7 @@
     {
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>()</span>
     {
         <span class="hljs-comment">// Do something and return an int.</span>
     }
@@ -59,7 +59,7 @@
         <span class="hljs-keyword">this</span>.foo = foo;
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>()</span>
     {
         <span class="hljs-built_in">int</span> result = <span class="hljs-keyword">this</span>.foo.DoFoo();
         <span class="hljs-comment">// Do something based on result.</span>
@@ -69,7 +69,7 @@
 <p>We&#39;ve now eliminated the construction of the FooComponent from within the BarComponent. The design is better but still not that great. BarComponent is still directly relying on and communicating with FooComponent. We want to change BarComponent so that it has no direct dependency on a concrete implementation of FooComponent. We&#39;ll create an interface:</p>
 <pre><code class="hljs c#"><span class="hljs-keyword">interface</span> <span class="hljs-title">IFooService</span>
 {
-    <span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>;
+    <span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>()</span>;
 }
 
 <span class="hljs-keyword">class</span> <span class="hljs-title">FooComponent</span> : <span class="hljs-title">GameComponent</span>, <span class="hljs-title">IFooService</span>
@@ -79,7 +79,7 @@
     {
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>()</span>
     {
         <span class="hljs-comment">// Do something and return an int.</span>
     }
@@ -95,7 +95,7 @@
         <span class="hljs-keyword">this</span>.foo = foo;
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>()</span>
     {
         <span class="hljs-built_in">int</span> result = <span class="hljs-keyword">this</span>.foo.DoFoo();
         <span class="hljs-comment">// Do something based on result.</span>
@@ -110,7 +110,7 @@
     {
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>()</span>
     {
         <span class="hljs-keyword">return</span> <span class="hljs-number">5</span>; <span class="hljs-comment">// The class says &quot;Simple&quot;</span>
     }
@@ -123,7 +123,7 @@
     {
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">DoFoo</span>()</span>
     {
         <span class="hljs-built_in">int</span> result = <span class="hljs-number">0</span>;
         <span class="hljs-comment">// Do some very complex calculation</span>
@@ -142,7 +142,7 @@
     {
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>()</span>
     {
         <span class="hljs-keyword">this</span>.foo = <span class="hljs-keyword">this</span>.Game.Services.GetService(<span class="hljs-keyword">typeof</span>(IFooService)) <span class="hljs-keyword">as</span> IFooService;
         
@@ -150,7 +150,7 @@
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InvalidOperationException(<span class="hljs-string">&quot;IFooService not found.&quot;</span>);
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoBar</span>()</span>
     {
         <span class="hljs-built_in">int</span> result = <span class="hljs-keyword">this</span>.foo.DoFoo();
         <span class="hljs-comment">// Do something based on result.</span>
@@ -170,12 +170,12 @@
     {
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>()</span>
     {
         <span class="hljs-keyword">this</span>.foo = <span class="hljs-keyword">this</span>.Game.Services.GetService(<span class="hljs-keyword">typeof</span>(IFooService)) <span class="hljs-keyword">as</span> IFooService;
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">intDoBar</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">intDoBar</span>()</span>
     {
         <span class="hljs-comment">// If the IFooService is available, delegate to the DoFoo() method.</span>
         <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.foo != <span class="hljs-literal">null</span>)
@@ -219,7 +219,7 @@
     {
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>(<span class="hljs-params"></span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span>()</span>
     {
         <span class="hljs-keyword">this</span>.camera = <span class="hljs-keyword">this</span>.Game.Services.GetService(<span class="hljs-keyword">typeof</span>(ICamera)) <span class="hljs-keyword">as</span> ICamera;
     }
