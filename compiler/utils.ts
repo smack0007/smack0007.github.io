@@ -16,15 +16,12 @@ export async function copyDirectory(src: string, dest: string): Promise<void> {
 }
 
 export async function ensureDirectory(directory: string): Promise<string | undefined> {
-    const _umask = umask(0);
-    return mkdir(directory, { mode: '664', recursive: true })
+    return mkdir(directory, { recursive: true })
         .catch((error) => {
             if (error.code !== "EEXIST") {
                 throw error;
             }
             return directory;
-        }).finally(() => {
-            umask(_umask);
         });
 }
 
