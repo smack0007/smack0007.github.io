@@ -1,4 +1,4 @@
-import { copyFile, lstat, mkdir, readdir, readFile as _readFile, writeFile as _writeFile } from "fs/promises";
+import { copyFile, lstat, mkdir, readdir, readFile as _readFile, writeFile as _writeFile, umask } from "fs/promises";
 import { extname, join } from "path";
 
 export async function copyDirectory(src: string, dest: string): Promise<void> {
@@ -15,12 +15,16 @@ export async function copyDirectory(src: string, dest: string): Promise<void> {
 }
 
 export async function ensureDirectory(directory: string): Promise<string | undefined> {
-    return mkdir(directory, { mode: 0o664, recursive: true }).catch((error) => {
-        if (error.code !== "EEXIST") {
-            throw error;
-        }
-        return directory;
-    });
+    const _umask = umask(0);
+    return mkdir(directory, { mode: '664', recursive: true })
+        .catch((error) => {
+            if (error.code !== "EEXIST") {
+                throw error;
+            }
+            return directory;
+        }).finally(() => {
+            umask(_umask);
+        });
 }
 
 export async function listFiles(path: string, ext?: string, recursive: boolean = true): Promise<string[]> {
