@@ -14,7 +14,6 @@ export function PageTemplate(page: Page): string {
                     <title>{page.frontMatter.title}</title>
                     <base href={BASE_URL}></base>
 
-                    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"></link>
                     <link rel="stylesheet" type="text/css" href="css/style.css"></link>
 
                     <link
