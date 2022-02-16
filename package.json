@@ -13,7 +13,7 @@
     "@types/node": "^16.11.7",
     "@types/sass": "^1.43.1",
     "highlight.js": "^11.4.0",
-    "htmlentities": "^1.0.0",
+    "html-entities": "^2.3.2",
     "marked": "^4.0.12",
     "sass": "^1.49.7",
     "serve": "^13.0.2",
