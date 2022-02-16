@@ -15,7 +15,7 @@ export async function copyDirectory(src: string, dest: string): Promise<void> {
 }
 
 export async function ensureDirectory(directory: string): Promise<string | undefined> {
-    return mkdir(directory, { mode: 755, recursive: true }).catch((error) => {
+    return mkdir(directory, { mode: 664, recursive: true }).catch((error) => {
         if (error.code !== "EEXIST") {
             throw error;
         }
