@@ -1,6 +1,6 @@
-import { umask } from "fs";
 import { copyFile, lstat, mkdir, readdir, readFile as _readFile, writeFile as _writeFile } from "fs/promises";
 import { extname, join } from "path";
+import { umask } from "process";
 
 export async function copyDirectory(src: string, dest: string): Promise<void> {
     await ensureDirectory(dest);
