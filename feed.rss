@@ -5,9 +5,28 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 17 Dec 2021 00:00:00 GMT</lastBuildDate>
-	<pubDate>Fri, 17 Dec 2021 00:00:00 GMT</pubDate>
+	<lastBuildDate>Thu, 10 Mar 2022 00:00:00 GMT</lastBuildDate>
+	<pubDate>Thu, 10 Mar 2022 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Powershell time command]]></title>
+		<description><![CDATA[<p>I commbined the best parts of this <a href="https://stackoverflow.com/a/4801509/26566">StackOverflow answer</a> and this
+<a href="https://superuser.com/a/1289962/3465">Super User answer</a> to come up with this solution for a <code>time</code> function
+in Powershell:</p>
+<pre><code class="hljs powershell"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">time</span></span> {
+    <span class="hljs-variable">$Command</span> = <span class="hljs-string">&quot;<span class="hljs-variable">$args</span>&quot;</span>;
+    (<span class="hljs-built_in">Measure-Command</span> { <span class="hljs-built_in">Invoke-Expression</span> <span class="hljs-variable">$Command</span> <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span> | <span class="hljs-built_in">Out-Default</span> }).ToString();
+}
+</code></pre>
+<p>Example usage:</p>
+<pre><code class="hljs cmd"># <span class="hljs-built_in">time</span> git pull
+<span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">01</span>.<span class="hljs-number">0804938</span>
+</code></pre>
+]]></description>
+		<link>https://smack0007.github.io/blog/2022/powershell-time-command.html</link>
+		<guid>https://smack0007.github.io/blog/2022/powershell-time-command.html</guid>
+		<pubDate>Thu, 10 Mar 2022 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Practical WebAssembly]]></title>
 		<description><![CDATA[<p>I wrote an article for my company <a href="https://conciso.de">conciso</a> that attempts to show a practical 
@@ -204,13 +223,6 @@ REM Do the work you want to do here.</span>
 		<link>https://smack0007.github.io/blog/2020/checking-for-uncommited-git-changes-in-a-batch-program.html</link>
 		<guid>https://smack0007.github.io/blog/2020/checking-for-uncommited-git-changes-in-a-batch-program.html</guid>
 		<pubDate>Wed, 22 Jul 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Enum Extension Methods]]></title>
-		<description><![CDATA[<p>Did you know you can create extension methods for enums?</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/enum-extension-methods.html</link>
-		<guid>https://smack0007.github.io/blog/2020/enum-extension-methods.html</guid>
-		<pubDate>Fri, 17 Jul 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
