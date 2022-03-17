@@ -15,7 +15,7 @@
         
         <span class="hljs-variable">$method</span> = <span class="hljs-string">&#x27;get&#x27;</span> . <span class="hljs-variable">$inflector</span>-&gt;<span class="hljs-title function_ invoke__">filter</span>(<span class="hljs-variable">$key</span>);
         
-        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">method_exists</span>(<span class="hljs-variable language_">$this</span>, <span class="hljs-variable">$method</span>))
+        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">method_exists</span>(<span class="hljs-variable">$this</span>, <span class="hljs-variable">$method</span>))
             <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;{<span class="hljs-variable">$method</span>}();
         
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">parent</span>::<span class="hljs-title function_ invoke__">__get</span>(<span class="hljs-variable">$key</span>);
@@ -27,7 +27,7 @@
         
         <span class="hljs-variable">$method</span> = <span class="hljs-string">&#x27;set&#x27;</span> . <span class="hljs-variable">$inflector</span>-&gt;<span class="hljs-title function_ invoke__">filter</span>(<span class="hljs-variable">$key</span>);
         
-        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">method_exists</span>(<span class="hljs-variable language_">$this</span>, <span class="hljs-variable">$method</span>))
+        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">method_exists</span>(<span class="hljs-variable">$this</span>, <span class="hljs-variable">$method</span>))
             <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;{<span class="hljs-variable">$method</span>}(<span class="hljs-variable">$value</span>);
             
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">parent</span>::<span class="hljs-title function_ invoke__">__set</span>(<span class="hljs-variable">$key</span>, <span class="hljs-variable">$value</span>);
