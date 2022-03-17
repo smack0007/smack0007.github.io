@@ -12,6 +12,8 @@ The jist of the problem is this: You are on a game show. The host presents you w
 
 The correct answer is yes. More on why after the jump.
 
+<!--more-->
+
 I won’t go too far into detail about why you should switch your answer, I’ll leave that to Wikipedia. Some things to note that may not be obvious: 1) The game show host will always open a door that is not the correct door 2) He will never open your door. These are the keys to this problem. By switching, you will win a prize 2/3 of the time as opposed to only winning 1/3 of the time if you do not.
 
 Many people will argue that once the game show host opens the door with the goat behind it that there is now a 50% chance of you picking the right door by either staying with your door or switching. This is simply not true. Each door still only has 33.3% chance of being the door with the car behind it. The thing is though, once you pick your door, the game show host then eliminates a door based on 2 criteria: 1) The door is not the one with the prize behind it 2) The door is not yours. Due to these criteria, the odds of the correct door do not change for the door that you have picked, but rather change for the doors that you have not picked. The 2 doors not chosen by you then in a sense combine into one option and they together have a probability of 66.7%.
