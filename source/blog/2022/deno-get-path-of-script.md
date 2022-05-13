@@ -14,7 +14,7 @@ const scriptPath = new URL(import.meta.url).pathname;
 
 On Windows though this will return a path with unix style path seperators and a leading `/`:
 
-```
+```bash
 /D:/Code/deno-path-of-script/main.ts
 ```
 
