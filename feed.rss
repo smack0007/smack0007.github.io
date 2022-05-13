@@ -5,9 +5,22 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 06 Apr 2022 00:00:00 GMT</lastBuildDate>
-	<pubDate>Wed, 06 Apr 2022 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 13 May 2022 00:00:00 GMT</lastBuildDate>
+	<pubDate>Fri, 13 May 2022 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[deno: Get the path of the current script in]]></title>
+		<description><![CDATA[<p>In <a href="https://deno.land/">deno</a> obtaining the path of the current script is done via the
+<code>import.meta.url</code> api:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">const</span> scriptPath = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">url</span>).<span class="hljs-property">pathname</span>;
+</code></pre>
+<p>On Windows though this will return a path with unix style path seperators and a leading <code>/</code>:</p>
+<pre><code>/D:/Code/deno-path-of-script/main.ts
+</code></pre>]]></description>
+		<link>https://smack0007.github.io/blog/2022/deno-get-path-of-script.html</link>
+		<guid>https://smack0007.github.io/blog/2022/deno-get-path-of-script.html</guid>
+		<pubDate>Fri, 13 May 2022 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Iterating thru an Object in JavaScript]]></title>
 		<description><![CDATA[<p>For the longest time if I wanted to iterate thru an object
@@ -205,17 +218,6 @@ mentioned there in TypeScript.</p>]]></description>
 		<link>https://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</link>
 		<guid>https://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</guid>
 		<pubDate>Tue, 25 Aug 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Creating a tsexec command]]></title>
-		<description><![CDATA[<p>I want to use TypeScript as a scripting language for my machine and
-so I want to be able just to execute TypeScript files directly. There
-are npm packages like <a href="https://www.npmjs.com/package/ts-node">ts-node</a>
-that do this already but I wanted to have a crack at implementing it
-myself. So this is the batch file I&#39;ve come up with so far.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/creating-a-tsexec-command.html</link>
-		<guid>https://smack0007.github.io/blog/2020/creating-a-tsexec-command.html</guid>
-		<pubDate>Fri, 21 Aug 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
