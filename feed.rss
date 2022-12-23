@@ -5,9 +5,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 13 May 2022 00:00:00 GMT</lastBuildDate>
-	<pubDate>Fri, 13 May 2022 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 23 Dec 2022 00:00:00 GMT</lastBuildDate>
+	<pubDate>Fri, 23 Dec 2022 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Now powered by deno]]></title>
+		<description><![CDATA[<p>I finally sat down and got my blog compiling with <a href="https://deno.land/">deno</a>. Now that there
+is official npm support I didn&#39;t need to completely rewrite the compile which was what was
+stopping me before.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</link>
+		<guid>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</guid>
+		<pubDate>Fri, 23 Dec 2022 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[deno: Get the path of the current script in]]></title>
 		<description><![CDATA[<p>In <a href="https://deno.land/">deno</a> obtaining the path of the current script is done via the
@@ -19,19 +28,6 @@
 </code></pre>]]></description>
 		<link>https://smack0007.github.io/blog/2022/deno-get-path-of-script.html</link>
 		<guid>https://smack0007.github.io/blog/2022/deno-get-path-of-script.html</guid>
-		<pubDate>Fri, 13 May 2022 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[deno: Get the path of the current script in]]></title>
-		<description><![CDATA[<p>In <a href="https://deno.land/">deno</a> obtaining the path of the current script is done via the
-<code>import.meta.url</code> api:</p>
-<pre><code class="hljs ts"><span class="hljs-keyword">const</span> scriptPath = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">url</span>).<span class="hljs-property">pathname</span>;
-</code></pre>
-<p>On Windows though this will return a path with unix style path seperators and a leading <code>/</code>:</p>
-<pre><code class="hljs bash">/D:/Code/deno-path-of-script/main.ts
-</code></pre>]]></description>
-		<link>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</link>
-		<guid>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</guid>
 		<pubDate>Fri, 13 May 2022 00:00:00 GMT</pubDate>
 	</item>
 	<item>
