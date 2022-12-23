@@ -6,7 +6,7 @@ Tags: deno
 ---
 
 I finally sat down and got my blog compiling with [deno](https://deno.land/). Now that there
-is official npm support I didn't need to completely rewrite the compile which was what was
+is official npm support I didn't need to completely rewrite the compiler which was what was
 stopping me before.
 
 <!--more-->
@@ -22,6 +22,7 @@ const result = new TextDecoder().decode(
   await Deno.run({
     cmd: [
       IS_WINDOWS ? "npx.cmd" : "npx",
+      "-y",
       "node-sass",
       join(INPUT_DIRECTORY, "css", "style.scss"),
       "--output-style=compressed",

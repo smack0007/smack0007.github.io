@@ -354,6 +354,7 @@ async function compileScss(): Promise<void> {
     await Deno.run({
       cmd: [
         IS_WINDOWS ? "npx.cmd" : "npx",
+        "-y",
         "node-sass",
         join(INPUT_DIRECTORY, "css", "style.scss"),
         "--output-style=compressed",
@@ -364,6 +365,27 @@ async function compileScss(): Promise<void> {
 
   await ensureDir(join(OUTPUT_DIRECTORY, "css"));
   await writeFile(join(OUTPUT_DIRECTORY, "css", "style.css"), result);
+
+  console.info("Calling PurgeCSS...");
+  const purgeResult = await Deno.run({
+    cwd: OUTPUT_DIRECTORY,
+    cmd: [
+      IS_WINDOWS ? "npx.cmd" : "npx",
+      "-y",
+      "purgecss",
+      "--css",
+      "./css/style.css",
+      "--content",
+      "./**/*.html",
+      "--output",
+      "./css/style.css",
+    ],
+    stdout: "piped",
+  }).status();
+
+  if (purgeResult.code !== 0) {
+    console.error(`PurgeCSS failed with error code ${purgeResult.code}.`);
+  }
 }
 
 async function copyFonts(): Promise<void> {
