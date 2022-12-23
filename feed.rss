@@ -11,7 +11,7 @@
 	<item>
 		<title><![CDATA[Now powered by deno]]></title>
 		<description><![CDATA[<p>I finally sat down and got my blog compiling with <a href="https://deno.land/">deno</a>. Now that there
-is official npm support I didn&#39;t need to completely rewrite the compile which was what was
+is official npm support I didn&#39;t need to completely rewrite the compiler which was what was
 stopping me before.</p>]]></description>
 		<link>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</link>
 		<guid>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</guid>
