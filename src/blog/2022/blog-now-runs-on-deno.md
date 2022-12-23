@@ -1,43 +1,35 @@
 ---
-Title: deno: Get the path of the current script in
+Title: Now powered by deno
 Subtitle:
-Date: 2022-05-13
-Tags: deno, typescript, javascript
+Date: 2022-12-23
+Tags: deno
 ---
 
-In [deno](https://deno.land/) obtaining the path of the current script is done via the
-`import.meta.url` api:
-
-```ts
-const scriptPath = new URL(import.meta.url).pathname;
-```
-
-On Windows though this will return a path with unix style path seperators and a leading `/`:
-
-```bash
-/D:/Code/deno-path-of-script/main.ts
-```
+I finally sat down and got my blog compiling with [deno](https://deno.land/). Now that there
+is official npm support I didn't need to completely rewrite the compile which was what was
+stopping me before.
 
 <!--more-->
 
-This cannot be used for example to read the contents of the current script. We'll need a better
-solution.
+Besides updating the fs / path api calls the only real roadblock that I had was using
+[node-sass](https://www.npmjs.com/package/node-sass) as I ran into
+[this issue](https://github.com/sass/dart-sass/issues/1841).
 
-Whether or not the script is running on Windows can be detected via the `Deno.build.os` api:
-
-```ts
-const isWindows = Deno.build.os === "windows";
-```
-
-So we can use that to correct the path seperators and remove the leading `/`:
+I just ended up calling node-sass via the cli as I only have to really compile one file:
 
 ```ts
-const isWindows = Deno.build.os === "windows";
-
-const scriptPath = new URL(import.meta.url).pathname
-  .replaceAll("/", isWindows ? "\\" : "/")
-  .substring(isWindows ? 1 : 0);
-
-console.info(scriptPath);
-console.info(await Deno.readTextFile(scriptPath));
+const result = new TextDecoder().decode(
+  await Deno.run({
+    cmd: [
+      IS_WINDOWS ? "npx.cmd" : "npx",
+      "node-sass",
+      join(INPUT_DIRECTORY, "css", "style.scss"),
+      "--output-style=compressed",
+    ],
+    stdout: "piped",
+  }).output()
+);
 ```
+
+Overall I really like the direction deno is heading and I think it is the future of local
+JavaScript runtimes.
