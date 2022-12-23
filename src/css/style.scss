@@ -24,9 +24,12 @@ a:hover,
 .page-link,
 .page-link:hover {
   color: #569cd6;
+  text-decoration: none;
 }
 
 .social {
+  margin-left: auto;
+
   a {
     font-size: 24px;
     margin-right: 8px;
@@ -61,7 +64,17 @@ nav {
   h1 {
     margin: 0;
     padding: 0;
+    padding-left: 1rem;
     font-size: inherit;
+  }
+
+  .navbar-toggler {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .navbar-collapse {
+    padding-left: 1rem;
   }
 }
 

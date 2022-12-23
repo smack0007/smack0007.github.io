@@ -80,7 +80,7 @@ export function PageTemplate(page: Page): string {
                       Home
                       {(page.url === "index.html" ||
                         page.url.startsWith("blog/")) && (
-                        <span class="sr-only">(current)</span>
+                        <span class="visually-hidden">(current)</span>
                       )}
                     </a>
                   </li>
@@ -94,7 +94,7 @@ export function PageTemplate(page: Page): string {
                     >
                       About
                       {page.url.endsWith("about.html") && (
-                        <span class="sr-only">(current)</span>
+                        <span class="visually-hidden">(current)</span>
                       )}
                     </a>
                   </li>
@@ -108,7 +108,7 @@ export function PageTemplate(page: Page): string {
                     >
                       Tags
                       {page.url.startsWith("tags/") && (
-                        <span class="sr-only">(current)</span>
+                        <span class="visually-hidden">(current)</span>
                       )}
                     </a>
                   </li>
