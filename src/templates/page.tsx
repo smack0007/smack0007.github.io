@@ -9,7 +9,7 @@ export function PageTemplate(page: Page): string {
           <meta charset="utf-8"></meta>
           <meta
             name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1"
+            content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
           ></meta>
           <meta name="description" content=""></meta>
           <meta name="author" content="Zachary Snow"></meta>
