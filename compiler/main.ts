@@ -14,13 +14,13 @@ import { FrontMatter, Page, Post, Tag } from "./types.ts";
 import { PageTemplate, PostTemplate, IndexTemplate } from "./templates.ts";
 import { BASE_URL, BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg.ts";
 import { getTagUrl, inflectFileName } from "./templateUtils.ts";
-import { TagsTemplate } from "~/source/templates/tags.tsx";
+import { TagsTemplate } from "~/src/templates/tags.tsx";
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
 const IS_WINDOWS = Deno.build.os === "windows";
 
 const ROOT_DIRECTORY = join(__dirname, "..");
-const INPUT_DIRECTORY = join(ROOT_DIRECTORY, "source");
+const INPUT_DIRECTORY = join(ROOT_DIRECTORY, "src");
 const OUTPUT_DIRECTORY = join(ROOT_DIRECTORY, "bin");
 
 interface MarkdownFilesResult {

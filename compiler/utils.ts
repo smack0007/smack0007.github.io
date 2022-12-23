@@ -17,7 +17,7 @@ export async function copyDirectory(src: string, dest: string): Promise<void> {
 export async function listFiles(
   path: string,
   ext?: string,
-  recursive: boolean = true
+  recursive = true
 ): Promise<string[]> {
   const files: string[] = [];
   for await (const file of await Deno.readDir(path)) {
