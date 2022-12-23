@@ -22,6 +22,19 @@
 		<pubDate>Fri, 13 May 2022 00:00:00 GMT</pubDate>
 	</item>
 	<item>
+		<title><![CDATA[deno: Get the path of the current script in]]></title>
+		<description><![CDATA[<p>In <a href="https://deno.land/">deno</a> obtaining the path of the current script is done via the
+<code>import.meta.url</code> api:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">const</span> scriptPath = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">url</span>).<span class="hljs-property">pathname</span>;
+</code></pre>
+<p>On Windows though this will return a path with unix style path seperators and a leading <code>/</code>:</p>
+<pre><code class="hljs bash">/D:/Code/deno-path-of-script/main.ts
+</code></pre>]]></description>
+		<link>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</link>
+		<guid>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</guid>
+		<pubDate>Fri, 13 May 2022 00:00:00 GMT</pubDate>
+	</item>
+	<item>
 		<title><![CDATA[Iterating thru an Object in JavaScript]]></title>
 		<description><![CDATA[<p>For the longest time if I wanted to iterate thru an object
 in JavaScript I would write code that looked something like
@@ -205,19 +218,6 @@ frontend.</p>]]></description>
 		<link>https://smack0007.github.io/blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html</link>
 		<guid>https://smack0007.github.io/blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html</guid>
 		<pubDate>Fri, 02 Oct 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Predictable Random Number Generation in TypeScript]]></title>
-		<description><![CDATA[<p>I got the idea for using this type of RNG from the javidx9 video
-<a href="https://www.youtube.com/watch?v=ZZY9YE7rZJw">Procedural Generation: Programming The Universe</a>.
-It&#39;s a really good video as are most of the videos he produces so
-I recommend you give it a watch. The algorithm he talks about in
-the video is the <a href="https://en.wikipedia.org/wiki/Lehmer_random_number_generator">Lehmer random number generator</a>.</p>
-<p>I&#39;m implementing a simple match the blocks game in TypeScript and I wanted to implement the algorithm 
-mentioned there in TypeScript.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</link>
-		<guid>https://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</guid>
-		<pubDate>Tue, 25 Aug 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
