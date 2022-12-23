@@ -356,6 +356,7 @@ async function compileScss(): Promise<void> {
         IS_WINDOWS ? "npx.cmd" : "npx",
         "node-sass",
         join(INPUT_DIRECTORY, "css", "style.scss"),
+        "--output-style=compressed",
       ],
       stdout: "piped",
     }).output()
