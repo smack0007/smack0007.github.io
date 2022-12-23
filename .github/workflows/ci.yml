@@ -1,10 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - source
-  pull_request: {}
+on: [push, pull_request]
 
 jobs:
   build:
@@ -13,23 +9,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Node.js 16
-        uses: actions/setup-node@v1
+      - name: Deno Setup
+        uses: denoland/setup-deno@v1
         with:
-          node-version: "16"
+          deno-version: "1.29.1"
 
       - name: Build
         run: |
           git clone https://github.com/smack0007/smack0007.github.io.git -b main bin
           sudo chown -R $USER:$USER ./bin
-          npm i
-          npm run build:ci
+          deno task build:ci
 
       - name: Publish
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/source' }}
         run: |
           git log -1 --pretty=%B > commit.msg
           cd bin
-          git config --global user.name "smack0007"
-          git config --global user.email "zachary.snow@gmail.com"
+          git config --global user.name "$GITHUB_ACTOR"
+          git config --global user.email "${GITHUB_ACTOR}@bots.github.com"
           git add -A && git commit -F "../commit.msg" || true
-          git push https://smack0007:${{ secrets.API_KEY }}@github.com/smack0007/smack0007.github.io.git || true
+          git push "https://x-access-token:${{ secrets.API_KEY }}@github.com/${GITHUB_REPOSITORY}.git" || true

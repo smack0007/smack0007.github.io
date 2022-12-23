@@ -1,18 +1,43 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "npm",
-			"script": "build",
-			"problemMatcher": [
-				"$tsc"
-			],
-			"group": {
-				"isDefault": true,
-				"kind": "build"
-			},
-			"label": "npm: build",
-			"detail": "ts-node ./compiler/main.ts"
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "group": "build",
+      "type": "deno",
+      "command": "task",
+      "args": ["build"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$deno"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      }
+    },
+    {
+      "label": "Test",
+      "group": "test",
+      "type": "deno",
+      "command": "task",
+      "args": ["test"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$deno"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      }
+    }
+  ]
 }

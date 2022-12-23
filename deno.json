@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "html",
+    "jsxFragmentFactory": "html"
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "options": {
+      "useTabs": false,
+      "lineWidth": 120,
+      "indentWidth": 2
+    }
+  },
+  "importMap": "imports.json",
+  "tasks": {
+    "build": "deno run --allow-env --allow-read=. --allow-run --allow-write=./bin ./compiler/main.ts",
+    "build:ci": "deno task build CI",
+    "serve": "deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts --port 8080 ./bin"
+  }
+}

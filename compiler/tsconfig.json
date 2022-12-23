@@ -1,9 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "jsx": "react",
-    "jsxFactory": "html",
-    "jsxFragmentFactory": "html",
-    "lib": ["DOM"]
-  }
-}

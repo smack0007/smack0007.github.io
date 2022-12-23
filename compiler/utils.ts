@@ -1,64 +1,58 @@
-import { copyFile, lstat, mkdir, readdir, readFile as _readFile, writeFile as _writeFile } from "fs/promises";
-import { extname, join } from "path";
+import { ensureDir } from "std/fs/mod.ts";
+import { extname, join } from "std/path/mod.ts";
 
 export async function copyDirectory(src: string, dest: string): Promise<void> {
-    await ensureDirectory(dest);
-    const files = await readdir(src);
-    for (const file of files) {
-        const current = await lstat(join(src, file));
-        if (current.isDirectory()) {
-            await copyDirectory(join(src, file), join(dest, file));
-        } else {
-            await copyFile(join(src, file), join(dest, file));
-        }
+  await ensureDir(dest);
+  const files = await Deno.readDir(src);
+  for await (const file of files) {
+    const current = await Deno.lstat(join(src, file.name));
+    if (current.isDirectory) {
+      await copyDirectory(join(src, file.name), join(dest, file.name));
+    } else {
+      await Deno.copyFile(join(src, file.name), join(dest, file.name));
     }
+  }
 }
 
-export async function ensureDirectory(directory: string): Promise<string | undefined> {
-    return mkdir(directory, { recursive: true })
-        .catch((error) => {
-            if (error.code !== "EEXIST") {
-                throw error;
-            }
-            return directory;
-        });
-}
+export async function listFiles(
+  path: string,
+  ext?: string,
+  recursive: boolean = true
+): Promise<string[]> {
+  const files: string[] = [];
+  for await (const file of await Deno.readDir(path)) {
+    const filePath = join(path, file.name);
+    const fileStat = await Deno.lstat(filePath);
 
-export async function listFiles(path: string, ext?: string, recursive: boolean = true): Promise<string[]> {
-    const files = [];
-    for (const file of await readdir(path)) {
-        const filePath = join(path, file);
-        const fileStat = await lstat(filePath);
+    if (fileStat.isDirectory) {
+      if (recursive) {
+        files.push(...(await listFiles(filePath, ext)));
+      }
+    } else {
+      if (ext !== undefined) {
+        const fileExt = extname(filePath);
 
-        if (fileStat.isDirectory()) {
-            if (recursive) {
-                files.push(...(await listFiles(filePath, ext)));
-            }
-        } else {
-            if (ext !== undefined) {
-                const fileExt = extname(filePath);
-
-                if (fileExt === ext) {
-                    files.push(filePath);
-                }
-            } else {
-                files.push(filePath);
-            }
+        if (fileExt === ext) {
+          files.push(filePath);
         }
+      } else {
+        files.push(filePath);
+      }
     }
+  }
 
-    return files;
+  return files;
 }
 
-export async function readFile(path: string): Promise<string> {
-    return _readFile(path, "utf-8");
-}
-
-export function replaceAll(input: string, find: string, replace: string): string {
-    return input.replace(new RegExp(`\\${find}`, "g"), replace);
+export function replaceAll(
+  input: string,
+  find: string,
+  replace: string
+): string {
+  return input.replace(new RegExp(`\\${find}`, "g"), replace);
 }
 
 export async function writeFile(path: string, data: string): Promise<void> {
-    console.info(`Writing ${path}...`);
-    return _writeFile(path, data, "utf-8");
+  console.info(`Writing ${path}...`);
+  return await Deno.writeTextFile(path, data);
 }

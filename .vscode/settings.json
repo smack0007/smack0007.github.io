@@ -1,7 +1,5 @@
 {
-    "editor.formatOnSave": true,
-    "files.exclude": {
-        "**/dist": true,
-        "**/node_modules": true
-    },
+  "deno.enable": true,
+
+  "editor.tabSize": 2
 }
