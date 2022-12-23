@@ -16,12 +16,12 @@ jobs:
 
       - name: Build
         run: |
-          git clone https://github.com/smack0007/smack0007.github.io.git -b main bin
+          git clone https://github.com/smack0007/smack0007.github.io.git -b pages bin
           sudo chown -R $USER:$USER ./bin
           deno task build:ci
 
       - name: Publish
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/source' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         run: |
           git log -1 --pretty=%B > commit.msg
           cd bin
