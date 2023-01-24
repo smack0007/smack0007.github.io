@@ -1,0 +1,89 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Enums considered harmful</title><base href="https://smack0007.github.io"></base><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="visually-hidden">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2023/enums-considered-harmful.html">Enums considered harmful</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>January 24, 2023</span><span class="tags"><a href="tags/typescript/index.html"><span class="icon icon-price-tags"></span><span class="tagName">typescript</span></a><a href="tags/enum/index.html"><span class="icon icon-price-tags"></span><span class="tagName">enum</span></a></span></div></div><div class="content"><p>It seems that torwards the end of 2022 the collective hivemind of the TypeScript
+programming world decided that <a href="https://www.youtube.com/watch?v=jjMbPt_H3RQ">enums</a>
+are <a href="https://www.youtube.com/watch?v=0fTdCSH_QEU">terrible</a>. While I mostly agree
+with the premise that TypeScript enums are not good the solutions that are
+presented often only deal with <a href="https://www.typescriptlang.org/docs/handbook/enums.html#string-enums">String enums</a>.
+For my work on <a href="https://github.com/smack0007/SDL_ts">SDL_ts</a>
+I really need a solution for <a href="https://www.typescriptlang.org/docs/handbook/enums.html#numeric-enums">Numeric enums</a>
+as <a href="http://www.libsdl.org/">SDL</a> is full of them.</p>
+<!--more-->
+
+<p>Uses for numeric enums really boil down to two use cases: the value must be either exactly
+one of the specified values or some bitwise combination of them. We&#39;ll create the type helpers
+<code>Enum</code> and <code>Flags</code> to implement the two use cases.</p>
+<p><code>Enum</code> is when the value must be one of the specified values and only one of the specified values and is easy enough to implement:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Enum</span>&lt;T&gt; = T[keyof T];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">MyEnum</span> = {
+<span class="hljs-comment">//           ^? const MyEnum: { readonly One: 1; readonly Two: 2; }</span>
+  <span class="hljs-title class_">One</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-title class_">Two</span>: <span class="hljs-number">2</span>
+} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">MyEnum</span> = <span class="hljs-title class_">Enum</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">MyEnum</span>&gt;;
+<span class="hljs-comment">//          ^? type MyEnum = 1 | 2</span>
+
+<span class="hljs-comment">// This works.</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">foo</span>: <span class="hljs-title class_">MyEnum</span> = <span class="hljs-title class_">MyEnum</span>.<span class="hljs-property">Two</span>;
+
+<span class="hljs-comment">// @ts-expect-error This does not.</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">bar</span>: <span class="hljs-title class_">MyEnum</span> = <span class="hljs-number">3</span>;
+</code></pre>
+<blockquote>
+<p><a href="https://www.typescriptlang.org/play?#code/KYDwDg9gTgLgBDAnmYcCiA7ArgWwDwAqAfHALxwEDaA1sIhAGYUC6A3ALABQXokscAYwgYAzvACyiTLjJwA3lwD0iuKrXq4APQD8XVQHkMwAFxwAjABo9FAO4RTAJi4BfOAEMRg4WI7c-vaHgkFDhJaRxZcLxg4EZQqWwcIl9lDQ0dLkzOVIIACwBLTzsoahEAOi4hUXgGCHt48NkwxLKCO18lFQABGBEAWl5gARgBqChoCgLPABMIYE8MCBgKziqxOAAjNyhTZplyAGZfIA">TS Playground Link</a></p>
+</blockquote>
+<p>The type helper <code>Enum</code> just creates a union of all the values of the object. <code>T</code> could
+also be more restrictive but it doesn&#39;t have to be for our purposes.</p>
+<p>To use the helper we create the <code>export const MyEnum</code> first to hold the values
+and mark it <code>as const</code>. This changes the type of <code>MyEnum</code> from
+<code>const MyEnum: { One: number; Two: number; }</code> to
+<code>const MyEnum: { readonly One: 1; readonly Two: 2; }</code>. Then comes the <code>export type MyEnum</code>
+which passes <code>typeof MyEnum</code> to our <code>Enum</code> helper. The <code>typeof MyEnum</code> tells TypeScript that
+we&#39;re talking about the <code>const</code> that we defined beforehand. The resulting type is a union
+of <code>1 | 2</code>.</p>
+<p><code>Flags</code> is a bit more complicated:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> <span class="hljs-attr">_</span>: unique <span class="hljs-built_in">symbol</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Flags</span>&lt;T, <span class="hljs-title class_">Name</span>&gt; =
+  | {
+    [K <span class="hljs-keyword">in</span> keyof T]: { [_]: <span class="hljs-title class_">Name</span> } &amp; T[K];
+  }[keyof T]
+  | <span class="hljs-built_in">number</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">MyFlags</span> = {
+<span class="hljs-comment">//           ^? const MyFlags: { readonly One: 1; readonly Two: 2; }</span>
+  <span class="hljs-title class_">One</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-title class_">Two</span>: <span class="hljs-number">2</span>
+} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">MyFlags</span> = <span class="hljs-title class_">Flags</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">MyFlags</span>, <span class="hljs-string">&quot;MyFlags&quot;</span>&gt;;
+<span class="hljs-comment">//          ^? type MyFlags = number | ({ [_]: &quot;MyFlags&quot;; } &amp; 1) | ({ [_]: &quot;MyFlags&quot;; } &amp; 2)</span>
+
+<span class="hljs-comment">// This works.</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">foo</span>: <span class="hljs-title class_">MyFlags</span> = <span class="hljs-title class_">MyFlags</span>.<span class="hljs-property">Two</span>;
+
+<span class="hljs-comment">// This also works.</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">bar</span>: <span class="hljs-title class_">MyFlags</span> = <span class="hljs-title class_">MyFlags</span>.<span class="hljs-property">One</span> | <span class="hljs-title class_">MyFlags</span> .<span class="hljs-property">Two</span>;
+
+<span class="hljs-comment">// Unfortunately this also works though.</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">baz</span>: <span class="hljs-title class_">MyFlags</span> = <span class="hljs-number">4</span>;
+</code></pre>
+<blockquote>
+<p><a href="https://www.typescriptlang.org/play?#code/CYUwxgNghgTiAEYD2A7AzgF3gfQFzwFcUBLARwITQE8BbAIyQgG4BYAKBAA8AHJGLDFW4IAYtADmaADwAVADTwAclBogAfPAC87ePAA+8AN47d8ANoBpeMRTwA1iCpIAZvBkBdfIfPZPSlQgAvvAAZG6W7qxsuoFmDk6uHiYGKAT0IDBR7Fy8-IiomPAAslRiUJJaRuwA9NWm9fUAegD8JgDyKCD4AIxyJjIA7kj4AEzswVBo+egYWWzZPHwCQgglZRWa8OvSgsIuxaUSaAoARGtHJ2pRtQ0NLew1dTIAFsRTQzB2aAB07Mgz8GcSGGB22lXO5R+gyQcxuLze8CgEDQSHgHy+vzY-0KdFg+AhG1BR2+HQQBgJU2+0NhdQAqiggfwiFAMCAIFR4BhXlMkSi0XwvpznkgCOJnpjsVhcQAvfGHSGVAAsUSAA">TS Playground Link</a></p>
+</blockquote>
+<p>The <code>Flags</code> type helper looks quite <a href="https://www.youtube.com/watch?v=bVfopcz4nas">gnarly</a> but
+let&#39;s go through it step by step. First <code>declare const _: unique symbol;</code> just creates a
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbol</a>
+that we can use at the type level. Then first part of the union
+(<code>{ [K in keyof T]: { [_]: Name } &amp; T[K]; }[keyof T]</code>) in the type helper can be thought of
+like calling <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">map</a> on the type and performing what is known as
+<a href="https://basarat.gitbook.io/typescript/main-1/nominaltyping#nominal-typing">branding or nominal typing</a>
+on each value of the enum using the string provided in the 2nd parameter of the type helper.
+The last part of the helper just unions the newly created type together with <code>number</code>.</p>
+<p>Using <code>Flags</code> is almost the same as using <code>Enum</code> but we&#39;ll have to provide a string for the
+branding which I just set to be the same as the name of the enum.</p>
+<p>Why do the enum values have to be branded? Without the branding TypeScript
+widens the resulting type to just be <code>number</code>. The examples still work as before
+but the Intellisense is completely lost. The IDE will just show the type <code>number</code> with
+no mention of the name of the enum. See this <a href="https://www.typescriptlang.org/play?#code/KYDwDg9gTgLgBDAnmYcBiAbAhgcwM4A8AKgHxwC8cRA2gNbCIQBmVAunAD5wB2ArgLYAjYFADcAWABQU0JFhwAxhG554AWUSZceCnADeUgPSG4ps+bgA9APxTTAeW7AAXHACMAGjtUA7hFcATFIAvnBYOkoqMBLSsbLQ8EgocBpa+LpphEnAzCma2PgkMcYWFjZSRiZEABYAljp+ULR4AHRSkapwTBD+eZm6qQWtRH4xlVR1OlgYeBBwjc1tkh3wglhQroPaA-naLY6oXFvpLSMQY5IlAKrc3bC83FgwwBiICJNhM3MLOjDVELwcNUlis4GsAF6bXbpSgAFlEQA">playground link</a></p>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

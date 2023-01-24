@@ -5,9 +5,23 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Fri, 23 Dec 2022 00:00:00 GMT</lastBuildDate>
-	<pubDate>Fri, 23 Dec 2022 00:00:00 GMT</pubDate>
+	<lastBuildDate>Tue, 24 Jan 2023 00:00:00 GMT</lastBuildDate>
+	<pubDate>Tue, 24 Jan 2023 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Enums considered harmful]]></title>
+		<description><![CDATA[<p>It seems that torwards the end of 2022 the collective hivemind of the TypeScript
+programming world decided that <a href="https://www.youtube.com/watch?v=jjMbPt_H3RQ">enums</a>
+are <a href="https://www.youtube.com/watch?v=0fTdCSH_QEU">terrible</a>. While I mostly agree
+with the premise that TypeScript enums are not good the solutions that are
+presented often only deal with <a href="https://www.typescriptlang.org/docs/handbook/enums.html#string-enums">String enums</a>.
+For my work on <a href="https://github.com/smack0007/SDL_ts">SDL_ts</a>
+I really need a solution for <a href="https://www.typescriptlang.org/docs/handbook/enums.html#numeric-enums">Numeric enums</a>
+as <a href="http://www.libsdl.org/">SDL</a> is full of them.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2023/enums-considered-harmful.html</link>
+		<guid>https://smack0007.github.io/blog/2023/enums-considered-harmful.html</guid>
+		<pubDate>Tue, 24 Jan 2023 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Now powered by deno]]></title>
 		<description><![CDATA[<p>I finally sat down and got my blog compiling with <a href="https://deno.land/">deno</a>. Now that there
@@ -206,14 +220,6 @@ to be desired here is what I came up with.</p>]]></description>
 		<link>https://smack0007.github.io/blog/2020/angular-in-visual-studio.html</link>
 		<guid>https://smack0007.github.io/blog/2020/angular-in-visual-studio.html</guid>
 		<pubDate>Thu, 08 Oct 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Creating a asp.net web app with an Angular frontend]]></title>
-		<description><![CDATA[<p>We&#39;re going to create a what I call a &quot;WebShell&quot; application with asp.net core on the backend and Angular on the
-frontend.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html</link>
-		<guid>https://smack0007.github.io/blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html</guid>
-		<pubDate>Fri, 02 Oct 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
