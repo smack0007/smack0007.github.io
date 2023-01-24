@@ -78,7 +78,7 @@ export type MyFlags = Flags<typeof MyFlags, "MyFlags">;
 const foo: MyFlags = MyFlags.Two;
 
 // This also works.
-const bar: MyFlags = MyFlags.One | MyFlags .Two;
+const bar: MyFlags = MyFlags.One | MyFlags.Two;
 
 // Unfortunately this also works though.
 const baz: MyFlags = 4;
