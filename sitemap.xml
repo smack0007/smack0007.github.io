@@ -4,148 +4,61 @@
 		<loc>https://smack0007.github.io/index.html</loc>
 	</url>
 	<url>
-		<loc>https://smack0007.github.io/about.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2008/zend_db_table-as-a-model.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2008/colors-and-hex.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/execute-different-commands-in-msbuild-depending-on-platform.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/creating-a-tsexec-command.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/use-newtonsoft.json-in-.net-core-3-web-api.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/checking-for-uncommited-git-changes-in-a-batch-program.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/disable-csharp-null-checks-for-a-field-or-property.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/enum-extension-methods.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/github-actions.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/angular-in-visual-studio.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/using-git-gui-with-cygwin-on-windows-7.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/snowball-a-slightly-different-direction.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/switching-from-git-to-mercurial.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/getting-started-with-slimdx.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/winquakecon.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/opentk-simple-movable-sprite.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/marker-interfaces.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/xaudio2-stop-currently-playing-sound.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/what-is-snowball-and-what-do-i-want-to-do-with-it.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/snowball-and-github.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/wmi-converting-datetime-values-to-datetime-objects.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/keeping-splitcontainer-splitterdistance-consistent.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/favoring-composition-over-inheritance.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/componentglue-on-github.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2011/getting-started-with-opentk.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2009/spritesheet-class.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2009/drawing-2d-lines-as-rotated-quads.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2009/calculating-an-angle-from-a-vector2.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2009/the-game-show-host-problem-aka-the-monty-hall-problem.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2012/using-themes-in-visual-studio-express-for-windows-desktop.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2012/snowball-now-using-sharpdx.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2012/snowball-is-now-modular.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2012/snowball-now-based-on-shaders.html</loc>
+		<loc>https://smack0007.github.io/blog/2012/snowball-shaders-in-progress.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2012/http-status-codes-as-telephone-calls.html</loc>
 	</url>
 	<url>
-		<loc>https://smack0007.github.io/blog/2012/snowball-shaders-in-progress.html</loc>
+		<loc>https://smack0007.github.io/blog/2012/snowball-now-based-on-shaders.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2012/id3dxeffectonlostdevice.html</loc>
 	</url>
 	<url>
+		<loc>https://smack0007.github.io/blog/2012/snowball-is-now-modular.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2012/snowball-now-using-sharpdx.html</loc>
+	</url>
+	<url>
 		<loc>https://smack0007.github.io/blog/2012/getting-started-with-snowball.html</loc>
 	</url>
 	<url>
-		<loc>https://smack0007.github.io/blog/2022/deno-get-path-of-script.html</loc>
+		<loc>https://smack0007.github.io/blog/2012/using-themes-in-visual-studio-express-for-windows-desktop.html</loc>
 	</url>
 	<url>
-		<loc>https://smack0007.github.io/blog/2022/powershell-time-command.html</loc>
+		<loc>https://smack0007.github.io/blog/2010/drawing-rectangles-with-spritebatch.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/csharp-extension-methods-in-your-own-library.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/500-downloads-of-the-same-game.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/implementing-basic-dependency-injection-using-services-container.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/component-glue.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/creating-and-consuming-services-in-your-xna-game.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/progress-bars-in-windows-7-taskbars.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/visual-studio-move-referenced-dll-to-different-directory-after-build.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/changing-the-platformtarge-in-visual-c-express.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/xna-load-texture2d-from-embedded-resource.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2010/winforms-and-mvc.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2022/iterating-thru-an-object-in-javascript.html</loc>
@@ -154,85 +67,136 @@
 		<loc>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</loc>
 	</url>
 	<url>
+		<loc>https://smack0007.github.io/blog/2022/deno-get-path-of-script.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2022/powershell-time-command.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/execute-different-commands-in-msbuild-depending-on-platform.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/enum-extension-methods.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/predictable-random-number-generation-in-typescript.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/github-actions.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/checking-for-uncommited-git-changes-in-a-batch-program.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/disable-csharp-null-checks-for-a-field-or-property.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/creating-a-tsexec-command.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/angular-in-visual-studio.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2020/use-newtonsoft.json-in-.net-core-3-web-api.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2008/zend_db_table-as-a-model.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2008/colors-and-hex.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/using-git-gui-with-cygwin-on-windows-7.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/snowball-a-slightly-different-direction.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/what-is-snowball-and-what-do-i-want-to-do-with-it.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/winquakecon.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/componentglue-on-github.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/opentk-simple-movable-sprite.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/getting-started-with-slimdx.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/snowball-and-github.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/marker-interfaces.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/wmi-converting-datetime-values-to-datetime-objects.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/xaudio2-stop-currently-playing-sound.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/keeping-splitcontainer-splitterdistance-consistent.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/favoring-composition-over-inheritance.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/getting-started-with-opentk.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2011/switching-from-git-to-mercurial.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2014/my-experience-with-opengl-vs-direct3d.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2014/code-from-when-i-was-young-and-stupid.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2014/all-the-cool-kids-are-static.html</loc>
+	</url>
+	<url>
 		<loc>https://smack0007.github.io/blog/2023/enums-considered-harmful.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2013/introducing-gldotnet.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2013/gldotnet-version-0-6-0.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2013/using-component-glue-to-build-your-object-graphs-automatically.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2013/component-glue-v1-0.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2013/gldotnet-version-0-6-0.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2013/introducing-gldotnet.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2014/my-experience-with-opengl-vs-direct3d.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2014/code-from-when-i-was-young-and-stupid.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2014/adding-assembly-references-in-roslyn.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2014/all-the-cool-kids-are-static.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2019/abusing-idisposable.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2019/use-nameof-to-set-string-variable-to-its-name.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2019/generating-string-permutations-for-unit-testing.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/creating-and-consuming-services-in-your-xna-game.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/xna-load-texture2d-from-embedded-resource.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/drawing-rectangles-with-spritebatch.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/visual-studio-move-referenced-dll-to-different-directory-after-build.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/csharp-extension-methods-in-your-own-library.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/changing-the-platformtarge-in-visual-c-express.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/component-glue.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/implementing-basic-dependency-injection-using-services-container.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/progress-bars-in-windows-7-taskbars.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/winforms-and-mvc.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2010/500-downloads-of-the-same-game.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2021/practical-wasm.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2021/starting-redis-and-the-redis-cli-with-docker.html</loc>
@@ -244,28 +208,46 @@
 		<loc>https://smack0007.github.io/blog/2021/windows-terminal-fork-command.html</loc>
 	</url>
 	<url>
+		<loc>https://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</loc>
+	</url>
+	<url>
 		<loc>https://smack0007.github.io/blog/2021/powered-by-typescript.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2021/practical-wasm.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2015/using-batch-files-as-task-runner-vs-code.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2019/generating-string-permutations-for-unit-testing.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2019/dynamically-loaded-dll-thows-accessviolationexception-on-first-function-call.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2019/abusing-idisposable.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2019/use-nameof-to-set-string-variable-to-its-name.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2018/functional-card-deck-in-csharp.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2018/a-neat-way-to-curry-in-csharp.html</loc>
 	</url>
 	<url>
-		<loc>https://smack0007.github.io/blog/2018/poor-mans-template-engine-2.html</loc>
+		<loc>https://smack0007.github.io/blog/2018/enabling-the-latest-version-of-csharp.html</loc>
 	</url>
 	<url>
-		<loc>https://smack0007.github.io/blog/2018/enabling-the-latest-version-of-csharp.html</loc>
+		<loc>https://smack0007.github.io/blog/2018/lambda-collection-wrappers.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2018/merging-build-directory-props.html</loc>
 	</url>
 	<url>
-		<loc>https://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2018/git-quick-push.html</loc>
-	</url>
-	<url>
-		<loc>https://smack0007.github.io/blog/2018/functional-card-deck-in-csharp.html</loc>
+		<loc>https://smack0007.github.io/blog/2018/string-join-extension-method.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2018/poor-mans-template-engine-1.html</loc>
@@ -274,13 +256,31 @@
 		<loc>https://smack0007.github.io/blog/2018/snowball-2.html</loc>
 	</url>
 	<url>
-		<loc>https://smack0007.github.io/blog/2018/lambda-collection-wrappers.html</loc>
+		<loc>https://smack0007.github.io/blog/2018/poor-mans-template-engine-3.html</loc>
 	</url>
 	<url>
-		<loc>https://smack0007.github.io/blog/2018/string-join-extension-method.html</loc>
+		<loc>https://smack0007.github.io/blog/2018/poor-mans-template-engine-2.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2018/git-quick-push.html</loc>
 	</url>
 	<url>
 		<loc>https://smack0007.github.io/blog/2018/run-program-directly-after-building-vscode.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2009/the-game-show-host-problem-aka-the-monty-hall-problem.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2009/drawing-2d-lines-as-rotated-quads.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2009/calculating-an-angle-from-a-vector2.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/blog/2009/spritesheet-class.html</loc>
+	</url>
+	<url>
+		<loc>https://smack0007.github.io/about.html</loc>
 	</url>
 </urlset>
 
