@@ -5,9 +5,50 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Tue, 24 Jan 2023 00:00:00 GMT</lastBuildDate>
-	<pubDate>Tue, 24 Jan 2023 00:00:00 GMT</pubDate>
+	<lastBuildDate>Tue, 24 Oct 2023 00:00:00 GMT</lastBuildDate>
+	<pubDate>Tue, 24 Oct 2023 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Typing jest Spies]]></title>
+		<description><![CDATA[<p>It often feels like <a href="https://www.typescriptlang.org/">TypeScript</a> was an afterthought in <a href="https://jestjs.io/">jest</a>.
+Any time I need to type a variable that holds some data structure from jest it feels
+like I need to dust off my old book of spells in order to find the correct incantation
+to make <a href="https://eslint.org/">eslint</a> happy. A situation I finally figured
+out a solution for is when you want to store the result of a call to <code>jest.spyOn</code> in a
+shared variable:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">setTimeoutSpy</span>: jest.<span class="hljs-property">SpyInstance</span>;
+
+<span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+  setTimeoutSpy = jest.<span class="hljs-title function_">spyOn</span>(globalThis, <span class="hljs-string">&#x27;setTimeout&#x27;</span>).<span class="hljs-title function_">mockImplementation</span>(<span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+    <span class="hljs-title function_">callback</span>();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">unknown</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;;
+  });
+});
+
+<span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> {
+  setTimeoutSpy.<span class="hljs-title function_">mockRestore</span>();
+});
+</code></pre>
+<p>Even though <code>jest.SpyInstance</code> is specified here as the type for <code>randomSpy</code> the information about exactly what
+function is being spied on gets lost here. That means if elsewhere in the code if you try the following:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-title function_">setTimeoutCallback</span> = (<span class="hljs-params"></span>) =&gt; {};
+<span class="hljs-keyword">let</span> <span class="hljs-attr">setTimeoutDelay</span>: <span class="hljs-built_in">number</span> | <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>;
+setTimeoutSpy.<span class="hljs-title function_">mockImplementation</span>(<span class="hljs-function">(<span class="hljs-params">callback, delay</span>) =&gt;</span> {
+  setTimeoutCallback = callback;
+  setTimeoutDelay = delay;
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">unknown</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;;
+});
+</code></pre>
+<p><code>eslint</code> will complain that <code>callback</code> and <code>delay</code> have the type <code>any</code>. This is again due to the lost type information.
+This problem can be resolved by using some TypeScript utility types when the spy variable is declared:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">setTimeoutSpy</span>: jest.<span class="hljs-property">SpyInstance</span>&lt;<span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;, <span class="hljs-title class_">Parameters</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;&gt;;
+</code></pre>
+<p>We use the built in <code>ReturnType</code> and <code>Parameters</code> utility types to perform the voodoo needed in order to make <code>eslint</code> happy.</p>
+]]></description>
+		<link>https://smack0007.github.io/blog/2023/typing-jest-spies.html</link>
+		<guid>https://smack0007.github.io/blog/2023/typing-jest-spies.html</guid>
+		<pubDate>Tue, 24 Oct 2023 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Enums considered harmful]]></title>
 		<description><![CDATA[<p>It seems that torwards the end of 2022 the collective hivemind of the TypeScript
@@ -210,16 +251,6 @@ library from node.</p>]]></description>
 		<link>https://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</link>
 		<guid>https://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</guid>
 		<pubDate>Wed, 14 Oct 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Angular in Visual Studio]]></title>
-		<description><![CDATA[<p>Now that the <a href="https://devblogs.microsoft.com/visualstudio/angular-language-service-for-visual-studio/">Angular Language Service</a>
-is available for Visual Studio working on Angular projects from inside Visual Studio is a viable option. The linked blog
-post mentions a couple of ways of adding the Angular project to Visual Studio but I felt the suggestions left something
-to be desired here is what I came up with.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/angular-in-visual-studio.html</link>
-		<guid>https://smack0007.github.io/blog/2020/angular-in-visual-studio.html</guid>
-		<pubDate>Thu, 08 Oct 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>

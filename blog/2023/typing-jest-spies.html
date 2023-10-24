@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Typing jest Spies</title><base href="https://smack0007.github.io"></base><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="visually-hidden">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2023/typing-jest-spies.html">Typing jest Spies</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>October 24, 2023</span><span class="tags"><a href="tags/typescript/index.html"><span class="icon icon-price-tags"></span><span class="tagName">typescript</span></a><a href="tags/jest/index.html"><span class="icon icon-price-tags"></span><span class="tagName">jest</span></a></span></div></div><div class="content"><p>It often feels like <a href="https://www.typescriptlang.org/">TypeScript</a> was an afterthought in <a href="https://jestjs.io/">jest</a>.
+Any time I need to type a variable that holds some data structure from jest it feels
+like I need to dust off my old book of spells in order to find the correct incantation
+to make <a href="https://eslint.org/">eslint</a> happy. A situation I finally figured
+out a solution for is when you want to store the result of a call to <code>jest.spyOn</code> in a
+shared variable:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">setTimeoutSpy</span>: jest.<span class="hljs-property">SpyInstance</span>;
+
+<span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+  setTimeoutSpy = jest.<span class="hljs-title function_">spyOn</span>(globalThis, <span class="hljs-string">&#x27;setTimeout&#x27;</span>).<span class="hljs-title function_">mockImplementation</span>(<span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+    <span class="hljs-title function_">callback</span>();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">unknown</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;;
+  });
+});
+
+<span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> {
+  setTimeoutSpy.<span class="hljs-title function_">mockRestore</span>();
+});
+</code></pre>
+<p>Even though <code>jest.SpyInstance</code> is specified here as the type for <code>randomSpy</code> the information about exactly what
+function is being spied on gets lost here. That means if elsewhere in the code if you try the following:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-title function_">setTimeoutCallback</span> = (<span class="hljs-params"></span>) =&gt; {};
+<span class="hljs-keyword">let</span> <span class="hljs-attr">setTimeoutDelay</span>: <span class="hljs-built_in">number</span> | <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>;
+setTimeoutSpy.<span class="hljs-title function_">mockImplementation</span>(<span class="hljs-function">(<span class="hljs-params">callback, delay</span>) =&gt;</span> {
+  setTimeoutCallback = callback;
+  setTimeoutDelay = delay;
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">unknown</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;;
+});
+</code></pre>
+<p><code>eslint</code> will complain that <code>callback</code> and <code>delay</code> have the type <code>any</code>. This is again due to the lost type information.
+This problem can be resolved by using some TypeScript utility types when the spy variable is declared:</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">setTimeoutSpy</span>: jest.<span class="hljs-property">SpyInstance</span>&lt;<span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;, <span class="hljs-title class_">Parameters</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;&gt;;
+</code></pre>
+<p>We use the built in <code>ReturnType</code> and <code>Parameters</code> utility types to perform the voodoo needed in order to make <code>eslint</code> happy.</p>
+</div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>
