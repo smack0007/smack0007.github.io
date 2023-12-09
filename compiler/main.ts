@@ -9,7 +9,13 @@ import {
 import { marked } from "npm:marked";
 import hljs from "npm:highlight.js";
 
-import { copyDirectory, listFiles, replaceAll, writeFile } from "./utils.ts";
+import {
+  copyDirectory,
+  listFiles,
+  replaceAll,
+  runCommand,
+  writeFile,
+} from "./utils.ts";
 import { FrontMatter, Page, Post, Tag } from "./types.ts";
 import { PageTemplate, PostTemplate, IndexTemplate } from "./templates.ts";
 import { BASE_URL, BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg.ts";
@@ -350,41 +356,39 @@ async function compileScss(): Promise<void> {
   //     outputStyle: "compressed",
   //   });
 
-  const result = new TextDecoder().decode(
-    await Deno.run({
-      cmd: [
-        IS_WINDOWS ? "npx.cmd" : "npx",
-        "-y",
-        "node-sass",
-        join(INPUT_DIRECTORY, "css", "style.scss"),
-        "--output-style=compressed",
-      ],
-      stdout: "piped",
-    }).output()
+  const [nodeSassResult, nodeSassOutput] = await runCommand(
+    ROOT_DIRECTORY,
+    IS_WINDOWS ? "npx.cmd" : "npx",
+    "-y",
+    "node-sass",
+    join(INPUT_DIRECTORY, "css", "style.scss"),
+    "--output-style=compressed"
   );
 
+  if (nodeSassResult !== 0) {
+    console.error(`node-sass failed with error code ${nodeSassResult}.`);
+    return;
+  }
+
   await ensureDir(join(OUTPUT_DIRECTORY, "css"));
-  await writeFile(join(OUTPUT_DIRECTORY, "css", "style.css"), result);
+  await writeFile(join(OUTPUT_DIRECTORY, "css", "style.css"), nodeSassOutput);
 
   console.info("Calling PurgeCSS...");
-  const purgeResult = await Deno.run({
-    cwd: OUTPUT_DIRECTORY,
-    cmd: [
-      IS_WINDOWS ? "npx.cmd" : "npx",
-      "-y",
-      "purgecss",
-      "--css",
-      "./css/style.css",
-      "--content",
-      "./**/*.html",
-      "--output",
-      "./css/style.css",
-    ],
-    stdout: "piped",
-  }).status();
+  const [purgeResult] = await runCommand(
+    OUTPUT_DIRECTORY,
+    IS_WINDOWS ? "npx.cmd" : "npx",
+    "-y",
+    "purgecss",
+    "--css",
+    "./css/style.css",
+    "--content",
+    "./**/*.html",
+    "--output",
+    "./css/style.css"
+  );
 
-  if (purgeResult.code !== 0) {
-    console.error(`PurgeCSS failed with error code ${purgeResult.code}.`);
+  if (purgeResult !== 0) {
+    console.error(`PurgeCSS failed with error code ${purgeResult}.`);
   }
 }
 

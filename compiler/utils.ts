@@ -52,6 +52,22 @@ export function replaceAll(
   return input.replace(new RegExp(`\\${find}`, "g"), replace);
 }
 
+export async function runCommand(
+  cwd: string,
+  command: string,
+  ...args: string[]
+): Promise<[number, string]> {
+  const process = new Deno.Command(command, {
+    cwd,
+    args,
+    stdout: "piped",
+  });
+
+  const { code, stdout } = await process.output();
+
+  return [code, new TextDecoder().decode(stdout)];
+}
+
 export async function writeFile(path: string, data: string): Promise<void> {
   console.info(`Writing ${path}...`);
   return await Deno.writeTextFile(path, data);
