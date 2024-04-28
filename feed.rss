@@ -5,9 +5,22 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Tue, 24 Oct 2023 00:00:00 GMT</lastBuildDate>
-	<pubDate>Tue, 24 Oct 2023 00:00:00 GMT</pubDate>
+	<lastBuildDate>Sun, 28 Apr 2024 00:00:00 GMT</lastBuildDate>
+	<pubDate>Sun, 28 Apr 2024 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Start Syncthing in the Background on Windows]]></title>
+		<description><![CDATA[<p>Just a quick tip for myself (and anyone who is reading this) for the future. To start <a href="https://syncthing.net/">syncthing</a> in
+the background on Windows open up the startup apps folder via the run command (Win+R) with <code>shell:startup</code> amd then create
+the following shortcut:</p>
+<pre><code class="hljs shell">powershell.exe -c &quot;Start-Process -FilePath &#x27;syncthing&#x27; -ArgumentList &#x27;--no-browser&#x27; -WindowStyle Hidden&quot;
+</code></pre>
+<p>This starts syncthing in the background after a short lived popup opens. <code>--no-console</code> doesn&#39;t seem to work for whatever reason.</p>
+]]></description>
+		<link>https://smack0007.github.io/blog/2024/start-syncthing-background-windows.html</link>
+		<guid>https://smack0007.github.io/blog/2024/start-syncthing-background-windows.html</guid>
+		<pubDate>Sun, 28 Apr 2024 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Typing jest Spies]]></title>
 		<description><![CDATA[<p>It often feels like <a href="https://www.typescriptlang.org/">TypeScript</a> was an afterthought in <a href="https://jestjs.io/">jest</a>.
@@ -241,16 +254,6 @@ revert back to <a href="https://www.newtonsoft.com/json">Newtonsoft.Json</a> in 
 		<link>https://smack0007.github.io/blog/2020/use-newtonsoft.json-in-.net-core-3-web-api.html</link>
 		<guid>https://smack0007.github.io/blog/2020/use-newtonsoft.json-in-.net-core-3-web-api.html</guid>
 		<pubDate>Thu, 22 Oct 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Node script for syntax highlighting]]></title>
-		<description><![CDATA[<p>I decided to switch my blog to use highlightjs instead of the mixture of my own library and
-<a href="https://github.com/windows-toolkit/ColorCode-Universal">ColorCode</a>. I still wanted everything to rendered statically
-though so I decided to use <a href="https://highlightjs.org/">highlight.js</a> as it already offered instructions on how to use the
-library from node.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</link>
-		<guid>https://smack0007.github.io/blog/2020/node-script-for-syntax-highlighting.html</guid>
-		<pubDate>Wed, 14 Oct 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
