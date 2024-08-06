@@ -5,9 +5,19 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Sun, 28 Apr 2024 00:00:00 GMT</lastBuildDate>
-	<pubDate>Sun, 28 Apr 2024 00:00:00 GMT</pubDate>
+	<lastBuildDate>Tue, 06 Aug 2024 00:00:00 GMT</lastBuildDate>
+	<pubDate>Tue, 06 Aug 2024 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Goodbye Windows]]></title>
+		<description><![CDATA[<p>I finally did it. All the computers in my house are now running <a href="https://www.debian.org/">debian</a> except for the office PC. I&#39;ve
+used Windows for at least 30 years but over the last few years it&#39;s become more and more user hostile. After the latest
+<a href="https://github.com/xaitax/TotalRecall">Windows Recall</a> push and the security implications surrounding it, I decided I could no longer
+keep running Windows on all the machines in my house.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2024/goodbye-windows.html</link>
+		<guid>https://smack0007.github.io/blog/2024/goodbye-windows.html</guid>
+		<pubDate>Tue, 06 Aug 2024 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Start Syncthing in the Background on Windows]]></title>
 		<description><![CDATA[<p>Just a quick tip for myself (and anyone who is reading this) for the future. To start <a href="https://syncthing.net/">syncthing</a> in
@@ -245,15 +255,6 @@ based on the OS the script is running on.</p>]]></description>
 		<link>https://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</link>
 		<guid>https://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</guid>
 		<pubDate>Wed, 04 Nov 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Use Newtonsoft.Json in .NET Core 3 Web Api]]></title>
-		<description><![CDATA[<p>This post is mostly just distilling information I got from
-<a href="https://dotnetcoretutorials.com/2019/12/19/using-newtonsoft-json-in-net-core-3-projects/">.NET Core Tutorials</a> to
-revert back to <a href="https://www.newtonsoft.com/json">Newtonsoft.Json</a> in asp.net core WebApi.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/use-newtonsoft.json-in-.net-core-3-web-api.html</link>
-		<guid>https://smack0007.github.io/blog/2020/use-newtonsoft.json-in-.net-core-3-web-api.html</guid>
-		<pubDate>Thu, 22 Oct 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
