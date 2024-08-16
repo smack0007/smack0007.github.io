@@ -10,7 +10,7 @@ export const IndexTemplate = (posts: Post[]) => posts
 
         {post.hasExcerpt && (
           <a class="readMore" href={post.url}>
-            Read More
+            Continue reading "{encode(post.frontMatter.title)}"
           </a>
         )}
       </div>
