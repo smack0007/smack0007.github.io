@@ -1,4 +1,4 @@
-import { html, Post } from "~/compiler/index.ts";
+import { encode, html, Post } from "~/compiler/index.ts";
 import { PostHeaderTemplate } from "./postHeader.tsx";
 
 export const IndexTemplate = (posts: Post[]) => posts
