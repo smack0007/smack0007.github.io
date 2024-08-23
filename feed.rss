@@ -5,9 +5,22 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Tue, 06 Aug 2024 00:00:00 GMT</lastBuildDate>
-	<pubDate>Tue, 06 Aug 2024 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 23 Aug 2024 00:00:00 GMT</lastBuildDate>
+	<pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Install Linux Mint Cinnamon Themes on Debian]]></title>
+		<description><![CDATA[<p>As a long time Windows user it probably is no surprise that I enjoy using the <a href="https://projects.linuxmint.com/cinnamon/">Cinnamon</a> Desktop
+Environment. Although I have used and enjoyed using <a href="https://linuxmint.com/">Linux Mint</a> one goal I had when I started replacing Windows
+throughout my house was to be the same distribution on differnt machines. So I settled on installing <a href="https://www.debian.org/">Debian</a>
+everywhere and customizing it to each systems individual needs.</p>
+<p>I wanted to run <a href="https://projects.linuxmint.com/cinnamon/">Cinnamon</a> on my Thinkpad Laptop and <a href="https://www.debian.org/">Debian</a> can install
+it out of the box. The only problem is the defaykt theme leaves a lot to be deisred. Luckily the theme from <a href="https://linuxmint.com/">Linux Mint</a>
+can installed using a few commands from the terminal.  </p>]]></description>
+		<link>https://smack0007.github.io/blog/2024/linux-mint-cinnamon-theme-on-debian.html</link>
+		<guid>https://smack0007.github.io/blog/2024/linux-mint-cinnamon-theme-on-debian.html</guid>
+		<pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Goodbye Windows]]></title>
 		<description><![CDATA[<p>I finally did it. All the computers in my house are now running <a href="https://www.debian.org/">debian</a> except for the office PC. I&#39;ve
@@ -248,13 +261,6 @@ based on the OS the script is running on.</p>]]></description>
 		<link>https://smack0007.github.io/blog/2020/execute-different-commands-in-msbuild-depending-on-platform.html</link>
 		<guid>https://smack0007.github.io/blog/2020/execute-different-commands-in-msbuild-depending-on-platform.html</guid>
 		<pubDate>Fri, 20 Nov 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Filter ItemGroup by extension in MSBuild]]></title>
-		<description><![CDATA[<p>Just a quick snippet that shows how to filter an exiting ItemGroup by an extension.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</link>
-		<guid>https://smack0007.github.io/blog/2020/filter-itemgroup-by-extension-in-msbuild.html</guid>
-		<pubDate>Wed, 04 Nov 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
