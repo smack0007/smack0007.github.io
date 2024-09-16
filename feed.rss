@@ -32,6 +32,20 @@ can installed using a few commands from the terminal.  </p>]]></description>
 		<pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
 	</item>
 	<item>
+		<title><![CDATA[Debian 12: WiFi missing after installing update]]></title>
+		<description><![CDATA[<p>It finally happened to me. The other night after installing an update from <a href="https://www.debian.org/">debain</a>
+<a href="https://www.debian.org/releases/bookworm/">bookworm</a> and restarting my WiFi was no longer working. On the desktop
+there was no longer a signal strength indicator and my browser informed me I was disconnected from the internet.</p>
+<p>So I plugged in an ethernet cable and got started researching. After 2 minutes of <a href="https://duckduckgo.com/">searching</a> I
+had the answer. I used <code>nmcli</code> (network manager cli) to see the state of my network devices. On my WiFi adapter there
+was an error <code>plugin missing</code>. Simply reinstalling <code>network-manager</code> with <code>sudo apt reinstall network-manager</code> fixed the
+problem and I could use my WiFi again.</p>
+]]></description>
+		<link>https://smack0007.github.io/blog/2024/debian-12-update-wifi-missing.html</link>
+		<guid>https://smack0007.github.io/blog/2024/debian-12-update-wifi-missing.html</guid>
+		<pubDate>Tue, 06 Aug 2024 00:00:00 GMT</pubDate>
+	</item>
+	<item>
 		<title><![CDATA[Goodbye Windows]]></title>
 		<description><![CDATA[<p>I finally did it. All the computers in my house are now running <a href="https://www.debian.org/">debian</a> except for the office PC. I&#39;ve
 used Windows for at least 30 years but over the last few years it&#39;s become more and more user hostile. After the latest
@@ -252,17 +266,6 @@ serve some static content on your system.</p>]]></description>
 		<link>https://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</link>
 		<guid>https://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</guid>
 		<pubDate>Tue, 01 Dec 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Add the current time to your command prompt]]></title>
-		<description><![CDATA[<p>I am someone who never made the jump to Powershell and to this day still use my
-cmd shell with pride. My cmd is very personalized at this point and is available
-on <a href="https://github.com/smack0007/cmd">GitHub</a> though I&#39;m not sure how useful it is
-for anyone but me. I use git and GitHub to synchronize my cmd between my different
-machines.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</link>
-		<guid>https://smack0007.github.io/blog/2020/add-the-current-time-to-your-command-prompt.html</guid>
-		<pubDate>Thu, 26 Nov 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
