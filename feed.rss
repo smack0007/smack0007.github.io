@@ -5,9 +5,23 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Sat, 31 Aug 2024 00:00:00 GMT</lastBuildDate>
-	<pubDate>Sat, 31 Aug 2024 00:00:00 GMT</pubDate>
+	<lastBuildDate>Mon, 16 Sep 2024 00:00:00 GMT</lastBuildDate>
+	<pubDate>Mon, 16 Sep 2024 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Debian 12: WiFi missing after installing update]]></title>
+		<description><![CDATA[<p>It finally happened to me. The other night after installing an update from <a href="https://www.debian.org/">debain</a>
+<a href="https://www.debian.org/releases/bookworm/">bookworm</a> and restarting my WiFi was no longer working. On the desktop
+there was no longer a signal strength indicator and my browser informed me I was disconnected from the internet.</p>
+<p>So I plugged in an ethernet cable and got started researching. After 2 minutes of <a href="https://duckduckgo.com/">searching</a> I
+had the answer. I used <code>nmcli</code> (network manager cli) to see the state of my network devices. On my WiFi adapter there
+was an error <code>plugin missing</code>. Simply reinstalling <code>network-manager</code> with <code>sudo apt reinstall network-manager</code> fixed the
+problem and I could use my WiFi again.</p>
+]]></description>
+		<link>https://smack0007.github.io/blog/2024/debian-12-update-wifi-missing.html</link>
+		<guid>https://smack0007.github.io/blog/2024/debian-12-update-wifi-missing.html</guid>
+		<pubDate>Mon, 16 Sep 2024 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Installing debian on a Lenovo ThinkCentre M715q]]></title>
 		<description><![CDATA[<p>I recently purchased a <a href="https://www.lenovo.com/us/en/p/desktops/thinkcentre/m-series-tiny/thinkcentre-m715q-tiny/11tc1mt715q">Lenovo ThinkCentre M715q</a> and wanted to install debian on it but after starting the installer the screen
@@ -30,20 +44,6 @@ can installed using a few commands from the terminal.  </p>]]></description>
 		<link>https://smack0007.github.io/blog/2024/linux-mint-cinnamon-theme-on-debian.html</link>
 		<guid>https://smack0007.github.io/blog/2024/linux-mint-cinnamon-theme-on-debian.html</guid>
 		<pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Debian 12: WiFi missing after installing update]]></title>
-		<description><![CDATA[<p>It finally happened to me. The other night after installing an update from <a href="https://www.debian.org/">debain</a>
-<a href="https://www.debian.org/releases/bookworm/">bookworm</a> and restarting my WiFi was no longer working. On the desktop
-there was no longer a signal strength indicator and my browser informed me I was disconnected from the internet.</p>
-<p>So I plugged in an ethernet cable and got started researching. After 2 minutes of <a href="https://duckduckgo.com/">searching</a> I
-had the answer. I used <code>nmcli</code> (network manager cli) to see the state of my network devices. On my WiFi adapter there
-was an error <code>plugin missing</code>. Simply reinstalling <code>network-manager</code> with <code>sudo apt reinstall network-manager</code> fixed the
-problem and I could use my WiFi again.</p>
-]]></description>
-		<link>https://smack0007.github.io/blog/2024/debian-12-update-wifi-missing.html</link>
-		<guid>https://smack0007.github.io/blog/2024/debian-12-update-wifi-missing.html</guid>
-		<pubDate>Tue, 06 Aug 2024 00:00:00 GMT</pubDate>
 	</item>
 	<item>
 		<title><![CDATA[Goodbye Windows]]></title>
