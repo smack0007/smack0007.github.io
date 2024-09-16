@@ -1,7 +1,7 @@
 ---
 Title: Debian 12: WiFi missing after installing update
 Subtitle:
-Date: 2024-08-06
+Date: 2024-09-16
 Tags: debian, debian-12, wifi, network-manager
 ---
 
