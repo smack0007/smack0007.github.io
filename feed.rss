@@ -5,9 +5,19 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Mon, 16 Sep 2024 00:00:00 GMT</lastBuildDate>
-	<pubDate>Mon, 16 Sep 2024 00:00:00 GMT</pubDate>
+	<lastBuildDate>Mon, 20 Jan 2025 00:00:00 GMT</lastBuildDate>
+	<pubDate>Mon, 20 Jan 2025 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Use VSCode to remove comments with regex]]></title>
+		<description><![CDATA[<p>In you need to remove multiline comments (<code>/* Comment */</code>) from files in VSCode here is an easy regex to help you find them:</p>
+<pre><code class="hljs shell">\/\*\*([\s\S\n]+?)\*\/
+</code></pre>
+]]></description>
+		<link>https://smack0007.github.io/blog/2025/vscode-regex-comments.html</link>
+		<guid>https://smack0007.github.io/blog/2025/vscode-regex-comments.html</guid>
+		<pubDate>Mon, 20 Jan 2025 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Debian 12: WiFi missing after installing update]]></title>
 		<description><![CDATA[<p>It finally happened to me. The other night after installing an update from <a href="https://www.debian.org/">debain</a>
@@ -258,14 +268,6 @@ blog everytime there is a pushed commit.</p>]]></description>
 		<link>https://smack0007.github.io/blog/2020/github-actions.html</link>
 		<guid>https://smack0007.github.io/blog/2020/github-actions.html</guid>
 		<pubDate>Sun, 06 Dec 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Use nginx in docker to serve static files]]></title>
-		<description><![CDATA[<p>Not sure how practical this really is but I thought it was neat. Run nginx and tell it to
-serve some static content on your system.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</link>
-		<guid>https://smack0007.github.io/blog/2020/use-nginx-in-docker-to-serve-static-files.html</guid>
-		<pubDate>Tue, 01 Dec 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
