@@ -5,9 +5,18 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Mon, 20 Jan 2025 00:00:00 GMT</lastBuildDate>
-	<pubDate>Mon, 20 Jan 2025 00:00:00 GMT</pubDate>
+	<lastBuildDate>Wed, 21 May 2025 00:00:00 GMT</lastBuildDate>
+	<pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Cherry picking only certain files from one branch to another]]></title>
+		<description><![CDATA[<p>At work I had a branch with a large amount of updated VRT (Visual Regressen Tests) (.png) files and this made the review
+process in GitLab near impossible. To make the Merge Request reviewable I wanted to rebase the branch into 2 commits. The
+first one containing just the code chages and the second one containing all the updated VRT(s). </p>]]></description>
+		<link>https://smack0007.github.io/blog/2025/git-cherry-picking-from-branch.html</link>
+		<guid>https://smack0007.github.io/blog/2025/git-cherry-picking-from-branch.html</guid>
+		<pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Use VSCode to remove comments with regex]]></title>
 		<description><![CDATA[<p>In you need to remove multiline comments (<code>/* Comment */</code>) from files in VSCode here is an easy regex to help you find them:</p>
@@ -260,14 +269,6 @@ atrribute was introduced which makes it easy to implement loading of native asse
 		<link>https://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</link>
 		<guid>https://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</guid>
 		<pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[GitHub Actions]]></title>
-		<description><![CDATA[<p>My blog is now being generated via GitHub actions in <code>ubuntu-latest</code>. This allows me to rebuild my
-blog everytime there is a pushed commit.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/github-actions.html</link>
-		<guid>https://smack0007.github.io/blog/2020/github-actions.html</guid>
-		<pubDate>Sun, 06 Dec 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
