@@ -17,10 +17,9 @@ import {
   writeFile,
 } from "./utils.ts";
 import { FrontMatter, Page, Post, Tag } from "./types.ts";
-import { PageTemplate, PostTemplate, IndexTemplate } from "./templates.ts";
+import { PageTemplate, PostTemplate, IndexTemplate, TagsTemplate } from "./templates.ts";
 import { BASE_URL, BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg.ts";
 import { getTagUrl, inflectFileName } from "./templateUtils.ts";
-import { TagsTemplate } from "~/src/templates/tags.tsx";
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
 const IS_WINDOWS = Deno.build.os === "windows";
