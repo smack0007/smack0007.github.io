@@ -10,9 +10,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Deno Setup
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
-          deno-version: "1.45.5"
+          deno-version: "2.5.0"
 
       - name: Build
         run: |
