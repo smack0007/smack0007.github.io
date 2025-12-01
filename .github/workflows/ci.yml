@@ -12,7 +12,7 @@ jobs:
       - name: Deno Setup
         uses: denoland/setup-deno@v2
         with:
-          deno-version: "2.5.0"
+          deno-version: "2.5.6"
 
       - name: Build
         run: |
@@ -29,3 +29,4 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}@bots.github.com"
           git add -A && git commit -F "../commit.msg" || true
           git push "https://x-access-token:${{ secrets.API_KEY }}@github.com/${GITHUB_REPOSITORY}.git" || true
+
