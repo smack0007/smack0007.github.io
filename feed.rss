@@ -5,9 +5,23 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Wed, 21 May 2025 00:00:00 GMT</lastBuildDate>
-	<pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate>
+	<lastBuildDate>Mon, 16 Feb 2026 00:00:00 GMT</lastBuildDate>
+	<pubDate>Mon, 16 Feb 2026 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[deno: The node API is the standard library]]></title>
+		<description><![CDATA[<p>One of the things I&#39;ve always struggled with in <a href="https://deno.com/">deno</a> was that fact almost every time you wanted to do
+something non trivial you end up having to import from the <code>@std</code> module. This used to be hosted on deno.land but now it 
+have moved to <a href="https://jsr.io/">jsr</a>. This always felt like a poor solution to the standard library problem to me. As soon
+as I have to import from <code>@std</code> I at least need a <code>deno.json</code> file. This discouraged me from writing all but the simplest
+scripts in deno.</p>
+<p>Now with version 2.0 the node compatibility has gotten so good that I just always reach for the node APIs. I don&#39;t have
+to create an extra <code>deno.json</code> file and I can get on with the task at hand.</p>
+]]></description>
+		<link>https://smack0007.github.io/blog/2026/deno-node-api-is-std-lib.html</link>
+		<guid>https://smack0007.github.io/blog/2026/deno-node-api-is-std-lib.html</guid>
+		<pubDate>Mon, 16 Feb 2026 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Cherry picking only certain files from one branch to another]]></title>
 		<description><![CDATA[<p>At work I had a branch with a large amount of updated VRT (Visual Regressen Tests) (.png) files and this made the review
@@ -261,14 +275,6 @@ a C# application so I wrote a tiny node script to convert the AST to json.</p>]]
 		<link>https://smack0007.github.io/blog/2021/starting-redis-and-the-redis-cli-with-docker.html</link>
 		<guid>https://smack0007.github.io/blog/2021/starting-redis-and-the-redis-cli-with-docker.html</guid>
 		<pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[NativeLibraryLoader for Assembly with ModuleInitializer]]></title>
-		<description><![CDATA[<p>In C# 9 the <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#support-for-code-generators"><code>ModuleInitializer</code></a>
-atrribute was introduced which makes it easy to implement loading of native assemblies in your library.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</link>
-		<guid>https://smack0007.github.io/blog/2020/nativelibraryloader-for-assembly-with-moduleinitializer.html</guid>
-		<pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
