@@ -7,12 +7,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
 
       - name: Deno Setup
         uses: denoland/setup-deno@v2
         with:
-          deno-version: "2.6.9"
+          deno-version: "2.8.2"
 
       - name: Build
         run: |
@@ -29,4 +29,3 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}@bots.github.com"
           git add -A && git commit -F "../commit.msg" || true
           git push "https://x-access-token:${{ secrets.API_KEY }}@github.com/${GITHUB_REPOSITORY}.git" || true
-
