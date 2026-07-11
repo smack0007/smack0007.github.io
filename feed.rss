@@ -5,9 +5,22 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>https://smack0007.github.io/</link>
-	<lastBuildDate>Mon, 16 Feb 2026 00:00:00 GMT</lastBuildDate>
-	<pubDate>Mon, 16 Feb 2026 00:00:00 GMT</pubDate>
+	<lastBuildDate>Fri, 10 Jul 2026 00:00:00 GMT</lastBuildDate>
+	<pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Using the HP Laser Jet Pro MFP M26nw on DietPI via CUPS]]></title>
+		<description><![CDATA[<p>I&#39;ve got an old (2016) HP Laser Jet Pro MFP M26nw printer that I do my best to keep
+printing even though more and more obstacles keep getting put in my way. In MacOS 27
+the drivers for the printer will officially be marked as deprecated and should cease
+to stop working in MacOS 28. We used to be able to print to from our old Samsung tablet
+but that also stopped working when we replaced the tablet with an iPad. <a href="https://openprinting.github.io/cups/">CUPS</a>
+implements the AirPrint protocol though so switching to that fixes the tablet problem
+as well.</p>]]></description>
+		<link>https://smack0007.github.io/blog/2026/hp-m26nw-on-dietpi.html</link>
+		<guid>https://smack0007.github.io/blog/2026/hp-m26nw-on-dietpi.html</guid>
+		<pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[deno: The node API is the standard library]]></title>
 		<description><![CDATA[<p>One of the things I&#39;ve always struggled with in <a href="https://deno.com/">deno</a> was that fact almost every time you wanted to do
@@ -268,13 +281,6 @@ a C# application so I wrote a tiny node script to convert the AST to json.</p>]]
 		<link>https://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</link>
 		<guid>https://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</guid>
 		<pubDate>Wed, 13 Jan 2021 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Starting Redis and the Redis CLI with Docker]]></title>
-		<description><![CDATA[<p>If you&#39;d like to get a Redis instance up and running to play with it&#39;s fairly easy via Docker.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2021/starting-redis-and-the-redis-cli-with-docker.html</link>
-		<guid>https://smack0007.github.io/blog/2021/starting-redis-and-the-redis-cli-with-docker.html</guid>
-		<pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
