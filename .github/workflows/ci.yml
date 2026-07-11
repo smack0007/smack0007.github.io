@@ -20,12 +20,12 @@ jobs:
           sudo chown -R $USER:$USER ./bin
           deno task build:ci
 
-      - name: Publish
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        run: |
-          git log -1 --pretty=%B > commit.msg
-          cd bin
-          git config --global user.name "$GITHUB_ACTOR"
-          git config --global user.email "${GITHUB_ACTOR}@bots.github.com"
-          git add -A && git commit -F "../commit.msg" || true
-          git push "https://x-access-token:${{ secrets.API_KEY }}@github.com/${GITHUB_REPOSITORY}.git" || true
+      # - name: Publish
+      #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      #   run: |
+      #     git log -1 --pretty=%B > commit.msg
+      #     cd bin
+      #     git config --global user.name "$GITHUB_ACTOR"
+      #     git config --global user.email "${GITHUB_ACTOR}@bots.github.com"
+      #     git add -A && git commit -F "../commit.msg" || true
+      #     git push "https://x-access-token:${{ secrets.API_KEY }}@github.com/${GITHUB_REPOSITORY}.git" || true
