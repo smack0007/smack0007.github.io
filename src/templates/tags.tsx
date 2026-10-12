@@ -1,4 +1,4 @@
-import { html, Tag } from "~/compiler/index.ts";
+import { html, Tag } from "../../compiler/index.ts";
 
 export const TagsTemplate = (tags: Tag[]) => (
   <ul>

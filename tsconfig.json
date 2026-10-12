@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./bin",
+
+    "types": ["node"],
+    "strict": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+
+    "jsx": "react",
+    "jsxFactory": "html",
+    "jsxFragmentFactory": "html",
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}

@@ -1,4 +1,4 @@
-import { encode, formatDate, getTagUrl, html, Post } from "~/compiler/index.ts";
+import { encode, formatDate, getTagUrl, html, Post } from "../../compiler/index.ts";
 
 export const PostHeaderTemplate = (post: Post) => (
   <div class="post-header">

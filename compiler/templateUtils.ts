@@ -1,6 +1,6 @@
 import { replaceAll } from "./utils.ts";
 
-export { encode } from "npm:html-entities";
+export { encode } from "html-entities";
 
 const months = [
   "January",

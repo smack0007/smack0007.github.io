@@ -4,4 +4,6 @@ cd "$ROOT_PATH"
 
 if [ -d ./bin ]; then rm -rf ./bin; fi
 
-deno run --allow-env --allow-read=. --allow-run --allow-write=./bin ./compiler/main.ts
+npx tsc
+node ./bin/compiler/main.js
+rm -rf ./bin/compiler && rm -rf ./bin/src

@@ -1,8 +1,8 @@
 import { mkdir } from "node:fs/promises";
 import { dirname, join, parse, sep as PATH_SEPERATOR } from "node:path";
 import { fileURLToPath } from "node:url";
-import { marked } from "npm:marked";
-import hljs from "npm:highlight.js";
+import { marked } from "marked";
+import hljs from "highlight.js";
 import { copyDirectory, listFiles, replaceAll, runCommand, writeFile } from "./utils.ts";
 import { FrontMatter, Page, Post, Tag } from "./types.ts";
 import { IndexTemplate, PageTemplate, PostTemplate, TagsTemplate } from "./templates.ts";
@@ -13,7 +13,8 @@ import { copyFile, lstat, readdir, readFile } from "node:fs/promises";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const IS_WINDOWS = process.platform === "win32";
 
-const ROOT_DIRECTORY = join(__dirname, "..");
+// NOTE: Go up 2 directories because the executed js files are under "bin"
+const ROOT_DIRECTORY = join(__dirname, "..", "..");
 const INPUT_DIRECTORY = join(ROOT_DIRECTORY, "src");
 const OUTPUT_DIRECTORY = join(ROOT_DIRECTORY, "bin");
 

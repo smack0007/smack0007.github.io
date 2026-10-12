@@ -1,4 +1,4 @@
-import { BASE_URL, html, Page } from "~/compiler/index.ts";
+import { BASE_URL, html, Page } from "../../compiler/index.ts";
 
 export const PageTemplate = (page: Page) =>
   "<!doctype html>" +

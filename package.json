@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@types/node": "26.6.5",
+    "highlight.js": "11.7.0",
+    "html-entities": "2.3.3",
+    "marked": "4.2.3"
+  }
+}
