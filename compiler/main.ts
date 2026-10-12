@@ -1,28 +1,16 @@
 import { ensureDir } from "std/fs/mod.ts";
-import {
-  dirname,
-  fromFileUrl,
-  join,
-  parse,
-  sep as PATH_SEPERATOR,
-} from "std/path/mod.ts";
+import { dirname, fromFileUrl, join, parse, sep as PATH_SEPERATOR } from "std/path/mod.ts";
 import { marked } from "npm:marked";
 import hljs from "npm:highlight.js";
-
-import {
-  copyDirectory,
-  listFiles,
-  replaceAll,
-  runCommand,
-  writeFile,
-} from "./utils.ts";
+import { copyDirectory, listFiles, replaceAll, runCommand, writeFile } from "./utils.ts";
 import { FrontMatter, Page, Post, Tag } from "./types.ts";
-import { PageTemplate, PostTemplate, IndexTemplate, TagsTemplate } from "./templates.ts";
+import { IndexTemplate, PageTemplate, PostTemplate, TagsTemplate } from "./templates.ts";
 import { BASE_URL, BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg.ts";
 import { getTagUrl, inflectFileName } from "./templateUtils.ts";
+import { copyFile, lstat, readdir, readFile } from "node:fs/promises";
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
-const IS_WINDOWS = Deno.build.os === "windows";
+const IS_WINDOWS = process.platform === "win32";
 
 const ROOT_DIRECTORY = join(__dirname, "..");
 const INPUT_DIRECTORY = join(ROOT_DIRECTORY, "src");
@@ -56,12 +44,13 @@ async function main(): Promise<void> {
 
   await ensureDir(OUTPUT_DIRECTORY);
 
-  Deno.chdir(INPUT_DIRECTORY);
+  // Using Node.js process.chdir instead of Deno.chdir
+  process.chdir(INPUT_DIRECTORY);
 
   const { posts, pages } = await parseMarkdownFiles();
 
   posts.sort(
-    (a, b) => b.frontMatter.date.getTime() - a.frontMatter.date.getTime()
+    (a, b) => b.frontMatter.date.getTime() - a.frontMatter.date.getTime(),
   );
 
   await writeIndexPages(posts);
@@ -79,18 +68,18 @@ async function parseMarkdownFiles(): Promise<MarkdownFilesResult> {
   const posts: Post[] = [];
   const pages: Page[] = [];
 
-  for (const inputFileName of await listFiles(".", ".md")) {
+  const files = await listFiles(".", ".md");
+  for (const inputFileName of files) {
+    const fileContent = await readFile(inputFileName, "utf-8");
     const pathParts = parse(inputFileName);
     await ensureDir(join(OUTPUT_DIRECTORY, pathParts.dir));
 
-    const markdownResult = await parseMarkdown(
-      await Deno.readTextFile(inputFileName)
-    );
+    const markdownResult = await parseMarkdown(fileContent);
 
     const url = replaceAll(
       join(pathParts.dir, pathParts.name) + ".html",
       PATH_SEPERATOR,
-      "/"
+      "/",
     );
 
     let output = "";
@@ -103,7 +92,7 @@ async function parseMarkdownFiles(): Promise<MarkdownFilesResult> {
 
       const page = createPage(
         { frontMatter: post.frontMatter, contents: output },
-        url
+        url,
       );
       pages.push(page);
 
@@ -118,7 +107,7 @@ async function parseMarkdownFiles(): Promise<MarkdownFilesResult> {
 
     await writeFile(
       join(OUTPUT_DIRECTORY, replaceAll(url, "/", PATH_SEPERATOR)),
-      output
+      output,
     );
   }
 
@@ -179,9 +168,7 @@ function createPost(data: MarkdownResult, url: string): Post {
   const excerptIndex = data.contents.indexOf("<!--more-->");
 
   const hasExcerpt = excerptIndex !== -1;
-  const excerpt = hasExcerpt
-    ? data.contents.substring(0, excerptIndex).trim()
-    : data.contents;
+  const excerpt = hasExcerpt ? data.contents.substring(0, excerptIndex).trim() : data.contents;
 
   return {
     frontMatter: data.frontMatter,
@@ -197,7 +184,7 @@ function createPage(
   url: string,
   showPagination?: boolean,
   paginationOlderLink?: string,
-  paginationNewerLink?: string
+  paginationNewerLink?: string,
 ): Page {
   return {
     frontMatter: data.frontMatter,
@@ -221,15 +208,13 @@ async function writeIndexPages(posts: Post[]): Promise<void> {
       return undefined;
     }
 
-    return index == 0
-      ? "index.html"
-      : ["blog", "page" + (index + 1) + ".html"].join("/");
+    return index == 0 ? "index.html" : ["blog", "page" + (index + 1) + ".html"].join("/");
   };
 
   for (let i = 0; i < pageCount; i++) {
     const postsForPage = posts.slice(
       i * POSTS_PER_PAGE,
-      i * POSTS_PER_PAGE + POSTS_PER_PAGE
+      i * POSTS_PER_PAGE + POSTS_PER_PAGE,
     );
 
     let output = IndexTemplate(postsForPage);
@@ -244,13 +229,13 @@ async function writeIndexPages(posts: Post[]): Promise<void> {
         url,
         true,
         getUrlForIndex(i + 1),
-        getUrlForIndex(i - 1)
-      )
+        getUrlForIndex(i - 1),
+      ),
     );
 
     await writeFile(
       join(OUTPUT_DIRECTORY, replaceAll(url, "/", PATH_SEPERATOR)),
-      output
+      output,
     );
   }
 }
@@ -287,13 +272,13 @@ async function writeTagPages(posts: Post[]): Promise<void> {
         frontMatter: createFrontMatter({ title: BLOG_TITLE }),
         contents: output,
       },
-      url
-    )
+      url,
+    ),
   );
 
   await writeFile(
     join(OUTPUT_DIRECTORY, replaceAll(url, "/", PATH_SEPERATOR)),
-    output
+    output,
   );
 
   for (const tag of tags) {
@@ -303,7 +288,7 @@ async function writeTagPages(posts: Post[]): Promise<void> {
     const pageCount = Math.ceil(tag.posts.length / POSTS_PER_PAGE);
 
     console.info(
-      `Tag: ${tag.name} ${tag.posts.length} Posts / ${pageCount} Pages`
+      `Tag: ${tag.name} ${tag.posts.length} Posts / ${pageCount} Pages`,
     );
 
     const slug = inflectFileName(tag.name);
@@ -313,15 +298,13 @@ async function writeTagPages(posts: Post[]): Promise<void> {
         return undefined;
       }
 
-      return index == 0
-        ? `tags/${slug}/index.html`
-        : `tags/${slug}/page${index + 1}.html`;
+      return index == 0 ? `tags/${slug}/index.html` : `tags/${slug}/page${index + 1}.html`;
     };
 
     for (let i = 0; i < pageCount; i++) {
       const postsForPage = tag.posts.slice(
         i * POSTS_PER_PAGE,
-        i * POSTS_PER_PAGE + POSTS_PER_PAGE
+        i * POSTS_PER_PAGE + POSTS_PER_PAGE,
       );
 
       let output = IndexTemplate(postsForPage);
@@ -336,13 +319,13 @@ async function writeTagPages(posts: Post[]): Promise<void> {
           url,
           true,
           getUrlForIndex(i + 1),
-          getUrlForIndex(i - 1)
-        )
+          getUrlForIndex(i - 1),
+        ),
       );
 
       await writeFile(
         join(OUTPUT_DIRECTORY, replaceAll(url, "/", PATH_SEPERATOR)),
-        output
+        output,
       );
     }
   }
@@ -361,7 +344,7 @@ async function compileScss(): Promise<void> {
     "-y",
     "node-sass",
     join(INPUT_DIRECTORY, "css", "style.scss"),
-    "--output-style=compressed"
+    "--output-style=compressed",
   );
 
   if (nodeSassResult !== 0) {
@@ -383,7 +366,7 @@ async function compileScss(): Promise<void> {
     "--content",
     "./**/*.html",
     "--output",
-    "./css/style.css"
+    "./css/style.css",
   );
 
   if (purgeResult !== 0) {
@@ -394,18 +377,23 @@ async function compileScss(): Promise<void> {
 async function copyFonts(): Promise<void> {
   await copyDirectory(
     join(INPUT_DIRECTORY, "fonts"),
-    join(OUTPUT_DIRECTORY, "fonts")
+    join(OUTPUT_DIRECTORY, "fonts"),
   );
 }
 
 async function copyStaticFiles(): Promise<void> {
-  for (const file of await listFiles(INPUT_DIRECTORY, undefined, false)) {
+  const files = await readdir(INPUT_DIRECTORY);
+  for (const file of files) {
     if (file.endsWith(".md")) {
       continue;
     }
 
-    const pathParts = parse(file);
-    await Deno.copyFile(file, join(OUTPUT_DIRECTORY, pathParts.base));
+    const filePath = join(INPUT_DIRECTORY, file);
+    const stats = await lstat(filePath);
+    if (!stats.isDirectory()) {
+      const pathParts = parse(file);
+      await copyFile(filePath, join(OUTPUT_DIRECTORY, pathParts.base));
+    }
   }
 }
 
