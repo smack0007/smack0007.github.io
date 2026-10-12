@@ -5,7 +5,7 @@ cd "$ROOT_PATH"
 if [ -d ./bin ]; then rm -rf ./bin; fi
 
 git clone https://github.com/smack0007/smack0007.github.io.git -b pages ./bin
-deno task build:ci
+./build.sh -noclean
 
 git log -1 --pretty=%B > commit.msg
 cd ./bin
