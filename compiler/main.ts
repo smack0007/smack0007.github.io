@@ -1,11 +1,23 @@
 import { mkdir } from "node:fs/promises";
 import { dirname, join, parse, sep as PATH_SEPERATOR } from "node:path";
 import { fileURLToPath } from "node:url";
-import { marked } from "marked";
+import { Marked } from "marked";
+import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
-import { copyDirectory, listFiles, replaceAll, runCommand, writeFile } from "./utils.ts";
+import {
+  copyDirectory,
+  listFiles,
+  replaceAll,
+  runCommand,
+  writeFile,
+} from "./utils.ts";
 import { FrontMatter, Page, Post, Tag } from "./types.ts";
-import { IndexTemplate, PageTemplate, PostTemplate, TagsTemplate } from "./templates.ts";
+import {
+  IndexTemplate,
+  PageTemplate,
+  PostTemplate,
+  TagsTemplate,
+} from "./templates.ts";
 import { BASE_URL, BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg.ts";
 import { getTagUrl, inflectFileName } from "./templateUtils.ts";
 import { copyFile, lstat, readdir, readFile } from "node:fs/promises";
@@ -32,17 +44,6 @@ main();
 
 async function main(): Promise<void> {
   console.info(`Environment: ${ENVIRONMENT}`);
-
-  marked.setOptions({
-    langPrefix: "hljs ",
-    highlight: function (code: string, lang: string) {
-      if (!lang) {
-        return;
-      }
-
-      return hljs.highlight(code, { language: lang }).value;
-    },
-  });
 
   await mkdir(OUTPUT_DIRECTORY, { recursive: true });
 
@@ -158,7 +159,17 @@ async function parseMarkdown(data: string): Promise<MarkdownResult> {
     }
   }
 
-  const contents = await marked(markdownData);
+  const marked = new Marked(markedHighlight({
+    langPrefix: "hljs ",
+    highlight: function (code: string, lang: string) {
+      if (!lang) {
+        return "";
+      }
+
+      return hljs.highlight(code, { language: lang }).value;
+    },
+  }));
+  const contents = await marked.parse(markdownData);
 
   return {
     frontMatter,
@@ -170,7 +181,9 @@ function createPost(data: MarkdownResult, url: string): Post {
   const excerptIndex = data.contents.indexOf("<!--more-->");
 
   const hasExcerpt = excerptIndex !== -1;
-  const excerpt = hasExcerpt ? data.contents.substring(0, excerptIndex).trim() : data.contents;
+  const excerpt = hasExcerpt
+    ? data.contents.substring(0, excerptIndex).trim()
+    : data.contents;
 
   return {
     frontMatter: data.frontMatter,
@@ -210,7 +223,9 @@ async function writeIndexPages(posts: Post[]): Promise<void> {
       return undefined;
     }
 
-    return index == 0 ? "index.html" : ["blog", "page" + (index + 1) + ".html"].join("/");
+    return index == 0
+      ? "index.html"
+      : ["blog", "page" + (index + 1) + ".html"].join("/");
   };
 
   for (let i = 0; i < pageCount; i++) {
@@ -300,7 +315,9 @@ async function writeTagPages(posts: Post[]): Promise<void> {
         return undefined;
       }
 
-      return index == 0 ? `tags/${slug}/index.html` : `tags/${slug}/page${index + 1}.html`;
+      return index == 0
+        ? `tags/${slug}/index.html`
+        : `tags/${slug}/page${index + 1}.html`;
     };
 
     for (let i = 0; i < pageCount; i++) {
@@ -411,7 +428,8 @@ async function writeRssFeed(posts: Post[]): Promise<void> {
   output += '<?xml version="1.0" encoding="UTF-8"?>\n';
   output += '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n';
   output += "\t<channel>\n";
-  output += `\t<atom:link href="${BASE_URL}/feed.rss" rel="self" type="application/rss+xml" />\n`;
+  output +=
+    `\t<atom:link href="${BASE_URL}/feed.rss" rel="self" type="application/rss+xml" />\n`;
   output += `\t<title>${BLOG_TITLE}</title>\n`;
   output += `\t<description>${BLOG_TITLE}</description>\n`;
   output += `\t<link>${BASE_URL}/</link>\n`;
