@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-	<atom:link href="https://smack0007.github.io/feed.rss" rel="self" type="application/rss+xml" />
+	<atom:link href="//feed.rss" rel="self" type="application/rss+xml" />
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
-	<link>https://smack0007.github.io/</link>
+	<link>//</link>
 	<lastBuildDate>Fri, 10 Jul 2026 00:00:00 GMT</lastBuildDate>
 	<pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
@@ -17,8 +17,8 @@ to stop working in MacOS 28. We used to be able to print to from our old Samsung
 but that also stopped working when we replaced the tablet with an iPad. <a href="https://openprinting.github.io/cups/">CUPS</a>
 implements the AirPrint protocol though so switching to that fixes the tablet problem
 as well.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2026/hp-m26nw-on-dietpi.html</link>
-		<guid>https://smack0007.github.io/blog/2026/hp-m26nw-on-dietpi.html</guid>
+		<link>//blog/2026/hp-m26nw-on-dietpi.html</link>
+		<guid>//blog/2026/hp-m26nw-on-dietpi.html</guid>
 		<pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -31,8 +31,8 @@ scripts in deno.</p>
 <p>Now with version 2.0 the node compatibility has gotten so good that I just always reach for the node APIs. I don&#39;t have
 to create an extra <code>deno.json</code> file and I can get on with the task at hand.</p>
 ]]></description>
-		<link>https://smack0007.github.io/blog/2026/deno-node-api-is-std-lib.html</link>
-		<guid>https://smack0007.github.io/blog/2026/deno-node-api-is-std-lib.html</guid>
+		<link>//blog/2026/deno-node-api-is-std-lib.html</link>
+		<guid>//blog/2026/deno-node-api-is-std-lib.html</guid>
 		<pubDate>Mon, 16 Feb 2026 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -40,18 +40,17 @@ to create an extra <code>deno.json</code> file and I can get on with the task at
 		<description><![CDATA[<p>At work I had a branch with a large amount of updated VRT (Visual Regressen Tests) (.png) files and this made the review
 process in GitLab near impossible. To make the Merge Request reviewable I wanted to rebase the branch into 2 commits. The
 first one containing just the code chages and the second one containing all the updated VRT(s). </p>]]></description>
-		<link>https://smack0007.github.io/blog/2025/git-cherry-picking-from-branch.html</link>
-		<guid>https://smack0007.github.io/blog/2025/git-cherry-picking-from-branch.html</guid>
+		<link>//blog/2025/git-cherry-picking-from-branch.html</link>
+		<guid>//blog/2025/git-cherry-picking-from-branch.html</guid>
 		<pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate>
 	</item>
 	<item>
 		<title><![CDATA[Use VSCode to remove comments with regex]]></title>
 		<description><![CDATA[<p>In you need to remove multiline comments (<code>/* Comment */</code>) from files in VSCode here is an easy regex to help you find them:</p>
 <pre><code class="hljs shell">\/\*\*([\s\S\n]+?)\*\/
-</code></pre>
-]]></description>
-		<link>https://smack0007.github.io/blog/2025/vscode-regex-comments.html</link>
-		<guid>https://smack0007.github.io/blog/2025/vscode-regex-comments.html</guid>
+</code></pre>]]></description>
+		<link>//blog/2025/vscode-regex-comments.html</link>
+		<guid>//blog/2025/vscode-regex-comments.html</guid>
 		<pubDate>Mon, 20 Jan 2025 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -64,8 +63,8 @@ had the answer. I used <code>nmcli</code> (network manager cli) to see the state
 was an error <code>plugin missing</code>. Simply reinstalling <code>network-manager</code> with <code>sudo apt reinstall network-manager</code> fixed the
 problem and I could use my WiFi again.</p>
 ]]></description>
-		<link>https://smack0007.github.io/blog/2024/debian-12-update-wifi-missing.html</link>
-		<guid>https://smack0007.github.io/blog/2024/debian-12-update-wifi-missing.html</guid>
+		<link>//blog/2024/debian-12-update-wifi-missing.html</link>
+		<guid>//blog/2024/debian-12-update-wifi-missing.html</guid>
 		<pubDate>Mon, 16 Sep 2024 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -74,8 +73,8 @@ problem and I could use my WiFi again.</p>
 was completely corrupted. <a href="https://forums.debian.net/viewtopic.php?t=155182">This forum post</a> provided the solution. I
 had to press <code>tab</code> and add <code>vga=normal fb=false</code> to the boot string. After that the installer was displayed normally.</p>
 ]]></description>
-		<link>https://smack0007.github.io/blog/2024/install-debian-m715q.html</link>
-		<guid>https://smack0007.github.io/blog/2024/install-debian-m715q.html</guid>
+		<link>//blog/2024/install-debian-m715q.html</link>
+		<guid>//blog/2024/install-debian-m715q.html</guid>
 		<pubDate>Sat, 31 Aug 2024 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -87,8 +86,8 @@ everywhere and customizing it to each systems individual needs.</p>
 <p>I wanted to run <a href="https://projects.linuxmint.com/cinnamon/">Cinnamon</a> on my Thinkpad Laptop and <a href="https://www.debian.org/">Debian</a> can install
 it out of the box. The only problem is the defaykt theme leaves a lot to be deisred. Luckily the theme from <a href="https://linuxmint.com/">Linux Mint</a>
 can installed using a few commands from the terminal.  </p>]]></description>
-		<link>https://smack0007.github.io/blog/2024/linux-mint-cinnamon-theme-on-debian.html</link>
-		<guid>https://smack0007.github.io/blog/2024/linux-mint-cinnamon-theme-on-debian.html</guid>
+		<link>//blog/2024/linux-mint-cinnamon-theme-on-debian.html</link>
+		<guid>//blog/2024/linux-mint-cinnamon-theme-on-debian.html</guid>
 		<pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -97,8 +96,8 @@ can installed using a few commands from the terminal.  </p>]]></description>
 used Windows for at least 30 years but over the last few years it&#39;s become more and more user hostile. After the latest
 <a href="https://github.com/xaitax/TotalRecall">Windows Recall</a> push and the security implications surrounding it, I decided I could no longer
 keep running Windows on all the machines in my house.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2024/goodbye-windows.html</link>
-		<guid>https://smack0007.github.io/blog/2024/goodbye-windows.html</guid>
+		<link>//blog/2024/goodbye-windows.html</link>
+		<guid>//blog/2024/goodbye-windows.html</guid>
 		<pubDate>Tue, 06 Aug 2024 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -107,11 +106,10 @@ keep running Windows on all the machines in my house.</p>]]></description>
 the background on Windows open up the startup apps folder via the run command (Win+R) with <code>shell:startup</code> amd then create
 the following shortcut:</p>
 <pre><code class="hljs shell">powershell.exe -c &quot;Start-Process -FilePath &#x27;syncthing&#x27; -ArgumentList &#x27;--no-browser&#x27; -WindowStyle Hidden&quot;
-</code></pre>
-<p>This starts syncthing in the background after a short lived popup opens. <code>--no-console</code> doesn&#39;t seem to work for whatever reason.</p>
+</code></pre><p>This starts syncthing in the background after a short lived popup opens. <code>--no-console</code> doesn&#39;t seem to work for whatever reason.</p>
 ]]></description>
-		<link>https://smack0007.github.io/blog/2024/start-syncthing-background-windows.html</link>
-		<guid>https://smack0007.github.io/blog/2024/start-syncthing-background-windows.html</guid>
+		<link>//blog/2024/start-syncthing-background-windows.html</link>
+		<guid>//blog/2024/start-syncthing-background-windows.html</guid>
 		<pubDate>Sun, 28 Apr 2024 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -134,8 +132,7 @@ shared variable:</p>
 <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> {
   setTimeoutSpy.<span class="hljs-title function_">mockRestore</span>();
 });
-</code></pre>
-<p>Even though <code>jest.SpyInstance</code> is specified here as the type for <code>randomSpy</code> the information about exactly what
+</code></pre><p>Even though <code>jest.SpyInstance</code> is specified here as the type for <code>randomSpy</code> the information about exactly what
 function is being spied on gets lost here. That means if elsewhere in the code if you try the following:</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-title function_">setTimeoutCallback</span> = (<span class="hljs-params"></span>) =&gt; {};
 <span class="hljs-keyword">let</span> <span class="hljs-attr">setTimeoutDelay</span>: <span class="hljs-built_in">number</span> | <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>;
@@ -144,15 +141,13 @@ setTimeoutSpy.<span class="hljs-title function_">mockImplementation</span>(<span
   setTimeoutDelay = delay;
   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">unknown</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;;
 });
-</code></pre>
-<p><code>eslint</code> will complain that <code>callback</code> and <code>delay</code> have the type <code>any</code>. This is again due to the lost type information.
+</code></pre><p><code>eslint</code> will complain that <code>callback</code> and <code>delay</code> have the type <code>any</code>. This is again due to the lost type information.
 This problem can be resolved by using some TypeScript utility types when the spy variable is declared:</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">setTimeoutSpy</span>: jest.<span class="hljs-property">SpyInstance</span>&lt;<span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;, <span class="hljs-title class_">Parameters</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">setTimeout</span>&gt;&gt;;
-</code></pre>
-<p>We use the built in <code>ReturnType</code> and <code>Parameters</code> utility types to perform the voodoo needed in order to make <code>eslint</code> happy.</p>
+</code></pre><p>We use the built in <code>ReturnType</code> and <code>Parameters</code> utility types to perform the voodoo needed in order to make <code>eslint</code> happy.</p>
 ]]></description>
-		<link>https://smack0007.github.io/blog/2023/typing-jest-spies.html</link>
-		<guid>https://smack0007.github.io/blog/2023/typing-jest-spies.html</guid>
+		<link>//blog/2023/typing-jest-spies.html</link>
+		<guid>//blog/2023/typing-jest-spies.html</guid>
 		<pubDate>Tue, 24 Oct 2023 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -165,8 +160,8 @@ presented often only deal with <a href="https://www.typescriptlang.org/docs/hand
 For my work on <a href="https://github.com/smack0007/SDL_ts">SDL_ts</a>
 I really need a solution for <a href="https://www.typescriptlang.org/docs/handbook/enums.html#numeric-enums">Numeric enums</a>
 as <a href="http://www.libsdl.org/">SDL</a> is full of them.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2023/enums-considered-harmful.html</link>
-		<guid>https://smack0007.github.io/blog/2023/enums-considered-harmful.html</guid>
+		<link>//blog/2023/enums-considered-harmful.html</link>
+		<guid>//blog/2023/enums-considered-harmful.html</guid>
 		<pubDate>Tue, 24 Jan 2023 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -174,8 +169,8 @@ as <a href="http://www.libsdl.org/">SDL</a> is full of them.</p>]]></description
 		<description><![CDATA[<p>I finally sat down and got my blog compiling with <a href="https://deno.land/">deno</a>. Now that there
 is official npm support I didn&#39;t need to completely rewrite the compiler which was what was
 stopping me before.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</link>
-		<guid>https://smack0007.github.io/blog/2022/blog-now-runs-on-deno.html</guid>
+		<link>//blog/2022/blog-now-runs-on-deno.html</link>
+		<guid>//blog/2022/blog-now-runs-on-deno.html</guid>
 		<pubDate>Fri, 23 Dec 2022 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -183,12 +178,11 @@ stopping me before.</p>]]></description>
 		<description><![CDATA[<p>In <a href="https://deno.land/">deno</a> obtaining the path of the current script is done via the
 <code>import.meta.url</code> api:</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">const</span> scriptPath = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">url</span>).<span class="hljs-property">pathname</span>;
-</code></pre>
-<p>On Windows though this will return a path with unix style path seperators and a leading <code>/</code>:</p>
+</code></pre><p>On Windows though this will return a path with unix style path seperators and a leading <code>/</code>:</p>
 <pre><code class="hljs bash">/D:/Code/deno-path-of-script/main.ts
 </code></pre>]]></description>
-		<link>https://smack0007.github.io/blog/2022/deno-get-path-of-script.html</link>
-		<guid>https://smack0007.github.io/blog/2022/deno-get-path-of-script.html</guid>
+		<link>//blog/2022/deno-get-path-of-script.html</link>
+		<guid>//blog/2022/deno-get-path-of-script.html</guid>
 		<pubDate>Fri, 13 May 2022 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -200,16 +194,15 @@ this:</p>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">of</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(obj)) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(key, obj[key]);
 }
-</code></pre>
-<p>Since ES2017 there is a better way of doing this using <code>Object.entries()</code>
+</code></pre><p>Since ES2017 there is a better way of doing this using <code>Object.entries()</code>
 and destructuring:</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">const</span> obj = { <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-attr">b</span>: <span class="hljs-string">&quot;bar&quot;</span> };
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [ key, value ] <span class="hljs-keyword">of</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(obj)) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(key, value);
 }
 </code></pre>]]></description>
-		<link>https://smack0007.github.io/blog/2022/iterating-thru-an-object-in-javascript.html</link>
-		<guid>https://smack0007.github.io/blog/2022/iterating-thru-an-object-in-javascript.html</guid>
+		<link>//blog/2022/iterating-thru-an-object-in-javascript.html</link>
+		<guid>//blog/2022/iterating-thru-an-object-in-javascript.html</guid>
 		<pubDate>Wed, 06 Apr 2022 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -221,14 +214,12 @@ in Powershell:</p>
     <span class="hljs-variable">$Command</span> = <span class="hljs-string">&quot;<span class="hljs-variable">$args</span>&quot;</span>;
     (<span class="hljs-built_in">Measure-Command</span> { <span class="hljs-built_in">Invoke-Expression</span> <span class="hljs-variable">$Command</span> <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span> | <span class="hljs-built_in">Out-Default</span> }).ToString();
 }
-</code></pre>
-<p>Example usage:</p>
+</code></pre><p>Example usage:</p>
 <pre><code class="hljs cmd"># <span class="hljs-built_in">time</span> git pull
 <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">01</span>.<span class="hljs-number">0804938</span>
-</code></pre>
-]]></description>
-		<link>https://smack0007.github.io/blog/2022/powershell-time-command.html</link>
-		<guid>https://smack0007.github.io/blog/2022/powershell-time-command.html</guid>
+</code></pre>]]></description>
+		<link>//blog/2022/powershell-time-command.html</link>
+		<guid>//blog/2022/powershell-time-command.html</guid>
 		<pubDate>Thu, 10 Mar 2022 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -236,8 +227,8 @@ in Powershell:</p>
 		<description><![CDATA[<p>I wrote an article for my company <a href="https://conciso.de">conciso</a> that attempts to show a practical 
 usage of WebAssembly: <a href="https://conciso.de/practical-webassembly/">https://conciso.de/practical-webassembly/</a>.</p>
 ]]></description>
-		<link>https://smack0007.github.io/blog/2021/practical-wasm.html</link>
-		<guid>https://smack0007.github.io/blog/2021/practical-wasm.html</guid>
+		<link>//blog/2021/practical-wasm.html</link>
+		<guid>//blog/2021/practical-wasm.html</guid>
 		<pubDate>Fri, 17 Dec 2021 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -245,8 +236,8 @@ usage of WebAssembly: <a href="https://conciso.de/practical-webassembly/">https:
 		<description><![CDATA[<p>If you have the Windows Subsystem for Linux (WSL) installed then you can use <code>wsl.exe</code> to start
 any linux distribution you have installed from the command prompt. What I recently learned about
 though is that there is a <code>bash.exe</code> as well which can be used to execute a bash script directly.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2021/use-bash-exe-to-run-scripts-in-windows.html</link>
-		<guid>https://smack0007.github.io/blog/2021/use-bash-exe-to-run-scripts-in-windows.html</guid>
+		<link>//blog/2021/use-bash-exe-to-run-scripts-in-windows.html</link>
+		<guid>//blog/2021/use-bash-exe-to-run-scripts-in-windows.html</guid>
 		<pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -259,8 +250,8 @@ down time so I decided now was the time to reprogram the blog in TypeScript.</p>
 size of the program is now considerably smaller but that isn&#39;t necessarily becuase C# was
 bad but rather that this is the 2nd implementation and I know what I did and did not need.</p>
 ]]></description>
-		<link>https://smack0007.github.io/blog/2021/powered-by-typescript.html</link>
-		<guid>https://smack0007.github.io/blog/2021/powered-by-typescript.html</guid>
+		<link>//blog/2021/powered-by-typescript.html</link>
+		<guid>//blog/2021/powered-by-typescript.html</guid>
 		<pubDate>Fri, 04 Jun 2021 00:00:00 GMT</pubDate>
 	</item>
 	<item>
@@ -268,18 +259,17 @@ bad but rather that this is the 2nd implementation and I know what I did and did
 		<description><![CDATA[<p>I wanted a way to <a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork</a> the current tab in <a href="https://github.com/microsoft/terminal">Windows Terminal</a> and
 so I&#39;ve come up with this PowerShell function:</p>
 <pre><code class="hljs powershell"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fork</span></span> { wt <span class="hljs-literal">-w</span> <span class="hljs-number">0</span> <span class="hljs-literal">-d</span> <span class="hljs-string">&quot;<span class="hljs-variable">$</span>(Get-Location)&quot;</span> }
-</code></pre>
-]]></description>
-		<link>https://smack0007.github.io/blog/2021/windows-terminal-fork-command.html</link>
-		<guid>https://smack0007.github.io/blog/2021/windows-terminal-fork-command.html</guid>
+</code></pre>]]></description>
+		<link>//blog/2021/windows-terminal-fork-command.html</link>
+		<guid>//blog/2021/windows-terminal-fork-command.html</guid>
 		<pubDate>Wed, 12 May 2021 00:00:00 GMT</pubDate>
 	</item>
 	<item>
 		<title><![CDATA[Convert TypeScript AST to JSON]]></title>
 		<description><![CDATA[<p>I needed to convert a TypeScript AST (Abstract Syntax Tree) to json so that I can consume it in
 a C# application so I wrote a tiny node script to convert the AST to json.</p>]]></description>
-		<link>https://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</link>
-		<guid>https://smack0007.github.io/blog/2021/convert-typescript-ast-to-json.html</guid>
+		<link>//blog/2021/convert-typescript-ast-to-json.html</link>
+		<guid>//blog/2021/convert-typescript-ast-to-json.html</guid>
 		<pubDate>Wed, 13 Jan 2021 00:00:00 GMT</pubDate>
 	</item>
 	</channel>

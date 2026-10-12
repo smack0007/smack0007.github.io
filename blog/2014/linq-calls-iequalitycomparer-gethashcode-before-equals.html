@@ -1,46 +1,42 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>LINQ calls IEqualityComparer<T>.GetHashCode() before Equals()</title><base href="https://smack0007.github.io"></base><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="visually-hidden">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html">LINQ calls IEqualityComparer&lt;T&gt;.GetHashCode() before Equals()</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>November 24, 2014</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/linq/index.html"><span class="icon icon-price-tags"></span><span class="tagName">linq</span></a></span></div></div><div class="content"><p>This is a problem that has bitten me more than a few times so I thought it was about time to write a blog post about it. It&#39;s one of those problems
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>LINQ calls IEqualityComparer<T>.GetHashCode() before Equals()</title><base href="/"></base><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="visually-hidden">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2014/linq-calls-iequalitycomparer-gethashcode-before-equals.html">LINQ calls IEqualityComparer&lt;T&gt;.GetHashCode() before Equals()</a></h2><div class="meta"><span class="date"><span class="icon-calendar"></span>November 24, 2014</span><span class="tags"><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/linq/index.html"><span class="icon icon-price-tags"></span><span class="tagName">linq</span></a></span></div></div><div class="content"><p>This is a problem that has bitten me more than a few times so I thought it was about time to write a blog post about it. It&#39;s one of those problems
 that makes you scratch your head for a bit and then the light bulb goes on and you remember you&#39;ve solved this one before. It occurs whenever you
 use a LINQ extension method which takes an instance of IEqualityComaparer<T>.</p>
-<!--more-->
-
-<p>Here is our sample IEqualityComparer:</p>
+<!--more--><p>Here is our sample IEqualityComparer:</p>
 <pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">MethodInfoComparer</span> : <span class="hljs-title">IEqualityComparer</span>&lt;<span class="hljs-title">MethodInfo</span>&gt;
 {		
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">Equals</span>(<span class="hljs-params">MethodInfo x, MethodInfo y</span>)</span>
-    {
-        <span class="hljs-keyword">if</span> (x.Name != y.Name)
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">Equals</span>(<span class="hljs-params">MethodInfo x, MethodInfo y</span>)</span>
+	{
+		<span class="hljs-keyword">if</span> (x.Name != y.Name)
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
 
-        <span class="hljs-keyword">if</span> (x.ReturnType != y.ReturnType)
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		<span class="hljs-keyword">if</span> (x.ReturnType != y.ReturnType)
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
 
-        <span class="hljs-keyword">var</span> xParameters = x.GetParameters();
-        <span class="hljs-keyword">var</span> yParameters = y.GetParameters();
+		<span class="hljs-keyword">var</span> xParameters = x.GetParameters();
+		<span class="hljs-keyword">var</span> yParameters = y.GetParameters();
 
-        <span class="hljs-keyword">if</span> (xParameters.Length != yParameters.Length)
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		<span class="hljs-keyword">if</span> (xParameters.Length != yParameters.Length)
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
 
-        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; xParameters.Length; i++)
-        {
-            <span class="hljs-keyword">if</span> (xParameters[i].ParameterType != yParameters[i].ParameterType)
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-        }
+		<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; xParameters.Length; i++)
+		{
+			<span class="hljs-keyword">if</span> (xParameters[i].ParameterType != yParameters[i].ParameterType)
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
 
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-    }
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	}
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">GetHashCode</span>(<span class="hljs-params">MethodInfo obj</span>)</span>
-    {
-        <span class="hljs-keyword">return</span> obj.GetHashCode();
-    }
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">GetHashCode</span>(<span class="hljs-params">MethodInfo obj</span>)</span>
+	{
+		<span class="hljs-keyword">return</span> obj.GetHashCode();
+	}
 }
-</code></pre>
-<p>Given two instances of MethodInfo, it attempts to compare them using the name, return type, and the parameter names and types. GetHashCode() calls
+</code></pre><p>Given two instances of MethodInfo, it attempts to compare them using the name, return type, and the parameter names and types. GetHashCode() calls
 obj.GetHashCode() for simplicity.</p>
 <p>Here is our LINQ statement:</p>
 <pre><code class="hljs c#"><span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.GetType().GetMethods().Except(<span class="hljs-keyword">typeof</span>(BaseClass).GetMethods(), <span class="hljs-keyword">new</span> MethodInfoComparer());
-</code></pre>
-<p>The LINQ statment should return only the public methods of the derived class and filter out those of the base class. It doesn&#39;t work though. Attempting to debug the problem
+</code></pre><p>The LINQ statment should return only the public methods of the derived class and filter out those of the base class. It doesn&#39;t work though. Attempting to debug the problem
 by setting a breakpoint inside of the Equals method reveals the method is never called. This is the part where you usually have to scratch your head for about 2 or 3 minutes.</p>
 <p>The problem is in the implementation of the GetHashCode method. LINQ calls the GetHashCode method and compares the results from both objects before calling the Equals method.
 This is an optimization as GetHashCode should be fast where as Equals may not be. From MSDN:</p>
@@ -52,8 +48,7 @@ the some method always fails and therefore the Equals method is never called.</p
 <p>A better implementation of GetHashCode for this use case is:</p>
 <pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">GetHashCode</span>(<span class="hljs-params">MethodInfo obj</span>)</span>
 {
-    <span class="hljs-keyword">return</span> obj.Name.GetHashCode() ^ obj.GetParameters().Length;
+	<span class="hljs-keyword">return</span> obj.Name.GetHashCode() ^ obj.GetParameters().Length;
 }
-</code></pre>
-<p>obj.GetParameters().Length could probably be left out. I haven&#39;t ran any tests to determine if it actually improves the performance or not.</p>
+</code></pre><p>obj.GetParameters().Length could probably be left out. I haven&#39;t ran any tests to determine if it actually improves the performance or not.</p>
 </div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>

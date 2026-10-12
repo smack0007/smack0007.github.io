@@ -1,11 +1,8 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Creating a asp.net web app with an Angular frontend</title><base href="https://smack0007.github.io"></base><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="visually-hidden">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html">Creating a asp.net web app with an Angular frontend</a></h2><h3>WebShell</h3><div class="meta"><span class="date"><span class="icon-calendar"></span>October 2, 2020</span><span class="tags"><a href="tags/aspnet/index.html"><span class="icon icon-price-tags"></span><span class="tagName">asp.net</span></a><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/netcore/index.html"><span class="icon icon-price-tags"></span><span class="tagName">netcore</span></a><a href="tags/angular/index.html"><span class="icon icon-price-tags"></span><span class="tagName">angular</span></a></span></div></div><div class="content"><p>We&#39;re going to create a what I call a &quot;WebShell&quot; application with asp.net core on the backend and Angular on the
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"><meta name="description" content=""><meta name="author" content="Zachary Snow"><title>Creating a asp.net web app with an Angular frontend</title><base href="/"></base><link rel="stylesheet" type="text/css" href="css/style.css"><link rel="alternate" type="application/rss+xml" title="The Blog of Zachary Snow" href="feed.rss"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"></head><body><div class="wrap"><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><h1><a class="navbar-brand" href="/">The Blog of Zachary Snow</a></h1><button id="navbar-toggler" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link active" href="index.html">Home<span class="visually-hidden">(current)</span></a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li><li class="nav-item"><a class="nav-link" href="tags/index.html">Tags</a></li></ul><div class="social my-2 my-lg-0"><a href="https://twitter.com/smack0007" class="twitter" title="Twitter"><span class="icon-twitter"></span></a><a href="https://github.com/smack0007" class="github" title="Github"><span class="icon-github"></span></a><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee"><span class="icon-mug"></span></a><a href="feed.rss" class="rss" title="RSS"><span class="icon-rss"></span></a></div></div></nav><main class="container"><div class="posts"><div class="post"><div class="post-header"><h2><a href="blog/2020/creating-a-asp.net-web-app-with-an-angular-frontend.html">Creating a asp.net web app with an Angular frontend</a></h2><h3>WebShell</h3><div class="meta"><span class="date"><span class="icon-calendar"></span>October 2, 2020</span><span class="tags"><a href="tags/aspnet/index.html"><span class="icon icon-price-tags"></span><span class="tagName">asp.net</span></a><a href="tags/net/index.html"><span class="icon icon-price-tags"></span><span class="tagName">.net</span></a><a href="tags/netcore/index.html"><span class="icon icon-price-tags"></span><span class="tagName">netcore</span></a><a href="tags/angular/index.html"><span class="icon icon-price-tags"></span><span class="tagName">angular</span></a></span></div></div><div class="content"><p>We&#39;re going to create a what I call a &quot;WebShell&quot; application with asp.net core on the backend and Angular on the
 frontend.</p>
-<!--more-->
-
-<p>Let&#39;s create the backend first:</p>
+<!--more--><p>Let&#39;s create the backend first:</p>
 <pre><code class="hljs cmd">dotnet new webapi -n WebShellBackend -o backend
-</code></pre>
-<p>Which just means to create a <code>webapi</code> project with the name &quot;WebShellBackend&quot; and place the output in a folder named
+</code></pre><p>Which just means to create a <code>webapi</code> project with the name &quot;WebShellBackend&quot; and place the output in a folder named
 &quot;backend&quot;. Open up the project in Visual Studio or vscode and replace the launchSettings.json in Properties folder with
 the following:</p>
 <pre><code class="hljs json"><span class="hljs-punctuation">{</span>
@@ -28,8 +25,7 @@ the following:</p>
     <span class="hljs-punctuation">}</span>
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
-</code></pre>
-<p>We want all the urls for our endpoints on the backend to be prefixed with &quot;/api&quot; so the we need to the route for the
+</code></pre><p>We want all the urls for our endpoints on the backend to be prefixed with &quot;/api&quot; so the we need to the route for the
 example controller to <code>api/[controller]</code>:</p>
 <pre><code class="hljs csharp">[<span class="hljs-meta">ApiController</span>]
 [<span class="hljs-meta">Route(<span class="hljs-string">&quot;api/[controller]&quot;</span>)</span>]
@@ -37,14 +33,12 @@ example controller to <code>api/[controller]</code>:</p>
 {
     <span class="hljs-comment">// The content of the controller is not important for us here.</span>
 }
-</code></pre>
-<p>Once you&#39;ve made that change you can start up the backend and visit &quot;<a href="https://localhost:5001/api/weatherforecast&quot;">https://localhost:5001/api/weatherforecast&quot;</a> in
+</code></pre><p>Once you&#39;ve made that change you can start up the backend and visit &quot;<a href="https://localhost:5001/api/weatherforecast">https://localhost:5001/api/weatherforecast</a>&quot; in
 your web browser and you should see the reponse as json. In chrome I had to explicitly type the entire url including
 the &quot;https&quot; othwerwise it would not work.</p>
 <p>Now on to the frontend. From the root folder of your application again execute the following command:</p>
 <pre><code class="hljs cmd">ng new web-shell-frontend --directory frontend
-</code></pre>
-<p>Now in the newly created frontend we need to add a file to the root folder of the Angular project called
+</code></pre><p>Now in the newly created frontend we need to add a file to the root folder of the Angular project called
 <code>proxy.conf.json</code> with the following contents:</p>
 <pre><code class="hljs json"><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">&quot;/api/*&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
@@ -53,16 +47,14 @@ the &quot;https&quot; othwerwise it would not work.</p>
         <span class="hljs-attr">&quot;logLevel&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;debug&quot;</span>
     <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
-</code></pre>
-<p>This file will tell the Angular development server that start with &quot;/api/&quot; should be forwarded to our backend. We need
+</code></pre><p>This file will tell the Angular development server that start with &quot;/api/&quot; should be forwarded to our backend. We need
 to add a reference to this file in our <code>angular.json</code> file. Look for the section <code>options</code> under <code>serve</code> (line 68
 on my machine) and add the following <code>proxyConfig</code> key:</p>
 <pre><code class="hljs json"><span class="hljs-attr">&quot;options&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;browserTarget&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;web-shell-frontend:build&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;proxyConfig&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;proxy.conf.json&quot;</span>
 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-</code></pre>
-<p>The last change to our frontend is we will make the app component call our backend and display the json that is
+</code></pre><p>The last change to our frontend is we will make the app component call our backend and display the json that is
 returned. Change <code>src/app.component.ts</code> to:</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Component</span>, <span class="hljs-title class_">OnInit</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@angular/core&#x27;</span>;
 
@@ -82,17 +74,14 @@ returned. Change <code>src/app.component.ts</code> to:</p>
     });
   }
 }
-</code></pre>
-<p>And then change <code>src/app.component.html</code> to:</p>
+</code></pre><p>And then change <code>src/app.component.html</code> to:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>WebShell Frontend<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 
 {{ weather | json }}
-</code></pre>
-<p>Now start up your frontend with <code>ng serve</code> and visit <code>http://localhost:4200</code>. You should see the json your backend
+</code></pre><p>Now start up your frontend with <code>ng serve</code> and visit <code>http://localhost:4200</code>. You should see the json your backend
 delivers if everything works. You should see a message from the Angular dev server indicating that a redirect occured:</p>
 <pre><code class="hljs cmd">[HPM] GET /api/weatherforecast -&gt; https://localhost:<span class="hljs-number">5001</span>
-</code></pre>
-<p>Now to marry the two together. We need first enable the backend to serve the static files created by our frontend. On
+</code></pre><p>Now to marry the two together. We need first enable the backend to serve the static files created by our frontend. On
 the backend in the <code>Configure</code> method of the <code>Startup.cs</code> file add calls to <code>app.UseDefaultFiles()</code> and
 <code>app.UseStaticFiles()</code> between the calls to <code>app.UseHttpsRedirection()</code> and <code>app.UseRouting()</code>. The order of the calls
 is important:</p>
@@ -102,23 +91,19 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
-</code></pre>
-<p>In <code>Program.cs</code> add the following line to the beginning of the <code>ConfigureWebHostDefaults</code> method:</p>
+</code></pre><p>In <code>Program.cs</code> add the following line to the beginning of the <code>ConfigureWebHostDefaults</code> method:</p>
 <pre><code class="hljs csharp">webBuilder.UseContentRoot(Path.Combine(Path.GetDirectoryName(<span class="hljs-keyword">typeof</span>(Program).Assembly.Location)));
-</code></pre>
-<p>Which just ensures the content root is always in the same place regardless of where the assembly is exeucted from. In
+</code></pre><p>Which just ensures the content root is always in the same place regardless of where the assembly is exeucted from. In
 the <code>WebShellBackend.csproj</code> file add the following to the end of the <code>Project</code> node:</p>
 <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">PropertyGroup</span> <span class="hljs-attr">Condition</span>=<span class="hljs-string">&quot;$(Configuration) == &#x27;Release&#x27;&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">AppendTargetFrameworkToOutputPath</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">AppendTargetFrameworkToOutputPath</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">OutputPath</span>&gt;</span>$(MSBuildThisFileDirectory)../bin<span class="hljs-tag">&lt;/<span class="hljs-name">OutputPath</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">PropertyGroup</span>&gt;</span>
-</code></pre>
-<p>This will force the output of the backend to be placed in the <code>/bin</code> directory when building in <code>Release</code> mode.</p>
+</code></pre><p>This will force the output of the backend to be placed in the <code>/bin</code> directory when building in <code>Release</code> mode.</p>
 <p>Now in the <code>angular.json</code> file of the frontend find the <code>outputPath</code> for the section <code>options</code> under <code>build</code> (line
 20 on my machine) and set the path to <code>../bin/wwwroot</code></p>
 <pre><code class="hljs json"><span class="hljs-attr">&quot;outputPath&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;../bin/wwwroot&quot;</span><span class="hljs-punctuation">,</span>
-</code></pre>
-<p>Now we&#39;ll create a <code>build.cmd</code> file which will build both the backend and the frontend:</p>
+</code></pre><p>Now we&#39;ll create a <code>build.cmd</code> file which will build both the backend and the frontend:</p>
 <pre><code class="hljs cmd">@<span class="hljs-built_in">ECHO</span> OFF
 <span class="hljs-built_in">PUSHD</span> %~dp0
 
@@ -133,8 +118,7 @@ dotnet build -c Release
 <span class="hljs-built_in">POPD</span>
 
 <span class="hljs-built_in">POPD</span>
-</code></pre>
-<p>After building the <code>/bin</code> directory should contain both the output for the backend and the frontend. The backend
+</code></pre><p>After building the <code>/bin</code> directory should contain both the output for the backend and the frontend. The backend
 output being directly in <code>/bin</code> and the frontent being in <code>/bin/wwwroot</code>. Once you&#39;ve started the app you should be
 able to visit <code>https://localhost:5001</code> and have the frontend served to the browser.</p>
 </div></div></div><div class="clear"></div></main><footer class="p-13 p-md-5 mt-5 text-center text-muted bg-light"><div class="container"><ul class="links"><li><a href="https://twitter.com/smack0007" class="twitter" title="Twitter">Twitter</a></li><li><a href="https://github.com/smack0007" class="github" title="Github">GitHub</a></li><li><a href="https://paypal.me/smack0007" class="coffee" title="Buy me a Coffee">Buy me a Coffee</a></li><li><a href="feed.rss" class="rss" title="RSS">RSS</a></li></ul><p class="mb-0">The Blog of Zachary Snow</p></div></footer></div><script type="text/javascript">document.getElementById('navbar-toggler').onclick = function(){ document.getElementById('navbarSupportedContent').classList.toggle('collapse'); };</script></body></html>
