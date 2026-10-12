@@ -1,5 +1,5 @@
-import { ensureDir } from "std/fs/mod.ts";
-import { extname, join } from "std/path/mod.ts";
+import { mkdir } from "node:fs/promises";
+import { extname, join } from "node:path";
 import { lstat, readdir, writeFile as nodeWriteFile } from "node:fs/promises";
 import { createReadStream, createWriteStream } from "node:fs";
 import { pipeline } from "node:stream/promises";
@@ -7,7 +7,7 @@ import { exec } from "node:child_process";
 import { promisify } from "node:util";
 
 export async function copyDirectory(src: string, dest: string): Promise<void> {
-  await ensureDir(dest);
+  await mkdir(dest, { recursive: true });
   const files = await readdir(src);
   for (const file of files) {
     const filePath = join(src, file);

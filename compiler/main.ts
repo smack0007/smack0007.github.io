@@ -1,5 +1,6 @@
-import { ensureDir } from "std/fs/mod.ts";
-import { dirname, fromFileUrl, join, parse, sep as PATH_SEPERATOR } from "std/path/mod.ts";
+import { mkdir } from "node:fs/promises";
+import { dirname, join, parse, sep as PATH_SEPERATOR } from "node:path";
+import { fileURLToPath } from "node:url";
 import { marked } from "npm:marked";
 import hljs from "npm:highlight.js";
 import { copyDirectory, listFiles, replaceAll, runCommand, writeFile } from "./utils.ts";
@@ -9,7 +10,7 @@ import { BASE_URL, BLOG_TITLE, ENVIRONMENT, POSTS_PER_PAGE } from "./confg.ts";
 import { getTagUrl, inflectFileName } from "./templateUtils.ts";
 import { copyFile, lstat, readdir, readFile } from "node:fs/promises";
 
-const __dirname = dirname(fromFileUrl(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const IS_WINDOWS = process.platform === "win32";
 
 const ROOT_DIRECTORY = join(__dirname, "..");
@@ -42,7 +43,7 @@ async function main(): Promise<void> {
     },
   });
 
-  await ensureDir(OUTPUT_DIRECTORY);
+  await mkdir(OUTPUT_DIRECTORY, { recursive: true });
 
   // Using Node.js process.chdir instead of Deno.chdir
   process.chdir(INPUT_DIRECTORY);
@@ -72,7 +73,7 @@ async function parseMarkdownFiles(): Promise<MarkdownFilesResult> {
   for (const inputFileName of files) {
     const fileContent = await readFile(inputFileName, "utf-8");
     const pathParts = parse(inputFileName);
-    await ensureDir(join(OUTPUT_DIRECTORY, pathParts.dir));
+    await mkdir(join(OUTPUT_DIRECTORY, pathParts.dir), { recursive: true });
 
     const markdownResult = await parseMarkdown(fileContent);
 
@@ -197,7 +198,7 @@ function createPage(
 }
 
 async function writeIndexPages(posts: Post[]): Promise<void> {
-  await ensureDir(join(OUTPUT_DIRECTORY, "blog"));
+  await mkdir(join(OUTPUT_DIRECTORY, "blog"), { recursive: true });
 
   const pageCount = Math.ceil(posts.length / POSTS_PER_PAGE);
 
@@ -241,7 +242,7 @@ async function writeIndexPages(posts: Post[]): Promise<void> {
 }
 
 async function writeTagPages(posts: Post[]): Promise<void> {
-  await ensureDir(join(OUTPUT_DIRECTORY, "tags"));
+  await mkdir(join(OUTPUT_DIRECTORY, "tags"), { recursive: true });
 
   const tagMap: Record<string, Tag> = {};
 
@@ -283,7 +284,7 @@ async function writeTagPages(posts: Post[]): Promise<void> {
 
   for (const tag of tags) {
     const pathParts = parse(replaceAll(tag.url, "/", PATH_SEPERATOR));
-    await ensureDir(join(OUTPUT_DIRECTORY, pathParts.dir));
+    await mkdir(join(OUTPUT_DIRECTORY, pathParts.dir), { recursive: true });
 
     const pageCount = Math.ceil(tag.posts.length / POSTS_PER_PAGE);
 
@@ -352,7 +353,7 @@ async function compileScss(): Promise<void> {
     return;
   }
 
-  await ensureDir(join(OUTPUT_DIRECTORY, "css"));
+  await mkdir(join(OUTPUT_DIRECTORY, "css"), { recursive: true });
   await writeFile(join(OUTPUT_DIRECTORY, "css", "style.css"), nodeSassOutput);
 
   console.info("Calling PurgeCSS...");
