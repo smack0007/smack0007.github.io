@@ -5,9 +5,22 @@
 	<title>The Blog of Zachary Snow</title>
 	<description>The Blog of Zachary Snow</description>
 	<link>//</link>
-	<lastBuildDate>Fri, 10 Jul 2026 00:00:00 GMT</lastBuildDate>
-	<pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
+	<lastBuildDate>Mon, 12 Oct 2026 00:00:00 GMT</lastBuildDate>
+	<pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate>
 	<ttl>1800</ttl>
+	<item>
+		<title><![CDATA[Goodbye deno, you will be missed]]></title>
+		<description><![CDATA[<p>For almost as long as <a href="https://deno.com">deno</a> has been around I&#39;ve been using
+it for one thing or another. Last Friday on October 9th, 2026 deno announced
+that it is <a href="https://deno.com/blog/cloudflare">joining Cloudflare</a> and that the
+runtime will only receive updates for the next year and the development will
+stop. This saddens me but all good things must come to an end and so this
+morning with help of local AI I converted the blog back to running on node.</p>
+]]></description>
+		<link>//blog/2026/goodbye-deno.html</link>
+		<guid>//blog/2026/goodbye-deno.html</guid>
+		<pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate>
+	</item>
 	<item>
 		<title><![CDATA[Using the HP Laser Jet Pro MFP M26nw on DietPI via CUPS]]></title>
 		<description><![CDATA[<p>I&#39;ve got an old (2016) HP Laser Jet Pro MFP M26nw printer that I do my best to keep
@@ -263,14 +276,6 @@ so I&#39;ve come up with this PowerShell function:</p>
 		<link>//blog/2021/windows-terminal-fork-command.html</link>
 		<guid>//blog/2021/windows-terminal-fork-command.html</guid>
 		<pubDate>Wed, 12 May 2021 00:00:00 GMT</pubDate>
-	</item>
-	<item>
-		<title><![CDATA[Convert TypeScript AST to JSON]]></title>
-		<description><![CDATA[<p>I needed to convert a TypeScript AST (Abstract Syntax Tree) to json so that I can consume it in
-a C# application so I wrote a tiny node script to convert the AST to json.</p>]]></description>
-		<link>//blog/2021/convert-typescript-ast-to-json.html</link>
-		<guid>//blog/2021/convert-typescript-ast-to-json.html</guid>
-		<pubDate>Wed, 13 Jan 2021 00:00:00 GMT</pubDate>
 	</item>
 	</channel>
 </rss>
