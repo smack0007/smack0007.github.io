@@ -1,4 +1,5 @@
-export const ENVIRONMENT = process.env.NODE_ENV || "localhost";
+export const ENVIRONMENT = process.argv[2] === "-publish" ? "CI" : "localhost";
 export const BLOG_TITLE = "The Blog of Zachary Snow";
-export const BASE_URL = ENVIRONMENT === "CI" ? "https://smack0007.github.io" : "/";
+export const BASE_URL =
+  ENVIRONMENT === "CI" ? "https://smack0007.github.io" : "/";
 export const POSTS_PER_PAGE = 5;

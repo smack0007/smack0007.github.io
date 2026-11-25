@@ -44,6 +44,7 @@ main();
 
 async function main(): Promise<void> {
   console.info(`Environment: ${ENVIRONMENT}`);
+  console.info(`process.argv: ${process.argv}`);
 
   await mkdir(OUTPUT_DIRECTORY, { recursive: true });
 
@@ -159,16 +160,18 @@ async function parseMarkdown(data: string): Promise<MarkdownResult> {
     }
   }
 
-  const marked = new Marked(markedHighlight({
-    langPrefix: "hljs ",
-    highlight: function (code: string, lang: string) {
-      if (!lang) {
-        return "";
-      }
+  const marked = new Marked(
+    markedHighlight({
+      langPrefix: "hljs ",
+      highlight: function (code: string, lang: string) {
+        if (!lang) {
+          return "";
+        }
 
-      return hljs.highlight(code, { language: lang }).value;
-    },
-  }));
+        return hljs.highlight(code, { language: lang }).value;
+      },
+    }),
+  );
   const contents = await marked.parse(markdownData);
 
   return {
@@ -428,8 +431,7 @@ async function writeRssFeed(posts: Post[]): Promise<void> {
   output += '<?xml version="1.0" encoding="UTF-8"?>\n';
   output += '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n';
   output += "\t<channel>\n";
-  output +=
-    `\t<atom:link href="${BASE_URL}/feed.rss" rel="self" type="application/rss+xml" />\n`;
+  output += `\t<atom:link href="${BASE_URL}/feed.rss" rel="self" type="application/rss+xml" />\n`;
   output += `\t<title>${BLOG_TITLE}</title>\n`;
   output += `\t<description>${BLOG_TITLE}</description>\n`;
   output += `\t<link>${BASE_URL}/</link>\n`;
