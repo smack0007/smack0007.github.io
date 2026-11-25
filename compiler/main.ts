@@ -40,7 +40,7 @@ interface MarkdownResult {
   contents: string;
 }
 
-main();
+await main();
 
 async function main(): Promise<void> {
   console.info(`Environment: ${ENVIRONMENT}`);
@@ -48,7 +48,6 @@ async function main(): Promise<void> {
 
   await mkdir(OUTPUT_DIRECTORY, { recursive: true });
 
-  // Using Node.js process.chdir instead of Deno.chdir
   process.chdir(INPUT_DIRECTORY);
 
   const { posts, pages } = await parseMarkdownFiles();
@@ -354,19 +353,13 @@ async function writeTagPages(posts: Post[]): Promise<void> {
 }
 
 async function compileScss(): Promise<void> {
-  // TODO: Reactivate this when node-sass works with deno
-  //   const result = sass.renderSync({
-  //     file: join(INPUT_DIRECTORY, "css", "style.scss"),
-  //     outputStyle: "compressed",
-  //   });
-
   const [nodeSassResult, nodeSassOutput] = await runCommand(
     ROOT_DIRECTORY,
     IS_WINDOWS ? "npx.cmd" : "npx",
     "-y",
-    "node-sass",
+    "sass",
     join(INPUT_DIRECTORY, "css", "style.scss"),
-    "--output-style=compressed",
+    "--style=compressed",
   );
 
   if (nodeSassResult !== 0) {
